@@ -1,6 +1,9 @@
 PROGRAM CSBD
 
     USE global
+    USE verlet
+    USE init
+    USE step
 
     IMPLICIT NONE
 
@@ -9,12 +12,17 @@ PROGRAM CSBD
 !----------------------------------------------------------
 !prepare simulation (load parameters, allocate arrays etc, innitial conditions)
 
+    WRITE(*,*) '#######prepare simulation#######'
+
     CALL init_global        !load parameters and allocate arrays
-!   CALL init_particles     !initialize particle coordinates and velocity distribution
-!   CALL open_files         !initialize file output
+    CALL init_iip           !initialize list of interacting particles
+    CALL init_particles     !initialize particle coordinates and velocity distribution
+!    CALL open_files         !initialize file output
 
 !----------------------------------------------------------
 !central iteration loop
+
+    WRITE(*,*) '#######start simulation#######'
 
     DO i=1,nt
 !       CALL calc_interactions

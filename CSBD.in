@@ -1,0 +1,4 @@
+!this file contains input variables for CSBD Simulation
+&parameter
+kt = 1              !thermal energy of the Simulation
+/

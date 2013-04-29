@@ -6,12 +6,28 @@ MODULE verlet
 
     CONTAINS 
 
-    SUBROUTINE verlet_list
+    SUBROUTINE init_iip
 
-        WRITE(*,*) 'verlet_list'
+    INTEGER :: i, j, k
+
+    ALLOCATE(iip(1:npar_global,1:npar_global))
+
+    k=0
+    DO i=1,npar_global
+        k=k+1
+        DO j=1,npar_global
+            iip(i,j)=k
+        ENDDO
+    ENDDO
+
+    END SUBROUTINE init_iip
+
+    SUBROUTINE update_iip
+
+        WRITE(*,*) '->update_iip'
 
 
-    END SUBROUTINE verlet_list
+    END SUBROUTINE update_iip
 
 
 

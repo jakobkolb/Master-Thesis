@@ -33,7 +33,7 @@ MODULE step
 
     SUBROUTINE move_particles
 
-        WRITE(*,*) move_particles
+        WRITE(*,*) 'move_particles'
 
     END SUBROUTINE move_particles
 
