@@ -20,6 +20,8 @@ MODULE verlet
         ENDDO
     ENDDO
 
+    iip_length = npar_global
+
     END SUBROUTINE init_iip
 
     SUBROUTINE update_iip
