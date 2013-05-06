@@ -25,8 +25,8 @@ PROGRAM CSBD
     WRITE(*,*) '#######start simulation#######'
 
     DO i=1,nt
-       CALL calc_interactions
-       CALL check_collisions
+!       CALL calc_interactions
+!       CALL check_collisions
 !       IF(MODULO(i,nlc)==0) THEN
 !           CALL verlet_list
 !       ENDIF

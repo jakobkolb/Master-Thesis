@@ -32,8 +32,9 @@ MODULE global
     INTEGER                             :: npar_global      !total number of particles
     INTEGER, DIMENSION(:), ALLOCATABLE  :: npar_species     !number of particles for each species [NPS1,..., NPSN]
     INTEGER                             :: par_species=3    !number of different particle species
-    INTEGER                             :: nt=100           !number of time steps
+    INTEGER                             :: nt=10            !number of time steps
     REAL(8)                             :: dt=1             !time stepsize (might have to be updated on runtime)
+    REAL(8)                             :: t                !absolute time during run
 
     REAL(8)                             :: L=5              !size of Box in units of Particle 1 
     REAL(8), DIMENSION(:,:),ALLOCATABLE :: eps              !parameters for Lennard Jones interaction (symmetric)
@@ -70,6 +71,9 @@ CONTAINS
 
         ALLOCATE(sigma(1:par_species,1:par_species))
         sigma = reshape((/ 1.0, 0.5, 0.3, 0.5, 0.4, 0.5, 0.3, 0.5, 0.2 /), shape(sigma))
+
+        ALLOCATE(eps(1:par_species,1:par_species))
+        eps = reshape((/ 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 /), shape(eps))     
 
         ALLOCATE(force(1:3,1:npar_global))
 

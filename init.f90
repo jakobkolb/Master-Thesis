@@ -20,7 +20,7 @@ MODULE init
         ALLOCATE(par(1:props,1:npar_global))
         j=1 
         DO i=1,par_species
-            par(1,j:j+npar_species(i)-1) = i    !define particle species
+            par(PS,j:j+npar_species(i)-1) = i    !define particle species
             j = j+npar_species(i)
         ENDDO
         DO 
@@ -29,7 +29,7 @@ MODULE init
             col = 0
             IF(npar /= 1) THEN
             DO j=1,npar-1                       !check for collisions with previously inserted particles
-                r = par(2:4,npar)-par(2:4,j)
+                r = par(CX:CZ,npar)-par(2:4,j)
                 d = SQRT(DOT_PRODUCT(r,r))
                 IF(d .LE. (sigma(INT(par(1,j)),INT(par(1,j)))+sigma(INT(par(1,npar)),INT(par(1,npar))))) THEN
                     col = col + 1
@@ -48,7 +48,7 @@ MODULE init
             rand(1) = SQRT(-2*LOG(randbm(1)))*COS(2*pi*randbm(2))
             rand(2) = SQRT(-2*LOG(randbm(1)))*SIN(2*pi*randbm(2))
             rand(3) = SQRT(-2*LOG(randbm(3)))*COS(2*pi*randbm(4))
-            par(5:7,i)=0.5*kt*rand
+            par(VX:VZ,i)=0.5*kt*rand
         ENDDO
     END SUBROUTINE init_particles
 

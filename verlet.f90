@@ -12,11 +12,11 @@ MODULE verlet
 
     ALLOCATE(iip(1:npar_global,1:npar_global))
 
-    k=0
     DO i=1,npar_global
-        k=k+1
+        k=1
         DO j=1,npar_global
             iip(i,j)=k
+            k=k+1
         ENDDO
     ENDDO
 
