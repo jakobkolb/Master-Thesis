@@ -12,12 +12,12 @@ MODULE step
 
 !----------------------------------------------------------
 !Calculate force vektor for particles 
-!cal_interactions sums up all interactions between interacting
+!calc_force sums up all interactions between interacting
 !particles for each particle in the box
 !force12 calculates force between particle i and particle j
-    SUBROUTINE calc_interactions(par0, force0)
+    SUBROUTINE calc_force(par0, force0)
 
-        REAL(8), DIMENSION(:,:), INTENT(in) :: par0
+        REAL(8), DIMENSION(:,:), INTENT(in)  :: par0
         REAL(8), DIMENSION(:,:), INTENT(out) :: force0
 
         INTEGER         :: i, j
@@ -30,7 +30,7 @@ MODULE step
             ENDDO
         ENDDO
 
-    END SUBROUTINE calc_interactions
+    END SUBROUTINE calc_force
 
     FUNCTION forceij(pi, pj)
 
@@ -40,12 +40,15 @@ MODULE step
         
         sigmaij = sigma(INT(pi(PS)),INT(pj(PS)))
         epsij = eps(INT(pi(PS)),INT(pj(PS)))
-        r = pi(2:4)-pj(2:4)
+
+        r = pi(CX:CZ)-pj(CX:CZ)
         ds = sigmaij/SQRT(DOT_PRODUCT(r,r))
 
         forceij = r*4*epsij/sigmaij/sigmaij*(12*ds**14-6*ds**8)
 
     END FUNCTION forceij
+
+
 
 !----------------------------------------------------------
 !check for collisions and absorption in sink (nanoparticle)
@@ -57,7 +60,7 @@ MODULE step
     END SUBROUTINE check_collisions
 
 !----------------------------------------------------------
-!Integrator for eqm (RK?)
+!Integrator for eqm (Runge Kuta 4. Order)
 
     SUBROUTINE move_particles
 
@@ -82,7 +85,8 @@ MODULE step
         t = t + dt
 
     END SUBROUTINE move_particles
-
+!----------------------------------------------------------
+!Subroutine to calculate koefficients for RK integrator
     SUBROUTINE eqm(t0,par0,f)
 
         REAL(8), DIMENSION(:,:), INTENT(in) :: par0
@@ -92,7 +96,7 @@ MODULE step
         REAL(8), INTENT(in) :: t0
         INTEGER :: i,j
 
-        CALL calc_interactions(par0, force0)
+        CALL calc_force(par0, force0)
         
         f = 0
 

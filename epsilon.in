@@ -1,0 +1,4 @@
+!This is an input file for Lennard jones epsilon coefficients
+1.0, 1.0, 1.0
+1.0, 0.1, 0.1
+1.0, 0.1, 0.1

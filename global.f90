@@ -30,6 +30,7 @@ MODULE global
 !parameters in input file (with default  values)
 
     INTEGER                             :: npar_global      !total number of particles
+    REAL(8)                             :: rel_par_num      !quotient of particle numbers for NPS2/NPS3
     INTEGER, DIMENSION(:), ALLOCATABLE  :: npar_species     !number of particles for each species [NPS1,..., NPSN]
     INTEGER                             :: par_species=3    !number of different particle species
     INTEGER                             :: nt=10            !number of time steps
@@ -39,10 +40,12 @@ MODULE global
     REAL(8)                             :: L=5              !size of Box in units of Particle 1 
     REAL(8), DIMENSION(:,:),ALLOCATABLE :: eps              !parameters for Lennard Jones interaction (symmetric)
     REAL(8), DIMENSION(:,:),ALLOCATABLE :: sigma            !diameter of particles relative to particle 1
-    REAL(8), DIMENSION(:),ALLOCATABLE   :: zeta             !frictionconstant/particle mass for equation of motion
+    REAL(8), DIMENSION(:), ALLOCATABLE  :: zeta             !frictionconstant/particle mass for equation of motion
+    REAL(8), DIMENSION(:), ALLOCATABLE  :: mass             !mass of particles
+    REAL(8), DIMENSION(:), ALLOCATABLE  :: cgamma           !damping constant for particles
     REAL(8)                             :: kt               !Kb*T thermal Energy of the system
     REAL(8)                             :: pi=3.14159265359
-    NAMELIST /PARAMETER/ npar_global, par_species, nt, dt, kt, L
+    NAMELIST /PARAMETER/ npar_global, par_species, rel_par_num, nt, dt, L, kt
 
 CONTAINS
 
@@ -50,8 +53,8 @@ CONTAINS
 
     SUBROUTINE init_global
 
-        INTEGER, PARAMETER :: in=10
-
+        INTEGER, PARAMETER  :: input=11
+        LOGICAL             :: existing
 !----------------------------------------------------------
 !initialize random numbers generator
 
@@ -61,19 +64,78 @@ CONTAINS
 !----------------------------------------------------------
 !Setting and loading main parameters for the calculation
 
-        OPEN(unit=in, file="CSBD.in")
-        READ(in,PARAMETER)
-        CLOSE(in)
+        OPEN(unit=input, file="CSBD.in")
+        READ(input,PARAMETER)
+        CLOSE(input)
+!----------------------------------------------------------
+!Checking for force field parameters.
+!Loading if available, else setting default values
 
+!number of particle species
+
+        INQUIRE(file='particle_numbers.in', exist=existing)
         ALLOCATE(npar_species(1:par_species))
-        npar_species = (/1, 4, 9/) !default values for partricle numbers
+        
+        IF(existing .EQV. .FALSE.) THEN
+            npar_species = (/1, 50, 50/) !default values for partricle numbers
+        ELSEIF(existing .EQV. .TRUE.) THEN
+            OPEN(unit=input, file='particle_numbers.in', status='old', action='read')
+            READ(input,*)
+            READ(input,*) npar_species
+            CLOSE(input)
+        ENDIF
+
+!calculate total number of particles
+
         npar_global = SUM(npar_species)
 
-        ALLOCATE(sigma(1:par_species,1:par_species))
-        sigma = reshape((/ 1.0, 0.5, 0.3, 0.5, 0.4, 0.5, 0.3, 0.5, 0.2 /), shape(sigma))
+!sigma for lennard jones
 
+        INQUIRE(file='sigma.in', exist=existing)
+        ALLOCATE(sigma(1:par_species,1:par_species))
+        
+        IF(existing .EQV. .FALSE.) THEN
+            sigma = reshape((/ 1.0, 0.55, 0.525, 0.55, 0.1, 0.075, 0.525, 0.075, 0.05 /), shape(sigma))
+        ELSEIF(existing .EQV. .TRUE.) THEN
+            OPEN(unit=input, file='sigma.in', status='old', action='read')
+            READ(input,*)
+            READ(input,*) sigma
+            CLOSE(input)
+        ENDIF
+
+!epsilon for lennard jones
+
+        INQUIRE(file='sigma.in', exist=existing)
         ALLOCATE(eps(1:par_species,1:par_species))
-        eps = reshape((/ 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 /), shape(eps))     
+
+        IF(existing .EQV. .FALSE.) THEN
+            eps = reshape((/ 1.0, 1.0, 1.0, 1.0, 0.1, 0.1, 1.0, 0.1, 0.1 /), shape(eps))     
+        ELSEIF(existing .EQV. .TRUE.) THEN
+            OPEN(unit=input, file='epsilon.in', status='old', action='read')
+            READ(input,*)
+            READ(input,*) eps
+            CLOSE(input)
+        ENDIF
+
+!mass of particle species for kinetic energy calculation
+
+        INQUIRE(file='mass.in', exist=existing)
+        ALLOCATE(mass(1:par_species))
+
+        IF(existing .EQV. .FALSE.) THEN
+            mass = (/1, 1, 1/)
+        ELSEIF(existing .EQV. .TRUE.) THEN
+            OPEN(unit=input, file='mass.in', status='old', action='read')
+            READ(input,*)
+            READ(input,*) mass
+            CLOSE(input)
+        ENDIF
+
+
+WRITE(*,*) npar_species
+WRITE(*,*) sigma(3,3), sigma(1,2)
+WRITE(*,*) eps
+WRITE(*,*) mass
 
         ALLOCATE(force(1:3,1:npar_global))
 

@@ -14,7 +14,7 @@ PROGRAM CSBD
 
     WRITE(*,*) '#######prepare simulation#######'
 
-    CALL init_global        !load parameters and allocate arrays
+    CALL init_global        !load simulation parameters and allocate arrays
     CALL init_iip           !initialize list of interacting particles
     CALL init_particles     !initialize particle coordinates and velocity distribution
 !    CALL open_files         !initialize file output
@@ -25,7 +25,6 @@ PROGRAM CSBD
     WRITE(*,*) '#######start simulation#######'
 
     DO i=1,nt
-!       CALL calc_interactions
 !       CALL check_collisions
 !       IF(MODULO(i,nlc)==0) THEN
 !           CALL verlet_list

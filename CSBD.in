@@ -1,4 +1,9 @@
 !this file contains input variables for CSBD Simulation
 &parameter
-kt = 1              !thermal energy of the Simulation
+par_species = 3         !total number of particles for all species
+rel_par_num = 1         !relative particle numbers for species 2 and 3
+nt = 10                 !number of iteration steps
+dt = 1                  !time difference for simulation steps
+L = 20                  !length of the Simulation Box
+kt = 1                  !thermal energy of the Simulation
 /
