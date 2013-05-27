@@ -4,6 +4,7 @@ PROGRAM CSBD
     USE verlet
     USE init
     USE step
+    USE output
 
     IMPLICIT NONE
 
@@ -39,6 +40,8 @@ PROGRAM CSBD
 !finalize simulation
 
     WRITE(*,*) '#######finalize simulation#######'
+
+    CALL output_system_state 
 
 !   CALL close_files
 !   CALL free_memory

@@ -15,10 +15,11 @@ MODULE step
 !calc_force sums up all interactions between interacting
 !particles for each particle in the box
 !force12 calculates force between particle i and particle j
-    SUBROUTINE calc_force(par0, force0)
+    SUBROUTINE calc_force(par0, force0, forceij)
 
         REAL(8), DIMENSION(:,:), INTENT(in)  :: par0
         REAL(8), DIMENSION(:,:), INTENT(out) :: force0
+        REAL(8), DIMENSION(3)                :: df
 
         INTEGER         :: i, j
         WRITE(*,*) 'calc_interactions'
@@ -26,13 +27,14 @@ MODULE step
         force0 = 0
         DO i=1,npar_global
             DO j=1,iip_length
-                force0(1:3,i) = force0(1:3,i)+forceij(par0(1:props,i),par0(1:props,iip(i,j)))
+                CALL forceij(par0(1:props,i),par0(1:props,iip(i,j)),df)
+                force0(1:3,i) = force0(1:3,i) + df
             ENDDO
         ENDDO
 
     END SUBROUTINE calc_force
 
-    FUNCTION forceij(pi, pj)
+    SUBROUTINE LJ(pi, pj, forceij)
 
         REAL(8), DIMENSION(props) :: pi, pj
         REAL(8), DIMENSION(3)   :: forceij, r
@@ -46,7 +48,7 @@ MODULE step
 
         forceij = r*4*epsij/sigmaij/sigmaij*(12*ds**14-6*ds**8)
 
-    END FUNCTION forceij
+    END SUBROUTINE LJ
 
 
 
@@ -65,7 +67,10 @@ MODULE step
     SUBROUTINE move_particles
 
 
-        REAL(8), DIMENSION(props,npar_global) :: y, f1, f2, f3, f4
+        REAL(8), DIMENSION(props,npar_global)   :: y, f1, f2, f3, f4
+        REAL(8), DIMENSION(3)                   :: rand
+        REAL(8), DIMENSION(par_species)         :: DS
+        INTEGER                                 :: i
 
         WRITE(*,*) 'move_particles'
 
@@ -82,6 +87,15 @@ MODULE step
         par(:,:) = par(:,:) + dt*(f1(:,:) + 2.0*(f2(:,:) + f3(:,:)) + f4(:,:))/6.0
         CALL make_periodic(par)
 
+        DO i = 1,par_species
+            DS(i) = sqrt(2*kt/(cgamma(i)/mass(i)))
+        ENDDO
+        
+        DO i = 1,npar_global
+            CALL RANDOM_NUMBER(rand)
+            par(CX:CZ,i) = par(CX:CZ,i) + DS(INT(par(PS,i)))*rand*dt
+        ENDDO
+
         t = t + dt
 
     END SUBROUTINE move_particles
@@ -96,13 +110,13 @@ MODULE step
         REAL(8), INTENT(in) :: t0
         INTEGER :: i,j
 
-        CALL calc_force(par0, force0)
+        CALL calc_force(par0, force0, LJ)
         
         f = 0
 
         DO i=1,npar_global
         f(CX:CZ,i) = par0(VX:VZ,i)
-        f(VX:VZ,i) = force0(1:3,i)
+        f(VX:VZ,i) = force0(1:3,i)/cgamma(i)/mass(i)
         ENDDO
         
     END SUBROUTINE eqm

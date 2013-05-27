@@ -131,8 +131,24 @@ CONTAINS
             CLOSE(input)
         ENDIF
 
+!friction constant gamma for Diffusion constant
+
+        INQUIRE(file='gamma.in', exist=existing)
+        ALLOCATE(cgamma(1:par_species))
+
+        IF(existing .EQV. .FALSE.) THEN
+            cgamma = (/1, 1, 1/)
+        ELSEIF(existing .EQV. .TRUE.) THEN
+            OPEN(unit=input, file='gamma.in', status='old', action='read')
+            READ(input,*)
+            READ(input,*) cgamma
+            CLOSE(input)
+        ENDIF
+
+
 
 WRITE(*,*) npar_species
+WRITE(*,*) cgamma
 WRITE(*,*) sigma(3,3), sigma(1,2)
 WRITE(*,*) eps
 WRITE(*,*) mass
