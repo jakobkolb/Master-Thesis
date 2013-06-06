@@ -29,8 +29,10 @@ MODULE step
             DO j=1,iip_length
                 CALL forceij(par0(1:props,i),par0(1:props,iip(i,j)),df)
                 force0(1:3,i) = force0(1:3,i) + df
+print*, df
             ENDDO
         ENDDO
+
 
     END SUBROUTINE calc_force
 
@@ -40,7 +42,7 @@ MODULE step
         REAL(8), DIMENSION(3)   :: forceij, r
         REAL(8)                 :: d, ds, epsij, sigmaij
         
-        sigmaij = sigma(INT(pi(PS)),INT(pj(PS)))
+        sigmaij = Parameters(Radius,INT(pi(PS))) + Parameters(Radius,INT(pj(PS)))
         epsij = eps(INT(pi(PS)),INT(pj(PS)))
 
         r = pi(CX:CZ)-pj(CX:CZ)
@@ -49,6 +51,25 @@ MODULE step
         forceij = r*4*epsij/sigmaij/sigmaij*(12*ds**14-6*ds**8)
 
     END SUBROUTINE LJ
+
+    SUBROUTINE DLVO(pi, pj, forceij)
+
+        REAL(8), DIMENSION(props) :: pi, pj
+        REAL(8), DIMENSION(3)     :: forceij, r
+        REAL(8)                   :: d, a, kappa, lambda, C, sigmaij
+
+        lambda  = 1/kt                                          !Debye lengt
+        kappa   = 1*SQRT(lambda)                                !Bjerrum length
+        a       = (Parameters(Radius,INT(pi(PS))) & 
+                + Parameters(Radius,INT(pj(PS))))/2                  !mean radius of particles i, j
+        C = lambda*(exp(kappa*sigmaij)/(1+kappa*sigmaij))**2    !prefactor for DLVO force after & 
+                                                                !http://en.wikipedia.org/wiki/DLVO_theory
+        r = pi(CX:CZ)-pj(CX:CZ)
+        d = SQRT(DOT_PRODUCT(r,r))
+
+        forceij = C*(exp(-kappa*d)/d)*(kappa + 1/d)
+
+    END SUBROUTINE DLVO
 
 
 
@@ -87,9 +108,7 @@ MODULE step
         par(:,:) = par(:,:) + dt*(f1(:,:) + 2.0*(f2(:,:) + f3(:,:)) + f4(:,:))/6.0
         CALL make_periodic(par)
 
-        DO i = 1,par_species
-            DS(i) = sqrt(2*kt/(cgamma(i)/mass(i)))
-        ENDDO
+        DS = sqrt(2*Parameters(D,1:par_species))
         
         DO i = 1,npar_global
             CALL RANDOM_NUMBER(rand)
@@ -110,13 +129,13 @@ MODULE step
         REAL(8), INTENT(in) :: t0
         INTEGER :: i,j
 
-        CALL calc_force(par0, force0, LJ)
-        
+        CALL calc_force(par0, force0, DLVO)
+       print*, force0
         f = 0
 
         DO i=1,npar_global
         f(CX:CZ,i) = par0(VX:VZ,i)
-        f(VX:VZ,i) = force0(1:3,i)/cgamma(i)/mass(i)
+        f(VX:VZ,i) = force0(1:3,i)*kt*Parameters(D,INT(par(PS,i)))
         ENDDO
         
     END SUBROUTINE eqm

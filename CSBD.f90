@@ -20,6 +20,8 @@ PROGRAM CSBD
     CALL init_particles     !initialize particle coordinates and velocity distribution
 !    CALL open_files         !initialize file output
 
+PRINT*, par
+
 !----------------------------------------------------------
 !central iteration loop
 
@@ -31,6 +33,7 @@ PROGRAM CSBD
 !           CALL verlet_list
 !       ENDIF
        CALL move_particles
+PRINT*, par
 !       IF(MODULO(i,ndiag)==0) THEN
 !           CALL simulation_diag
 !       ENDIF

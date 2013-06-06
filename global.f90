@@ -23,6 +23,19 @@ MODULE global
     REAL(8), DIMENSION(:,:), ALLOCATABLE  :: force!force on each particle dimension:dim x npar
     INTEGER, DIMENSION(:,:), ALLOCATABLE  :: iip  !indices of interacting particles within Rc
 
+! Indices of properties of particles
+
+    INTEGER, PARAMETER :: nParameters = 5    !number of particle parameters
+    INTEGER, PARAMETER :: Radius = 1        !radius of particles
+    INTEGER, PARAMETER :: Mass   = 2        !mass of particles
+    INTEGER, PARAMETER :: Charge = 3        !electric charge of species in units of e
+    INTEGER, PARAMETER :: D      = 4        !Diffusion constant for particles
+    INTEGER, PARAMETER :: pnumber= 5        !number of particles for species
+
+! Parameters for particle species
+
+    REAL(8), DIMENSION(:,:), ALLOCATABLE :: Parameters
+
 !several parameters that are needed on runtime over several subroutines/functions
 
     INTEGER                             :: iip_length       !lengt of array iip for each particle
@@ -30,8 +43,6 @@ MODULE global
 !parameters in input file (with default  values)
 
     INTEGER                             :: npar_global      !total number of particles
-    REAL(8)                             :: rel_par_num      !quotient of particle numbers for NPS2/NPS3
-    INTEGER, DIMENSION(:), ALLOCATABLE  :: npar_species     !number of particles for each species [NPS1,..., NPSN]
     INTEGER                             :: par_species=3    !number of different particle species
     INTEGER                             :: nt=10            !number of time steps
     REAL(8)                             :: dt=1             !time stepsize (might have to be updated on runtime)
@@ -39,13 +50,10 @@ MODULE global
 
     REAL(8)                             :: L=5              !size of Box in units of Particle 1 
     REAL(8), DIMENSION(:,:),ALLOCATABLE :: eps              !parameters for Lennard Jones interaction (symmetric)
-    REAL(8), DIMENSION(:,:),ALLOCATABLE :: sigma            !diameter of particles relative to particle 1
-    REAL(8), DIMENSION(:), ALLOCATABLE  :: zeta             !frictionconstant/particle mass for equation of motion
-    REAL(8), DIMENSION(:), ALLOCATABLE  :: mass             !mass of particles
     REAL(8), DIMENSION(:), ALLOCATABLE  :: cgamma           !damping constant for particles
     REAL(8)                             :: kt               !Kb*T thermal Energy of the system
     REAL(8)                             :: pi=3.14159265359
-    NAMELIST /PARAMETER/ npar_global, par_species, rel_par_num, nt, dt, L, kt
+    NAMELIST /PARAMETER/ par_species, nt, dt, L, kt
 
 CONTAINS
 
@@ -68,40 +76,26 @@ CONTAINS
         READ(input,PARAMETER)
         CLOSE(input)
 !----------------------------------------------------------
-!Checking for force field parameters.
+!Checking for Particle and Interaction parameters.
 !Loading if available, else setting default values
 
-!number of particle species
+!Properties for particle species
 
-        INQUIRE(file='particle_numbers.in', exist=existing)
-        ALLOCATE(npar_species(1:par_species))
+        INQUIRE(file='ParticleParameters.in', exist=existing)
+        ALLOCATE(Parameters(1:nParameters,1:par_species))
         
         IF(existing .EQV. .FALSE.) THEN
-            npar_species = (/1, 50, 50/) !default values for partricle numbers
+            Parameters = 1 !default values for partricle numbers
         ELSEIF(existing .EQV. .TRUE.) THEN
-            OPEN(unit=input, file='particle_numbers.in', status='old', action='read')
+            OPEN(unit=input, file='ParticleParameters.in', status='old', action='read')
             READ(input,*)
-            READ(input,*) npar_species
+            READ(input,*) Parameters
             CLOSE(input)
         ENDIF
 
 !calculate total number of particles
 
-        npar_global = SUM(npar_species)
-
-!sigma for lennard jones
-
-        INQUIRE(file='sigma.in', exist=existing)
-        ALLOCATE(sigma(1:par_species,1:par_species))
-        
-        IF(existing .EQV. .FALSE.) THEN
-            sigma = reshape((/ 1.0, 0.55, 0.525, 0.55, 0.1, 0.075, 0.525, 0.075, 0.05 /), shape(sigma))
-        ELSEIF(existing .EQV. .TRUE.) THEN
-            OPEN(unit=input, file='sigma.in', status='old', action='read')
-            READ(input,*)
-            READ(input,*) sigma
-            CLOSE(input)
-        ENDIF
+        npar_global = SUM(Parameters(pnumber,1:par_species))
 
 !epsilon for lennard jones
 
@@ -117,41 +111,8 @@ CONTAINS
             CLOSE(input)
         ENDIF
 
-!mass of particle species for kinetic energy calculation
-
-        INQUIRE(file='mass.in', exist=existing)
-        ALLOCATE(mass(1:par_species))
-
-        IF(existing .EQV. .FALSE.) THEN
-            mass = (/1, 1, 1/)
-        ELSEIF(existing .EQV. .TRUE.) THEN
-            OPEN(unit=input, file='mass.in', status='old', action='read')
-            READ(input,*)
-            READ(input,*) mass
-            CLOSE(input)
-        ENDIF
-
-!friction constant gamma for Diffusion constant
-
-        INQUIRE(file='gamma.in', exist=existing)
-        ALLOCATE(cgamma(1:par_species))
-
-        IF(existing .EQV. .FALSE.) THEN
-            cgamma = (/1, 1, 1/)
-        ELSEIF(existing .EQV. .TRUE.) THEN
-            OPEN(unit=input, file='gamma.in', status='old', action='read')
-            READ(input,*)
-            READ(input,*) cgamma
-            CLOSE(input)
-        ENDIF
-
-
-
-WRITE(*,*) npar_species
-WRITE(*,*) cgamma
-WRITE(*,*) sigma(3,3), sigma(1,2)
+WRITE(*,*) Parameters
 WRITE(*,*) eps
-WRITE(*,*) mass
 
         ALLOCATE(force(1:3,1:npar_global))
 
