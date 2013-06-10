@@ -5,6 +5,7 @@ PROGRAM CSBD
     USE init
     USE step
     USE output
+    USE diag
 
     IMPLICIT NONE
 
@@ -18,9 +19,8 @@ PROGRAM CSBD
     CALL init_global        !load simulation parameters and allocate arrays
     CALL init_iip           !initialize list of interacting particles
     CALL init_particles     !initialize particle coordinates and velocity distribution
-!    CALL open_files         !initialize file output
-
-PRINT*, par
+    CALL open_files         !initialize file output
+    CALL init_statistics    !init variables for statistic evaluation
 
 !----------------------------------------------------------
 !central iteration loop
@@ -32,11 +32,12 @@ PRINT*, par
 !       IF(MODULO(i,nlc)==0) THEN
 !           CALL verlet_list
 !       ENDIF
-       CALL move_particles
-PRINT*, par
-!       IF(MODULO(i,ndiag)==0) THEN
-!           CALL simulation_diag
-!       ENDIF
+        CALL move_particles
+        CALL MSD
+print*, t
+       IF(MODULO(i,ndiag)==0) THEN
+           CALL simulation_diag
+       ENDIF
     ENDDO
 
 !----------------------------------------------------------
@@ -46,7 +47,7 @@ PRINT*, par
 
     CALL output_system_state 
 
-!   CALL close_files
-!   CALL free_memory
+    CALL close_files
+    CALL free_memory
 
 END PROGRAM CSBD

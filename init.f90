@@ -25,7 +25,7 @@ MODULE init
         ENDDO
         DO 
             CALL RANDOM_NUMBER(rand)
-            par(2:4,npar) = L*rand              !insert particle at random location in box
+            par(CX:CZ,npar) = L*rand              !insert particle at random location in box
             col = 0
             IF(npar /= 1) THEN
             DO j=1,npar-1                       !check for collisions with previously inserted particles
@@ -37,9 +37,9 @@ MODULE init
                 ENDIF
             ENDDO
             ENDIF
-            IF(col == 0) npar = npar+1          !accept or reject position of new particle
             IF(col /= 0) print*, 'collision'
             IF(npar == npar_global) EXIT        !stopp if total particle count is reached
+            IF(col == 0) npar = npar+1          !accept or reject position of new particle
         ENDDO
 !----------------------------------------------------------
 !initialize particle velocities according to Boltzmann dist
@@ -52,5 +52,48 @@ MODULE init
             par(VX:VZ,i)=0.5*kt*rand
         ENDDO
     END SUBROUTINE init_particles
+
+    SUBROUTINE init_statistics
+
+    ALLOCATE(Edr(1:par_species))
+    ALLOCATE(dr(CX:CZ,1:npar_global))
+    dr = 0
+
+
+    END SUBROUTINE init_statistics
+        
+    SUBROUTINE free_memory
+print*, 'freepar'
+    DEALLOCATE(par)
+print*, 'parameters'
+    DEALLOCATE(Parameters)
+print*, 'eps'
+    DEALLOCATE(eps)
+print*, 'edr'
+    DEALLOCATE(Edr)
+print*, 'dr'
+    DEALLOCATE(dr)
+print*, 'free done'
+    END SUBROUTINE free_memory
+
+    SUBROUTINE open_files
+
+    OPEN(unit=energyout, file='energy.out', action='write')
+    OPEN(unit=trajectoryout, file='trajectory.out', action='write')
+    OPEN(unit=histogramout, file='Histogram.out', action='write')
+    OPEN(unit=Edrout, file='MSD.out', action='write')
+
+    END SUBROUTINE
+
+    SUBROUTINE close_files
+
+    CLOSE(unit=energyout)
+    CLOSE(unit=trajectoryout)
+    CLOSE(unit=histogramout)
+    CLOSE(unit=Edrout)
+
+    END SUBROUTINE
+
+ 
 
 END MODULE init

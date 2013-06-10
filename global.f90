@@ -42,9 +42,12 @@ MODULE global
 
 !parameters in input file (with default  values)
 
+
+    INTEGER                             :: dl = 0           !output level for debuging
     INTEGER                             :: npar_global      !total number of particles
     INTEGER                             :: par_species=3    !number of different particle species
     INTEGER                             :: nt=10            !number of time steps
+    INTEGER                             :: ndiag=1          !number of steps after which diagnose is done
     REAL(8)                             :: dt=1             !time stepsize (might have to be updated on runtime)
     REAL(8)                             :: t                !absolute time during run
 
@@ -53,8 +56,20 @@ MODULE global
     REAL(8), DIMENSION(:), ALLOCATABLE  :: cgamma           !damping constant for particles
     REAL(8)                             :: kt               !Kb*T thermal Energy of the system
     REAL(8)                             :: pi=3.14159265359
-    NAMELIST /PARAMETER/ par_species, nt, dt, L, kt
 
+    NAMELIST /PARAMETER/ par_species, nt, ndiag, dt, L, kt
+
+!variables for statistical evaluation
+
+    REAL(8), DIMENSION(:), ALLOCATABLE  :: Edr      !mean square displacement of ensemble
+    REAL(8), DIMENSION(:,:), ALLOCATABLE:: dr       !displacement for each particle
+
+!parameters for file input/output
+
+    INTEGER, PARAMETER  :: Edrout       = 20
+    INTEGER, PARAMETER  :: energyout    = 21
+    INTEGER, PARAMETER  :: trajectoryout= 22
+    INTEGER, PARAMETER  :: histogramout = 23
 CONTAINS
 
 !==========================================================
@@ -62,6 +77,7 @@ CONTAINS
     SUBROUTINE init_global
 
         INTEGER, PARAMETER  :: input=11
+        INTEGER             :: i
         LOGICAL             :: existing
 !----------------------------------------------------------
 !initialize random numbers generator
@@ -89,13 +105,20 @@ CONTAINS
         ELSEIF(existing .EQV. .TRUE.) THEN
             OPEN(unit=input, file='ParticleParameters.in', status='old', action='read')
             READ(input,*)
-            READ(input,*) Parameters
+            DO i = 1,nParameters
+            READ(input,*) Parameters(i,1:par_species)
+            ENDDO
             CLOSE(input)
         ENDIF
+
+print*, Parameters(D,1:par_species)
 
 !calculate total number of particles
 
         npar_global = SUM(Parameters(pnumber,1:par_species))
+
+        PRINT*, npar_global
+        PRINT*, (Parameters(pnumber,1:par_species))
 
 !epsilon for lennard jones
 
@@ -110,9 +133,6 @@ CONTAINS
             READ(input,*) eps
             CLOSE(input)
         ENDIF
-
-WRITE(*,*) Parameters
-WRITE(*,*) eps
 
         ALLOCATE(force(1:3,1:npar_global))
 

@@ -4,7 +4,7 @@ PROGRAMS = CSBD
 
 all = $(PROGRAMS)
 
-CSBD: global.o init.o step.o verlet.o output.o
+CSBD: global.o init.o step.o verlet.o output.o diag.o
 
 step.o: global.o
 
@@ -13,6 +13,8 @@ verlet.o: global.o
 init.o: global.o verlet.o
 
 output.o: global.o
+
+diag.o: global.o step.o
 
 
 %: %.o

@@ -1,6 +1,6 @@
-!This is an input file for particle numbers for each species
-1   .2  .1
+!This is an input file for particle numbers for each species(Radius, Mass, Charge, Diff.const. Amount)
+1   .2  1
 100 2   1
 -1  1   1
-0   1   2
-1   5   5
+0   1   1
+0   0   100
