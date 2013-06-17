@@ -6,10 +6,14 @@ PROGRAM CSBD
     USE step
     USE output
     USE diag
+    USE setup
 
     IMPLICIT NONE
 
-    INTEGER :: i
+    REAL(8)     :: sinkd = 0.2
+    REAL(8)     :: displacementl = 0.01
+
+    INTEGER :: i, counter
 
 !----------------------------------------------------------
 !prepare simulation (load parameters, allocate arrays etc, innitial conditions)
@@ -32,8 +36,9 @@ PROGRAM CSBD
 !           CALL verlet_list
 !       ENDIF
         CALL move_particles         !move particles according to dynamic equations
+        CALL spherical_sink(sinkd,displacementl, counter)
         CALL MSD                    !calcualte mean square displacement
-        print*, t
+            print*, counter, i
         IF(MODULO(i,ndiag)==0) THEN
             CALL simulation_diag
         ENDIF

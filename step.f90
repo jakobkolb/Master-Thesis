@@ -160,7 +160,7 @@ MODULE step
         REAL(8), INTENT(in) :: t0
         INTEGER :: i,j
 
-        CALL calc_force(par0, force0, DLVO)        !Available interactions are IDEAL, DLVO, LJ
+        CALL calc_force(par0, force0, IDEAL)        !Available interactions are IDEAL, DLVO, LJ
 
         DO i=1,npar_global
         f(CX:CZ,i) = force0(1:3,i)*kt*Parameters(D,INT(par(PS,i)))

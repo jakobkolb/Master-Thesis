@@ -83,6 +83,10 @@ print*, 'free done'
     OPEN(unit=histogramout, file='Histogram.out', action='write')
     OPEN(unit=Edrout, file='MSD.out', action='write')
 
+OPEN(unit = 25, file="absorbed.out", action="write")
+OPEN(unit = 26, file="displacement.out", action="write")
+
+
     END SUBROUTINE
 
     SUBROUTINE close_files
@@ -91,6 +95,9 @@ print*, 'free done'
     CLOSE(unit=trajectoryout)
     CLOSE(unit=histogramout)
     CLOSE(unit=Edrout)
+CLOSE(25)
+CLOSE(26)
+
 
     END SUBROUTINE
 
