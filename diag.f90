@@ -121,7 +121,7 @@ MODULE diag
     ENDDO
 
     DO i = 1,par_species
-        IF(Parameters(pnumber,i) .NE. 0) adr(i) = adr(i)/Parameters(pnumber,i)/Parameters(D,i)/6
+        IF(Parameters(pnumber,i) .NE. 0) adr(i) = adr(i)/Parameters(pnumber,i)
     ENDDO
     
     Edr = adr

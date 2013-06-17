@@ -28,16 +28,12 @@ PROGRAM CSBD
     WRITE(*,*) '#######start simulation#######'
 
     DO i=1,nt
-!       CALL check_collisions
-!       IF(MODULO(i,nlc)==0) THEN
-!           CALL verlet_list
-!       ENDIF
-        CALL move_particles
-        CALL MSD
-print*, t
-       IF(MODULO(i,ndiag)==0) THEN
-           CALL simulation_diag
-       ENDIF
+        CALL move_particles         !routine to move particles according to dynamic equations
+        CALL MSD                    !calculate mean square displacement
+        print*, t
+        IF(MODULO(i,ndiag)==0) THEN
+            CALL simulation_diag
+        ENDIF
     ENDDO
 
 !----------------------------------------------------------

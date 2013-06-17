@@ -8,10 +8,20 @@ MODULE output
 
     SUBROUTINE output_system_state
 
-    INTEGER :: output=12
-
+    INTEGER, PARAMETER  :: output=12
+    INTEGER             :: i, j, k
+    
+    k = 0
     OPEN(unit=output, file='system_state.out', action='write')
-    WRITE(output,*) par(CX:CZ,:)
+    DO i = 1,par_species
+        IF(Parameters(pnumber,i) .NE. 0) THEN
+        DO j = 1,INT(Parameters(pnumber,i))
+            k = k + 1
+            WRITE(output,*) k, par(CX:CZ,k)
+        ENDDO
+        WRITE(output,*)
+        ENDIF
+    ENDDO
     CLOSE(output) 
 
     END SUBROUTINE 
@@ -33,7 +43,7 @@ MODULE output
     
     END SUBROUTINE
 
-    SUBROUTINE final_output_tranectory(i)
+    SUBROUTINE final_output_trajectory(i)
 
     INTEGER :: i
 
