@@ -45,7 +45,7 @@ MODULE step
         sigmaij = Parameters(Radius,INT(pi(PS))) + Parameters(Radius,INT(pj(PS)))
         epsij = eps(INT(pi(PS)),INT(pj(PS)))
 
-        r = MODULO(pi(CX:CZ)-pj(CX:CZ),L)
+        CALL rij(pi(CX:CZ),pj(CX:CZ),r)
         ds = sigmaij/SQRT(DOT_PRODUCT(r,r))
 
         forceij = r*4*epsij/sigmaij/sigmaij*(12*ds**14-6*ds**8)
@@ -57,14 +57,18 @@ MODULE step
         REAL(8), DIMENSION(props) :: pi, pj
         REAL(8), DIMENSION(3)     :: forceij, r
         REAL(8)                   :: d, a, kappa, lambda, C, sigmaij
+        
 
         lambda  = 1/kt                                          !Debye lengt
         kappa   = 1*SQRT(lambda)                                !Bjerrum length
         a       = (Parameters(Radius,INT(pi(PS))) & 
                 + Parameters(Radius,INT(pj(PS))))/2             !mean radius of particles i, j
-        C = lambda*(exp(kappa*a)/(1+kappa*a))**2    !prefactor for DLVO force after & 
-                                                                !http://en.wikipedia.org/wiki/DLVO_theory
-        r = MODULO(pi(CX:CZ)-pj(CX:CZ),L)
+        C       = Parameters(Charge,INT(pi(PS)))* &             !prefactor for DLVO force after &
+                  Parameters(Charge,INT(pj(PS)))* &             !http://en.wikipedia.org/wiki/DLVO_theory
+                  lambda*(exp(kappa*a)/(1+kappa*a))**2           
+                                                                
+        CALL rij(pi(CX:CZ),pj(CX:CZ),r)
+        
         d = SQRT(DOT_PRODUCT(r,r))
 
         forceij = C*(exp(-kappa*d)/d)*(kappa + 1/d)*(r/d)
@@ -83,11 +87,18 @@ MODULE step
 !----------------------------------------------------------
 !check for collisions and absorption in sink (nanoparticle)
 
-    SUBROUTINE check_collisions
+    SUBROUTINE rij(pi, pj, dp)
 
-        IF(dl == 1) WRITE(*,*) 'check_collisions'
+        REAL(8), DIMENSION(3), INTENT(in)   :: pi, pj
+        REAL(8), DIMENSION(3), INTENT(out)  :: dp
+        INTEGER                             :: i
 
-    END SUBROUTINE check_collisions
+        DO i = 1,3
+            dp(i) = pj(i) - pi(i)
+            IF(abs(dp(i)) > L*0.5) dp(i) = dp(i) - sign(L,dp(i))
+        ENDDO
+
+    END SUBROUTINE rij
 
 !----------------------------------------------------------
 !Integrator for eqm (Runge Kuta 4. Order)
@@ -149,7 +160,7 @@ MODULE step
         REAL(8), INTENT(in) :: t0
         INTEGER :: i,j
 
-        CALL calc_force(par0, force0, IDEAL)        !Available interactions are IDEAL, DLVO, LJ
+        CALL calc_force(par0, force0, DLVO)        !Available interactions are IDEAL, DLVO, LJ
 
         DO i=1,npar_global
         f(CX:CZ,i) = force0(1:3,i)*kt*Parameters(D,INT(par(PS,i)))
