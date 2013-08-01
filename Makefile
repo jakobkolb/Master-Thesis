@@ -1,5 +1,7 @@
 FC = gfortran
 
+OPT = -O3
+
 PROGRAMS = CSBD
 
 all = $(PROGRAMS)
@@ -20,10 +22,10 @@ setup.o: global.o
 
 
 %: %.o
-	  $(FC) -o $@ $^
+          $(FC) $(OPT) -o $@ $^
 
 %.o: %.f90
-	  $(FC) -c $<
+	  $(FC) $(OPT) -c $<
 
 clean:
 	  rm -f *.o *.mod *.MOD

@@ -98,11 +98,15 @@ CONTAINS
 !Properties for particle species
 
         INQUIRE(file='ParticleParameters.in', exist=existing)
-        ALLOCATE(Parameters(1:nParameters,1:par_species))
-        
+        ALLOCATE(Parameters(1:nParameters,1:par_species))       
+ 
         IF(existing .EQV. .FALSE.) THEN
+            print*, "No particle parameters file existing"
+            print*, "falling back to standart values"
             Parameters = 1 !default values for partricle numbers
         ELSEIF(existing .EQV. .TRUE.) THEN
+            print*, "Particle parameters file existing"
+            print*, "reading parameters from file"
             OPEN(unit=input, file='ParticleParameters.in', status='old', action='read')
             READ(input,*)
             DO i = 1,nParameters
@@ -117,7 +121,7 @@ print*, Parameters(D,1:par_species)
 
         npar_global = SUM(Parameters(pnumber,1:par_species))
 
-        PRINT*, npar_global
+        PRINT*, "npar_global=", npar_global
         PRINT*, (Parameters(pnumber,1:par_species))
 
 !epsilon for lennard jones

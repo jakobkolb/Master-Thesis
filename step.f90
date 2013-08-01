@@ -15,7 +15,7 @@ MODULE step
 !calc_force sums up all interactions between interacting
 !particles for each particle in the box
 !force12 calculates force between particle i and particle j
-    SUBROUTINE calc_force(par0, force0, forceij)
+    SUBROUTINE calc_force(par0, force0)
 
         REAL(8), DIMENSION(:,:), INTENT(in)  :: par0
         REAL(8), DIMENSION(:,:), INTENT(out) :: force0
@@ -25,150 +25,59 @@ MODULE step
         IF(dl == 1) WRITE(*,*) 'calc_interactions'
 
         force0 = 0
-        DO i=1,npar_global
-            DO j=1,iip_length
-                IF(i .NE. j) THEN
-                CALL forceij(par0(1:props,i),par0(1:props,iip(i,j)),df)
-                force0(1:3,i) = force0(1:3,i) + df
-                ENDIF
-            ENDDO
-        ENDDO
 
     END SUBROUTINE calc_force
-
-    SUBROUTINE LJ(pi, pj, forceij)
-
-        REAL(8), DIMENSION(props) :: pi, pj
-        REAL(8), DIMENSION(3)   :: forceij, r
-        REAL(8)                 :: d, ds, epsij, sigmaij
-        
-        sigmaij = Parameters(Radius,INT(pi(PS))) + Parameters(Radius,INT(pj(PS)))
-        epsij = eps(INT(pi(PS)),INT(pj(PS)))
-
-        CALL rij(pi(CX:CZ),pj(CX:CZ),r)
-        ds = sigmaij/SQRT(DOT_PRODUCT(r,r))
-
-        forceij = r*4*epsij/sigmaij/sigmaij*(12*ds**14-6*ds**8)
-
-    END SUBROUTINE LJ
-
-    SUBROUTINE DLVO(pi, pj, forceij)
-
-        REAL(8), DIMENSION(props) :: pi, pj
-        REAL(8), DIMENSION(3)     :: forceij, r
-        REAL(8)                   :: d, a, kappa, lambda, C, sigmaij
-        
-
-        lambda  = 1/kt                                          !Debye lengt
-        kappa   = 1*SQRT(lambda)                                !Bjerrum length
-        a       = (Parameters(Radius,INT(pi(PS))) & 
-                + Parameters(Radius,INT(pj(PS))))/2             !mean radius of particles i, j
-        C       = Parameters(Charge,INT(pi(PS)))* &             !prefactor for DLVO force after &
-                  Parameters(Charge,INT(pj(PS)))* &             !http://en.wikipedia.org/wiki/DLVO_theory
-                  lambda*(exp(kappa*a)/(1+kappa*a))**2           
-                                                                
-        CALL rij(pi(CX:CZ),pj(CX:CZ),r)
-        
-        d = SQRT(DOT_PRODUCT(r,r))
-
-        forceij = C*(exp(-kappa*d)/d)*(kappa + 1/d)*(r/d)
-
-    END SUBROUTINE DLVO
-
-    SUBROUTINE IDEAL(pi, pj, forceij)
-
-    REAL(8), DIMENSION(props)   :: pi, pj
-    REAL(8), DIMENSION(3)       :: forceij
-
-    forceij = 0
-
-    END SUBROUTINE IDEAL
 
 !----------------------------------------------------------
 !check for collisions and absorption in sink (nanoparticle)
 
-    SUBROUTINE rij(pi, pj, dp)
+        SUBROUTINE rij(pi, pj, dp)
 
-        REAL(8), DIMENSION(3), INTENT(in)   :: pi, pj
-        REAL(8), DIMENSION(3), INTENT(out)  :: dp
-        INTEGER                             :: i
+            REAL(8), DIMENSION(3), INTENT(in)   :: pi, pj
+            REAL(8), DIMENSION(3), INTENT(out)  :: dp
+            INTEGER                             :: i
 
-        DO i = 1,3
-            dp(i) = pj(i) - pi(i)
-            IF(abs(dp(i)) > L*0.5) dp(i) = dp(i) - sign(L,dp(i))
-        ENDDO
+            DO i = 1,3
+                dp(i) = pj(i) - pi(i)
+                IF(abs(dp(i)) > L*0.5) dp(i) = dp(i) - sign(L,dp(i))
+            ENDDO
 
-    END SUBROUTINE rij
+        END SUBROUTINE rij
 
 !----------------------------------------------------------
-!Integrator for eqm (Runge Kuta 4. Order)
+!Integrator for eqm trivial gauss
 
-    SUBROUTINE move_particles
+        SUBROUTINE move_particles
 
 
-        REAL(8), DIMENSION(props,npar_global)   :: y, f1, f2, f3, f4
-        REAL(8), DIMENSION(3,npar_global)       :: dx
-        REAL(8), DIMENSION(3)                   :: rand
-        REAL(8), DIMENSION(4)                   :: randbm
-        REAL(8), DIMENSION(par_species)         :: DS
-        INTEGER                                 :: i
+            REAL(8), DIMENSION(3,npar_global)       :: dx
+            REAL(8), DIMENSION(3)                   :: rand
+            REAL(8), DIMENSION(4*npar_global)       :: randbm
+            REAL(8), DIMENSION(par_species)         :: DS
+            INTEGER                                 :: i
+            REAL(8), DIMENSION(3,npar_global)       :: force0
 
-        IF(dl == 1) WRITE(*,*) 'move_particles'
+            IF(dl == 1) WRITE(*,*) 'move_particles'
 
-        f1 = 0
-        f2 = 0
-        f3 = 0
-        f4 = 0
+            CALL calc_force(par(CX:CZ,:),force0)
 
-        CALL eqm(t,par,f1)
-        y(:,:) = par(:,:) + 0.5*dt*f1(:,:)
-        CALL make_periodic(y)
-        CALL eqm(t + 0.5*dt, y, f2)
-        y(:,:) = par(:,:) + 0.5*dt*f2(:,:)
-        CALL make_periodic(y)
-        CALL eqm(t + 0.5*dt, y, f3)
-        y(:,:) = par(:,:) + dt*f3
-        CALL make_periodic(y)
-        CALL eqm(t + dt, y, f4)
-        par(:,:) = par(:,:) + dt*(f1(:,:) + 2.0*(f2(:,:) + f3(:,:)) + f4(:,:))/6.0
-        CALL make_periodic(par)
-
-        DS = sqrt(2*Parameters(D,1:par_species))
-        par(VX:VZ,:) = 0
-        DO i = 1,npar_global
+            DS = sqrt(2*Parameters(D,1:par_species))
+            par(VX:VZ,:) = par(CX:CZ,:)
             CALL RANDOM_NUMBER(randbm)
-            rand(1) = SQRT(-2*LOG(randbm(1)))*COS(2*pi*randbm(2))
-            rand(2) = SQRT(-2*LOG(randbm(1)))*SIN(2*pi*randbm(2))
-            rand(3) = SQRT(-2*LOG(randbm(3)))*COS(2*pi*randbm(4))
-            par(CX:CZ,i) = par(CX:CZ,i) + DS(INT(par(PS,i)))*rand*dt
-            par(VX:VZ,i) = DS(INT(par(PS,i)))*rand
-        ENDDO
 
-        par(VX:VZ,1:npar_global) =  par(VX:VZ,1:npar_global) &
-                                    + (f1(CX:CZ,:) + 2.0*(f2(CX:CZ,:) + f3(CX:CZ,:)) + f4(CX:CZ,:))/6.0
-        t = t + dt
+            DO i = 1,npar_global
+                rand(1) = SQRT(-2*LOG(randbm(4*(i-1)+1)))*COS(2*pi*randbm(4*(i-1)+2))
+                rand(2) = SQRT(-2*LOG(randbm(4*(i-1)+1)))*SIN(2*pi*randbm(4*(i-1)+2))
+                rand(3) = SQRT(-2*LOG(randbm(4*(i-1)+3)))*COS(2*pi*randbm(4*(i-1)+4))
+                par(CX:CZ,i) = par(CX:CZ,i) + Parameters(D,INT(par(PS,i)))*force0(1:3,i)*dt/kt + DS(INT(par(PS,i)))*rand*dt
+            ENDDO
 
-    END SUBROUTINE move_particles
-!----------------------------------------------------------
-!Subroutine to calculate koefficients for RK integrator
-    SUBROUTINE eqm(t0,par0,f)
+            par(VX:VZ,:) = (par(CX:CZ,:) - par(VX:VZ,:))/dt
+            CALL make_periodic(par)
 
-        REAL(8), DIMENSION(:,:), INTENT(in) :: par0
-        REAL(8), DIMENSION(:,:), INTENT(inout) :: f
+            t = t + dt
 
-        REAL(8), DIMENSION(1:3,1:npar_global)             :: force0 
-        REAL(8), INTENT(in) :: t0
-        INTEGER :: i,j
-
-        CALL calc_force(par0, force0, IDEAL)        !Available interactions are IDEAL, DLVO, LJ
-
-        DO i=1,npar_global
-        f(CX:CZ,i) = force0(1:3,i)*kt*Parameters(D,INT(par(PS,i)))
-        f(VX:VZ,i) = 0
-        ENDDO
-        
-    END SUBROUTINE eqm
-
+        END SUBROUTINE move_particles
 !----------------------------------------------------------
 !make particle positions periodic
 

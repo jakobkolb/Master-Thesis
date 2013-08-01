@@ -1,7 +1,7 @@
 !this file contains input variables for CSBD Simulation
 &parameter
 par_species = 3         !total number of particles for all speciesWA
-nt = 1000              !number of iteration steps
+nt = 10000              !number of iteration steps
 ndiag = 1             !number of steps after which diagnosis is done
 dt = .1                 !time difference for simulation steps
 L = 100                 !length of the Simulation Box
