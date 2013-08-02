@@ -9,20 +9,20 @@ IMPLICIT NONE
 
     INTEGER     :: i, j
     INTEGER     :: counter, tcounter
-    REAL(8)     :: thickness
+    REAL(8)     :: thickness, t=0
 
 
     CALL RANDOM_SEED
 
 !define simulation parameters
 
-    npar= 100000
+    npar= 1000
     D   = 1
     KT  = 1
-    dt  = .1
-    nt  = 100
-    L   = 1
-    sink_radius = L/5
+    dt  = .01
+    nt  = 20000
+    L   = 20
+    sink_radius = .05
     thickness = .1
 
 !Allocate particle array
@@ -32,19 +32,37 @@ IMPLICIT NONE
 !Initialize particle possition randomly
 
     CALL init_particles
+    CALL init_statistics(100)
+    CALL open_output_files
 
 !start iteration for particles
 
     tcounter = 0
     DO i = 1,nt
+
+        IF( t/D > 10) THEN
+            CALL dens_statistics_accum(100)
+        ENDIF
+
         CALL move_particles
         CALL sink(sink_radius,thickness,counter)
         tcounter = tcounter + counter
-        print*, i, counter, tcounter  
+
+        IF(MODULO(i,10) == 0) THEN
+            print*, i, counter, tcounter
+        ENDIF
+
+        IF( t/D > 10) THEN
+            CALL rate_statistics_accum(counter, 100)
+        ENDIF
+
+        t = t + dt
     ENDDO
 
 !build histogramm for density profile
+
+    CALL statistics_output(100)
     
-    CALL histogramm(100)
+    CALL close_output_files
 
 END PROGRAM BDS

@@ -6,30 +6,74 @@ IMPLICIT NONE
 
 CONTAINS
 
-    SUBROUTINE histogramm(bins)
+    SUBROUTINE dens_statistics_accum(bins)
 
-    INTEGER :: bins, i, binnumber
+    INTEGER, INTENT(in) :: bins
+    INTEGER             :: i
+    REAL(8), DIMENSION(2,bins) :: hist
+
+    CALL histogramm(bins,hist)
+
+    DO i = 1,bins
+        CALL accum5(i,hist(2,i)) 
+    ENDDO
+
+    END SUBROUTINE dens_statistics_accum
+
+    SUBROUTINE rate_statistics_accum(counter, bins)
+
+    INTEGER, INTENT(in) :: counter, bins
+    REAL(8)             :: rate
+
+    rate = counter/dt
+
+    CALL accum5(bins+1,rate)
+
+    END SUBROUTINE rate_statistics_accum
+
+    SUBROUTINE statistics_output(bins)
+    
+    INTEGER, INTENT(in) :: bins
+    INTEGER             :: i
+    REAL(8)             :: aver5, sigma5
+
+
+    DO i = 1,bins
+        WRITE(dens_final, *) (REAL(i)+.5)/REAL(bins)*L/2, aver5(i), sigma5(i)
+    ENDDO
+
+    WRITE(rate_final, *) "this file contains data for diffusion constant, size of sink and absorption rate"
+    WRITE(rate_final, *) D, sink_radius*L, aver5(bins+1), sigma5(bins+1)
+     
+
+    END SUBROUTINE statistics_output
+
+    SUBROUTINE histogramm(bins, output)
+
+    INTEGER, INTENT(in) :: bins
+    INTEGER :: i, binnumber
     REAL    :: r, vbin
-    INTEGER, DIMENSION(:), ALLOCATABLE  :: hist
+    REAL(8), DIMENSION(3)   :: POS
+    INTEGER, DIMENSION(bins)  :: hist
+    REAL(8), DIMENSION(2,bins), INTENT(out) :: output
 
-    ALLOCATE(hist(1:bins))
+    hist = 0
+
+    POS = L/2
 
     DO i = 1,npar
-        r = SQRT(DOT_PRODUCT(par(:,i)-L/2,par(:,i)-L/2))
-        binnumber = INT(r/L*bins)
-        print*, binnumber
+        r = SQRT(DOT_PRODUCT(par(:,i)-POS,par(:,i)-POS))
+        binnumber = INT(r/(L/2)*bins)
         IF(binnumber .LE. bins) THEN
             hist(binnumber) = hist(binnumber) + 1
         ENDIF
     ENDDO
 
-    OPEN(unit=20, file="dens_profile.out", action="write")
     DO i = 1,bins
-        vbin = 4/3*pi*((REAL(i+1)/REAL(bins)*L)**3 - (REAL(i)/REAL(bins)*L)**3)
-        print*, hist(i)/vbin, hist(i)
-        WRITE(20,*) REAL(i)/REAL(bins)*L, REAL(hist(i))/vbin
+        vbin = 4/3*pi*((REAL(i+1)/REAL(bins)*L/2)**3 - (REAL(i)/REAL(bins)*L/2)**3)
+        output(1,i) = REAL(i)/REAL(bins)*L/2
+        output(2,i) = REAL(hist(i))/vbin
     ENDDO
-    CLOSE(20)
 
     END SUBROUTINE histogramm
 
