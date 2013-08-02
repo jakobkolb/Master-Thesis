@@ -41,10 +41,17 @@ CONTAINS
     DO i = 1,bins
         WRITE(dens_final, *) (REAL(i)+.5)/REAL(bins)*L/2, aver5(i), sigma5(i)
     ENDDO
+    WRITE(dens_final,*)
 
     WRITE(rate_final, *) "this file contains data for diffusion constant, size of sink and absorption rate"
-    WRITE(rate_final, *) D, sink_radius*L, aver5(bins+1), sigma5(bins+1)
-     
+    WRITE(rate_final, *) D, sigma5(bins+1)
+    WRITE(rate_final, *) sink_radius*L, aver5(bins+1), 4*pi*sink_radius*L*D*aver5(bins)
+    WRITE(rate_final, *)
+
+    WRITE(*, *) aver5(bins+1), sigma5(bins+1)
+    WRITE(*, *) 4*pi*aver5(bins), (1-aver5(bins+1)/(4*pi*aver5(bins)))*100
+ 
+
 
     END SUBROUTINE statistics_output
 

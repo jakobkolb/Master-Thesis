@@ -15,13 +15,13 @@ SUBROUTINE init_particles
     REAL(8), DIMENSION(3)   :: rand, r, sink_poss
     REAL(8), DIMENSION(4)   :: randbm
     REAL(8)                 :: dr
-    INTEGER                 :: i, j, n=1
+    INTEGER                 :: i, j, n
 
     WRITE(*,*) '->init_particles'
 
     sink_poss = L/2
-
-    DO 
+    n = 1
+    DO
         CALL RANDOM_NUMBER(rand)
         par(:,n) = L*rand              !insert particle at random location in box
             r = sink_poss - par(:,n)
@@ -31,7 +31,6 @@ SUBROUTINE init_particles
             ENDIF
         IF(n == npar) EXIT        !stopp if total particle count is reached
     ENDDO
-
 END SUBROUTINE init_particles
 
 SUBROUTINE init_statistics(bins)
