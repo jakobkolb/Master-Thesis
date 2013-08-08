@@ -46,7 +46,7 @@ SUBROUTINE open_output_files
     dens_final = 20
     rate_final = 21
 
-    OPEN(unit=dens_final, file="dens_profile.out", action="write")
+    OPEN(unit=dens_final, file="dens_data.out", action="write")
     OPEN(unit=rate_final, file="rate_data.out", action="write")
 
 

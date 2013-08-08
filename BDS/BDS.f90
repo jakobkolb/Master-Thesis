@@ -18,16 +18,16 @@ IMPLICIT NONE
 
 !define simulation parameters
 
-    npar= 1000
+    npar= 100000
     D   = 1
     KT  = 1
     dt  = .01
-    nt  = 1000000
+    nt  = 10000
     L   = 100
-    sink_radius = .01
+    sink_radius = 0
     thickness = .1
-DO j = 1,4
-    sink_radius = sink_radius + 0.01
+DO j = 1,5
+    sink_radius = sink_radius + 0.001
 
 
 !Allocate particle array
