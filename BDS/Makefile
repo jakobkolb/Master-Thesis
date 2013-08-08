@@ -1,6 +1,6 @@
 FC = gfortran
 
-OPT =
+OPT = -fopenmp
 
 PROGRAMS = BDS
 

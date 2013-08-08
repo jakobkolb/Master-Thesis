@@ -16,15 +16,19 @@ SUBROUTINE move_particles
     CALL RANDOM_NUMBER(nrand1)
     CALL RANDOM_NUMBER(nrand2)
 
+    !$OMP PARALLEL DO
     DO i = 1,npar
         erand(:,i) = SQRT(-2*LOG(nrand1(:,i)))*COS(2*pi*nrand2(:,i))
     ENDDO
+    !$OMP END PARALLEL DO
 
     Dprime = SQRT(2*D*dt)
 
+    !$OMP PARALLEL DO
     DO i = 1,npar
         par(:,i) = par(:,i) + Dprime*erand(:,i)
     ENDDO
+    !$OMP END PARALLEL DO
 
     CALL make_periodic
 
@@ -33,10 +37,12 @@ END SUBROUTINE move_particles
 SUBROUTINE make_periodic
 
     INTEGER :: i, j
-
+    
+    !$OMP PARALLEL DO
     DO i = 1,npar
         par(:,i) = MODULO(par(:,i),L)
     ENDDO
+    !$OMP END PARALLEL DO
 
 END SUBROUTINE make_periodic
 
@@ -54,6 +60,8 @@ SUBROUTINE sink(diameter,thickness,counter)
     R = L/2.
 
     counter = 0
+
+    !$OMP DO REDUCTION(+:counter) PRIVATE(Rr, rand, rd)
     DO i = 1,npar
         Rr = SQRT(DOT_PRODUCT(par(:,i)-R,par(:,i)-R))
         IF(Rr < diameter*L) THEN
@@ -65,6 +73,7 @@ SUBROUTINE sink(diameter,thickness,counter)
             par(:,i) = R + rd
         ENDIF
     ENDDO
+    !$OMP END DO
 
 END SUBROUTINE sink
 

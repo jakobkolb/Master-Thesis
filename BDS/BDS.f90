@@ -26,9 +26,8 @@ IMPLICIT NONE
     L   = 100
     sink_radius = .01
     thickness = .1
-
 DO j = 1,4
-sink_radius = sink_radius + 0.01
+    sink_radius = sink_radius + 0.01
 
 
 !Allocate particle array
@@ -71,7 +70,6 @@ sink_radius = sink_radius + 0.01
     CALL statistics_output(100)
     
 ENDDO
-
     CALL close_output_files
 
 END PROGRAM BDS
