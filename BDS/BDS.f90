@@ -22,13 +22,13 @@ IMPLICIT NONE
     D   = 1
     KT  = 1
     dt  = .01
-    nt  = 100000
+    nt  = 1000000
     L   = 100
     sink_radius = .01
     thickness = .1
 
 DO j = 1,4
-sink_radius = sink_radius + 0.025
+sink_radius = sink_radius + 0.01
 
 
 !Allocate particle array
