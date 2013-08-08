@@ -18,10 +18,10 @@ IMPLICIT NONE
 
 !define simulation parameters
 
-    npar= 100000
+    npar= 10000
     D   = 1
     KT  = 1
-    dt  = .01
+    dt  = .1
     nt  = 10000
     L   = 100
     sink_radius = 0

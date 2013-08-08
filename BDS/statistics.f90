@@ -62,7 +62,7 @@ CONTAINS
     REAL    :: r, vbin
     REAL(8), DIMENSION(3)   :: POS
     INTEGER, DIMENSION(bins)  :: hist
-    REAL(8), DIMENSION(2,bins), INTENT(out) :: output
+    REAL(8), DIMENSION(:,:), INTENT(out) :: output
 
     hist = 0
 
@@ -71,17 +71,15 @@ CONTAINS
     DO i = 1,npar
         r = SQRT(DOT_PRODUCT(par(:,i)-POS,par(:,i)-POS))
         binnumber = INT(r/(L/2)*bins)
-        IF(binnumber .LE. bins) THEN
+        IF(binnumber .LE. bins .AND. binnumber > 0) THEN
             hist(binnumber) = hist(binnumber) + 1
         ENDIF
     ENDDO
-
     DO i = 1,bins
         vbin = 4/3*pi*((REAL(i+1)/REAL(bins)*L/2)**3 - (REAL(i)/REAL(bins)*L/2)**3)
         output(1,i) = REAL(i)/REAL(bins)*L/2
         output(2,i) = REAL(hist(i))/vbin
     ENDDO
-
     END SUBROUTINE histogramm
 
 END MODULE statistics
