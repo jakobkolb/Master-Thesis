@@ -16,28 +16,21 @@ IMPLICIT NONE
 
     CALL open_output_files
 
-!define simulation parameters
+!read simulation parameters
 
-    npar= 1000
-    D   = 1
-    KT  = 1
-    dt  = .01
-    nt  = 10000
-    L   = 100
-    sink_radius = 0
-    thickness = .1
+    CALL init_parameters
+
+!Iterate over scan Parameter
+
 DO j = 1,4
     sink_radius = sink_radius + 0.01
-
-
-!Allocate particle array
-
-    ALLOCATE(par(1:3,1:npar))
-    ALLOCATE(parold(1:3,1:npar))
 
 !Initialize particle possition randomly
 
     CALL init_particles
+
+!Initialize Statistics for histogramms and variable accumulation
+
     CALL init_statistics(100)
 
 !start iteration for particles

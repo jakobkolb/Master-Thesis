@@ -1,0 +1,10 @@
+&parameter
+    npar= 1000
+    D   = 1
+    KT  = 1
+    dt  = .01
+    nt  = 10000
+    L   = 100
+    sink_radius = 0
+    thickness = .1
+/
