@@ -42,7 +42,6 @@ DO j = 1,4
 
 !start iteration for particles
 
-    tcounter = 0
     DO i = 1,nt
 
         IF( t/D > 10) THEN
