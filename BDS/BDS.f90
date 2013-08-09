@@ -18,7 +18,7 @@ IMPLICIT NONE
 
 !define simulation parameters
 
-    npar= 10000
+    npar= 1000
     D   = 1
     KT  = 1
     dt  = .01
