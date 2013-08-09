@@ -9,7 +9,7 @@ IMPLICIT NONE
 
     INTEGER     :: i, j
     INTEGER     :: counter, tcounter
-    REAL(8)     :: thickness, t=0
+    REAL(8)     :: t=0
 
 
     CALL RANDOM_SEED
@@ -26,13 +26,14 @@ IMPLICIT NONE
     L   = 100
     sink_radius = 0
     thickness = .1
-DO j = 1,5
-    sink_radius = sink_radius + 0.001
+DO j = 1,1
+    sink_radius = sink_radius + 0.01
 
 
 !Allocate particle array
 
     ALLOCATE(par(1:3,1:npar))
+    ALLOCATE(parold(1:3,1:npar))
 
 !Initialize particle possition randomly
 
@@ -47,9 +48,12 @@ DO j = 1,5
         IF( t/D > 10) THEN
             CALL dens_statistics_accum(100)
         ENDIF
+        
+        parold = par
 
         CALL move_particles
-        CALL sink(sink_radius,thickness,counter)
+        CALL sink(counter)
+
         tcounter = tcounter + counter
 
 !        IF(MODULO(i,10) == 0) THEN
@@ -64,6 +68,7 @@ DO j = 1,5
     ENDDO
 
     DEALLOCATE(par)
+    DEALLOCATE(parold)
 
 !build histogramm for density profile
 

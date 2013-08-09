@@ -46,11 +46,12 @@ SUBROUTINE make_periodic
 
 END SUBROUTINE make_periodic
 
-SUBROUTINE sink(diameter,thickness,counter)
+SUBROUTINE sink(counter)
 
-    REAL(8), INTENT(in)     :: diameter    !Diameter of the sink as fraction of L
-    REAL(8), INTENT(in)     :: thickness   !Thickness of layer for particle displacement as fraction of L
-    REAL(8)                 :: Rr   !Distance of Particle to sink
+    REAL(8)                 :: Rr, Rr1   !minimum distance of Particle to sink
+    REAL(8), DIMENSION(3)   :: r12  !particle trajectory
+    REAL(8), DIMENSION(3)   :: r1   !particle start vector, relative to sink
+    REAL(8), DIMENSION(3)   :: r1xr12!cross product of r1 and r12 
     REAL(8), DIMENSION(3)   :: R    !Position of the sink
     REAL(8), DIMENSION(3)   :: rd   !random displacement vector
     REAL(8), DIMENSION(4)   :: rand
@@ -61,10 +62,16 @@ SUBROUTINE sink(diameter,thickness,counter)
 
     counter = 0
 
-    !$OMP DO REDUCTION(+:counter) PRIVATE(Rr, rand, rd)
+   !$OMP DO REDUCTION(+:counter) PRIVATE(Rr, rand, rd, r1, r12, r1xr12)
     DO i = 1,npar
-        Rr = SQRT(DOT_PRODUCT(par(:,i)-R,par(:,i)-R))
-        IF(Rr < diameter*L) THEN
+        r1  = parold(:,i) - R
+        r12 = parold(:,i) - par(:,i)
+        r1xr12(1) = r1(2)*r12(3) - r1(3)*r12(2)
+        r1xr12(2) = r1(3)*r12(1) - r1(1)*r12(3)
+        r1xr12(3) = r1(1)*r12(2) - r1(2)*r12(1)
+        Rr  = SQRT(DOT_PRODUCT(r1xr12,r1xr12))/SQRT(DOT_PRODUCT(r12,r12))
+        Rr1 = SQRT(DOT_PRODUCT(r1,r1))
+        IF(Rr < sink_radius*L .OR. Rr1 < sink_radius*L) THEN
             counter = counter + 1
             CALL RANDOM_NUMBER(rand)
             rd(1) = (L/2. - thickness*rand(1))*COS(2*pi*rand(2))*SIN(pi*rand(3))

@@ -49,7 +49,7 @@ CONTAINS
     WRITE(rate_final, *)
 
     WRITE(*, *) aver5(bins+1), sigma5(bins+1)
-    WRITE(*, *) 4*pi*aver5(bins), (1-aver5(bins+1)/(4*pi*aver5(bins)))*100
+    WRITE(*, *) 4*pi*D*sink_radius*L*aver5(bins), 4*pi*D*sink_radius*L*sigma5(bins)
  
 
 
