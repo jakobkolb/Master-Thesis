@@ -8,7 +8,7 @@ USE statistics
 IMPLICIT NONE
 
     INTEGER     :: i, j
-    INTEGER     :: counter, tcounter
+    INTEGER     :: counter
     REAL(8)     :: t=0
 
 
@@ -21,12 +21,12 @@ IMPLICIT NONE
     npar= 10000
     D   = 1
     KT  = 1
-    dt  = .1
+    dt  = .01
     nt  = 10000
     L   = 100
     sink_radius = 0
     thickness = .1
-DO j = 1,1
+DO j = 1,4
     sink_radius = sink_radius + 0.01
 
 
@@ -53,8 +53,6 @@ DO j = 1,1
 
         CALL move_particles
         CALL sink(counter)
-
-        tcounter = tcounter + counter
 
 !        IF(MODULO(i,10) == 0) THEN
 !            print*, i, counter, tcounter
