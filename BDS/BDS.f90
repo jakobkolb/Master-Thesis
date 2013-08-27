@@ -18,11 +18,11 @@ IMPLICIT NONE
 
 !define simulation parameters
 
-    npar= 1000
+    npar= 100000
     D   = 1
     KT  = 1
-    dt  = .01
-    nt  = 10000
+    dt  = .001
+    nt  = 100000
     L   = 100
     sink_radius = 0
     thickness = .1
@@ -44,7 +44,7 @@ DO j = 1,4
 
     DO i = 1,nt
 
-        IF( t/D > 10) THEN
+        IF( t*D > 1) THEN
             CALL dens_statistics_accum(100)
         ENDIF
         

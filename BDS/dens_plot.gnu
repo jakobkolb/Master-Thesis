@@ -2,7 +2,7 @@ set term postscript eps enhanced colour
 set output "dens_plot.eps"
 
 set title "steady state density profile"
-set yrange [0:0.0014]
+set yrange [0:0.016]
 set xlabel "distance from sink"
 set ylabel  "particle density"
 set key right bottom
