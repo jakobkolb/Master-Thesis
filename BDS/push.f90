@@ -10,7 +10,8 @@ SUBROUTINE move_particles
 
     REAL(8), DIMENSION(3,npar)  :: erand
     REAL(8), DIMENSION(3,npar)  :: nrand1, nrand2
-    REAL(8)                     :: Dprime
+    REAL(8), DIMENSION(3,npar)  :: f_eff
+    REAL(8)                     :: Dprime, r
     INTEGER                     :: i
 
     CALL RANDOM_NUMBER(nrand1)
@@ -22,11 +23,21 @@ SUBROUTINE move_particles
     ENDDO
     !$OMP END PARALLEL DO
 
+    !$OMP PARALLEL DO
+    DO i = 1,npar
+        r = SQRT(DOT_PRODUCT(par(:,i) - L/2, par(:,i) - L/2))
+        IF(r > sink_radius*L + gap .AND. r < sink_radius*L + 2*U1*L + gap) THEN
+            f_eff(:,i) = U0*2*(r-sink_radius*L-U1*L)*(par(:,i)-L/2)/r
+        ELSEIF(r < sink_radius*L + gap .OR. r > sink_radius*L + 2*U1*L + gap) THEN
+            f_eff(:,i) = 0
+        ENDIF
+    ENDDO
+
     Dprime = SQRT(2*D*dt)
 
     !$OMP PARALLEL DO
     DO i = 1,npar
-        par(:,i) = par(:,i) + Dprime*erand(:,i)
+        par(:,i) = par(:,i) +f_eff(:,i) + Dprime*erand(:,i)
     ENDDO
     !$OMP END PARALLEL DO
 
@@ -75,10 +86,10 @@ SUBROUTINE sink(counter)
             Rr1 - ABS(SQRT(DOT_PRODUCT(r12,r12))) < sink_radius*L .AND. &
             SQRT(DOT_PRODUCT(r12,r12)) .LE. SQRT(2*D*dt)) THEN
             counter = counter + 1
-        print*, '-------------------------------------------------------------'
-        print*, parold(:,i) - R
-        print*, par(:,i) - R
-        print*, L*sink_radius, Rr, Rr1
+!        print*, '-------------------------------------------------------------'
+!        print*, parold(:,i) - R
+!        print*, par(:,i) - R
+!        print*, L*sink_radius, Rr, Rr1
             CALL RANDOM_NUMBER(rand)
             rd(1) = (L/2. - thickness*rand(1))*COS(2*pi*rand(2))*SIN(pi*rand(3))
             rd(2) = (L/2. - thickness*rand(1))*SIN(2*pi*rand(2))*SIN(pi*rand(3))

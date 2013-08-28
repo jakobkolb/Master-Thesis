@@ -1,10 +1,14 @@
 &parameter
-    npar= 1000
+    npar= 80000
     D   = 1
     KT  = 1
     dt  = .01
-    nt  = 10000
-    L   = 100
-    sink_radius = 0
+    nt  = 100000
+    L   = 200
+    sink_radius = 0.02
     thickness = .1
+    nbins   = 50
+    fmu     = 0.04
+    fsigma  = 0.01
+    U0      = 1
 /

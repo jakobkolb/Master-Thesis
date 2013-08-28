@@ -46,8 +46,8 @@ CONTAINS
     WRITE(rate_final, *) "this file contains data for diffusion constant, size of sink and absorption rate"
     WRITE(rate_final, *) D, sigma5(bins+1)
     WRITE(rate_final, *) sink_radius*L, aver5(bins+1), sigma5(bins+1)
-    WRITE(rate_final, *) 4*pi*sink_radius*L*D*aver5(bins), &
-                         4*pi*sink_radius*L*D*sigma5(bins)
+    WRITE(rate_final, *) sink_radius*L, 4*pi*sink_radius*L*D*aver5(bins-1), &
+                         4*pi*sink_radius*L*D*sigma5(bins-1)
     WRITE(rate_final, *)
 
     WRITE(*, *) aver5(bins+1), sigma5(bins+1)

@@ -12,7 +12,7 @@ SUBROUTINE init_parameters
 
     INTEGER :: in=10
 
-    NAMELIST /PARAMETER/ npar, D, KT, dt, nt, L, sink_radius, thickness
+    NAMELIST /PARAMETER/ npar, D, KT, dt, nt, L, sink_radius, thickness, nbins, gap, U1, U0
 
     OPEN(unit=in, file='Parameters.in')
     READ(in,PARAMETER)
