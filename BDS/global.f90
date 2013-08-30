@@ -4,7 +4,7 @@ IMPLICIT NONE
 
     REAL(8), PARAMETER                      :: pi = 3.14159265359
     REAL(8), DIMENSION(:,:), ALLOCATABLE    :: par
-    REAL(8), DIMENSION(:,:), ALLOCATABLE    :: parold
+    REAL(8), DIMENSION(:,:), ALLOCATABLE    :: parold, dr
     INTEGER                                 :: npar, nbins
     REAL(8)                                 :: D, KT, dt, L
     INTEGER                                 :: nt

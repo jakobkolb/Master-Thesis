@@ -28,7 +28,7 @@ SUBROUTINE init_particles
 
     REAL(8), DIMENSION(3)   :: rand, r, sink_poss
     REAL(8), DIMENSION(4)   :: randbm
-    REAL(8)                 :: dr
+    REAL(8)                 :: Rr
     INTEGER                 :: i, j, n
 
     WRITE(*,*) '->init_particles'
@@ -38,6 +38,10 @@ SUBROUTINE init_particles
     ALLOCATE(par(1:3,1:npar))
     ALLOCATE(parold(1:3,1:npar))
 
+    ALLOCATE(dr(1:3,1:npar))
+
+    dr = 0
+
     !Initialize Particle Possitions
 
     sink_poss = L/2
@@ -46,8 +50,8 @@ SUBROUTINE init_particles
         CALL RANDOM_NUMBER(rand)
         par(:,n) = L*rand              !insert particle at random location in box
             r = sink_poss - par(:,n)
-            dr = SQRT(DOT_PRODUCT(r,r))
-            IF(dr > sink_radius*L) THEN
+            Rr = SQRT(DOT_PRODUCT(r,r))
+            IF(Rr > sink_radius*L) THEN
                 n = n + 1
             ENDIF
         IF(n == npar) EXIT        !stopp if total particle count is reached
@@ -58,7 +62,7 @@ SUBROUTINE init_statistics(bins)
 
     INTEGER, INTENT(in) :: bins
 
-    CALL clear5(bins+1,500)
+    CALL clear5(bins+2,500)
 
 END SUBROUTINE init_statistics
 

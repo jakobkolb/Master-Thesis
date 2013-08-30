@@ -38,9 +38,13 @@ SUBROUTINE move_particles
 
     !$OMP PARALLEL DO
     DO i = 1,npar
-        par(:,i) = par(:,i) +f_eff(:,i) + Dprime*erand(:,i)
+        dr(:,i) = f_eff(:,i) + Dprime*erand(:,i)
     ENDDO
     !$OMP END PARALLEL DO
+
+    par = par + dr
+
+    CALL make_periodic
 
 END SUBROUTINE move_particles
 
@@ -78,21 +82,29 @@ SUBROUTINE sink(counter)
     DO i = 1,npar
         r1  = R - parold(:,i)
         r2  = R - par(:,i)
-        r12 = parold(:,i) - par(:,i)
+        r12 = dr(:,i)/SQRT(DOT_PRODUCT(dr(:,i),dr(:,i)))
         r1xr12(1) = r1(2)*r12(3) - r1(3)*r12(2)
         r1xr12(2) = r1(3)*r12(1) - r1(1)*r12(3)
         r1xr12(3) = r1(1)*r12(2) - r1(2)*r12(1)
-        Rr12  = SQRT(DOT_PRODUCT(r1xr12,r1xr12))/SQRT(DOT_PRODUCT(r12,r12))
+        Rr12  = SQRT(DOT_PRODUCT(r1xr12,r1xr12))
         Rr1 = SQRT(DOT_PRODUCT(r1,r1))
         Rr2 = SQRT(DOT_PRODUCT(r2,r2))
         IF( Rr2 < sink_radius*L &
- !           .OR. Rr12  < sink_radius*L &
+            .OR. (Rr12  < sink_radius*L .AND. &
+            DOT_PRODUCT(dr(:,i),r1)/SQRT(DOT_PRODUCT(r1,r1))*DOT_PRODUCT(dr(:,i),r2)/SQRT(DOT_PRODUCT(r2,r2)) < 0 .AND. &
+            SQRT(DOT_PRODUCT(r1,r1)) - SQRT(DOT_PRODUCT(dr(:,i),dr(:,i))) < sink_radius*L ) &
             )THEN
             counter = counter + 1
-!       print*, '-------------------------------------------------------------'
-!       print*, parold(:,i) - R
-!       print*, par(:,i) - R
-!       print*, L*sink_radius, Rr12, Rr2
+!           IF(Rr12  < sink_radius*L .AND. &
+!           DOT_PRODUCT(dr(:,i),r1)/SQRT(DOT_PRODUCT(r1,r1))*DOT_PRODUCT(dr(:,i),r2)/SQRT(DOT_PRODUCT(r2,r2)) < 0) THEN
+!               print*, '-------------------------------------------------------------'
+!               print*, parold(:,i) - R
+!               print*, par(:,i) - R
+!               print*, DOT_PRODUCT(dr(:,i),r1)/SQRT(DOT_PRODUCT(r1,r1))
+!               print*, DOT_PRODUCT(dr(:,i),r2)/SQRT(DOT_PRODUCT(r2,r2))
+!               print*, L*sink_radius, Rr12, Rr2
+!           ENDIF
+
             CALL RANDOM_NUMBER(rand)
             rd(1) = (L/2. - thickness*rand(1))*COS(2*pi*rand(2))*SIN(pi*rand(3))
             rd(2) = (L/2. - thickness*rand(1))*SIN(2*pi*rand(2))*SIN(pi*rand(3))
@@ -101,6 +113,8 @@ SUBROUTINE sink(counter)
         ENDIF
     ENDDO
     !$OMP END DO
+
+    CALL make_periodic
 
 END SUBROUTINE sink
 

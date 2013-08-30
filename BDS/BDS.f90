@@ -26,8 +26,8 @@ IMPLICIT NONE
     CALL CPU_TIME(ct1)
     wt1 = omp_get_wtime()
 
-DO j = 1,10
-    sink_radius = sink_radius + 0.01
+DO j = 1,4
+    sink_radius = sink_radius + 0.001
     U1 = U1 + 0.01
 
 !Initialize particle possition randomly
@@ -52,7 +52,6 @@ DO j = 1,10
 
         CALL move_particles
         CALL sink(counter)
-        CALL make_periodic
 
         IF( t/D > 10) THEN
             CALL rate_statistics_accum(counter, nbins)
@@ -65,7 +64,7 @@ DO j = 1,10
 
     DEALLOCATE(par)
     DEALLOCATE(parold)
-
+    DEALLOCATE(dr)
 !build histogramm for density profile
 
     CALL statistics_output(nbins)
@@ -75,8 +74,8 @@ ENDDO
     CALL CPU_TIME(ct2)
     wt2 = omp_get_wtime()
 
-    print*, (ct2-ct1), (ct2-ct1)/npar/nt/4
-    print*, (wt2-wt1), (wt2-wt1)/npar/nt/4
+    print*, (ct2-ct1), (ct2-ct1)/npar/nt/j
+    print*, (wt2-wt1), (wt2-wt1)/npar/nt/j
 
 
 
