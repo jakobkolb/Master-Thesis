@@ -26,7 +26,7 @@ IMPLICIT NONE
     CALL CPU_TIME(ct1)
     wt1 = omp_get_wtime()
 
-DO j = 1,4
+DO j = 1,10
     sink_radius = sink_radius + 0.01
     U1 = U1 + 0.01
 
@@ -52,6 +52,7 @@ DO j = 1,4
 
         CALL move_particles
         CALL sink(counter)
+        CALL make_periodic
 
         IF( t/D > 10) THEN
             CALL rate_statistics_accum(counter, nbins)

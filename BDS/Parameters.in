@@ -1,14 +1,14 @@
 &parameter
-    npar= 80000
+    npar= 15000
     D   = 1
     KT  = 1
-    dt  = .01
+    dt  = .1
     nt  = 100000
     L   = 200
-    sink_radius = 0.02
+    sink_radius = 0
     thickness = .1
     nbins   = 50
-    U1      = 0.04
     gap     = 0.02
-    U0      = 1
+    U1      = 0.04
+    U0      = 0
 /
