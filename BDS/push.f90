@@ -90,9 +90,9 @@ SUBROUTINE sink(counter)
         Rr1 = SQRT(DOT_PRODUCT(r1,r1))
         Rr2 = SQRT(DOT_PRODUCT(r2,r2))
         IF( Rr2 < sink_radius*L &
-            .OR. (Rr12  < sink_radius*L .AND. &
-            DOT_PRODUCT(dr(:,i),r1)/SQRT(DOT_PRODUCT(r1,r1))*DOT_PRODUCT(dr(:,i),r2)/SQRT(DOT_PRODUCT(r2,r2)) < 0 .AND. &
-            SQRT(DOT_PRODUCT(r1,r1)) - SQRT(DOT_PRODUCT(dr(:,i),dr(:,i))) < sink_radius*L ) &
+!            .OR. (Rr12  < sink_radius*L .AND. &
+!            DOT_PRODUCT(dr(:,i),r1)/SQRT(DOT_PRODUCT(r1,r1))*DOT_PRODUCT(dr(:,i),r2)/SQRT(DOT_PRODUCT(r2,r2)) < 0 .AND. &
+!            SQRT(DOT_PRODUCT(r1,r1)) - SQRT(DOT_PRODUCT(dr(:,i),dr(:,i))) < sink_radius*L ) &
             )THEN
             counter = counter + 1
 !           IF(Rr12  < sink_radius*L .AND. &

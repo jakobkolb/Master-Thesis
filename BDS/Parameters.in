@@ -1,5 +1,5 @@
 &parameter
-    npar= 15000
+    npar= 1500
     D   = 1
     KT  = 1
     dt  = .1

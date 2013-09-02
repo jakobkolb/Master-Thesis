@@ -28,7 +28,7 @@ IMPLICIT NONE
 
 DO j = 1,4
     sink_radius = sink_radius + 0.001
-    U1 = U1 + 0.01
+!    U1 = U1 + 0.01
 
 !Initialize particle possition randomly
 
