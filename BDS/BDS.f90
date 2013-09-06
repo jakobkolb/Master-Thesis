@@ -23,17 +23,12 @@ IMPLICIT NONE
 
 !Iterate over scan Parameter
 
-<<<<<<< HEAD
 DO j = 1,20
     sink_radius = sink_radius + 0.005
-=======
     CALL CPU_TIME(ct1)
     wt1 = omp_get_wtime()
 
-DO j = 1,4
-    sink_radius = sink_radius + 0.001
     U1 = U1 + 0.01
->>>>>>> 1a22abe3be689e95767e5fc835c815aceab65218
 
 !Initialize particle possition randomly
 
