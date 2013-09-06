@@ -12,11 +12,21 @@ CONTAINS
     INTEGER             :: i
     REAL(8), DIMENSION(2,bins) :: hist
 
+    REAL(8) :: bla
+
     CALL histogramm(bins,hist)
 
     DO i = 1,bins
         CALL accum5(i,hist(2,i)) 
     ENDDO
+
+    DO i = 1,npar
+        bla = bla + DOT_PRODUCT(dr(:,i), dr(:,i))
+    ENDDO
+
+        bla = bla/npar
+
+        CALL accum5(bins+2,bla)
 
     END SUBROUTINE dens_statistics_accum
 
@@ -46,13 +56,13 @@ CONTAINS
     WRITE(rate_final, *) "this file contains data for diffusion constant, size of sink and absorption rate"
     WRITE(rate_final, *) D, sigma5(bins+1)
     WRITE(rate_final, *) sink_radius*L, aver5(bins+1), sigma5(bins+1)
-    WRITE(rate_final, *) 4*pi*sink_radius*L*D*aver5(bins), &
-                         4*pi*sink_radius*L*D*sigma5(bins)
+    WRITE(rate_final, *) sink_radius*L, 4*pi*sink_radius*L*D*aver5(bins-1), &
+                         4*pi*sink_radius*L*D*sigma5(bins-1)
     WRITE(rate_final, *)
 
     WRITE(*, *) aver5(bins+1), sigma5(bins+1)
     WRITE(*, *) 4*pi*D*sink_radius*L*aver5(bins), 4*pi*D*sink_radius*L*sigma5(bins)
- 
+    WRITE(*, *) aver5(bins+2), 6*D*dt
 
 
     END SUBROUTINE statistics_output
