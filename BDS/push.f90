@@ -54,9 +54,10 @@ SUBROUTINE sink(counter)
     REAL(8), DIMENSION(3)   :: r1xr12!cross product of r1 and r12 
     REAL(8), DIMENSION(3)   :: R    !Position of the sink
     REAL(8), DIMENSION(3)   :: rd   !random displacement vector
-    REAL(8), DIMENSION(4)   :: rand
+    REAL(8), DIMENSION(3)   :: rand
     INTEGER, INTENT(out)    :: counter !counter for absorbed particles
     INTEGER                 :: i, j
+    REAL(8)                 :: theta, phi !angles for new particle possition
 
     R = L/2.
 
@@ -80,9 +81,11 @@ SUBROUTINE sink(counter)
         print*, par(:,i) - R
         print*, L*sink_radius, Rr, Rr1
             CALL RANDOM_NUMBER(rand)
-            rd(1) = (L/2. - thickness*rand(1))*COS(2*pi*rand(2))*SIN(pi*rand(3))
-            rd(2) = (L/2. - thickness*rand(1))*SIN(2*pi*rand(2))*SIN(pi*rand(3))
-            rd(3) = (L/2. - thickness*rand(1))*COS(pi*rand(3))
+            theta   = 2*pi*rand(2)
+            phi     = ACOS(2*rand(3) - 1)
+            rd(1) = (L/2. - thickness*rand(1))*COS(phi)*SIN(theta)
+            rd(2) = (L/2. - thickness*rand(1))*SIN(phi)*SIN(theta)
+            rd(3) = (L/2. - thickness*rand(1))*COS(theta)
             par(:,i) = R + rd
         ENDIF
     ENDDO

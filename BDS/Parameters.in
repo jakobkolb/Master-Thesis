@@ -3,8 +3,8 @@
     D   = 1
     KT  = 1
     dt  = .01
-    nt  = 10000
-    L   = 100
-    sink_radius = 0
+    nt  = 100000
+    L   = 200
+    sink_radius = 0.005
     thickness = .1
 /

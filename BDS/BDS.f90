@@ -22,8 +22,8 @@ IMPLICIT NONE
 
 !Iterate over scan Parameter
 
-DO j = 1,4
-    sink_radius = sink_radius + 0.01
+DO j = 1,20
+    sink_radius = sink_radius + 0.005
 
 !Initialize particle possition randomly
 
