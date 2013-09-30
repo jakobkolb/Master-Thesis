@@ -1,12 +1,10 @@
 FC = gfortran
 
-CC = gcc
-
-OPT = -fopenmp -O3
+OPT = -fopenmp
 
 PROGRAMS = BDS
 
-BDS: global.o init.o push.o statistics.o stat5.o timedif.o
+BDS: global.o init.o push.o statistics.o stat5.o
 
 init.o: global.o stat5.o
 
@@ -19,9 +17,6 @@ statistics.o: global.o stat5.o
 
 %.o : %.f90
 	$(FC) $(OPT) -c $<
-
-%.o : %.c
-	$(CC) $(OPT) -c $<
 
 clean:
 	rm -f *.o *.mod *.MOD

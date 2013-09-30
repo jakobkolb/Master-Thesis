@@ -7,82 +7,72 @@ USE statistics
 
 IMPLICIT NONE
 
-    INTEGER     :: i, j, k
+    INTEGER     :: i, j
     INTEGER     :: counter
-    REAL(8)     :: t=0, ct1, ct2, wt1, wt2
-    REAL(8)     :: omp_get_wtime
-    REAL(8), DIMENSION(2,100) :: hist
-
+    REAL(8)     :: t=0
 
 
     CALL RANDOM_SEED
 
     CALL open_output_files
 
-    OPEN(unit = 25, file = 'initial_dens.out', action='write')
-!read simulation parameters
+!define simulation parameters
 
-    CALL init_parameters
+    npar= 10000
+    D   = 1
+    KT  = 1
+    dt  = .01
+    nt  = 10000
+    L   = 100
+    sink_radius = 0
+    thickness = .1
+DO j = 1,4
+    sink_radius = sink_radius + 0.01
 
-!Iterate over scan Parameter
 
-    CALL CPU_TIME(ct1)
-    wt1 = omp_get_wtime()
+!Allocate particle array
+
+    ALLOCATE(par(1:3,1:npar))
+    ALLOCATE(parold(1:3,1:npar))
 
 !Initialize particle possition randomly
 
     CALL init_particles
-
-!Initialize Statistics for histogramms and variable accumulation
-
-    CALL init_statistics(nbins)
+    CALL init_statistics(100)
 
 !start iteration for particles
 
-    print*, 'run simulation for j=', j
-
+    tcounter = 0
     DO i = 1,nt
 
-    IF( mod(i,100) .EQ. 0) THEN
-    CALL histogramm(100, hist)
-    DO j = 1,100
-    WRITE(25,*) hist(:,j)
-    ENDDO
-    WRITE(25,*)
-    ENDIF
-
-        IF(t*D > 1) THEN
-        CALL dens_statistics_accum(nbins)
+        IF( t/D > 10) THEN
+            CALL dens_statistics_accum(100)
         ENDIF
-
+        
         parold = par
 
         CALL move_particles
-!        CALL sink(counter)
-counter = 0
-        IF(t*D > 1) THEN
-        CALL rate_statistics_accum(counter, nbins)
+        CALL sink(counter)
+
+!        IF(MODULO(i,10) == 0) THEN
+!            print*, i, counter, tcounter
+!        ENDIF
+
+        IF( t/D > 10) THEN
+            CALL rate_statistics_accum(counter, 100)
         ENDIF
 
         t = t + dt
     ENDDO
 
-    print*, 'finalize simulation for j=', j
-
     DEALLOCATE(par)
     DEALLOCATE(parold)
+
 !build histogramm for density profile
 
-    CALL statistics_output(nbins)
-
-    CALL CPU_TIME(ct2)
-    wt2 = omp_get_wtime()
-
-    print*, (ct2-ct1), (ct2-ct1)/npar/nt/j
-    print*, (wt2-wt1), (wt2-wt1)/npar/nt/j
-
-
-
+    CALL statistics_output(100)
+    
+ENDDO
     CALL close_output_files
-    CLOSE(25)
+
 END PROGRAM BDS

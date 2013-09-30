@@ -6,67 +6,30 @@ IMPLICIT NONE
 
 CONTAINS
 
-SUBROUTINE init_parameters
-
-    USE global
-
-    INTEGER :: in=10
-
-    NAMELIST /PARAMETER/ npar, D, KT, dt, nt, L, nbins, gap, U1, U0, sink_radius, thickness
-
-    OPEN(unit=in, file='Parameters.in')
-    READ(in,PARAMETER)
-    CLOSE(in)
-
-END SUBROUTINE init_parameters
-
 SUBROUTINE init_particles
 
     USE global
 
     IMPLICIT NONE
 
-    REAL(8), DIMENSION(3)   :: rand, sink_poss
-    REAL(8), DIMENSION(1001):: CDF
-    REAL(8), DIMENSION(3)   :: rnd
-    REAL(8)                 :: r, theta, phi
+    REAL(8), DIMENSION(3)   :: rand, r, sink_poss
+    REAL(8), DIMENSION(4)   :: randbm
+    REAL(8)                 :: dr
     INTEGER                 :: i, j, n
 
     WRITE(*,*) '->init_particles'
 
-    !Allocate particle array
-
-    ALLOCATE(par(1:3,1:npar))
-    ALLOCATE(parold(1:3,1:npar))
-
-    !Initialize Particle Possitions
-
     sink_poss = L/2
     n = 1
-
-    DO i = 1,1001
-        r = i*L/2*(1-sink_radius)/1000 + L/2*sink_radius
-        CDF(i) = r**3
-        IF(r .LE. L*sink_radius) CDF(i) = 0
-    ENDDO
-
-    CDF = CDF/CDF(1000)
-
-    DO i = 1,npar
-
-        CALL RANDOM_NUMBER(rnd)
-        j = 0
-        DO
-            j = j + 1
-            IF(rnd(1) < CDF(j)) EXIT
-        ENDDO
-        r       = j*L/2*(1-sink_radius)/1000 + L/2*sink_radius
-        theta   = 1*pi*rnd(2)
-        phi     = ACOS(2*rnd(3) - 1)
-
-        par(1,i) = r*SIN(theta)*COS(phi) + L/2
-        par(2,i) = r*SIN(theta)*SIN(phi) + L/2
-        par(3,i) = r*COS(theta) + L/2
+    DO
+        CALL RANDOM_NUMBER(rand)
+        par(:,n) = L*rand              !insert particle at random location in box
+            r = sink_poss - par(:,n)
+            dr = SQRT(DOT_PRODUCT(r,r))
+            IF(dr > sink_radius*L) THEN
+                n = n + 1
+            ENDIF
+        IF(n == npar) EXIT        !stopp if total particle count is reached
     ENDDO
 END SUBROUTINE init_particles
 

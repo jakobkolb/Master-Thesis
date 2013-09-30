@@ -12,8 +12,6 @@ CONTAINS
     INTEGER             :: i
     REAL(8), DIMENSION(2,bins) :: hist
 
-    REAL(8) :: bla
-
     CALL histogramm(bins,hist)
 
     DO i = 1,bins
@@ -47,14 +45,12 @@ CONTAINS
 
     WRITE(rate_final, *) "this file contains data for diffusion constant, size of sink and absorption rate"
     WRITE(rate_final, *) D, sigma5(bins+1)
-    WRITE(rate_final, *) sink_radius*L, aver5(bins+1), sigma5(bins+1)
-    WRITE(rate_final, *) sink_radius*L, 4*pi*sink_radius*L*D*aver5(bins-1), &
-                         4*pi*sink_radius*L*D*sigma5(bins-1)
+    WRITE(rate_final, *) sink_radius*L, aver5(bins+1), 4*pi*sink_radius*L*D*aver5(bins)
     WRITE(rate_final, *)
 
     WRITE(*, *) aver5(bins+1), sigma5(bins+1)
-    WRITE(*, *) 4*pi*D*sink_radius*L*aver5(INT(bins/2))/(1-sink_radius*4),&
-                4*pi*D*sink_radius*L*sigma5(INT(bins/2))/(1-sink_radius*4)
+    WRITE(*, *) 4*pi*D*sink_radius*L*aver5(bins), 4*pi*D*sink_radius*L*sigma5(bins)
+ 
 
 
     END SUBROUTINE statistics_output
