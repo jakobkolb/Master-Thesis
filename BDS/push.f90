@@ -10,7 +10,8 @@ SUBROUTINE move_particles
 
     REAL(8), DIMENSION(3,npar)  :: erand
     REAL(8), DIMENSION(3,npar)  :: nrand1, nrand2
-    REAL(8)                     :: Dprime
+    REAL(8), DIMENSION(3,npar)  :: f_eff
+    REAL(8)                     :: Dprime, r
     INTEGER                     :: i
 
     CALL RANDOM_NUMBER(nrand1)
@@ -22,15 +23,24 @@ SUBROUTINE move_particles
     ENDDO
     !$OMP END PARALLEL DO
 
+    f_eff = 0
+
+!    !$OMP PARALLEL DO
+!    DO i = 1,npar
+!        r = SQRT(DOT_PRODUCT(par(:,i) - L/2, par(:,i) - L/2))
+!        IF(r > sink_radius*L + gap .AND. r < sink_radius*L + 2*U1*L + gap) THEN
+!            f_eff(:,i) = -U0*2*(r-sink_radius*L-U1*L)*(par(:,i)-L/2)/r
+!        ENDIF
+!    ENDDO
+!   !$OMP END PARALLEL DO
+
     Dprime = SQRT(2*D*dt)
 
     !$OMP PARALLEL DO
     DO i = 1,npar
-        par(:,i) = par(:,i) + Dprime*erand(:,i)
+        par(:,i) = par(:,i) +f_eff(:,i) + Dprime*erand(:,i)
     ENDDO
     !$OMP END PARALLEL DO
-
-    CALL make_periodic
 
 END SUBROUTINE move_particles
 
@@ -48,9 +58,11 @@ END SUBROUTINE make_periodic
 
 SUBROUTINE sink(counter)
 
-    REAL(8)                 :: Rr, Rr1   !minimum distance of Particle to sink
+    REAL(8)                 :: Rr12, Rr1, Rr2   !minimum distance of Particle to sink &
+                                                !either start or end point or point in between
     REAL(8), DIMENSION(3)   :: r12  !particle trajectory
     REAL(8), DIMENSION(3)   :: r1   !particle start vector, relative to sink
+    REAL(8), DIMENSION(3)   :: r2   !particle end vector, realtive to sink
     REAL(8), DIMENSION(3)   :: r1xr12!cross product of r1 and r12 
     REAL(8), DIMENSION(3)   :: R    !Position of the sink
     REAL(8), DIMENSION(3)   :: rd   !random displacement vector
@@ -62,23 +74,25 @@ SUBROUTINE sink(counter)
 
     counter = 0
 
-   !$OMP DO REDUCTION(+:counter) PRIVATE(Rr, rand, rd, r1, r12, r1xr12)
+   !$OMP DO REDUCTION(+:counter) PRIVATE(Rr1, Rr2, Rr12, rand, rd, r1, r2, r12, r1xr12)
     DO i = 1,npar
         r1  = R - parold(:,i)
+        r2  = R - par(:,i)
         r12 = parold(:,i) - par(:,i)
         r1xr12(1) = r1(2)*r12(3) - r1(3)*r12(2)
         r1xr12(2) = r1(3)*r12(1) - r1(1)*r12(3)
         r1xr12(3) = r1(1)*r12(2) - r1(2)*r12(1)
-        Rr  = SQRT(DOT_PRODUCT(r1xr12,r1xr12))/SQRT(DOT_PRODUCT(r12,r12))
+        Rr12  = SQRT(DOT_PRODUCT(r1xr12,r1xr12))/SQRT(DOT_PRODUCT(r12,r12))
         Rr1 = SQRT(DOT_PRODUCT(r1,r1))
-        IF( Rr < sink_radius*L .AND. &
-            Rr1 - ABS(SQRT(DOT_PRODUCT(r12,r12))) < sink_radius*L .AND. &
-            SQRT(DOT_PRODUCT(r12,r12)) .LE. SQRT(2*D*dt)) THEN
+        Rr2 = SQRT(DOT_PRODUCT(r2,r2))
+        IF( Rr2 < sink_radius*L &
+ !           .OR. Rr12  < sink_radius*L &
+            )THEN
             counter = counter + 1
-        print*, '-------------------------------------------------------------'
-        print*, parold(:,i) - R
-        print*, par(:,i) - R
-        print*, L*sink_radius, Rr, Rr1
+!       print*, '-------------------------------------------------------------'
+!       print*, parold(:,i) - R
+!       print*, par(:,i) - R
+!       print*, L*sink_radius, Rr12, Rr2
             CALL RANDOM_NUMBER(rand)
             rd(1) = (L/2. - thickness*rand(1))*COS(2*pi*rand(2))*SIN(pi*rand(3))
             rd(2) = (L/2. - thickness*rand(1))*SIN(2*pi*rand(2))*SIN(pi*rand(3))

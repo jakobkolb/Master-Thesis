@@ -6,6 +6,20 @@ IMPLICIT NONE
 
 CONTAINS
 
+SUBROUTINE init_parameters
+
+    USE global
+
+    INTEGER :: in=10
+
+    NAMELIST /PARAMETER/ npar, D, KT, dt, nt, L, sink_radius, thickness, nbins, gap, U1, U0
+
+    OPEN(unit=in, file='Parameters.in')
+    READ(in,PARAMETER)
+    CLOSE(in)
+
+END SUBROUTINE init_parameters
+
 SUBROUTINE init_particles
 
     USE global
@@ -18,6 +32,13 @@ SUBROUTINE init_particles
     INTEGER                 :: i, j, n
 
     WRITE(*,*) '->init_particles'
+
+    !Allocate particle array
+
+    ALLOCATE(par(1:3,1:npar))
+    ALLOCATE(parold(1:3,1:npar))
+
+    !Initialize Particle Possitions
 
     sink_poss = L/2
     n = 1

@@ -6,5 +6,5 @@ set xlabel "sink size"
 set ylabel  "absorption rate"
 
 
-plot "rate_data.out" u 1:2 every ::2 title "measured rate", "rate_data.out" u 1:3 every ::2 title "rate from /inf density"
+plot "rate_data.out" u 1:2:3 every ::2 with yerrorbars title "measured rate", "rate_data.out" u 1:2:3 every ::3 with yerrorbars title "rate from density on boundary"
 

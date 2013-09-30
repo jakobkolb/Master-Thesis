@@ -9,70 +9,77 @@ IMPLICIT NONE
 
     INTEGER     :: i, j
     INTEGER     :: counter
-    REAL(8)     :: t=0
+    REAL(8)     :: t=0, ct1, ct2, wt1, wt2
+    REAL(8)     :: omp_get_wtime
 
 
     CALL RANDOM_SEED
 
     CALL open_output_files
 
-!define simulation parameters
+!read simulation parameters
 
-    npar= 10000
-    D   = 1
-    KT  = 1
-    dt  = .01
-    nt  = 10000
-    L   = 100
-    sink_radius = 0
-    thickness = .1
-DO j = 1,4
+    CALL init_parameters
+
+!Iterate over scan Parameter
+
+    CALL CPU_TIME(ct1)
+    wt1 = omp_get_wtime()
+
+DO j = 1,10
     sink_radius = sink_radius + 0.01
-
-
-!Allocate particle array
-
-    ALLOCATE(par(1:3,1:npar))
-    ALLOCATE(parold(1:3,1:npar))
+    U1 = U1 + 0.01
 
 !Initialize particle possition randomly
 
     CALL init_particles
-    CALL init_statistics(100)
+
+!Initialize Statistics for histogramms and variable accumulation
+
+    CALL init_statistics(nbins)
 
 !start iteration for particles
 
-    tcounter = 0
+    print*, 'run simulation for j=', j
+
     DO i = 1,nt
 
-        IF( t/D > 10) THEN
-            CALL dens_statistics_accum(100)
+        IF( t*D > 1) THEN
+            CALL dens_statistics_accum(nbins)
         ENDIF
         
         parold = par
 
         CALL move_particles
         CALL sink(counter)
-
-!        IF(MODULO(i,10) == 0) THEN
-!            print*, i, counter, tcounter
-!        ENDIF
+        CALL make_periodic
 
         IF( t/D > 10) THEN
-            CALL rate_statistics_accum(counter, 100)
+            CALL rate_statistics_accum(counter, nbins)
         ENDIF
 
         t = t + dt
     ENDDO
+
+    print*, 'finalize simulation for j=', j
 
     DEALLOCATE(par)
     DEALLOCATE(parold)
 
 !build histogramm for density profile
 
-    CALL statistics_output(100)
+    CALL statistics_output(nbins)
     
 ENDDO
+
+    CALL CPU_TIME(ct2)
+    wt2 = omp_get_wtime()
+
+    print*, (ct2-ct1), (ct2-ct1)/npar/nt/4
+    print*, (wt2-wt1), (wt2-wt1)/npar/nt/4
+
+
+
     CALL close_output_files
 
 END PROGRAM BDS
