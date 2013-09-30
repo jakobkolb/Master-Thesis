@@ -46,7 +46,8 @@ SUBROUTINE init_particles
 
     DO i = 1,1001
         r = i*L/2*(1-sink_radius)/1000 + L/2*sink_radius
-        CDF(i) = r**3/3 - L*sink_radius*r**2 + (L*sink_radius)**3/6
+        CDF(i) = r**3
+        IF(r .LE. L*sink_radius) CDF(i) = 0
     ENDDO
 
     CDF = CDF/CDF(1000)

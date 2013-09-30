@@ -65,16 +65,9 @@ SUBROUTINE sink(counter)
 
    !$OMP DO REDUCTION(+:counter) PRIVATE(Rr, rand, rd, r1, r12, r1xr12)
     DO i = 1,npar
-        r1  = R - parold(:,i)
-        r12 = parold(:,i) - par(:,i)
-        r1xr12(1) = r1(2)*r12(3) - r1(3)*r12(2)
-        r1xr12(2) = r1(3)*r12(1) - r1(1)*r12(3)
-        r1xr12(3) = r1(1)*r12(2) - r1(2)*r12(1)
-        Rr  = SQRT(DOT_PRODUCT(r1xr12,r1xr12))/SQRT(DOT_PRODUCT(r12,r12))
+        r1  = R - par(:,i)
         Rr1 = SQRT(DOT_PRODUCT(r1,r1))
-        IF( Rr < sink_radius*L .AND. &
-            Rr1 - ABS(SQRT(DOT_PRODUCT(r12,r12))) < sink_radius*L .AND. &
-            SQRT(DOT_PRODUCT(r12,r12)) .LE. SQRT(2*D*dt)) THEN
+        IF( Rr1 < sink_radius*L ) THEN
             counter = counter + 1
         print*, '-------------------------------------------------------------'
         print*, parold(:,i) - R

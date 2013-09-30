@@ -5,7 +5,7 @@
     dt  = .01
     nt  = 10000
     L   = 200
-    sink_radius = 0.005
+    sink_radius = 0.05
     thickness = .1
     nbins   = 100
     gap     = 0.02

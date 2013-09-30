@@ -7,28 +7,27 @@ USE statistics
 
 IMPLICIT NONE
 
-    INTEGER     :: i, j
+    INTEGER     :: i, j, k
     INTEGER     :: counter
     REAL(8)     :: t=0, ct1, ct2, wt1, wt2
     REAL(8)     :: omp_get_wtime
+    REAL(8), DIMENSION(2,100) :: hist
+
 
 
     CALL RANDOM_SEED
 
     CALL open_output_files
 
+    OPEN(unit = 25, file = 'initial_dens.out', action='write')
 !read simulation parameters
 
     CALL init_parameters
 
 !Iterate over scan Parameter
 
-DO j = 1,4
-    sink_radius = sink_radius + 0.005
     CALL CPU_TIME(ct1)
     wt1 = omp_get_wtime()
-
-    U1 = U1 + 0.01
 
 !Initialize particle possition randomly
 
@@ -44,14 +43,26 @@ DO j = 1,4
 
     DO i = 1,nt
 
+    IF( mod(i,100) .EQ. 0) THEN
+    CALL histogramm(100, hist)
+    DO j = 1,100
+    WRITE(25,*) hist(:,j)
+    ENDDO
+    WRITE(25,*)
+    ENDIF
+
+        IF(t*D > 1) THEN
         CALL dens_statistics_accum(nbins)
-        
+        ENDIF
+
         parold = par
 
         CALL move_particles
-        CALL sink(counter)
-
+!        CALL sink(counter)
+counter = 0
+        IF(t*D > 1) THEN
         CALL rate_statistics_accum(counter, nbins)
+        ENDIF
 
         t = t + dt
     ENDDO
@@ -63,8 +74,6 @@ DO j = 1,4
 !build histogramm for density profile
 
     CALL statistics_output(nbins)
-    
-ENDDO
 
     CALL CPU_TIME(ct2)
     wt2 = omp_get_wtime()
@@ -75,5 +84,5 @@ ENDDO
 
 
     CALL close_output_files
-
+    CLOSE(25)
 END PROGRAM BDS

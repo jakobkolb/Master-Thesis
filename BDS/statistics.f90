@@ -53,7 +53,8 @@ CONTAINS
     WRITE(rate_final, *)
 
     WRITE(*, *) aver5(bins+1), sigma5(bins+1)
-    WRITE(*, *) 4*pi*D*sink_radius*L*aver5(bins), 4*pi*D*sink_radius*L*sigma5(bins)
+    WRITE(*, *) 4*pi*D*sink_radius*L*aver5(INT(bins/2))/(1-sink_radius*4),&
+                4*pi*D*sink_radius*L*sigma5(INT(bins/2))/(1-sink_radius*4)
 
 
     END SUBROUTINE statistics_output
