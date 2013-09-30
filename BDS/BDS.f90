@@ -23,7 +23,7 @@ IMPLICIT NONE
 
 !Iterate over scan Parameter
 
-DO j = 1,20
+DO j = 1,4
     sink_radius = sink_radius + 0.005
     CALL CPU_TIME(ct1)
     wt1 = omp_get_wtime()
@@ -44,18 +44,14 @@ DO j = 1,20
 
     DO i = 1,nt
 
-        IF( t*D > 1) THEN
-            CALL dens_statistics_accum(nbins)
-        ENDIF
+        CALL dens_statistics_accum(nbins)
         
         parold = par
 
         CALL move_particles
         CALL sink(counter)
 
-        IF( t/D > 10) THEN
-            CALL rate_statistics_accum(counter, nbins)
-        ENDIF
+        CALL rate_statistics_accum(counter, nbins)
 
         t = t + dt
     ENDDO
@@ -64,7 +60,6 @@ DO j = 1,20
 
     DEALLOCATE(par)
     DEALLOCATE(parold)
-    DEALLOCATE(dr)
 !build histogramm for density profile
 
     CALL statistics_output(nbins)
