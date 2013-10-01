@@ -39,21 +39,14 @@ CONTAINS
 
 
     DO i = 1,bins
-        WRITE(dens_final, *) (REAL(i)+.5)/REAL(bins)*L/2, aver5(i), sigma5(i)
+        WRITE(dens_final, *) (REAL(i)-.5)/REAL(bins)*L/2, aver5(i), sigma5(i)
     ENDDO
     WRITE(dens_final,*)
 
-    WRITE(rate_final, *) "this file contains data for diffusion constant, size of sink and absorption rate"
-    WRITE(rate_final, *) D, sigma5(bins+1)
+    WRITE(rate_final, *) "this file contains data for diffusion constant, size of sink and measured absorption rate"
+    WRITE(rate_final, *) D, sink_radius*L
     WRITE(rate_final, *) sink_radius*L, aver5(bins+1), sigma5(bins+1)
-    WRITE(rate_final, *) sink_radius*L, 4*pi*sink_radius*L*D*aver5(bins-1), &
-                         4*pi*sink_radius*L*D*sigma5(bins-1)
     WRITE(rate_final, *)
-
-    WRITE(*, *) aver5(bins+1), sigma5(bins+1)
-    WRITE(*, *) 4*pi*D*sink_radius*L*aver5(bins), 4*pi*D*sink_radius*L*sigma5(bins)
- 
-
 
     END SUBROUTINE statistics_output
 
@@ -70,6 +63,7 @@ CONTAINS
 
     POS = L/2
 
+    !$OMP PARALLEL DO REDUCTION(+:hist)
     DO i = 1,npar
         r = SQRT(DOT_PRODUCT(par(:,i)-POS,par(:,i)-POS))
         binnumber = INT(r/(L/2)*bins)
@@ -77,6 +71,7 @@ CONTAINS
             hist(binnumber) = hist(binnumber) + 1
         ENDIF
     ENDDO
+    !$OMP END PARALLEL DO
     DO i = 1,bins
         vbin = 4/3*pi*((REAL(i+1)/REAL(bins)*L/2)**3 - (REAL(i)/REAL(bins)*L/2)**3)
         output(1,i) = REAL(i)/REAL(bins)*L/2

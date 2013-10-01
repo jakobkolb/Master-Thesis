@@ -26,9 +26,6 @@ IMPLICIT NONE
     CALL CPU_TIME(ct1)
     wt1 = omp_get_wtime()
 
-DO j = 1,10
-    sink_radius = sink_radius + 0.01
-    U1 = U1 + 0.01
 
 !Initialize particle possition randomly
 
@@ -70,8 +67,6 @@ DO j = 1,10
 
     CALL statistics_output(nbins)
     
-ENDDO
-
     CALL CPU_TIME(ct2)
     wt2 = omp_get_wtime()
 
