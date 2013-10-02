@@ -2,7 +2,7 @@
 
 import numpy as np
 import matplotlib.pyplot as mp
-import scipy.optimize as so
+#import scipy.optimize as so
 
 a = np.loadtxt('dens_data.out')
 

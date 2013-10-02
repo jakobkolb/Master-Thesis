@@ -37,10 +37,10 @@ IMPLICIT NONE
 
 !start iteration for particles
 
-    print*, 'run simulation for j=', j
-
     DO i = 1,nt
-    IF(mod(i,int(nt/100)) .EQ. 0) WRITE(*,*) real(i)/nt*100
+
+    IF(mod(i,int(nt/100)) .EQ. 0) WRITE(*,*) INT(REAL(i)/real(nt)*100), '% done'
+
         IF( t*D > 1) THEN
             CALL dens_statistics_accum(nbins)
         ENDIF

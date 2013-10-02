@@ -44,8 +44,8 @@ CONTAINS
     WRITE(dens_final,*)
 
     WRITE(rate_final, *) "this file contains data for diffusion constant, size of sink and measured absorption rate"
-    WRITE(rate_final, *) D, sink_radius*L
-    WRITE(rate_final, *) sink_radius*L, aver5(bins+1), sigma5(bins+1)
+    WRITE(rate_final, *) D, sink_radius
+    WRITE(rate_final, *) sink_radius, aver5(bins+1), sigma5(bins+1)
     WRITE(rate_final, *)
 
     END SUBROUTINE statistics_output

@@ -2,12 +2,12 @@
     npar= 15000
     D   = 1
     KT  = 1
-    dt  = .001
+    dt  = .01
     nt  = 1000000
     L   = 200
-    sink_radius = 0
+    sink_radius = 1
     thickness = .1
-    nbins   = 50
+    nbins   = 1000
     gap     = 0.02
     U1      = 0.04
     U0      = 0

@@ -12,14 +12,16 @@ SUBROUTINE move_particles
     REAL(8), DIMENSION(3,npar)  :: nrand1, nrand2
     REAL(8), DIMENSION(3,npar)  :: f_eff
     REAL(8)                     :: Dprime, r
-    INTEGER                     :: i
+    INTEGER                     :: i, j
 
     CALL RANDOM_NUMBER(nrand1)
     CALL RANDOM_NUMBER(nrand2)
 
     !$OMP PARALLEL DO
     DO i = 1,npar
-        erand(:,i) = SQRT(-2*LOG(nrand1(:,i)))*COS(2*pi*nrand2(:,i))
+        DO j = 1,3
+            erand(j,i) = SQRT(-2*LOG(nrand1(j,i)))*COS(2*pi*nrand2(j,i))
+        ENDDO
     ENDDO
     !$OMP END PARALLEL DO
 
@@ -38,9 +40,13 @@ SUBROUTINE move_particles
 
     !$OMP PARALLEL DO
     DO i = 1,npar
-        par(:,i) = par(:,i) +f_eff(:,i) + Dprime*erand(:,i)
+        DO j = 1,3
+            par(j,i) = par(j,i) +f_eff(j,i) + Dprime*erand(j,i)
+        ENDDO
     ENDDO
     !$OMP END PARALLEL DO
+
+    CALL make_periodic
 
 END SUBROUTINE move_particles
 
@@ -50,7 +56,9 @@ SUBROUTINE make_periodic
     
     !$OMP PARALLEL DO
     DO i = 1,npar
-        par(:,i) = MODULO(par(:,i),L)
+        DO j = 1,3
+            par(j,i) = MODULO(par(j,i),L)
+        ENDDO
     ENDDO
     !$OMP END PARALLEL DO
 
@@ -76,23 +84,10 @@ SUBROUTINE sink(counter)
 
    !$OMP DO REDUCTION(+:counter) PRIVATE(Rr1, Rr2, Rr12, rand, rd, r1, r2, r12, r1xr12)
     DO i = 1,npar
-        r1  = R - parold(:,i)
         r2  = R - par(:,i)
-        r12 = parold(:,i) - par(:,i)
-        r1xr12(1) = r1(2)*r12(3) - r1(3)*r12(2)
-        r1xr12(2) = r1(3)*r12(1) - r1(1)*r12(3)
-        r1xr12(3) = r1(1)*r12(2) - r1(2)*r12(1)
-        Rr12  = SQRT(DOT_PRODUCT(r1xr12,r1xr12))/SQRT(DOT_PRODUCT(r12,r12))
-        Rr1 = SQRT(DOT_PRODUCT(r1,r1))
         Rr2 = SQRT(DOT_PRODUCT(r2,r2))
-        IF( Rr2 < sink_radius*L &
- !           .OR. Rr12  < sink_radius*L &
-            )THEN
+        IF( Rr2 < sink_radius )THEN
             counter = counter + 1
-!       print*, '-------------------------------------------------------------'
-!       print*, parold(:,i) - R
-!       print*, par(:,i) - R
-!       print*, L*sink_radius, Rr12, Rr2
             CALL RANDOM_NUMBER(rand)
             rd(1) = (L/2. - thickness*rand(1))*COS(2*pi*rand(2))*SIN(pi*rand(3))
             rd(2) = (L/2. - thickness*rand(1))*SIN(2*pi*rand(2))*SIN(pi*rand(3))
