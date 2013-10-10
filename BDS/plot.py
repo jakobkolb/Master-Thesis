@@ -6,6 +6,7 @@ import matplotlib.pyplot as mp
 
 a = np.loadtxt('dens_data.out')
 
+
 print a[0,:]
 
 mp.figure(1)

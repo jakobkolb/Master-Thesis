@@ -12,7 +12,7 @@ CONTAINS
     INTEGER             :: i
     REAL(8), DIMENSION(2,bins) :: hist
 
-    CALL histogramm(bins,hist)
+    CALL histogramm(par, hist, bins)
 
     DO i = 1,bins
         CALL accum5(i,hist(2,i)) 
@@ -44,40 +44,79 @@ CONTAINS
     WRITE(dens_final,*)
 
     WRITE(rate_final, *) "this file contains data for diffusion constant, size of sink and measured absorption rate"
-    WRITE(rate_final, *) D, sink_radius
     WRITE(rate_final, *) sink_radius, aver5(bins+1), sigma5(bins+1)
     WRITE(rate_final, *)
 
     END SUBROUTINE statistics_output
 
-    SUBROUTINE histogramm(bins, output)
+    SUBROUTINE kl_div_output(t, bins)
+
+    REAL(8), INTENT(in)         :: t
+    INTEGER, INTENT(in)         :: bins
+    REAL(8)                     :: S
+    INTEGER                     :: i
+    REAL(8), DIMENSION(2,bins)  :: oldhist, newhist
+
+    CALL histogramm(parold, oldhist, bins)
+    CALL histogramm(par   , newhist, bins)
+
+    S = 0
+
+    DO i = 1,bins
+       IF(oldhist(2,i) > 0 .AND. newhist(2,i) > 0) S = S + oldhist(2,i)*log(oldhist(2,i)/newhist(2,i))
+    ENDDO
+    WRITE(kl_div,*) t, S
+
+    END SUBROUTINE kl_div_output
+
+    SUBROUTINE histogramm(X, Xhist, bins)
 
     INTEGER, INTENT(in) :: bins
-    INTEGER :: i, binnumber
+    INTEGER :: i, imax, binnumber
     REAL    :: r, vbin
     REAL(8), DIMENSION(3)   :: POS
     INTEGER, DIMENSION(bins)  :: hist
-    REAL(8), DIMENSION(:,:), INTENT(out) :: output
+    REAL(8), DIMENSION(2,bins), INTENT(out) :: Xhist
+    REAL(8), DIMENSION(:,:), INTENT(in)  :: X
 
     hist = 0
-
+    Xhist = 0
+    imax = SIZE(X,2)
     POS = L/2
 
     !$OMP PARALLEL DO REDUCTION(+:hist)
-    DO i = 1,npar
-        r = SQRT(DOT_PRODUCT(par(:,i)-POS,par(:,i)-POS))
+    DO i = 1,imax
+        r = SQRT(DOT_PRODUCT(X(:,i)-POS,X(:,i)-POS))
         binnumber = INT(r/(L/2)*bins)
         IF(binnumber .LE. bins .AND. binnumber > 0) THEN
             hist(binnumber) = hist(binnumber) + 1
         ENDIF
     ENDDO
     !$OMP END PARALLEL DO
+
     DO i = 1,bins
         vbin = 4/3*pi*((REAL(i+1)/REAL(bins)*L/2)**3 - (REAL(i)/REAL(bins)*L/2)**3)
-        output(1,i) = REAL(i)/REAL(bins)*L/2
-        output(2,i) = REAL(hist(i))/vbin
+        Xhist(1,i) = (REAL(i)+.5)/REAL(bins)*L/2
+        Xhist(2,i) = REAL(hist(i))/vbin
     ENDDO
     END SUBROUTINE histogramm
+
+    SUBROUTINE KL_DIVERGENCE(q, p, S)
+
+    REAL(8), DIMENSION(:), INTENT(in)   :: p, q
+    REAL(8), INTENT(out)                :: S
+    INTEGER                             :: imax, i
+
+    imax = SIZE(p)
+
+    S = 0
+
+    DO i = 1, imax
+        S = S + p(i)*log(p(i)/q(i))
+    ENDDO
+
+    END SUBROUTINE KL_DIVERGENCE
+    
 
 END MODULE statistics
 

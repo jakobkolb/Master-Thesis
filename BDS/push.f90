@@ -28,13 +28,8 @@ SUBROUTINE move_particles
     f_eff = 0
 
 !    !$OMP PARALLEL DO
-!    DO i = 1,npar
-!        r = SQRT(DOT_PRODUCT(par(:,i) - L/2, par(:,i) - L/2))
-!        IF(r > sink_radius*L + gap .AND. r < sink_radius*L + 2*U1*L + gap) THEN
-!            f_eff(:,i) = -U0*2*(r-sink_radius*L-U1*L)*(par(:,i)-L/2)/r
-!        ENDIF
-!    ENDDO
-!   !$OMP END PARALLEL DO
+!CALCULATE INTERACTION FORCES HERE
+!    !$OMP END PARALLEL DO
 
     Dprime = SQRT(2*D*dt)
 
@@ -66,27 +61,23 @@ END SUBROUTINE make_periodic
 
 SUBROUTINE sink(counter)
 
-    REAL(8)                 :: Rr12, Rr1, Rr2   !minimum distance of Particle to sink &
-                                                !either start or end point or point in between
-    REAL(8), DIMENSION(3)   :: r12  !particle trajectory
-    REAL(8), DIMENSION(3)   :: r1   !particle start vector, relative to sink
-    REAL(8), DIMENSION(3)   :: r2   !particle end vector, realtive to sink
-    REAL(8), DIMENSION(3)   :: r1xr12!cross product of r1 and r12 
-    REAL(8), DIMENSION(3)   :: R    !Position of the sink
+    REAL(8)                 :: Rr   !minimum distance of Particle to sink
+    REAL(8), DIMENSION(3)   :: r    !particle vector relative to sink
+    REAL(8), DIMENSION(3)   :: Rs   !Position of the sink
     REAL(8), DIMENSION(3)   :: rd   !random displacement vector
     REAL(8), DIMENSION(4)   :: rand
     INTEGER, INTENT(out)    :: counter !counter for absorbed particles
     INTEGER                 :: i, j
 
-    R = L/2.
+    Rs = L/2.
 
     counter = 0
 
-   !$OMP DO REDUCTION(+:counter) PRIVATE(Rr1, Rr2, Rr12, rand, rd, r1, r2, r12, r1xr12)
+   !$OMP DO REDUCTION(+:counter) PRIVATE(Rr, rand, rd, r)
     DO i = 1,npar
-        r2  = R - par(:,i)
-        Rr2 = SQRT(DOT_PRODUCT(r2,r2))
-        IF( Rr2 < sink_radius )THEN
+        r  = Rs - par(:,i)
+        Rr = SQRT(DOT_PRODUCT(r,r))
+        IF( Rr < sink_radius )THEN
             counter = counter + 1
             CALL RANDOM_NUMBER(rand)
             rd(1) = (L/2. - thickness*rand(1))*COS(2*pi*rand(2))*SIN(pi*rand(3))

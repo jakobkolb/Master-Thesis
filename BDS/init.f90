@@ -11,26 +11,38 @@ SUBROUTINE init_parameters
 
     USE global
 
-    INTEGER :: in=10
+    INTEGER :: in=10, tmp
+    REAL(8) :: nparin, ntin
+    CHARACTER(2)    :: trig, arg
 
-    NAMELIST /PARAMETER/ npar, D, KT, dt, nt, L, sink_radius, thickness, nbins, gap, U1, U0
+    NAMELIST /PARAMETER/ nparin, D, KT, dt, ntin, L, sink_radius, thickness, nbins, gap, U1, U0
 
     OPEN(unit=in, file='Parameters.in')
     READ(in,PARAMETER)
     CLOSE(in)
 
+    npar = INT(nparin)
+    nt   = INT(ntin)
+    dt   = dt*sink_radius**2/D
+
+    CALL GETARG(2, arg)
+    CALL GETARG(1, trig)
+
+    read( arg, '(i10)') tmp
+
+    print*, 'Ra =', tmp
+
+    IF(trig .EQ. 'Ra') sink_radius = tmp
+    
+
 END SUBROUTINE init_parameters
 
 SUBROUTINE init_particles
 
-    USE global
-
-    IMPLICIT NONE
-
-    REAL(8), DIMENSION(1001):: CDF
-    REAL(8), DIMENSION(3)   :: rnd
-    REAL(8)                 :: r, theta, phi
-    INTEGER                 :: i, j
+    REAL(8), DIMENSION(3)   :: rand, r, sink_poss
+    REAL(8), DIMENSION(4)   :: randbm
+    REAL(8)                 :: dr
+    INTEGER                 :: i, j, n
 
     WRITE(*,*) '->init_particles'
 
@@ -41,31 +53,18 @@ SUBROUTINE init_particles
 
     !Initialize Particle Possitions
 
-    par = L/2
-
-!   DO i = 1,1001
-!       r = i*(L/2 - sink_radius)/1000 + sink_radius
-!       CDF(i) = r**3/3
-!   ENDDO
-!
-!   CDF = (CDF - CDF(1))/CDF(1000)
-!
-    DO i = 1,npar
- 
-        CALL RANDOM_NUMBER(rnd)
-!       j = 0
-!       DO
-!           j = j + 1
-!           IF(rnd(1) < CDF(j)) EXIT
-!       ENDDO
-!       r       = j*(L/2 - sink_radius)/1000 + sink_radius
-        r = L/2*rnd(1)**(1/3.)
-        theta   = 1*pi*rnd(2)
-        phi     = ACOS(2*rnd(3) - 1)
-        par(1,i) = par(1,i)+r*SIN(theta)*COS(phi)
-        par(2,i) = par(2,i)+r*SIN(theta)*SIN(phi)
-        par(3,i) = par(3,i)+r*COS(theta)
-     ENDDO
+    sink_poss = L/2
+    n = 1
+    DO
+        CALL RANDOM_NUMBER(rand)
+        par(:,n) = L*rand              !insert particle at random location in box
+            r = sink_poss - par(:,n)
+            dr = SQRT(DOT_PRODUCT(r,r))
+            IF(dr > sink_radius) THEN
+                n = n + 1
+            ENDIF
+        IF(n == npar) EXIT        !stopp if total particle count is reached
+    ENDDO
 
 END SUBROUTINE init_particles
 
@@ -79,11 +78,13 @@ END SUBROUTINE init_statistics
 
 SUBROUTINE open_output_files
 
-    dens_final = 20
-    rate_final = 21
+    dens_final  = 20
+    rate_final  = 21
+    kl_div      = 22
 
     OPEN(unit=dens_final, file="dens_data.out", action="write")
     OPEN(unit=rate_final, file="rate_data.out", action="write")
+    OPEN(unit=kl_div,     file="kl_div.out",    action="write")
 
 
 END SUBROUTINE open_output_files
@@ -92,6 +93,7 @@ SUBROUTINE close_output_files
 
     CLOSE(dens_final)
     CLOSE(rate_final)
+    CLOSE(kl_div)
 
 END SUBROUTINE close_output_files
 

@@ -36,12 +36,11 @@ IMPLICIT NONE
     CALL init_statistics(nbins)
 
 !start iteration for particles
-
     DO i = 1,nt
 
     IF(mod(i,int(nt/100)) .EQ. 0) WRITE(*,*) INT(REAL(i)/real(nt)*100), '% done'
 
-        IF( t*D > 1) THEN
+        IF( t*D/sink_radius**2 > 3) THEN
             CALL dens_statistics_accum(nbins)
         ENDIF
         
@@ -49,9 +48,10 @@ IMPLICIT NONE
 
         CALL move_particles
         CALL sink(counter)
-        CALL make_periodic
 
-        IF( t/D > 10) THEN
+        CALL kl_div_output(t, 100)
+
+        IF( t/D/sink_radius > 3) THEN
             CALL rate_statistics_accum(counter, nbins)
         ENDIF
 
@@ -70,8 +70,8 @@ IMPLICIT NONE
     CALL CPU_TIME(ct2)
     wt2 = omp_get_wtime()
 
-    print*, (ct2-ct1), (ct2-ct1)/npar/nt/4
-    print*, (wt2-wt1), (wt2-wt1)/npar/nt/4
+    print*, (ct2-ct1), (ct2-ct1)/npar/nt
+    print*, (wt2-wt1), (wt2-wt1)/npar/nt
 
 
 
