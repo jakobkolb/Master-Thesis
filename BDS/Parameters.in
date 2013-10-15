@@ -1,13 +1,13 @@
 &parameter
-    npar= 1500
-    D   = 1
-    KT  = 1
-    dt  = .1
-    nt  = 10000
-    L   = 200
-    sink_radius = 0
+    nparin  = 1.5D3
+    D       = 1
+    KT      = 1
+    dt      = 3.0D-3 ! in units of D/a^2
+    ntin    = 1.0D6
+    L       = 200
+    sink_radius = 5
     thickness = .1
-    nbins   = 50
+    nbins   = 1000
     gap     = 0.02
     U1      = 0.04
     U0      = 0
