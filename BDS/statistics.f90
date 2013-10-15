@@ -39,7 +39,7 @@ CONTAINS
 
 
     DO i = 1,bins
-        WRITE(dens_final, *) (REAL(i))/REAL(bins)*L/2, aver5(i), sigma5(i)
+        WRITE(dens_final, *) (REAL(i))/REAL(bins)*L/SQRT(2.), aver5(i), sigma5(i)
     ENDDO
     WRITE(dens_final,*)
 
@@ -67,7 +67,7 @@ CONTAINS
     !$OMP PARALLEL DO REDUCTION(+:hist) PRIVATE(binnumber, r)
     DO i = 1,imax
         r = SQRT(DOT_PRODUCT(X(:,i)-POS,X(:,i)-POS))
-        binnumber = INT(r/(L/2)*bins)
+        binnumber = INT(r/(L/SQRT(2.))*bins)
         IF(binnumber < bins) THEN
             hist(binnumber) = hist(binnumber) + 1
         ENDIF
@@ -75,8 +75,8 @@ CONTAINS
     !$OMP END PARALLEL DO
 
     DO i = 1,bins
-        vbin = 4/3*pi*((REAL(i+1)/REAL(bins)*L/2)**3 - (REAL(i)/REAL(bins)*L/2)**3)
-        Xhist(1,i) = (REAL(i))/REAL(bins)*L/2
+        vbin = 4/3*pi*((REAL(i+1)/REAL(bins)*L/SQRT(2.))**3 - (REAL(i)/REAL(bins)*L/SQRT(2.))**3)
+        Xhist(1,i) = (REAL(i))/REAL(bins)*L/SQRT(2.)
         Xhist(2,i) = REAL(hist(i))/vbin
     ENDDO
 
