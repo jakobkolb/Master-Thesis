@@ -39,7 +39,7 @@ CONTAINS
 
 
     DO i = 1,bins
-        WRITE(dens_final, *) (REAL(i)-.5)/REAL(bins)*L/2, aver5(i), sigma5(i)
+        WRITE(dens_final, *) (REAL(i)+.5)/REAL(bins)*L/2, aver5(i), sigma5(i)
     ENDDO
     WRITE(dens_final,*)
 
@@ -48,26 +48,6 @@ CONTAINS
     WRITE(rate_final, *)
 
     END SUBROUTINE statistics_output
-
-    SUBROUTINE kl_div_output(t, bins)
-
-    REAL(8), INTENT(in)         :: t
-    INTEGER, INTENT(in)         :: bins
-    REAL(8)                     :: S
-    INTEGER                     :: i
-    REAL(8), DIMENSION(2,bins)  :: oldhist, newhist
-
-    CALL histogramm(parold, oldhist, bins)
-    CALL histogramm(par   , newhist, bins)
-
-    S = 0
-
-    DO i = 1,bins
-       IF(oldhist(2,i) > 0 .AND. newhist(2,i) > 0) S = S + oldhist(2,i)*log(oldhist(2,i)/newhist(2,i))
-    ENDDO
-    WRITE(kl_div,*) t, S
-
-    END SUBROUTINE kl_div_output
 
     SUBROUTINE histogramm(X, Xhist, bins)
 
