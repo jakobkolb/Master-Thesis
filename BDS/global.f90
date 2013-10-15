@@ -11,6 +11,6 @@ IMPLICIT NONE
     REAL(8)                                 :: sink_radius, thickness
     REAL(8)                                 :: U1, gap, U0
 
-    INTEGER :: dens_final, rate_final, kl_div
+    INTEGER :: dens_final, rate_final
 
 END MODULE global

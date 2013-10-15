@@ -80,11 +80,9 @@ SUBROUTINE open_output_files
 
     dens_final  = 20
     rate_final  = 21
-    kl_div      = 22
 
     OPEN(unit=dens_final, file="dens_data.out", action="write")
     OPEN(unit=rate_final, file="rate_data.out", action="write")
-    OPEN(unit=kl_div,     file="kl_div.out",    action="write")
 
 
 END SUBROUTINE open_output_files
@@ -93,7 +91,6 @@ SUBROUTINE close_output_files
 
     CLOSE(dens_final)
     CLOSE(rate_final)
-    CLOSE(kl_div)
 
 END SUBROUTINE close_output_files
 

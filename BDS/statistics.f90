@@ -39,7 +39,7 @@ CONTAINS
 
 
     DO i = 1,bins
-        WRITE(dens_final, *) (REAL(i)+.5)/REAL(bins)*L/2, aver5(i), sigma5(i)
+        WRITE(dens_final, *) (REAL(i))/REAL(bins)*L/2, aver5(i), sigma5(i)
     ENDDO
     WRITE(dens_final,*)
 
@@ -64,11 +64,11 @@ CONTAINS
     imax = SIZE(X,2)
     POS = L/2
 
-    !$OMP PARALLEL DO REDUCTION(+:hist)
+    !$OMP PARALLEL DO REDUCTION(+:hist) PRIVATE(binnumber, r)
     DO i = 1,imax
         r = SQRT(DOT_PRODUCT(X(:,i)-POS,X(:,i)-POS))
         binnumber = INT(r/(L/2)*bins)
-        IF(binnumber .LE. bins .AND. binnumber > 0) THEN
+        IF(binnumber < bins) THEN
             hist(binnumber) = hist(binnumber) + 1
         ENDIF
     ENDDO
@@ -76,27 +76,11 @@ CONTAINS
 
     DO i = 1,bins
         vbin = 4/3*pi*((REAL(i+1)/REAL(bins)*L/2)**3 - (REAL(i)/REAL(bins)*L/2)**3)
-        Xhist(1,i) = (REAL(i)+.5)/REAL(bins)*L/2
+        Xhist(1,i) = (REAL(i))/REAL(bins)*L/2
         Xhist(2,i) = REAL(hist(i))/vbin
     ENDDO
+
     END SUBROUTINE histogramm
-
-    SUBROUTINE KL_DIVERGENCE(q, p, S)
-
-    REAL(8), DIMENSION(:), INTENT(in)   :: p, q
-    REAL(8), INTENT(out)                :: S
-    INTEGER                             :: imax, i
-
-    imax = SIZE(p)
-
-    S = 0
-
-    DO i = 1, imax
-        S = S + p(i)*log(p(i)/q(i))
-    ENDDO
-
-    END SUBROUTINE KL_DIVERGENCE
-    
 
 END MODULE statistics
 

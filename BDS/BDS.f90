@@ -48,8 +48,6 @@ IMPLICIT NONE
         CALL move_particles
         CALL sink(counter)
 
-        CALL kl_div_output(t, 100)
-
         IF( t/D/sink_radius > 3) THEN
             CALL rate_statistics_accum(counter, nbins)
         ENDIF
