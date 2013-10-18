@@ -71,6 +71,7 @@ SUBROUTINE maintain_boundary_conditions(counter)
             rd(2) = SIN(phi)*SIN(theta)
             rd(3) = COS(theta) 
             par(:,i) = r + (L/2. - thickness*rand(1))*rd
+            print*, '##############inbound#############', Rr
         ELSEIF( Rr > L/2 )THEN
             CALL RANDOM_NUMBER(rand)
             theta   = 2*pi*rand(2)
@@ -78,7 +79,7 @@ SUBROUTINE maintain_boundary_conditions(counter)
             rd(1) = COS(phi)*SIN(theta)
             rd(2) = SIN(phi)*SIN(theta)
             rd(3) = COS(theta) 
-            par(:,i) = (2*R - Rr)*rd
+            par(:,i) = Rs + (L - Rr)*rd
         ENDIF
     ENDDO
     !$OMP END DO

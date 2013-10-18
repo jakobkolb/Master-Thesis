@@ -15,7 +15,7 @@ SUBROUTINE init_parameters
     REAL(8) :: nparin, ntin
     CHARACTER(2)    :: trig, arg
 
-    NAMELIST /PARAMETER/ nparin, D, KT, dt, ntin, L, sink_radius, thickness, nbins, gap, U1, U0
+    NAMELIST /PARAMETER/ nparin, D, KT, dt, ntin, L, sink_radius, thickness, nbins, gap, U1, U0, t0, t1
 
     OPEN(unit=in, file='Parameters.in')
     READ(in,PARAMETER)
@@ -23,7 +23,9 @@ SUBROUTINE init_parameters
 
     npar = INT(nparin)
     nt   = INT(ntin)
-    dt   = dt*sink_radius**2/D
+    dt   = dt/sink_radius**2/D
+    t0   = t0/sink_radius**2/D
+    t1   = t1/sink_radius**2/D
 
     CALL GETARG(2, arg)
     CALL GETARG(1, trig)

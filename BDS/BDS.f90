@@ -35,11 +35,15 @@ IMPLICIT NONE
     CALL init_statistics(nbins)
 
 !start iteration for particles
-    DO i = 1,nt
+
+WRITE(*,*) "do simulation for ", INT(t1/dt), " iterations"
+WRITE(*,*) "collect ", INT((t1-t0)/dt), " samples"
+
+    WHILE(t<t1)
 
     IF(mod(i,int(nt/100)) .EQ. 0) WRITE(*,*) INT(REAL(i)/real(nt)*100), '% done'
 
-        IF( t*D/sink_radius**2 > 3) THEN
+        IF( t > t0) THEN
             CALL dens_statistics_accum(nbins)
         ENDIF
         
@@ -48,7 +52,8 @@ IMPLICIT NONE
         CALL move_particles
         CALL maintain_boundary_conditions(counter)
 
-        IF( t/D/sink_radius > 3) THEN
+        IF( t > t0) THEN
+            IF(mod(i,int(nt/100)) .EQ. 0) WRITE(*,*) 'sampling'
             CALL rate_statistics_accum(counter, nbins)
         ENDIF
 

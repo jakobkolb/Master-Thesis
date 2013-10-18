@@ -3,7 +3,9 @@
     D       = 1
     KT      = 1
     dt      = 3.0D-3 ! in units of D/a^2
-    ntin    = 1.0D5
+    t0      = 0.1
+    t1      = 1
+    ntin    = 1.0D6
     L       = 200
     sink_radius = 5
     thickness = .1
