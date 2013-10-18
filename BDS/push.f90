@@ -41,31 +41,16 @@ SUBROUTINE move_particles
     ENDDO
     !$OMP END PARALLEL DO
 
-    CALL make_periodic
-
 END SUBROUTINE move_particles
 
-SUBROUTINE make_periodic
-
-    INTEGER :: i, j
-    
-    !$OMP PARALLEL DO
-    DO i = 1,npar
-        DO j = 1,3
-            par(j,i) = MODULO(par(j,i),L)
-        ENDDO
-    ENDDO
-    !$OMP END PARALLEL DO
-
-END SUBROUTINE make_periodic
-
-SUBROUTINE sink(counter)
+SUBROUTINE maintain_boundary_conditions(counter)
 
     REAL(8)                 :: Rr   !minimum distance of Particle to sink
     REAL(8), DIMENSION(3)   :: r    !particle vector relative to sink
     REAL(8), DIMENSION(3)   :: Rs   !Position of the sink
     REAL(8), DIMENSION(3)   :: rd   !random displacement vector
     REAL(8), DIMENSION(4)   :: rand
+    REAL(8)                 :: theta, phi !angles for random sphere point picking
     INTEGER, INTENT(out)    :: counter !counter for absorbed particles
     INTEGER                 :: i, j
 
@@ -80,14 +65,24 @@ SUBROUTINE sink(counter)
         IF( Rr < sink_radius )THEN
             counter = counter + 1
             CALL RANDOM_NUMBER(rand)
-            rd(1) = (L/2. - thickness*rand(1))*COS(2*pi*rand(2))*SIN(pi*rand(3))
-            rd(2) = (L/2. - thickness*rand(1))*SIN(2*pi*rand(2))*SIN(pi*rand(3))
-            rd(3) = (L/2. - thickness*rand(1))*COS(pi*rand(3))
-            par(:,i) = R + rd
+            theta   = 2*pi*rand(2)
+            phi     = ACOS(2*rand(3) - 1)
+            rd(1) = COS(phi)*SIN(theta)
+            rd(2) = SIN(phi)*SIN(theta)
+            rd(3) = COS(theta) 
+            par(:,i) = r + (L/2. - thickness*rand(1))*rd
+        ELSEIF( Rr > L/2 )THEN
+            CALL RANDOM_NUMBER(rand)
+            theta   = 2*pi*rand(2)
+            phi     = ACOS(2*rand(3) - 1)
+            rd(1) = COS(phi)*SIN(theta)
+            rd(2) = SIN(phi)*SIN(theta)
+            rd(3) = COS(theta) 
+            par(:,i) = (2*R - Rr)*rd
         ENDIF
     ENDDO
     !$OMP END DO
 
-END SUBROUTINE sink
+END SUBROUTINE maintain_boundary_conditions
 
 END MODULE push

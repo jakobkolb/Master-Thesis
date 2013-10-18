@@ -46,7 +46,7 @@ IMPLICIT NONE
         parold = par
 
         CALL move_particles
-        CALL sink(counter)
+        CALL maintain_boundary_conditions(counter)
 
         IF( t/D/sink_radius > 3) THEN
             CALL rate_statistics_accum(counter, nbins)
