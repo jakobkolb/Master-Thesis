@@ -66,7 +66,7 @@ CONTAINS
     DO i = 1,imax
         r = SQRT(DOT_PRODUCT(X(:,i)-POS,X(:,i)-POS))
         binnumber = INT(r/(L/SQRT(2.))*bins)
-        IF(binnumber < bins) THEN
+        IF(binnumber .LE. bins) THEN
             Xhist(2,binnumber) = Xhist(2,binnumber) + 1
         ENDIF
     ENDDO
