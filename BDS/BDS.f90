@@ -39,7 +39,7 @@ IMPLICIT NONE
 WRITE(*,*) "do simulation for ", INT(t1/dt), " iterations"
 WRITE(*,*) "collect ", INT((t1-t0)/dt), " samples"
 
-    WHILE(t<t1)
+    DO WHILE(t<t1)
 
     IF(mod(i,int(nt/100)) .EQ. 0) WRITE(*,*) INT(REAL(i)/real(nt)*100), '% done'
 
