@@ -23,19 +23,28 @@ SUBROUTINE init_parameters
 
     npar = INT(nparin)
     nt   = INT(ntin)
-    dt   = dt/sink_radius**2/D
-    t0   = t0/sink_radius**2/D
-    t1   = t1/sink_radius**2/D
+
+    !readin of terminal arguments
 
     CALL GETARG(2, arg)
     CALL GETARG(1, trig)
 
     read( arg, '(i10)') tmp
 
-    print*, 'Ra =', tmp
-
     IF(trig .EQ. 'Ra') sink_radius = tmp
-    
+    IF(trig .EQ. 't0') t0 = tmp/10
+    IF(trig .EQ. 't1') t1 = tmp/10
+ 
+    !rescalling of time parameters
+
+    dt   = dt/sink_radius**2/D
+    t0   = t0/sink_radius**2/D
+    t1   = t1/sink_radius**2/D
+  
+    print*, 'Ra = ', sink_radius
+    print*, 't0 = ', t0
+    print*, 't1 = ', t1
+    print*, 'dt = ', dt
 
 END SUBROUTINE init_parameters
 

@@ -44,7 +44,7 @@ CONTAINS
     WRITE(dens_final,*)
 
     WRITE(rate_final, *) "this file contains data for diffusion constant, size of sink and measured absorption rate"
-    WRITE(rate_final, *) sink_radius, aver5(bins+1), sigma5(bins+1)
+    WRITE(rate_final, *) sink_radius, t0, t1, aver5(bins+1), sigma5(bins+1)
     WRITE(rate_final, *)
 
     END SUBROUTINE statistics_output
@@ -65,7 +65,7 @@ CONTAINS
     !$OMP PARALLEL DO REDUCTION(+:Xhist) PRIVATE(binnumber, r)
     DO i = 1,imax
         r = SQRT(DOT_PRODUCT(X(:,i)-POS,X(:,i)-POS))
-        binnumber = INT(r/(L/SQRT(2.))*bins)
+        binnumber = INT(r/(L/2.)*bins)
         IF(binnumber .LE. bins) THEN
             Xhist(2,binnumber) = Xhist(2,binnumber) + 1
         ENDIF
