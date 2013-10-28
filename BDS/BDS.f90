@@ -17,65 +17,49 @@ IMPLICIT NONE
 
     CALL open_output_files
 
-!read simulation parameters
+    !read simulation parameters
 
     CALL init_parameters
 
-!Iterate over scan Parameter
-
-    CALL CPU_TIME(ct1)
-    wt1 = omp_get_wtime()
-
-!Initialize particle possition randomly
+    !Initialize particle possition randomly
 
     CALL init_particles
 
-!Initialize Statistics for histogramms and variable accumulation
+    !Initialize Statistics for histogramms and variable accumulation
 
     CALL init_statistics(nbins)
 
-!start iteration for particles
+    !start iteration for particles
 
-WRITE(*,*) "do simulation for ", INT(t1/dt), " iterations"
-WRITE(*,*) "collect ", INT((t1-t0)/dt), " samples"
+    WRITE(*,*) "do simulation for ", INT(t1/dt), " iterations"
+    WRITE(*,*) "collect ", INT((t1-t0)/dt), " samples"
 
     DO WHILE(t<t1)
-
-!    IF(INT(mod(t/t1*10000,100.)) .EQ. 0) WRITE(*,*) INT(REAL(t/t1*100)), '% done'
-
-        IF( t > t0) THEN
-            CALL dens_statistics_accum(nbins)
-        ENDIF
-        
+       
         parold = par
+
+        !Move particles according to overdamped Langewin eq.
 
         CALL move_particles
         CALL maintain_boundary_conditions(counter)
 
+        !Call statistic routines for density profile and absorption rate
+
         IF( t > t0) THEN
+            CALL dens_statistics_accum(nbins)
             CALL rate_statistics_accum(counter, nbins)
         ENDIF
 
         t = t + dt
     ENDDO
-
-    print*, 'finalize simulation for j=', j
-
-    DEALLOCATE(par)
-    DEALLOCATE(parold)
-
-!build histogramm for density profile
+print*, 'finalize simulation'
+!    DEALLOCATE(par)
+!    DEALLOCATE(parold)
+print*, 'test out'
+    !Output statistics to file
 
     CALL statistics_output(nbins)
     
-    CALL CPU_TIME(ct2)
-    wt2 = omp_get_wtime()
-
-    print*, (ct2-ct1), (ct2-ct1)/npar/nt
-    print*, (wt2-wt1), (wt2-wt1)/npar/nt
-
-
-
     CALL close_output_files
 
 END PROGRAM BDS

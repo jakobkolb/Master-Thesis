@@ -17,6 +17,8 @@ SUBROUTINE move_particles
     CALL RANDOM_NUMBER(nrand1)
     CALL RANDOM_NUMBER(nrand2)
 
+    !Compute gaussian random numbers for random force using Box Muller transform
+
     !$OMP PARALLEL DO
     DO i = 1,npar
         DO j = 1,3
@@ -28,10 +30,14 @@ SUBROUTINE move_particles
     f_eff = 0
 
 !    !$OMP PARALLEL DO
-!CALCULATE INTERACTION FORCES HERE
+
+    !CALCULATE INTERACTION FORCES HERE
+
 !    !$OMP END PARALLEL DO
 
     Dprime = SQRT(2*D*dt)
+
+    !Apply random force to Particles
 
     !$OMP PARALLEL DO
     DO i = 1,npar
@@ -62,6 +68,10 @@ SUBROUTINE maintain_boundary_conditions(counter)
     DO i = 1,npar
         r  = Rs - par(:,i)
         Rr = SQRT(DOT_PRODUCT(r,r))
+
+        !Set particles to domain boundary (ensure steady state solution
+        !when they hit the Sink and count them for rate statistics
+
         IF( Rr < sink_radius )THEN
             counter = counter + 1
             CALL RANDOM_NUMBER(rand)
@@ -72,8 +82,11 @@ SUBROUTINE maintain_boundary_conditions(counter)
             rd(3) = COS(theta) 
             par(:,i) = Rs + (L/2. - thickness*rand(1))*rd
             r  = Rs - par(:,i)
-            print*, '##############inbound#############', Rr, SQRT(DOT_PRODUCT(r,r)), par(:,i)
         ELSEIF( Rr > L/2 )THEN
+
+        !Reset particles to some random place at the boundary if they exceed the
+        !simulation domain to have zero flux through domain boundary 
+
             CALL RANDOM_NUMBER(rand)
             theta   = 2*pi*rand(2)
             phi     = ACOS(2*rand(3) - 1)

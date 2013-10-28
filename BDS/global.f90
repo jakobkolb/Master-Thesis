@@ -9,7 +9,7 @@ IMPLICIT NONE
     REAL(8)                                 :: D, KT, dt, L
     INTEGER                                 :: nt
     REAL(8)                                 :: sink_radius, thickness
-    REAL(8)                                 :: U1, gap, U0, t0, t1
+    REAL(8)                                 :: U1, gap, U0, t0, t1, tcount
 
     INTEGER :: dens_final, rate_final
 

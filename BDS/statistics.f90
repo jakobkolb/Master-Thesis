@@ -14,40 +14,13 @@ CONTAINS
 
     CALL histogramm(par, hist, bins)
 
+    !accumulate density histrogramm
+
     DO i = 1,bins
         CALL accum5(i,hist(2,i)) 
     ENDDO
 
     END SUBROUTINE dens_statistics_accum
-
-    SUBROUTINE rate_statistics_accum(counter, bins)
-
-    INTEGER, INTENT(in) :: counter, bins
-    REAL(8)             :: rate
-
-    rate = counter/dt
-
-    CALL accum5(bins+1,rate)
-
-    END SUBROUTINE rate_statistics_accum
-
-    SUBROUTINE statistics_output(bins)
-    
-    INTEGER, INTENT(in) :: bins
-    INTEGER             :: i
-    REAL(8)             :: aver5, sigma5
-
-
-    DO i = 1,bins
-        WRITE(dens_final, *) (REAL(i))/REAL(bins)*L/SQRT(2.), aver5(i), sigma5(i)
-    ENDDO
-    WRITE(dens_final,*)
-
-    WRITE(rate_final, *) "this file contains data for diffusion constant, size of sink and measured absorption rate"
-    WRITE(rate_final, *) sink_radius, t0, t1, aver5(bins+1), sigma5(bins+1)
-    WRITE(rate_final, *)
-
-    END SUBROUTINE statistics_output
 
     SUBROUTINE histogramm(X, Xhist, bins)
 
@@ -62,6 +35,8 @@ CONTAINS
     imax = SIZE(X,2)
     POS = L/2
 
+    !build histogramm according to particle distance to sink
+
     !$OMP PARALLEL DO REDUCTION(+:Xhist) PRIVATE(binnumber, r)
     DO i = 1,imax
         r = SQRT(DOT_PRODUCT(X(:,i)-POS,X(:,i)-POS))
@@ -73,6 +48,36 @@ CONTAINS
     !$OMP END PARALLEL DO
 
     END SUBROUTINE histogramm
+
+    SUBROUTINE rate_statistics_accum(counter, bins)
+
+    INTEGER, INTENT(in) :: counter, bins
+    REAL(8)             :: rate
+
+    rate = counter/dt
+
+    !accumulate absorption rate (absorbed particles/unit time)
+
+    CALL accum5(bins+1,rate)
+
+    END SUBROUTINE rate_statistics_accum
+
+    SUBROUTINE statistics_output(bins)
+    
+    INTEGER, INTENT(in) :: bins
+    INTEGER             :: i
+    REAL(8)             :: aver5, sigma5
+
+    !Write statistics output to file
+
+    DO i = 1,bins
+        WRITE(dens_final, *) (REAL(i))/REAL(bins)*L/SQRT(2.), aver5(i), sigma5(i)
+    ENDDO
+
+    WRITE(rate_final, *) "this file contains data for diffusion constant, size of sink and measured absorption rate"
+    WRITE(rate_final, "(5f10.4)", advance='no') sink_radius, t0, t1, aver5(bins+1), sigma5(bins+1)
+
+    END SUBROUTINE statistics_output
 
 END MODULE statistics
 

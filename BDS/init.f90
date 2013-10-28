@@ -32,8 +32,8 @@ SUBROUTINE init_parameters
     read( arg, '(i10)') tmp
 
     IF(trig .EQ. 'Ra') sink_radius = tmp
-    IF(trig .EQ. 't0') t0 = tmp/10
-    IF(trig .EQ. 't1') t1 = tmp/10
+    IF(trig .EQ. 't0') t0 = tmp/10.0
+    IF(trig .EQ. 't1') t1 = tmp/10.0
  
     !rescalling of time parameters
 
@@ -50,10 +50,11 @@ END SUBROUTINE init_parameters
 
 SUBROUTINE init_particles
 
-    REAL(8), DIMENSION(3)   :: rand, r, sink_poss
-    REAL(8), DIMENSION(4)   :: randbm
-    REAL(8)                 :: Rr
-    INTEGER                 :: i, j, n
+    REAL(8), DIMENSION(3)       :: rand, sink_poss
+    REAL(8), DIMENSION(4)       :: randbm
+    REAL(8)                     :: Rr, Rs, theta, phi
+    INTEGER                     :: i, j, n
+    REAL(8), DIMENSION(nbins)   :: Cumm, r
 
     WRITE(*,*) '->init_particles'
 
@@ -62,19 +63,30 @@ SUBROUTINE init_particles
     ALLOCATE(par(1:3,1:npar))
     ALLOCATE(parold(1:3,1:npar))
 
-    !Initialize Particle Possitions
+    !Initialize Particle Possitions - use inverse sampling to mime the original
+    !debye solution for the density profile
 
-    sink_poss = L/2
-    n = 1
-    DO
+    Rs = L/2.0
+    par(:,:) = Rs
+
+    DO i = 1,nbins
+        r(i) = sink_radius + (Rs-sink_radius)*(REAL(i)/nbins)
+        Cumm(i) =   (1/3.0*r(i)**3-1/2.0*r(i)**2-1/3.0*sink_radius**3+1/2.0*sink_radius**2)/ &
+                    (1/3.0*Rs**3-1/2.0*Rs**2-1/3.0*sink_radius**3+1/2.0*sink_radius**2)
+    ENDDO
+    DO i = 1,npar
         CALL RANDOM_NUMBER(rand)
-        par(:,n) = L*rand              !insert particle at random location in box
-            r = sink_poss - par(:,n)
-            Rr = SQRT(DOT_PRODUCT(r,r))
-            IF(Rr > sink_radius .AND. Rr < L/2) THEN
-                n = n + 1
+        DO j = 1,nbins
+            IF(rand(1) .LE. Cumm(j)) THEN
+                Rr = r(j)
+                EXIT
             ENDIF
-        IF(n == npar) EXIT        !stopp if total particle count is reached
+        ENDDO
+        theta = 2*pi*rand(2)
+        phi   = ACOS(2*rand(3) - 1)
+        par(1,i) = par(1,i) + Rr*COS(phi)*SIN(theta)
+        par(2,i) = par(2,i) + Rr*SIN(phi)*SIN(theta)
+        par(3,i) = par(3,i) + Rr*COS(theta) 
     ENDDO
 
 END SUBROUTINE init_particles
