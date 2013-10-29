@@ -58,10 +58,22 @@ SUBROUTINE maintain_boundary_conditions(counter)
     REAL(8)                 :: theta, phi !angles for random sphere point picking
     INTEGER, INTENT(out)    :: counter !counter for absorbed particles
     INTEGER                 :: i, j
-
+    REAL(8), DIMENSION(npar):: dmsqr
+    REAL(8), DIMENSION(npar):: dmr
     counter = 0
 
-   !$OMP DO REDUCTION(+:counter) PRIVATE(Rr, rand, dr)
+    !calculate mean square displacement and mean displacement to check...
+
+    DO i = 1,npar
+        dmsqr(i) = DOT_PRODUCT(par(:,i) - parold(:,i), par(:,i) - parold(:,i))
+        dmr(i)   = SUM(par(:,i) - parold(:,i))
+    ENDDO
+
+    msqd = msqd + SUM(dmsqr)/npar
+    md   = md   + SUM(dmr)/npar
+
+
+    !$OMP DO REDUCTION(+:counter) PRIVATE(Rr, rand, dr)
     DO i = 1,npar
 
         !Calculate closest point of particle trajectory to sink
@@ -82,10 +94,16 @@ SUBROUTINE maintain_boundary_conditions(counter)
         !when they hit the Sink and count them for rate statistics
 
         IF( Rr < Rs )THEN
+
+            !increase counter for absorbed particles
+
             counter = counter + 1
+
+            !calculate random possition at domain boundary
+
             CALL RANDOM_NUMBER(rand)
-            theta   = 2*pi*rand(2)
-            phi     = ACOS(2*rand(3) - 1)
+            theta = 2*pi*rand(2)
+            phi   = ACOS(2*rand(3) - 1)
             dr(1) = COS(phi)*SIN(theta)
             dr(2) = SIN(phi)*SIN(theta)
             dr(3) = COS(theta) 
@@ -96,8 +114,8 @@ SUBROUTINE maintain_boundary_conditions(counter)
         !simulation domain to have zero flux through domain boundary 
 
             CALL RANDOM_NUMBER(rand)
-            theta   = 2*pi*rand(2)
-            phi     = ACOS(2*rand(3) - 1)
+            theta = 2*pi*rand(2)
+            phi   = ACOS(2*rand(3) - 1)
             dr(1) = COS(phi)*SIN(theta)
             dr(2) = SIN(phi)*SIN(theta)
             dr(3) = COS(theta) 

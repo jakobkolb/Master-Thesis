@@ -49,6 +49,9 @@ SUBROUTINE init_parameters
     print*, 't1 = ', t1
     print*, 'dt = ', dt
 
+    msqd= 0
+    md  = 0
+
 END SUBROUTINE init_parameters
 
 SUBROUTINE init_particles

@@ -48,6 +48,9 @@ IMPLICIT NONE
         ENDIF
 
         t = t + dt
+
+!        print*, 'msq/t - 2*d =',  msqd/t - 6, ' md = ', md/t
+
     ENDDO
 
     !Output statistics to file
