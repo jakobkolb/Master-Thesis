@@ -12,9 +12,11 @@ CONTAINS
     INTEGER             :: i
     REAL(8), DIMENSION(2,bins) :: hist
 
+    !calculate histogramm of particle distance to sink
+
     CALL histogramm(par, hist, bins)
 
-    !accumulate density histrogramm
+    !accumulate density histrogramm in statistics module
 
     DO i = 1,bins
         CALL accum5(i,hist(2,i)) 
@@ -33,14 +35,13 @@ CONTAINS
 
     Xhist = 0
     imax = SIZE(X,2)
-    POS = L/2
 
     !build histogramm according to particle distance to sink
 
     !$OMP PARALLEL DO REDUCTION(+:Xhist) PRIVATE(binnumber, r)
     DO i = 1,imax
-        r = SQRT(DOT_PRODUCT(X(:,i)-POS,X(:,i)-POS))
-        binnumber = INT(r/(L/2.)*bins)
+        r = SQRT(DOT_PRODUCT(X(:,i),X(:,i)))
+        binnumber = INT(r/Rd*bins)
         IF(binnumber .LE. bins) THEN
             Xhist(2,binnumber) = Xhist(2,binnumber) + 1
         ENDIF
@@ -54,9 +55,11 @@ CONTAINS
     INTEGER, INTENT(in) :: counter, bins
     REAL(8)             :: rate
 
+    !calculate absorption rate: rate=apsorbed particles/unit time
+
     rate = counter/dt
 
-    !accumulate absorption rate (absorbed particles/unit time)
+    !accumulate absorption rate in statistics module
 
     CALL accum5(bins+1,rate)
 
@@ -71,11 +74,12 @@ CONTAINS
     !Write statistics output to file
 
     DO i = 1,bins
-        WRITE(dens_final, *) (REAL(i))/REAL(bins)*L/SQRT(2.), aver5(i), sigma5(i)
+        WRITE(dens_final, *) (REAL(i))/REAL(bins)*Rd, aver5(i), sigma5(i)
     ENDDO
 
-    WRITE(rate_final, *) "this file contains data for diffusion constant, size of sink and measured absorption rate"
-    WRITE(rate_final, "(5f10.4)", advance='no') sink_radius, t0, t1, aver5(bins+1), sigma5(bins+1)
+    WRITE(rate_final, *) "this file contains simulation parameters and measured absorption rate"
+    WRITE(rate_final, *)
+    WRITE(rate_final, "(6f10.4)") Rs, t0, t1, aver5(bins+1), sigma5(bins+1)
 
     END SUBROUTINE statistics_output
 

@@ -31,9 +31,6 @@ IMPLICIT NONE
 
     !start iteration for particles
 
-    WRITE(*,*) "do simulation for ", INT(t1/dt), " iterations"
-    WRITE(*,*) "collect ", INT((t1-t0)/dt), " samples"
-
     DO WHILE(t<t1)
        
         parold = par
@@ -45,17 +42,14 @@ IMPLICIT NONE
 
         !Call statistic routines for density profile and absorption rate
 
-        IF( t > t0) THEN
+        IF( t >= t0) THEN
             CALL dens_statistics_accum(nbins)
             CALL rate_statistics_accum(counter, nbins)
         ENDIF
 
         t = t + dt
     ENDDO
-print*, 'finalize simulation'
-!    DEALLOCATE(par)
-!    DEALLOCATE(parold)
-print*, 'test out'
+
     !Output statistics to file
 
     CALL statistics_output(nbins)

@@ -27,13 +27,11 @@ SUBROUTINE move_particles
     ENDDO
     !$OMP END PARALLEL DO
 
+    !Calculate effective interaction forces
+
     f_eff = 0
 
-!    !$OMP PARALLEL DO
-
-    !CALCULATE INTERACTION FORCES HERE
-
-!    !$OMP END PARALLEL DO
+    !Calculate sigma for random force using the Einstein Smoluchowski relation
 
     Dprime = SQRT(2*D*dt)
 
@@ -51,38 +49,48 @@ END SUBROUTINE move_particles
 
 SUBROUTINE maintain_boundary_conditions(counter)
 
+
+    REAL(8), DIMENSION(3)   :: px   !closest point on trajectory to sink
+    REAL(8), DIMENSION(3)   :: A, B, AB !Work vectors
     REAL(8)                 :: Rr   !minimum distance of Particle to sink
-    REAL(8), DIMENSION(3)   :: r    !particle vector relative to sink
-    REAL(8), DIMENSION(3)   :: Rs   !Position of the sink
-    REAL(8), DIMENSION(3)   :: rd   !random displacement vector
+    REAL(8), DIMENSION(3)   :: dr   !random displacement vector
     REAL(8), DIMENSION(4)   :: rand
     REAL(8)                 :: theta, phi !angles for random sphere point picking
     INTEGER, INTENT(out)    :: counter !counter for absorbed particles
     INTEGER                 :: i, j
 
-    Rs = L/2.
-
     counter = 0
 
-   !$OMP DO REDUCTION(+:counter) PRIVATE(Rr, rand, rd, r)
+   !$OMP DO REDUCTION(+:counter) PRIVATE(Rr, rand, dr)
     DO i = 1,npar
-        r  = Rs - par(:,i)
-        Rr = SQRT(DOT_PRODUCT(r,r))
+
+        !Calculate closest point of particle trajectory to sink
+
+        A = parold(:,i)
+        B = par(:,i)
+        AB = parold(:,i) - par(:,i)
+
+        px = A + DOT_PRODUCT(A,AB)*AB/DOT_PRODUCT(AB,AB)
+
+        IF( DOT_PRODUCT((px-A),(px-B)) < 0 )THEN
+            Rr = SQRT(DOT_PRODUCT(px,px))
+        ELSEIF( DOT_PRODUCT((px-A),(px-B)) >= 0 )THEN
+            Rr = SQRT(DOT_PRODUCT(par(:,i),par(:,i)))
+        ENDIF
 
         !Set particles to domain boundary (ensure steady state solution
         !when they hit the Sink and count them for rate statistics
 
-        IF( Rr < sink_radius )THEN
+        IF( Rr < Rs )THEN
             counter = counter + 1
             CALL RANDOM_NUMBER(rand)
             theta   = 2*pi*rand(2)
             phi     = ACOS(2*rand(3) - 1)
-            rd(1) = COS(phi)*SIN(theta)
-            rd(2) = SIN(phi)*SIN(theta)
-            rd(3) = COS(theta) 
-            par(:,i) = Rs + (L/2. - thickness*rand(1))*rd
-            r  = Rs - par(:,i)
-        ELSEIF( Rr > L/2 )THEN
+            dr(1) = COS(phi)*SIN(theta)
+            dr(2) = SIN(phi)*SIN(theta)
+            dr(3) = COS(theta) 
+            par(:,i) = Rs + (Rd - thickness*rand(1))*dr
+        ELSEIF( Rr > Rd )THEN
 
         !Reset particles to some random place at the boundary if they exceed the
         !simulation domain to have zero flux through domain boundary 
@@ -90,10 +98,10 @@ SUBROUTINE maintain_boundary_conditions(counter)
             CALL RANDOM_NUMBER(rand)
             theta   = 2*pi*rand(2)
             phi     = ACOS(2*rand(3) - 1)
-            rd(1) = COS(phi)*SIN(theta)
-            rd(2) = SIN(phi)*SIN(theta)
-            rd(3) = COS(theta) 
-            par(:,i) = Rs + (L - Rr)*rd
+            dr(1) = COS(phi)*SIN(theta)
+            dr(2) = SIN(phi)*SIN(theta)
+            dr(3) = COS(theta) 
+            par(:,i) = (2*Rd - Rr)*dr
         ENDIF
     ENDDO
     !$OMP END DO
