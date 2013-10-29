@@ -57,7 +57,7 @@ SUBROUTINE maintain_boundary_conditions(counter)
     REAL(8), DIMENSION(4)   :: rand
     REAL(8)                 :: theta, phi !angles for random sphere point picking
     INTEGER, INTENT(out)    :: counter !counter for absorbed particles
-    INTEGER                 :: i, j
+    INTEGER                 :: i, j, icase
     REAL(8), DIMENSION(npar):: dmsqr
     REAL(8), DIMENSION(npar):: dmr
     counter = 0
