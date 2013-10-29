@@ -73,7 +73,7 @@ SUBROUTINE maintain_boundary_conditions(counter)
     md   = md   + SUM(dmr)/npar
 
 
-    !$OMP DO REDUCTION(+:counter) PRIVATE(Rr, rand, dr)
+    !$OMP DO REDUCTION(+:counter) PRIVATE(Rr, rand, dr, A, B, AB, px, theta, phi)
     DO i = 1,npar
 
         !Calculate closest point of particle trajectory to sink
