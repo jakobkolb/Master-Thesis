@@ -2,7 +2,7 @@
     nparin  = 1.5D5
     D       = .1
     KT      = 1
-    dt      = 3.0D-3 ! in units of D/a^2
+    dt      = 3.0D-3
     t0      = 0D0
     t1      = 2D1
     Rd      = 10

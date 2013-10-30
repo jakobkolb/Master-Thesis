@@ -37,12 +37,6 @@ SUBROUTINE init_parameters
     IF(trig .EQ. 't1') t1 = tmp
     IF(trig .EQ. 'Rd') Rd = tmp
     IF(trig .EQ. 'D' ) D  = tmp/10
-
-    !rescalling time 
-
-    dt   = dt/(Rs**2/D)
-    t0   = t0/(Rs**2/D)
-    t1   = t1/(Rs**2/D)
   
     print*, 'Rs = ', Rs
     print*, 'Rd = ', Rd
