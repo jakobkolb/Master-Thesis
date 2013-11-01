@@ -1,13 +1,13 @@
 &parameter
     nparin  = 1.5D5
-    D       = .1
+    D       = 0.05
     KT      = 1
     dt      = 3.0D-3
     t0      = 0D0
     t1      = 2D1
     Rd      = 10
     Rs      = 1
-    thickness = .01
+    thickness = .0001
     nbins   = 1000
     gap     = 0.02
     U1      = 0.04

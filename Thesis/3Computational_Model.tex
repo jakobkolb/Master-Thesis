@@ -1,0 +1,30 @@
+\section{Computational Model}
+
+The implemented model to simulate the studied system is a particle simulation. In fact, this implies the simulation of a large number of realizations of the stochastic process as in \eqref{hierarchy} using the transition probability for discrete time brownian motion as in \eqref{W}.\\
+The equation of motion for the particles thus becomes:
+\begin{equation}
+    \vec{r_i}(t + \Delta t) = \vec{r_i}(t) + \sqrt{2 D \Delta t}R(t)
+    \label{computational eqm}
+\end{equation}
+In addition one has to take into account the boundary and initial conditions for the system \eqref{BC}. These boundary conditions have to be modified to satisfy the finite domain of the simulation.
+For reasons of simplicity one is interested only in the steady state of the system.
+In this case, the continuity equation is used to obtain conditions for the domain boundaries:
+\begin{equation}
+    \frac{\partial \rho(\vec{r},t)}{\partial t} = \vec{\nabla} \vec{J} = 0
+\end{equation}
+This implies:
+\begin{align}
+    0   &= \int_V \vec{\nabla}\vec{J} {\rm d} V \nonumber \\
+    &= \int_{\partial V} \vec{J} {\rm d} \vec{A} \nonumber \\
+    &= 4 \pi \left( R_s |J(R_s)| - R_d |J(R_d)| \right)
+\end{align}
+To use this condition in the simulation, the domain is set to be spherical. If a particle that exits simulation domain $r_o > R_d$ is set inside the simulation domain again where the old and new radial coordinate of the particle is:
+\begin{equation}
+    r_n = 2 R_d - r_o
+\end{equation}
+Similarly the particles that enter the sink $r_o < R_s$ are set to the boundary of the simulation domain with old an new radial coordinates as in 
+\begin{equation}
+    r_n = R_d - (r_o - R_s)
+\end{equation}
+such that the total flux into the sink has to equal the total flux through the boundary of the simulation domain.
+

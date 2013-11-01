@@ -36,7 +36,7 @@ SUBROUTINE init_parameters
     IF(trig .EQ. 't0') t0 = tmp
     IF(trig .EQ. 't1') t1 = tmp
     IF(trig .EQ. 'Rd') Rd = tmp
-    IF(trig .EQ. 'D' ) D  = tmp/10
+    IF(trig .EQ. 'D' ) D  = tmp/1000.
   
     print*, 'Rs = ', Rs
     print*, 'Rd = ', Rd

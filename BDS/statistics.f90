@@ -79,7 +79,7 @@ CONTAINS
 
     WRITE(rate_final, *) "this file contains simulation parameters and measured absorption rate"
     WRITE(rate_final, *)
-    WRITE(rate_final, "(6f15.4)") Rs, t0, t1, aver5(bins+1), sigma5(bins+1)
+    WRITE(rate_final, "(8f15.4)") npar, D, Rs, Rd, t0, t1, aver5(bins+1), sigma5(bins+1)
 
     END SUBROUTINE statistics_output
 
