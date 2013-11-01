@@ -107,7 +107,7 @@ SUBROUTINE maintain_boundary_conditions(counter)
             dr(1) = COS(phi)*SIN(theta)
             dr(2) = SIN(phi)*SIN(theta)
             dr(3) = COS(theta) 
-            par(:,i) = Rs + (Rd - thickness*rand(1))*dr
+            par(:,i) = (Rs + Rd - Rr)*dr
         ELSEIF( Rr > Rd )THEN
 
         !Reset particles to some random place at the boundary if they exceed the
