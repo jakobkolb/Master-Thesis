@@ -26,6 +26,13 @@ Similarly the particles that enter the sink $r_o < R_s$ are set to the boundary 
 \begin{equation}
     r_n = R_d - (r_o - R_s)
 \end{equation}
-such that the total flux into the sink has to equal the total flux through the boundary of the simulation domain.
+such that the total flux into the sink has to equal the total flux through the boundary of the simulation domain. \\
+Since this boundary condition only holds for the steady state of the system, the initial conditions must be set accordingly. Therefore we use inverse sampling to initially distribute the particles in the system according to the following cummulative distribution function:
+\begin{align}
+    F(r) &= C \int_{R_s}^{r} {\rm d} r' \left( 1 - \frac{R_s}{r'} \right), \quad R_s \ge r \ge R_d \\
+    C    &= \int_{R_s}^{R_d} {\rm d} r \left( 1 - \frac{R_s}{r} \right)
+    \label{CDF}
+\end{align}
 
+The absorption rate of the sink is simply calculated by counting the particles that enter the sink per timestep.
 
