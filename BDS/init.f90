@@ -13,7 +13,7 @@ SUBROUTINE init_parameters
 
     INTEGER :: in=10, tmp
     REAL(8) :: nparin, ntin, C
-    CHARACTER(3)    :: trig, arg
+    CHARACTER(4)    :: trig, arg
 
     NAMELIST /PARAMETER/ nparin, D, KT, dt, t0, t1, Rd, Rs, U0, Ua, Ub, Un, nbins
 
