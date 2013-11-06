@@ -140,6 +140,11 @@ resulting in the following time dependent solution for $u(r,t)$ resp. the partic
     \rho(r,t) &= \rho_o \left\{ 1 - \frac{R_s}{r} + {\rm erf} \left( \frac{r - R_s}{\sqrt{4Dt}} \right) \right\}.
     \label{u(r,t)}
 \end{align}
+In the limit $t \leftarrow \infty$ this results in the steady state density profile:
+\begin{equation}
+    \rho(r) =  \rho_o \left( 1 - \frac{R_s}{r} \right)
+    \label{steady state density}
+\end{equation}
 The reaction rate can be defined as the total flux of particles through the boundary $\Omega$ of the sink:
 \begin{equation}
     K = \int_\Omega \vec{J} {\rm d}\vec{A} 
@@ -153,10 +158,13 @@ Using the differential continuity equation:
 \end{align}
 and the spherical symmetry of the solution one can derive the time dependent reaction rate of the brownian particles with the spherical sink of radius $R_s$ as follows:
 \begin{align}
-    K &= \int_\Omega D  \vec{\nabla} \rho(\vec{r},t) \\
+    K(t) &= \int_\Omega D  \vec{\nabla} \rho(\vec{r},t) \\
     &= 4 \pi D R_s^2 \left. \vec{\nabla} \rho(\vec{r},t) \right|_{r = R_s}\\
-    &= 4 \pi D R_s \left( 1 + \frac{R_s}{\sqrt{4Dt}} \right)
+    &= 4 \pi D R_s \rho_o \left( 1 + \frac{R_s}{\sqrt{4Dt}} \right)
     \label{ideal reaction rate}
 \end{align}
-
-
+Again in the limit of $t \rightarrow \infty$ this results in the steady state absorption rate:
+\begin{equation}
+    K = 4 \pi D R_s \rho_o
+    \label{steady state ideal rate}
+\end{equation}

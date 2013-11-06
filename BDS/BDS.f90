@@ -33,7 +33,6 @@ IMPLICIT NONE
 i = 0
     DO WHILE(t<t1)
         i = i+1
-        print*, i
         parold = par
 
         !Move particles according to overdamped Langewin eq.

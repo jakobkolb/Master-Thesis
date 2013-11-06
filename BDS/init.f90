@@ -12,8 +12,8 @@ SUBROUTINE init_parameters
     USE global
 
     INTEGER :: in=10, tmp
-    REAL(8) :: nparin, ntin
-    CHARACTER(2)    :: trig, arg
+    REAL(8) :: nparin, ntin, C
+    CHARACTER(3)    :: trig, arg
 
     NAMELIST /PARAMETER/ nparin, D, KT, dt, Rd, Rs, thickness, nbins, gap, U1, U0, t0, t1
 
@@ -32,11 +32,19 @@ SUBROUTINE init_parameters
 
     read( arg, '(i10)') tmp
 
-    IF(trig .EQ. 'Rs') Rs = tmp
-    IF(trig .EQ. 't0') t0 = tmp
-    IF(trig .EQ. 't1') t1 = tmp
-    IF(trig .EQ. 'Rd') Rd = tmp
-    IF(trig .EQ. 'D' ) D  = tmp/1000.
+    IF(trig .EQ. 't0') t0 = REAL(tmp)
+    IF(trig .EQ. 't1') t1 = REAL(tmp)
+    IF(trig .EQ. 'D' ) D  = REAL(tmp)/1000.
+
+    C = npar/(1/3*Rd**3 - Rs/2*Rd**2 + 1/3*Rs**3 - Rs/2*Rs**2)
+
+    IF(trig .EQ. 'Rs') THEN
+        npar = INT(C*(1/3*Rd**3 - REAL(tmp)/2*Rd**2 + 1/3*REAL(tmp)**3 - REAL(tmp)/2*REAL(tmp)**2))
+        Rs = REAL(tmp)
+    ELSEIF(trig .EQ. 'Rd') THEN
+        npar = INT(C*(1/3*REAL(tmp)**3 - Rs/2*REAL(tmp)**2 + 1/3*Rs**3 - Rs/2*Rs**2))
+        Rd = REAL(tmp)
+    ENDIF
   
     print*, 'Rs = ', Rs
     print*, 'Rd = ', Rd

@@ -16,7 +16,7 @@ This implies:
 \begin{align}
     0   &= \int_V \vec{\nabla}\vec{J} {\rm d} V \nonumber \\
     &= \int_{\partial V} \vec{J} {\rm d} \vec{A} \nonumber \\
-    &= 4 \pi \left( R_s |J(R_s)| - R_d |J(R_d)| \right)
+    &= 4 \pi \left( R_s |\vec{J}(R_s)| - R_d |\vec{J}(R_d)| \right)
 \end{align}
 To use this condition in the simulation, the domain is set to be spherical. If a particle that exits simulation domain $r_o > R_d$ is set inside the simulation domain again where the old and new radial coordinate of the particle is:
 \begin{equation}
@@ -34,5 +34,12 @@ Since this boundary condition only holds for the steady state of the system, the
     \label{CDF}
 \end{align}
 
-The absorption rate of the sink is simply calculated by counting the particles that enter the sink per timestep.
+The absorption rate of the sink is simply calculated by counting the particles that enter the sink per timestep. \\
+To be able to compare the computational results to an analytic solution the normalization for the steady state density i.e. $\rho_o$ has to be calculated for finite volume and given particle Number:
+\begin{align}
+    N &= \int_{R_s}^{R_d} {\rm d} V \rho_o \left( 1 - \frac{R_s}{r} \right) \\
+    \rho_o &= \frac{N}{4 \pi \left[ \frac{1}{3}r^{3} - \frac{R_s}{2}r^{2} \right]_{R_s}^{R_d}} \\
+    K &= \frac{R_s D N}{  \left[ \frac{1}{3}r^{3} - \frac{R_s}{2}r^{2} \right]_{R_s}^{R_d}}
+    \label{normalization}
+\end{align}
 

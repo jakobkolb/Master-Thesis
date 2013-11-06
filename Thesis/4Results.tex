@@ -12,12 +12,13 @@ If not stated differently the simulations use parameters as given in the table b
     \caption{Default simulation parameters}
     \label{tab:Parameters}
 \end{table}
-The following figures show results of simulations using the model explained before. First we examine the dependence of the reaction rate on the diffusion constant. Therefore the simulation results are compared to the steady state analytic solution derived from \eqref{ideal reaction rate}:
+The following figures show results of simulations using the model explained before. First we examine the dependence of the reaction rate on the diffusion constant. Therefore the simulation results are compared to the steady state analytic solution as given in \eqref{normalization}:
 \begin{align}
     K &= 4 \pi R_s D \rho_o \\
     \rho_o &= N \left\{ \int_{R_s}^{R_d} \left( 1 - \frac{R_s}{r} \right) {\rm d} r \right\}^{-1}
     \label{Steady_state_rate}
 \end{align}
+\subsection{Absorption Rate vs. Diffusion Coefficient}
 \begin{figure}[H]
     \centering
     \includegraphics[width=.9 \textwidth, keepaspectratio]{Kabs.eps}
@@ -31,3 +32,11 @@ The preceeding figure shows the results for several simulation runs with differe
     \caption{Relative quantities for Reaction rates}
     \label{fig:Krel_d}
 \end{figure}
+
+\subsection{Reaction Rate vs. Sink Radius $R_s$}
+This section gives results for different sink radius $R_s$ @ constant density $\rho_o$ to test the obvious linear relationship given in \eqref{Steady_state_rate}.
+
+\subsection{Finite size analysis}
+This section shows plots for different domain radius $R_d$ @ constant density $\rho_o$.
+This will point out finite size effects in the simulation (if they exist). 
+
