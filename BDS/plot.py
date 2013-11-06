@@ -9,7 +9,7 @@ a = np.loadtxt('dens_data.out')
 D = 0.1
 Rs= 1.
 Rd= 10.
-N = 1.5E5
+N = 1.5E3
 
 def Normalization_Constant(a, upper_bound, lower_bound):
     Normalization_Constant = 4.*np.pi*(1/3.*upper_bound**3 - a/2.*upper_bound**2 - 1/3.*lower_bound**3 + a/2.*lower_bound**2)

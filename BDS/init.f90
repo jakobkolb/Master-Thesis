@@ -15,7 +15,7 @@ SUBROUTINE init_parameters
     REAL(8) :: nparin, ntin, C
     CHARACTER(3)    :: trig, arg
 
-    NAMELIST /PARAMETER/ nparin, D, KT, dt, Rd, Rs, thickness, nbins, gap, U1, U0, t0, t1
+    NAMELIST /PARAMETER/ nparin, D, KT, dt, t0, t1, Rd, Rs, U0, Ua, Ub, Un, nbins
 
     !Read simulation parameters from file
 
@@ -45,12 +45,24 @@ SUBROUTINE init_parameters
         npar = INT(C*(1/3*REAL(tmp)**3 - Rs/2*REAL(tmp)**2 + 1/3*Rs**3 - Rs/2*Rs**2))
         Rd = REAL(tmp)
     ENDIF
-  
-    print*, 'Rs = ', Rs
-    print*, 'Rd = ', Rd
+
+    IF(trig .EQ. 'U0') U0 = REAL(tmp)
+    IF(trig .EQ. 'Ua') Ua = REAL(tmp)
+    IF(trig .EQ. 'Ub') Ub = REAL(tmp)
+    IF(trig .EQ. 'Un') Un = REAL(tmp)
+ 
+    print*, 'npar = ', npar
+    print*, 'D  = ', D
+    print*, 'KT = ', KT
+    print*, 'dt = ', dt
     print*, 't0 = ', t0
     print*, 't1 = ', t1
-    print*, 'dt = ', dt
+    print*, 'Rd = ', Rd
+    print*, 'Rs = ', Rs
+    print*, 'U0 = ', U0
+    print*, 'Ua = ', Ua
+    print*, 'Ub = ', Ub
+    print*, 'Un = ', Un
     print*, 'it = ', INT(t1/dt)
 
     msqd= 0

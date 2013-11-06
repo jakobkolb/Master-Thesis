@@ -11,7 +11,6 @@ SUBROUTINE move_particles
     REAL(8), DIMENSION(3,npar)  :: erand
     REAL(8), DIMENSION(3,npar)  :: nrand1, nrand2
     REAL(8), DIMENSION(3,npar)  :: f_eff
-    REAL(8)                     :: Dprime, r
     INTEGER                     :: i, j
 
     CALL RANDOM_NUMBER(nrand1)
@@ -30,22 +29,43 @@ SUBROUTINE move_particles
     !Calculate effective interaction forces
 
     f_eff = 0
+    !$OMP PARALLEL DO
+    DO i = 1,npar
+        CALL grad_U(par(:,i), f_eff(:,i))
+    ENDDO
+    !$OMP END PARALLEL DO
 
     !Calculate sigma for random force using the Einstein Smoluchowski relation
 
-    Dprime = SQRT(2*D*dt)
+    erand = SQRT(2*D*dt)*erand
 
     !Apply random force to Particles
 
     !$OMP PARALLEL DO
     DO i = 1,npar
         DO j = 1,3
-            par(j,i) = par(j,i) +f_eff(j,i) + Dprime*erand(j,i)
+            par(j,i) = par(j,i) +f_eff(j,i) + erand(j,i)
         ENDDO
     ENDDO
     !$OMP END PARALLEL DO
 
 END SUBROUTINE move_particles
+
+SUBROUTINE grad_U(R, f_eff) 
+
+    REAL(8), DIMENSION(3), INTENT(in)   :: R
+    REAL(8), DIMENSION(3)               :: Rn
+    REAL(8)                             :: Rr, grad_Ur
+    REAL(8), DIMENSION(3), INTENT(out)  :: f_eff
+
+    Rr = SQRT(DOT_PRODUCT(R,R))
+    Rn = R/Rr
+
+    grad_Ur = 4*Un*U0*(2/Ua*(Rr-Ub)**(2*Un-1))/Ua/((2/Ua*(Rr-Ub))**(2*Un) + 1)**2
+
+    f_eff = D/KT*grad_Ur*Rn
+
+END SUBROUTINE grad_U
 
 SUBROUTINE maintain_boundary_conditions(counter)
 
