@@ -168,3 +168,27 @@ Again in the limit of $t \rightarrow \infty$ this results in the steady state ab
     K = 4 \pi D R_s \rho_o
     \label{steady state ideal rate}
 \end{equation}
+
+\subsection{Spherical Sink with Potential Barrier}
+The following section approaches the problem of brownian particles diffusing around a spherical sink with an arbitrary, spherically symmetric potential barrier. The solution do this problem was originally derived by debye in 1941.\\
+The Focker Planck Equation for the Problem is:
+\begin{equation}
+    \frac{\partial \rho(\vec{r},t)}{\partial t} = - \vec{\nabla} \left( \frac{1}{\gamma}\rho(\vec{r},t) \vec{\nabla} U(\vec{r}) + D \vec{\nabla} \rho(\vec{r},t) \right)
+    \label{FPE ext frce}
+\end{equation}
+with boundary conditions as in \eqref{BC}. We will examine steady state only, thus we can apply the continuity.
+\begin{align}
+    \frac{\partial \rho}{ \partial t } &= \ \vec{\nabla} \rho = 0 \\
+    &= \vec{\nabla}\left( \frac{1}{\gamma} \rho(\vec{r}) \vec{\nabla} U(r) + D \vec{\nabla} \rho(\vec{r}) \right)
+    \label{continuity eq}
+\end{align}
+Applying the divergence theorem on the last line results in:
+\begin{align}
+    0 &= \int_V {\rm d} V \vec{\nabla} \vec{J} 
+    &= \int_{\partial V}<++> {\rm d} \vec{A} \vec{J}
+    &= 4 \pi \left( r^{2} \left| J(r) \right| - R_s^{2} \left| \vec{J}(R_s) \right| \right)
+\end{align}
+
+
+
+
