@@ -36,13 +36,13 @@ SUBROUTINE init_parameters
     IF(trig .EQ. 't1') t1 = REAL(tmp)
     IF(trig .EQ. 'D' ) D  = REAL(tmp)/1000.
 
-    C = npar/(1/3*Rd**3 - Rs/2*Rd**2 + 1/3*Rs**3 - Rs/2*Rs**2)
+    C = npar/(1/3.*Rd**3 - Rs/2.*Rd**2 - 1/3.*Rs**3 + Rs/2.*Rs**2)
 
     IF(trig .EQ. 'Rs') THEN
-        npar = INT(C*(1/3*Rd**3 - REAL(tmp)/2*Rd**2 + 1/3*REAL(tmp)**3 - REAL(tmp)/2*REAL(tmp)**2))
+        npar = INT(C*(1/3.*Rd**3 - REAL(tmp)/2.*Rd**2 - 1/3.*REAL(tmp)**3 + REAL(tmp)/2.*REAL(tmp)**2))
         Rs = REAL(tmp)
     ELSEIF(trig .EQ. 'Rd') THEN
-        npar = INT(C*(1/3*REAL(tmp)**3 - Rs/2*REAL(tmp)**2 + 1/3*Rs**3 - Rs/2*Rs**2))
+        npar = INT(C*(1/3.*REAL(tmp)**3 - Rs/2.*REAL(tmp)**2 - 1/3.*Rs**3 + Rs/2.*Rs**2))
         Rd = REAL(tmp)
     ENDIF
 
