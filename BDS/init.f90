@@ -86,10 +86,14 @@ SUBROUTINE init_particles
     !debye solution for the density profile
 
     DO i = 1,nbins
-        r(i) = Rs + (Rd-Rs)*(REAL(i)/nbins)
-        Cumm(i) =   (1/3.0*r(i)**3-1/2.0*r(i)**2-1/3.0*Rs**3+1/2.0*Rs**2)/ &
-                    (1/3.0*Rd**3-1/2.0*Rd**2-1/3.0*Rs**3+1/2.0*Rs**2)
+        r(i) = Rs + (Rd-Rs)*(REAL(i-1)/(nbins-1))
+        Cumm(i) =   (1/3.0*r(i)**3-Rs/2.0*r(i)**2-1/3.0*Rs**3+Rs/2.0*Rs**2)
     ENDDO
+    Cumm = Cumm/Cumm(nbins)
+    
+    write(*,*) Cumm
+    write(*,*) '##########################################################'
+    write(*,*) r
     DO i = 1,npar
         CALL RANDOM_NUMBER(rand)
         DO j = 1,nbins
