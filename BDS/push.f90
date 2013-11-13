@@ -55,13 +55,16 @@ SUBROUTINE grad_U(R, f_eff)
 
     REAL(8), DIMENSION(3), INTENT(in)   :: R
     REAL(8), DIMENSION(3)               :: Rn
-    REAL(8)                             :: Rr, grad_Ur
+    REAL(8)                             :: Rr, grad_Ur, a, b
     REAL(8), DIMENSION(3), INTENT(out)  :: f_eff
 
     Rr = SQRT(DOT_PRODUCT(R,R))
     Rn = R/Rr
 
-    grad_Ur = 4*Un*U0*(2/Ua*(Rr-Ub)**(2*Un-1))/Ua/((2/Ua*(Rr-Ub))**(2*Un) + 1)**2
+    a = Rs + Ua + 0.5*Ub
+    b = 0.5*Ub
+
+    grad_Ur = 4*Un*U0*(2/b*(Rr-a)**(2*Un-1))/b/((2/b*(Rr-a))**(2*Un) + 1)**2
 
     f_eff = D/KT*grad_Ur*Rn
 

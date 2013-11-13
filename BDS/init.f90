@@ -73,7 +73,7 @@ END SUBROUTINE init_parameters
 SUBROUTINE init_particles
 
     REAL(8), DIMENSION(3)       :: rand
-    REAL(8)                     :: Rr, theta, phi
+    REAL(8)                     :: Rr, dr, theta, phi
     INTEGER                     :: i, j, n
     REAL(8), DIMENSION(nbins)   :: Cumm, r
 
@@ -85,15 +85,35 @@ SUBROUTINE init_particles
     !Initialize Particle Possitions - use inverse sampling to mime the original
     !debye solution for the density profile
 
+    Cumm = 0
+    Rr = Rs
+    dr = (Rd-Rs)/(nbins)
+    r = 0
     DO i = 1,nbins
-        r(i) = Rs + (Rd-Rs)*(REAL(i-1)/(nbins-1))
-        Cumm(i) =   (1/3.0*r(i)**3-Rs/2.0*r(i)**2-1/3.0*Rs**3+Rs/2.0*Rs**2)
+        r(i) = Rr
+        IF(Rr > Rs .AND. Rr <= (Rs + Ua)) THEN
+
+            Cumm(i) = (1/3.*r(i)**3 - Rs/2.*r(i)**2 - 1/3.*Rs**3 + Rs/2.*Rs**2)
+        ELSEIF(Rr > (Rs + Ua) .AND. Rr <= (Rs + Ua + Ub)) THEN
+            Cumm(i) = (1/3.*(Rs + Ua)**3 - Rs/2.*(Rs + Ua)**2 - 1/3.*Rs**3 + Rs/2.*Rs**2) + &
+            exp(-U0/KT)*(1/3.*Rr**3 - Rs/2.*Rr**2 - 1/3.*(Rs + Ua)**3 + Rs/2.*(Rs + Ua)**2)
+        ELSEIF(Rr > (Rs + Ua + Ub) .AND. Rr <= Rd) THEN
+            Cumm(i) = (1/3.*(Rs + Ua)**3 - Rs/2.*(Rs + Ua)**2 - 1/3.*Rs**3 + Rs/2.*Rs**2) + &
+            exp(-U0/KT)*(1/3.*(Rs+Ua+Ub)**3 - Rs/2.*(Rs+Ua+Ub)**2 - 1/3.*(Rs+Ua)**3 + Rs/2.*(Rs+Ua)**2) + &
+            (1/3.*Rr**3 - Rs/2.*Rr**2 - 1/3.*(Rs+Ua+Ub)**3 + Rs/2.*(Rs+Ua+Ub)**2)
+        ENDIF
+        Rr = Rr + dr
     ENDDO
     Cumm = Cumm/Cumm(nbins)
-    
-    write(*,*) Cumm
-    write(*,*) '##########################################################'
-    write(*,*) r
+   
+
+    OPEN(unit=25, file='cummulative.out', action='write')
+    DO i = 1,nbins-1
+        WRITE(25,*) r(i), Cumm(i), Cumm(i+1) - Cumm(i)
+    ENDDO
+    CLOSE(25)
+
+
     DO i = 1,npar
         CALL RANDOM_NUMBER(rand)
         DO j = 1,nbins
