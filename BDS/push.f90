@@ -62,7 +62,7 @@ SUBROUTINE grad_U(R, f_eff)
     Rn = R/Rr
 
     a = Rs + Ua + 0.5*Ub
-    b = 0.5*Ub
+    b = Ub
 
     grad_Ur = 4*Un*U0*(2/b*(Rr-a)**(2*Un-1))/b/((2/b*(Rr-a))**(2*Un) + 1)**2
 

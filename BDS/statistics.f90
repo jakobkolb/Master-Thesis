@@ -69,12 +69,19 @@ CONTAINS
     
     INTEGER, INTENT(in) :: bins
     INTEGER             :: i
-    REAL(8)             :: aver5, sigma5
+    REAL(8)             :: aver5, sigma5, a, b, Rr
 
     !Write statistics output to file
+    
+
+    a = Rs + Ua + 0.5*Ub
+    b = Ub
 
     DO i = 1,bins
-        WRITE(dens_final, *) (REAL(i))/REAL(bins)*Rd, aver5(i), sigma5(i)
+        Rr = real(i)*Rd/real(bins)
+        WRITE(dens_final, *)    (REAL(i))/REAL(bins)*Rd, aver5(i), sigma5(i), &
+                                4.*Un*U0*(2./b*(Rr-a)**(2.*Un-1.))/b/((2./b*(Rr-a))**(2.*Un) + 1.)**2, &
+                                U0/(2./b*(Rr-a)**(2.*Un) + 1.)
     ENDDO
 
     WRITE(rate_final, *) "this file contains simulation parameters and measured absorption rate"

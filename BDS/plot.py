@@ -47,6 +47,8 @@ mp.figure(1)
 mp.plot(a[:,0], a[:,1])
 mp.fill_between(a[:,0],a[:,1]-a[:,2],a[:,1]+a[:,2],color='grey',alpha=0.3)
 mp.plot(a[100:999,0], rho(a[100:999,0],C), 'r-')
+mp.plot(a[:,0], 0.2E58*a[:,3])
+mp.plot(a[:,0], a[:,4])
 mp.show()
 
 
