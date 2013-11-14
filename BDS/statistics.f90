@@ -79,7 +79,7 @@ CONTAINS
 
     DO i = 1,bins
         Rr = real(i)*Rd/real(bins)
-        WRITE(dens_final, *)    (REAL(i))/REAL(bins)*Rd, aver5(i), sigma5(i), &
+        WRITE(dens_final, "(5f15.4)")    (REAL(i))/REAL(bins)*Rd, aver5(i), sigma5(i), &
                                 4.*Un*U0*(2./b*(Rr-a)**(2.*Un-1.))/b/((2./b*(Rr-a))**(2.*Un) + 1.)**2, &
                                 U0/(2./b*(Rr-a)**(2.*Un) + 1.)
     ENDDO
