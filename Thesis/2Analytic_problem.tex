@@ -208,5 +208,16 @@ The Debye solution for a spherical sink with a potential barrier only holds for 
         U_o &: a<r \le b \\
         0 &: b < r \le R_d
     \end{array} \right.
-    \label{<++>}
-\end{equation}<++>
+    \label{Boxcar_Potential}
+\end{equation}
+To find a solution of the Focker Planck equation for this Potential, we integrate over a small area containing the saltus of the Potential. 
+\begin{align}
+    0 &= \vec{\nabla} \left\{ \frac{1}{\gamma} \rho(\vec{r}) \vec{\nabla} U(\vec{r}) + D \vec{\nabla} \rho(\vec{r}) \right\} \\
+    J(r) &=  \frac{1}{\gamma} \rho(\vec{r}) \vec{\nabla} U(\vec{r}) + D \vec{\nabla} \rho(\vec{r})
+    \int_{a - \varepsilon}^{a + \varepsilon} {\rm d} r \frac{J(r)}{D\rho(r)} &= \int_{a - \varepsilon}^{a + \varepsilon} {\rm d} r \delta(r - a) \frac{U_o}{K_B T} + \frac{1}{\rho(r)} \nabla \rho(r) \\
+    -\frac{U_o}{K_B T} = \lim_{\varepsilon \rightarrow 0} \left[ \ln (\rho(r) ) \right]_{a - \varepsilon}^{a + \varepsilon} - \int_{a - \varepsilon}^{a + \varepsilon} {\rm d} r \frac{J(r)}{D\rho(r)}
+    \rho(a)_{+} = \rho(a)_{-} e^{\frac{U_o}{K_B T}}
+    \label{Boxcar_BC}
+\end{align}
+
+This way we obtain boundary conditions to fit the known solution for the forcefree Focker Planck equation at the jump discontinuity.
