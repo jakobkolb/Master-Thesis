@@ -66,7 +66,7 @@ For this gaussian transition probability the coefficients of the Kramers Moyal E
     \label{FPE2}
 \end{equation}
 
-\section{Brownian Particles diffusing around a spherical Sink}
+\subsection{Brownian Particles diffusing around a spherical Sink}
 
 The problem that shall be approached implies a spherical sink of radius $R_s$ at the origin, that absorbes every particle, that crosses its boarder. Further the particle density at infinity is assumed to be constant, isotrop and homogeneous. The density for $t_o = 0$ is constant for all $r > R_s$. 
 This leads to the following conditions:
@@ -169,26 +169,44 @@ Again in the limit of $t \rightarrow \infty$ this results in the steady state ab
     \label{steady state ideal rate}
 \end{equation}
 
-\subsection{Spherical Sink with Potential Barrier}
-The following section approaches the problem of brownian particles diffusing around a spherical sink with an arbitrary, spherically symmetric potential barrier. The solution do this problem was originally derived by debye in 1941.\\
-The Focker Planck Equation for the Problem is:
+\subsection{Stady State solution for Ideal Sink with Potential Barrier}
+
+The next section approaches the problem of brownian particles diffusing around an ideal sink with a spherically symmetric potential barrier. The barrier is assumably smooth i.e. continuous and continuously differentiable. The boundary conditions are as in \eqref{BC}. The Focker Planck Equation thus is the following:
 \begin{equation}
-    \frac{\partial \rho(\vec{r},t)}{\partial t} = - \vec{\nabla} \left( \frac{1}{\gamma}\rho(\vec{r},t) \vec{\nabla} U(\vec{r}) + D \vec{\nabla} \rho(\vec{r},t) \right)
-    \label{FPE ext frce}
+    0=\vec{\nabla}\left( \frac{1}{\gamma} \rho(\vec{r}) \vec{\nabla} U(\vec{r}) + D \vec{\nabla} \rho(\vec{r}) \right)
 \end{equation}
-with boundary conditions as in \eqref{BC}. We will examine steady state only, thus we can apply the continuity.
-\begin{align}
-    \frac{\partial \rho}{ \partial t } &= \ \vec{\nabla} \rho = 0 \\
-    &= \vec{\nabla}\left( \frac{1}{\gamma} \rho(\vec{r}) \vec{\nabla} U(r) + D \vec{\nabla} \rho(\vec{r}) \right)
-    \label{continuity eq}
-\end{align}
-Applying the divergence theorem on the last line results in:
-\begin{align}
-    0 &= \int_V {\rm d} V \vec{\nabla} \vec{J} 
-    &= \int_{\partial V}<++> {\rm d} \vec{A} \vec{J}
-    &= 4 \pi \left( r^{2} \left| J(r) \right| - R_s^{2} \left| \vec{J}(R_s) \right| \right)
-\end{align}
+where $\gamma$ is the friction constant. The solution for this problem was originally derived by Debye in 1949.
+From the spherical symetry of the system, the Einstein Smoluchowski relation for friction and diffusion constant and the Gauss integration theorem follows:
+\begin{equation}
+    \frac{K}{4 \pi D r^{2}} = \rho(r)\frac{{\rm d}}{{\rm d}r} \frac{U(r)}{K_B T} + \frac{{\rm d}}{{\rm d}r}\rho(r) 
+\end{equation}
+where $K$ denotes the total flux through the sink boundary that is by definition equal to the desired rate constant.
+The homogeneous Solution can be found by an exponential ansatz:
+\begin{equation}
+    \rho_h(r) = C e^{-\frac{U(r)}{K_B T}}.
+\end{equation}
+The particular solution can be found via variation of the integration constant:
+\begin{equation}
+    C(r) = C(R_s) + \frac{K}{4 \pi D} \int_{R_s}^{r} \exp \left( \frac{U(r')}{K_B T} \right)\frac{r'^{2}} {{\rm d}}r.
+\end{equation}
+To guarante $\rho(R_s) = 0$, $C(R_s)$ has to be zero and for the solution holds:
+\begin{equation}
+    \rho(r) = \frac{K}{4 \pi D}\exp\left( -\frac{U(r)}{K_B T} \right) \int_{R_s}^{r} \exp\left( \frac{U(r')}{K_B T} \right)\frac{  {\rm d} r' }{r'^{2}}
+    \label{Debye Solution}
+\end{equation}
+The rate constant $K$ is obtained by normalization of the solution:
+\begin{equation}
+    K = 4 \pi D \left\{  \int_{R_s}^{r} \exp\left( \frac{U(r')}{K_B T} \right)\frac{  {\rm d} r' }{r'^{2}} \right\}^{-1}
+\end{equation}
 
+\subsection{Debye Solution for Boxcar Potential}
 
-
-
+The Debye solution for a spherical sink with a potential barrier only holds for smooth potential functions. In case of an unsteady potential the solution has to be obtained differently. The following section will consider the special case of a boxcar like potential barrier.
+\begin{equation}
+    U(r) = \left\{ \begin{array}{l l} 
+        0 &: R_s < r \le a \\
+        U_o &: a<r \le b \\
+        0 &: b < r \le R_d
+    \end{array} \right.
+    \label{<++>}
+\end{equation}<++>
