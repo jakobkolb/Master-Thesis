@@ -8,7 +8,7 @@ USE statistics
 IMPLICIT NONE
 
     INTEGER     :: i, j
-    INTEGER     :: counter
+    INTEGER     :: counter=0
     REAL(8)     :: t=0, ct1, ct2, wt1, wt2
     REAL(8)     :: omp_get_wtime
 
@@ -34,19 +34,20 @@ i = 0
     DO WHILE(t<t1)
         i = i+1
         parold = par
+        !Call statistic routines for density profile and absorption rate
+
+        IF(t >= t0) THEN
+            CALL dens_statistics_accum(nbins)
+        ENDIF
 
         !Move particles according to overdamped Langewin eq.
 
         CALL move_particles
         CALL maintain_boundary_conditions(counter)
 
-        !Call statistic routines for density profile and absorption rate
-
-        IF( t >= t0) THEN
-            CALL dens_statistics_accum(nbins)
+        IF(t >= t0) THEN 
             CALL rate_statistics_accum(counter, nbins)
         ENDIF
-
         t = t + dt
 
 !        print*, 'msq/t - 2*d =',  msqd/t - 6, ' md = ', md/t

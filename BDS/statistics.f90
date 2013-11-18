@@ -43,6 +43,7 @@ CONTAINS
         r = SQRT(DOT_PRODUCT(X(:,i),X(:,i)))
         binnumber = INT(r/Rd*bins)
         IF(binnumber .LE. bins) THEN
+            if(binnumber .LE. 0)print*, i, binnumber, r, Rd, X(:,i)
             Xhist(2,binnumber) = Xhist(2,binnumber) + 1
         ENDIF
     ENDDO
@@ -80,8 +81,8 @@ CONTAINS
     DO i = 1,bins
         Rr = real(i)*Rd/real(bins)
         WRITE(dens_final, "(5f15.4)")    (REAL(i))/REAL(bins)*Rd, aver5(i), sigma5(i), &
-                                4.*Un*U0*(2./b*(Rr-a)**(2.*Un-1.))/b/((2./b*(Rr-a))**(2.*Un) + 1.)**2, &
-                                U0/(2./b*(Rr-a)**(2.*Un) + 1.)
+                                4.*Un*U0*((2./b*(Rr-a))**(2.*Un-1.))/b/((2./b*(Rr-a))**(2.*Un) + 1.)**2, &
+                                U0/((2./b*(Rr-a))**(2.*Un) + 1.)
     ENDDO
 
     WRITE(rate_final, *) "this file contains simulation parameters and measured absorption rate"

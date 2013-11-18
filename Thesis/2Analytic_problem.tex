@@ -215,9 +215,18 @@ To find a solution of the Focker Planck equation for this Potential, we integrat
     0 &= \vec{\nabla} \left\{ \frac{1}{\gamma} \rho(\vec{r}) \vec{\nabla} U(\vec{r}) + D \vec{\nabla} \rho(\vec{r}) \right\} \\
     J(r) &=  \frac{1}{\gamma} \rho(\vec{r}) \vec{\nabla} U(\vec{r}) + D \vec{\nabla} \rho(\vec{r}) \\
     \int_{a - \varepsilon}^{a + \varepsilon} {\rm d} r \frac{J(r)}{D\rho(r)} &= \int_{a - \varepsilon}^{a + \varepsilon} {\rm d} r \delta(r - a) \frac{U_o}{K_B T} + \frac{1}{\rho(r)} \nabla \rho(r) \\
-    -\frac{U_o}{K_B T} &= \lim_{\varepsilon \rightarrow 0} \left[ \ln (\rho(r) ) \right]_{a - \varepsilon}^{a + \varepsilon} - \int_{a - \varepsilon}^{a + \varepsilon} {\rm d} r \frac{J(r)}{D\rho(r)}
-    \rho(a)_{+} = \rho(a)_{-} e^{\frac{U_o}{K_B T}}
+    -\frac{U_o}{K_B T} &= \lim_{\varepsilon \rightarrow 0} \left[ \ln (\rho(r) ) \right]_{a - \varepsilon}^{a + \varepsilon} - \lim_{\varepsilon \rightarrow 0}\int_{a - \varepsilon}^{a + \varepsilon} {\rm d} r \frac{J(r)}{D\rho(r)} \\
+    \rho_{+}(a) &= \rho_{-}(a) e^{\frac{U_o}{K_B T}}
     \label{Boxcar_BC}
 \end{align}
 
-This way we obtain boundary conditions to fit the known solution for the force free Focker Planck equation at the jump discontinuity.
+This way we obtain boundary conditions to fit the known solution for the force free Focker Planck equation \eqref{steady state density} at the jump discontinuity.\\
+We solve the emerging system of linear equations and obtain the following solution for steady state density profile and absorption rate:
+\begin{align}
+    \rho(r) &= \rho_0 \cdot \left\{ \begin{array}{l l l}
+                                    & \left(1 - \frac{R_s}{r} \right) & for \quad R_s < r \le a \\
+            \exp(-\frac{U_o}{K_B T})  & \left(1 - \frac{R_s}{r} \right) & for \quad a < r \le b \\
+                                    & \left(1 - \frac{R_s}{r} \right) & for \quad b < r 
+                            \end{array} \right. \\
+    K &= 4 \pi R_s D \rho_0
+\end{align}

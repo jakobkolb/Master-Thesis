@@ -50,7 +50,7 @@ SUBROUTINE init_parameters
     IF(trig .EQ. 'Ua') Ua = REAL(tmp)
     IF(trig .EQ. 'Ub') Ub = REAL(tmp)
     IF(trig .EQ. 'Un') Un = REAL(tmp)
- 
+
     print*, 'npar = ', npar
     print*, 'D  = ', D
     print*, 'KT = ', KT
@@ -117,8 +117,8 @@ SUBROUTINE init_particles
     DO i = 1,npar
         CALL RANDOM_NUMBER(rand)
         DO j = 1,nbins
-            IF(rand(1) .LE. Cumm(j)) THEN
-                Rr = r(j)
+            IF(rand(1) < Cumm(j)) THEN
+                Rr = r(j) + dr*(rand(2)-0.5)
                 EXIT
             ENDIF
         ENDDO

@@ -1,15 +1,15 @@
 &parameter
-    nparin  = 1.5D5
+    nparin  = 1.5D4
     D       = 0.05
     KT      = 1.
     dt      = 3.0D-3
     t0      = 0D0
-    t1      = 1.0D0
+    t1      = 1D2
     Rd      = 10
     Rs      = 1
-    U0      = 10
+    U0      = 1
     Ua      = 4
     Ub      = 1
-    Un      = 100
+    Un      = 10
     nbins   = 1000
 /

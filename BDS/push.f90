@@ -41,6 +41,7 @@ SUBROUTINE move_particles
 
     !Apply random force to Particles
 
+
     !$OMP PARALLEL DO
     DO i = 1,npar
         DO j = 1,3
@@ -48,6 +49,7 @@ SUBROUTINE move_particles
         ENDDO
     ENDDO
     !$OMP END PARALLEL DO
+
 
 END SUBROUTINE move_particles
 
@@ -64,8 +66,7 @@ SUBROUTINE grad_U(R, f_eff)
     a = Rs + Ua + 0.5*Ub
     b = Ub
 
-    grad_Ur = 4*Un*U0*(2/b*(Rr-a)**(2*Un-1))/b/((2/b*(Rr-a))**(2*Un) + 1)**2
-
+    grad_Ur = 4*Un*U0*((2/b*(Rr-a))**(2*Un-1))/b/((2/b*(Rr-a))**(2*Un) + 1)**2
     f_eff = D/KT*grad_Ur*Rn
 
 END SUBROUTINE grad_U
