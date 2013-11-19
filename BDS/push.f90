@@ -27,6 +27,7 @@ SUBROUTINE move_particles
     !$OMP END PARALLEL DO
 
     !Calculate effective interaction forces
+    !f_eff = -D/KT*grad_U*dt
 
     f_eff = 0
     !$OMP PARALLEL DO
@@ -66,8 +67,8 @@ SUBROUTINE grad_U(R, f_eff)
     a = Rs + Ua + 0.5*Ub
     b = Ub
 
-    grad_Ur = 4*Un*U0*((2/b*(Rr-a))**(2*Un-1))/b/((2/b*(Rr-a))**(2*Un) + 1)**2
-    f_eff = D/KT*grad_Ur*Rn
+    grad_Ur = -4*Un*U0*((2/b*(Rr-a))**(2*Un-1))/b/((2/b*(Rr-a))**(2*Un) + 1)**2
+    f_eff = -D/KT*grad_Ur*dt*Rn
 
 END SUBROUTINE grad_U
 
