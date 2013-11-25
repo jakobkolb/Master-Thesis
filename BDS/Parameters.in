@@ -1,10 +1,10 @@
 &parameter
-    nparin  = 1.5D4
+    nparin  = 1.5D6
     D       = 0.05
     KT      = 1.
     dt      = 3.0D-3
     t0      = 0D0
-    t1      = 1D2
+    t1      = 3D-3
     Rd      = 10
     Rs      = 1
     U0      = 1

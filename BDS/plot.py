@@ -2,70 +2,123 @@
 
 import numpy as np
 import matplotlib.pyplot as mp
-#import scipy.optimize as so
+from scipy.optimize import curve_fit
 
-x = np.loadtxt('dens_data.out')
+list_of_Rs = range(1,2,1)
 
-D = 0.1
-Rs= 1.
-Rd= 10.
-N = 1.5E3
-U0 = 1
-Ua = 4
-Ub = 1
-Un = 20
+nbins = 1000
+pi = 3.14159265359
 
-def Normalization_Constant(a, upper_bound, lower_bound):
-    Normalization_Constant = 4.*np.pi*(1/3.*upper_bound**3 - a/2.*upper_bound**2 - 1/3.*lower_bound**3 + a/2.*lower_bound**2)
-    return Normalization_Constant
+def index_map(i):
+    k = i-1
+    return k
 
-def rho(r,C):
-    rho = N/C*(1-Rs/r)
+#____________________________________#
+#Import measured rate data from file #
+
+print 'read data from files '
+
+mrate = np.zeros((np.shape(list_of_Rs)[0],11))
+for i in list_of_Rs:
+        target = ''
+        target =  'rate_data.out'
+        load = np.loadtxt(target, skiprows=2)
+        k = index_map(i)
+        mrate[k,0:11] = load
+print np.shape(mrate)
+print mrate
+
+#____________________________________#
+#Import measured dens data from file #
+
+print 'read density data from files'
+
+densdata = np.zeros((1000,5,np.shape(list_of_Rs)[0]))
+k = 0
+for i in list_of_Rs:
+    target = ''
+    target =  'dens_data.out'
+    k = index_map(i)
+    densdata[:,0:5,k] = np.loadtxt(target)
+
+#print densdata
+
+for k in list_of_Rs:
+    j = index_map(k)
+    particles = 0
+    r = 0
+    dr = densdata[1,0,j] - densdata[0,0,j]
+    for i in range(0,np.shape(densdata)[0]):
+        voli = 4./3.*np.pi*((r+dr)**3-r**3)
+        r = r + dr
+        particles = particles + densdata[i,1,j]
+        densdata[i,1:3,j] =  densdata[i,1:3,j]/voli
+denssolution = np.zeros((1000,5,np.shape(list_of_Rs)[0]))
+
+def rho_1(r, Rs, Ua, Ub, U0, KT):
+    alpha1 = 1
+    alpha2 = (1-Rs/(Rs+Ua))*np.exp(-U0/KT) + Rs/(Rs + Ua)
+    alpha3 = Rs*(np.exp(U0/KT) - 1)*(1/(Rs+Ua) - 1/(Rs+Ua+Ub)) + 1
+    rho = np.zeros((np.shape(r)[0]))
+    for k in range(0,np.shape(r)[0]):
+        if r[k] < Rs:
+            rho[k] = 0
+        elif r[k] >= Rs and r[k] < Rs + Ua:
+            rho[k] = alpha1-Rs/r[k]
+        elif r[k] >= Rs + Ua and r[k] < Rs + Ua + Ub:
+            rho[k] = alpha2-Rs/r[k]
+        elif r[k] >= Rs + Ua + Ub:
+            rho[k] = alpha3-Rs/r[k]
+        else :
+            print 'error'
+
     return rho
 
-print np.shape(x)[0]
-particles = 0
-threequarterstimespi = 4./3.*np.pi
-dr = x[1,0] - x[0,0]
-r = 0
-for i in range(0,np.shape(x)[0]):
-    voli = threequarterstimespi*((r+dr)**3-r**3)
-    r = r + dr
-    particles = particles + x[i,1]
-    x[i,1:3] =  x[i,1:3]/voli
+def I(alpha, Rs, b, a):
+    I = (alpha/3.*a**3 - Rs/2.*a**2 - alpha/3.*b**3 + Rs/2.*b**2)
+    return I
 
-def U(Rr, U0, a, b):
-    U =  U0/((2./b*(Rr-a))**(2.*Un) + 1.)
-    return U
+def rho_0(N,D,KT,Rs,Rd,U0,Ua,Ub):
+    alpha1 = 1
+    alpha2 = (1-Rs/(Rs+Ua))*np.exp(-U0/KT) + Rs/(Rs + Ua)
+    alpha3 = Rs*(np.exp(U0/KT) - 1)*(1/(Rs+Ua) - 1/(Rs+Ua+Ub)) + 1
+    rho_0 = N/4./np.pi/(I(alpha1,Rs,Rs,Rs+Ua) + I(alpha2,Rs,Rs+Ua,Rs+Ua+Ub) + I(alpha3,Rs, Rs+Ua+Ub,Rd))
+    return rho_0
 
-def gradU(Rr, U0, a, b):
-    gradU =  4.*Un*U0*((2./b*(Rr-a))**(2.*Un-1.))/b/((2./b*(Rr-a))**(2.*Un) + 1.)**2
-    return gradU
+#____________________________________#
+#use different plots to show results #
 
-print particles
+fig = mp.figure()
+ax = fig.add_subplot(111)
+pltlist = [1]
 
-def K(R,a,D,N):
-    C = Normalization_Constant(a,R,a)
-    K = 4.*np.pi*a*D*N/C
-    return K
+for k in pltlist:
 
-b = np.loadtxt('rate_data.out', skiprows=2)
+    i = index_map(k)
 
-print b[3], 'pm', b[4], K(Rd,Rs,D,N),(1-b[3]/K(Rd,Rs,D,N))*100, (b[4]/b[3]*100)
+    print rho_0(mrate[i,0], mrate[i,1], 1, mrate[i,2], mrate[i,3], mrate[i,6], mrate[i,7], mrate[i,8])
 
-a = Rs + Ua + 0.5*Ub
-b = Ub
+    lns1 = mp.plot( densdata[:,0,i]/mrate[i,2], densdata[:,1,i]/rho_0(mrate[i,0], mrate[i,1], 1, mrate[i,2], mrate[i,3], mrate[i,6], mrate[i,7], mrate[i,8]), label='Ua = ' + `list_of_Rs[i]`)
+    print i
+#    mp.plot( densdata[:,0,i], densdata[:,3,i])
+    mp.fill_between(densdata[:,0,i]/mrate[i,2],densdata[:,1,i]/rho_0(mrate[i,0], mrate[i,1], 1, mrate[i,2], mrate[i,3],mrate[i,6], mrate[i,7], mrate[i,8])-densdata[:,2,i]/rho_0(mrate[i,0], mrate[i,1],1 ,mrate[i,2], mrate[i,3],mrate[i,6], mrate[i,7], mrate[i,8]),densdata[:,1,i]/rho_0(mrate[i,0], mrate[i,1], 1, mrate[i,2], mrate[i,3],mrate[i,6], mrate[i,7], mrate[i,8])+densdata[:,2,i]/rho_0(mrate[i,0], mrate[i,1], 1, mrate[i,2], mrate[i,3],mrate[i,6], mrate[i,7], mrate[i,8]),color='grey', alpha=0.3)
+    lns2 = mp.plot( densdata[:,0,i]/mrate[i,2], rho_1( densdata[:,0,i], mrate[i,2], mrate[i,7], mrate[i,8], mrate[i,6], 1), label = 'analytic solution \nfor boxcar potential')
 
-mp.close()
-C = Normalization_Constant(Rs, Rd, Rs)
-mp.figure(1)
-mp.plot(x[:,0], x[:,1])
-mp.fill_between(x[:,0],x[:,1]-x[:,2],x[:,1]+x[:,2],color='grey',alpha=0.3)
-#mp.plot(x[:,0], x[:,3])
-#mp.plot(x[:,0], x[:,4])
-mp.plot(x[:,0], U(x[:,0], U0, a, b))
-mp.plot(x[:,0], gradU(x[:,0], U0, a, b))
-mp.show()
+ax2 = ax.twinx()
+#for k in pltlist:
+
+#    lns3 = mp.plot( densdata[:,0,i], densdata[:,4,i], label = 'Potential Barrier')
+
+lns = lns1 + lns2# + lns3
+labs = [l.get_label() for l in lns]
+ax.legend(lns, labs, loc='upper left')
+
+
+ax.set_xlabel('r/Rs')
+ax.set_ylabel('rho/rho_0')
+ax2.set_ylabel('U(r/Rs)')
+
+mp.show(2)
 
 
 

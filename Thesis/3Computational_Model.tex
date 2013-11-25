@@ -1,11 +1,12 @@
 \section{Computational Model}
-
-The implemented model to simulate the studied system is a particle simulation. In fact, this implies the simulation of a large number of realizations of the stochastic process as in \eqref{hierarchy} using the transition probability for discrete time brownian motion as in \eqref{W}.\\
+\subsection{Equation of Motion}
+The implemented model to simulate the studied system is a particle simulation. In fact, this implies the simulation of a large number of realizations of the stochastic process as in \eqref{hierarchy} using the transition probability for discrete time Brownian motion as in \eqref{W}.\\
 The equation of motion for the particles thus becomes:
 \begin{equation}
     \vec{r_i}(t + \Delta t) = \vec{r_i}(t) + \sqrt{2 D \Delta t}R(t)
     \label{computational eqm}
 \end{equation}
+\subsection{Boundary Conditions}
 In addition one has to take into account the boundary and initial conditions for the system \eqref{BC}. These boundary conditions have to be modified to satisfy the finite domain of the simulation.
 For reasons of simplicity one is interested only in the steady state of the system.
 In this case, the continuity equation is used to obtain conditions for the domain boundaries:
@@ -27,14 +28,15 @@ Similarly the particles that enter the sink $r_o < R_s$ are set to the boundary 
     r_n = R_d - (r_o - R_s)
 \end{equation}
 such that the total flux into the sink has to equal the total flux through the boundary of the simulation domain. \\
-Since this boundary condition only holds for the steady state of the system, the initial conditions must be set accordingly. Therefore we use inverse sampling to initially distribute the particles in the system according to the following cummulative distribution function:
+\subsection{Initial Conditions}
+Since this boundary condition only holds for the steady state of the system, the initial conditions must be set accordingly. Therefore we use inverse sampling to initially distribute the particles in the system according to the following cumulative distribution function:
 \begin{align}
     F(r) &= C \int_{R_s}^{r} {\rm d} r' \left( 1 - \frac{R_s}{r'} \right), \quad R_s \ge r \ge R_d \\
     C    &= \int_{R_s}^{R_d} {\rm d} r \left( 1 - \frac{R_s}{r} \right)
     \label{CDF}
 \end{align}
 
-The absorption rate of the sink is simply calculated by counting the particles that enter the sink per timestep. \\
+The absorption rate of the sink is simply calculated by counting the particles that enter the sink per time step. \\
 To be able to compare the computational results to an analytic solution the normalization for the steady state density i.e. $\rho_o$ has to be calculated for finite volume and given particle Number:
 \begin{align}
     N &= \int_{R_s}^{R_d} {\rm d} V \rho_o \left( 1 - \frac{R_s}{r} \right) \\

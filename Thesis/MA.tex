@@ -12,11 +12,12 @@
 \usepackage[english]{hyperref}
 %\usepackage[sort&compress]{natbib}
 \usepackage{
-	libertine,		%Schriftart
+    textcomp,
 	amsmath,
-	amssymb,	
+	amssymb,
+    libertine,
 	amsfonts,		%Mathepakete
-	graphicx,		%Bilder einbinden
+    graphicx,		%Bilder einbinden
 	a4wide,			%volle Seitenbreite
 	multirow,		%Zellen verbinden in Tabellen
 	booktabs,		%schˆne Tabellen
@@ -28,7 +29,9 @@
 	caption,
 	hhline,
 	wrapfig,
+    listings
 	}
+\usepackage[toc,page]{appendix}
 
 %Spalten mit Breitenangabe und Umbr¸chen
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} 	% zentriert
@@ -66,7 +69,7 @@
 %Kopf- unf Fuﬂzeilen
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhf[LH]{\textsc{Thesis Title}}
+\fancyhf[LH]{\textsc{Progress Report}}
 \fancyhf[RH]{\small{Jakob Kolb}}
 \fancyhf[CF]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -75,9 +78,10 @@
 \begin{document}
 \setcounter{page}{1}%
 %Einbinden von externen Dateien
-\include{0Cover}
-\include{1Introduction}
-\include{2Analytic_problem}
+%\input{0Cover}
+\input{1Introduction}
+\input{2Analytic_problem}
 \input{3Computational_Model}
 \input{4Results}
+\input{5Appendix}
 \end{document}

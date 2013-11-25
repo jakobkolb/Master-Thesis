@@ -1,26 +1,26 @@
 \section{Analytic Considerations}
 
-This part will introduce the basic equations that are relevant for the handling of brownian motion as a stochastic process (and its realisations in a computational model) as well as the derivation of an equivalent Focker Planck equation to derive an analytic expression for the wanted density profiles and reaction rates.
+This part will introduce the basic equations that are relevant for the handling of Brownian motion as a stochastic process (and its realisations in a computational model) as well as the derivation of an equivalent Focker-Planck equation to derive an analytic expression for the wanted density profiles and reaction rates.
 
 \subsection{The Focker Planck Equation for Brownian Particles}
-Brownian motion is a markovian process, i.e. each timestep in the random motion of particles does only depend on their preceeding position. This implies, that the conditional distribution of their coordinates obeys the following relation:
+Brownian motion is a markovian process, i.e. each time step in the random motion of particles does only depend on their preceding position. This implies, that the conditional distribution of their coordinates obeys the following relation:
 \begin{equation}
     P(x,t|y,u;y,v) = P(x,t|y,v), \quad t>u>v
     \label{}
 \end{equation}
-This relation implies, that for a markov process every multi step probability distribution can be expressed as a hierarchy of a initial distribution and the two step transition probabilities. For $ t_1 < t_2 < \cdots < t_n$:
+This relation implies, that for a Markov process every multi step probability distribution can be expressed as a hierarchy of a initial distribution and the two step transition probabilities. For $ t_1 < t_2 < \cdots < t_n$:
 \begin{align}
     P(x_1,t_1;x_2,t_2;\cdots;x_n,t_n) &= P(x_n,t_n|x_{n-1},t_{n-1})P(x_{n-1},t_{n-1}|x_{n-2},t_{n-2}) \cdots \nonumber \\
                                       & \cdots P(x_2,t_2|x_1,t_1)P(x_1,t_1)
     \label{hierarchy}
 \end{align}
-So the entire realization of the process is determined by the initial distribution and the two step transition probablity. \\
+So the entire realization of the process is determined by the initial distribution and the two step transition probability. \\
 Integrating the three step joint probability distribution over the intermediate step leads to the Chapman Kolmogorov equation:
 \begin{equation}
     P(x,t|y,v) = \int P(x,t|z,u) P(z,u|y,v).
     \label{Chapman Kolmogorov equation}
 \end{equation}
-From this one can derive the Kramerst Moyal expansion for $P(x,t)$:
+From this one can derive the Kramers Moyal expansion for $P(x,t)$:
 \begin{equation}
 \frac{\partial P(x,t)}{\partial t} = \sum_{m = 1}^{\infty}\frac{(-1)^{m}}{m!}\frac{\partial^m}{\partial x^m} \left[ a^{(m)}(x,t) P(x,t) \right]
     \label{Kramers Moyal expansion}
@@ -41,7 +41,7 @@ Brownian motion of a Particle in solution:
     m \frac{{\rm d}^2 x}{{\rm d}t^2} = -\gamma \frac{ {\rm d}x}{{\rm d}t} + f(x) + \varepsilon(t)
     \label{Langewin equation}
 \end{equation}
-in which $\varepsilon(t)$ is a gaussian distributed random process describing the 
+in which $\varepsilon(t)$ is a Gaussian distributed random process describing the 
 collision interaction of the particle and the solute. 
 In the overdamped limit this expression can be discretized in time and transforms to:
 \begin{equation}
@@ -53,14 +53,14 @@ From the distribution of the random force:
     P(\varepsilon ' ) = \sqrt{\frac{\Delta t}{4 \pi D \gamma^{2}}} \exp \left\{ \frac{\gamma^{2} \Delta t}{4 D \gamma^{2}} \right\}
     \label{eps dist}
 \end{equation}
-one can compute the transitions probability for the brownian particle as:
+one can compute the transitions probability for the Brownian particle as:
 \begin{align}
     W(x,\Delta x,t, \Delta t)  &= \left< \delta \left(  \Delta x - (x(t-\Delta t) - x(t)) \right)\right> \\
                         &= \int \rm{d}\varepsilon ' \delta \left(  \Delta x - (x(t-\Delta t) - x(t)) \right)  \sqrt{\frac{\Delta t}{4 \pi D \gamma^{2}}} \exp \left[ \frac{\gamma^{2} \Delta t}{4 D \gamma^{2}} \right] \\
                         &= \sqrt{\frac{1}{4 \pi D \Delta t}} \exp \left[ \frac{-\left(\Delta x - f(x) \frac{\Delta t}{\gamma} \right)^2}{4 D \Delta t} \right]
     \label{W}
 \end{align}
-For this gaussian transition probability the coefficients of the Kramers Moyal Expansion vanish after the second term, such that the resulting Focker Planck equation holds the full analytic solution for the time evolution of the distribution of particles.
+For this Gaussian transition probability the coefficients of the Kramers Moyal Expansion vanish after the second term, such that the resulting Focker Planck equation holds the full analytic solution for the time evolution of the distribution of particles.
 \begin{equation}
     \frac{\partial P(x,t)}{\partial t} = - \frac{\partial}{\partial x} \left[f(x)P(x,t) \right] + D\frac{\partial^2}{\partial x^2}\left[P(x,t) \right] 
     \label{FPE2}
@@ -83,7 +83,7 @@ In the following, the given Focker Planck Equation in terms of particle densitie
     \label{FPE3}
 \end{equation}
 
-will be solved without extermal force, i.e $\vec f(r) = 0$ and subject to the given boundary and initial conditions.
+will be solved without external force, i.e. $\vec f(r) = 0$ and subject to the given boundary and initial conditions.
 With the substitution $r \cdot \rho(r,t) = u(r,t)$ and the assumption, that the problem is spherically symmetric the derivatives in the Focker Planck equation simplify to
 \begin{equation}
     \frac{\partial u(r,t)}{\partial t} = D \frac{\partial ^2 u(r,t)}{\partial r^2}
@@ -96,7 +96,7 @@ Laplace transform of the equation yields:
     u(r,0) + s \tilde{u}(r,s) &= D \frac{\rm{d}^2}{\rm{d} r^2} \tilde{u}(r,s).
 \end{align}
 This is an ordinary 2nd degree inhomogeneous differential equation with constant coefficients.
-For the standart ansatz $\tilde{u}(r,s) = \exp(\lambda(s) r)$ for the homogeneous solution we get the following characteristic polynomial:
+For the standard ansatz $\tilde{u}(r,s) = \exp(\lambda(s) r)$ for the homogeneous solution we get the following characteristic polynomial:
 \begin{equation}
     \lambda(s) ^2 - \frac{s}{D} = 0
     \label{}
@@ -113,11 +113,11 @@ We find the inhomogeneous solution using a polynomial ansatz of the form $\tilde
     \Rightarrow C_3 &= \frac{r}{s}\rho_o \\
                 C_4 &= 0
 \end{align}
-Now the entire solution has to be fitted to the boundary conditions as in (\ref{BC}). The solution in laplace space then reads:
+Now the entire solution has to be fitted to the boundary conditions as in (\ref{BC}). The solution in Laplace space then reads:
 \begin{equation}
 \tilde{u}(r,s) = \rho_o \left( \frac{r}{s} + \frac{R_s}{s} e^{ \sqrt{\frac{s}{D}}(R_s - r) } \right) 
 \end{equation}
-The inverse laplace transform
+The inverse Laplace transform
 \begin{align}
     u(r,t)  &= \frac{1}{2 \pi i} \int\limits_{\gamma - i \infty}^{\gamma + i \infty}  e^{st} \tilde{u}(r,s){\rm d}t \\
     &= \frac{\rho_o}{ 2 \pi i} \left\{  \int\limits_{\gamma - i \infty}^{\gamma + i \infty} \frac{r}{s}  {\rm d}t +  \int\limits_{\gamma - i \infty}^{\gamma + i \infty}\frac{R_s}{s} e^{ \sqrt{\frac{s}{D}}(R_s - r) }  {\rm d}t \right\}
@@ -156,7 +156,7 @@ Using the differential continuity equation:
     &= \vec{\nabla} \left\{ \rho(\vec{r},t) \nabla \vec{U}(\vec{r}) + D \vec{\nabla} \rho(\vec{r},t) \right\}
     \label{contiuity equation}
 \end{align}
-and the spherical symmetry of the solution one can derive the time dependent reaction rate of the brownian particles with the spherical sink of radius $R_s$ as follows:
+and the spherical symmetry of the solution one can derive the time dependent reaction rate of the Brownian particles with the spherical sink of radius $R_s$ as follows:
 \begin{align}
     K(t) &= \int_\Omega D  \vec{\nabla} \rho(\vec{r},t) \\
     &= 4 \pi D R_s^2 \left. \vec{\nabla} \rho(\vec{r},t) \right|_{r = R_s}\\
@@ -169,14 +169,14 @@ Again in the limit of $t \rightarrow \infty$ this results in the steady state ab
     \label{steady state ideal rate}
 \end{equation}
 
-\subsection{Stady State solution for Ideal Sink with Potential Barrier}
+\subsection{Steady State solution for Ideal Sink with Potential Barrier}
 
-The next section approaches the problem of brownian particles diffusing around an ideal sink with a spherically symmetric potential barrier. The barrier is assumably smooth i.e. continuous and continuously differentiable. The boundary conditions are as in \eqref{BC}. The Focker Planck Equation thus is the following:
+The next section approaches the problem of Brownian particles diffusing around an ideal sink with a spherically symmetric potential barrier. The barrier is assumably smooth i.e. continuous and continuously differentiable. The boundary conditions are as in \eqref{BC}. The Focker Planck Equation thus is the following:
 \begin{equation}
     0=\vec{\nabla}\left( \frac{1}{\gamma} \rho(\vec{r}) \vec{\nabla} U(\vec{r}) + D \vec{\nabla} \rho(\vec{r}) \right)
 \end{equation}
 where $\gamma$ is the friction constant. The solution for this problem was originally derived by Debye in 1949.
-From the spherical symetry of the system, the Einstein Smoluchowski relation for friction and diffusion constant and the Gauss integration theorem follows:
+From the spherical symmetry of the system, the Einstein Smoluchowski relation for friction and diffusion constant and the Gauss integration theorem follows:
 \begin{equation}
     \frac{K}{4 \pi D r^{2}} = \rho(r)\frac{{\rm d}}{{\rm d}r} \frac{U(r)}{K_B T} + \frac{{\rm d}}{{\rm d}r}\rho(r) 
 \end{equation}
@@ -189,7 +189,7 @@ The particular solution can be found via variation of the integration constant:
 \begin{equation}
     C(r) = C(R_s) + \frac{K}{4 \pi D} \int_{R_s}^{r} \exp \left( \frac{U(r')}{K_B T} \right)\frac{r'^{2}} {{\rm d}}r.
 \end{equation}
-To guarante $\rho(R_s) = 0$, $C(R_s)$ has to be zero and for the solution holds:
+To guarantee $\rho(R_s) = 0$, $C(R_s)$ has to be zero and for the solution holds:
 \begin{equation}
     \rho(r) = \frac{K}{4 \pi D}\exp\left( -\frac{U(r)}{K_B T} \right) \int_{R_s}^{r} \exp\left( \frac{U(r')}{K_B T} \right)\frac{  {\rm d} r' }{r'^{2}}
     \label{Debye Solution}

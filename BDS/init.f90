@@ -73,7 +73,7 @@ END SUBROUTINE init_parameters
 SUBROUTINE init_particles
 
     REAL(8), DIMENSION(3)       :: rand
-    REAL(8)                     :: Rr, dr, theta, phi
+    REAL(8)                     :: Rr, dr, theta, phi, a1, a2, a3
     INTEGER                     :: i, j, n
     REAL(8), DIMENSION(nbins)   :: Cumm, r
 
@@ -89,19 +89,22 @@ SUBROUTINE init_particles
     Rr = Rs
     dr = (Rd-Rs)/(nbins)
     r = 0
+
+    a1 = 1
+    a2 = (1-Rs/(Rs+Ua))*exp(-U0/KT) + Rs/(Rs + Ua)
+    a3 = Rs*(exp(U0/KT) - 1)*(1/(Rs+Ua) - 1/(Rs+Ua+Ub)) + 1
+
+
     DO i = 1,nbins
         r(i) = Rr
         IF(Rr > Rs .AND. Rr <= (Rs + Ua)) THEN
-
-            Cumm(i) = (1/3.*r(i)**3 - Rs/2.*r(i)**2 - 1/3.*Rs**3 + Rs/2.*Rs**2)
+            Cumm(i) = Cumm(i-1) + (a1/3.*(r(i)+dr)**3 - Rs/2.*(r(i)+dr)**2 - a1/3.*r(i)**3 + Rs/2.*r(i)**2)
         ELSEIF(Rr > (Rs + Ua) .AND. Rr <= (Rs + Ua + Ub)) THEN
-            Cumm(i) = (1/3.*(Rs + Ua)**3 - Rs/2.*(Rs + Ua)**2 - 1/3.*Rs**3 + Rs/2.*Rs**2) + &
-            exp(-U0/KT)*(1/3.*Rr**3 - Rs/2.*Rr**2 - 1/3.*(Rs + Ua)**3 + Rs/2.*(Rs + Ua)**2)
+            Cumm(i) = Cumm(i-1) + (a2/3.*(r(i) + dr)**3 - Rs/2.*(r(i) + dr)**2 - a2/3.*r(i)**3 + Rs/2.*r(i)**2)
         ELSEIF(Rr > (Rs + Ua + Ub) .AND. Rr <= Rd) THEN
-            Cumm(i) = (1/3.*(Rs + Ua)**3 - Rs/2.*(Rs + Ua)**2 - 1/3.*Rs**3 + Rs/2.*Rs**2) + &
-            exp(-U0/KT)*(1/3.*(Rs+Ua+Ub)**3 - Rs/2.*(Rs+Ua+Ub)**2 - 1/3.*(Rs+Ua)**3 + Rs/2.*(Rs+Ua)**2) + &
-            (1/3.*Rr**3 - Rs/2.*Rr**2 - 1/3.*(Rs+Ua+Ub)**3 + Rs/2.*(Rs+Ua+Ub)**2)
+            Cumm(i) = Cumm(i-1) + (a3/3.*(r(i) + dr)**3 - Rs/2.*(r(i) + dr)**2 - a3/3.*r(i)**3 + Rs/2.*r(i)**2)
         ENDIF
+        IF(Cumm(i) .LE. Cumm(i-1)) print*, 'error!!', i, Rr, Cumm(i), Cumm(i-1), Cumm(i-2)
         Rr = Rr + dr
     ENDDO
     Cumm = Cumm/Cumm(nbins)
