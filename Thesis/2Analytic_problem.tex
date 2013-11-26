@@ -223,10 +223,11 @@ To find a solution of the Focker Planck equation for this Potential, we integrat
 This way we obtain boundary conditions to fit the known solution for the force free Focker Planck equation \eqref{steady state density} at the jump discontinuity.\\
 We solve the emerging system of linear equations and obtain the following solution for steady state density profile and absorption rate:
 \begin{align}
-    \rho(r) &= \rho_0 \cdot \left\{ \begin{array}{l l l}
-                                    & \left(1 - \frac{R_s}{r} \right) & for \quad R_s < r \le a \\
-            \exp(-\frac{U_o}{K_B T})  & \left(1 - \frac{R_s}{r} \right) & for \quad a < r \le b \\
-                                    & \left(1 - \frac{R_s}{r} \right) & for \quad b < r 
+    \rho(r) &= \rho_0 \cdot \left\{ \begin{array}{ l l}
+                                     \left(1 - \frac{R_s}{r} \right) & for \quad R_s < r \le a \\
+                                     \left( 1 - \frac{R_s}{a} \right) e^{-\frac{U_o}{K_B T}} + \frac{R_s}{a} - \frac{R_s}{r} & for \quad a < r \le b \\
+                                     R_s \left(e^{\frac{U_0}{K_B T}} - 1\right) \left( \frac{1}{a} - \frac{1}{b} \right) + 1 - \frac{R_s}{r}  & for \quad b < r 
                             \end{array} \right. \\
     K &= 4 \pi R_s D \rho_0
+    \label{Boxcar_solution}
 \end{align}

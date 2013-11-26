@@ -9,8 +9,8 @@ If not stated differently the simulations use parameters as given in the table b
         $R_d$ & $10$ \\
         ${\rm d}t$ & $10^{-3}$
     \end{tabular}
-    \caption{Default simulation parameters}
-    \label{tab:Parameters}
+    \caption{Default simulation parameters without potential barrier}
+    \label{tab:Parameters_np}
 \end{table}
 
 \subsection{Ideal Sink without Potential Barrier}
@@ -95,3 +95,153 @@ The different results from simulation presented in the previous section show tha
             trajectories to resolve the boundary conditions properly,
     \item finite size effects can be neglected.
 \end{itemize}
+\subsection{Ideal Sink with Boxcar Potential Barrier}
+The following section contains simulation results for a potential barrier as derived in \eqref{Boxcar_solution}. If not stated differently, the following parameters are used:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{r|l}
+        $N$ & $10^{4}$\\
+        $D$ & $0,05$\\
+        $R_s$ & $1$ \\
+        $R_d$ & $10$ \\
+        $U_0$ & $2$ \\
+        $U_a$ & $2$ \\
+        $U_b$ & $2$ \\
+        $U_n$ & $50$ \\
+        ${\rm d}t$ & $10^{-4}$
+    \end{tabular}
+    \caption{Default simulation parameters for simulation with boxcar potential}
+    \label{tab:Parameters_cp}
+\end{table}
+
+\subsubsection{Varying Distance from Sink to Barrier ($U_a$)}
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5 \textwidth}
+    \centering
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/ua/Ua1.eps}
+\end{minipage}\begin{minipage}{.5 \textwidth}
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/ua/Ua3.eps}
+\end{minipage}
+\begin{minipage}{.5 \textwidth}
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/ua/Ua5.eps}
+\end{minipage}\begin{minipage}{.5 \textwidth}
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/ua/Ua5.eps}
+\end{minipage}
+ 
+    \caption{Density Profile for varying $U_a$}
+    \label{fig:RhoUaCp}
+\end{figure}
+
+The simulation results obviously fit the analytic solution. Same holds for the calculated reaction rates as presented in the following Plot:
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5 \textwidth}
+    \centering
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/ua/Kabs.eps}
+\end{minipage}\begin{minipage}{.5 \textwidth}
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/ua/Krel.eps}
+\end{minipage}
+\caption{Absolute and relative Absorption rate for varying $U_a$}
+\label{fig:KUaCp}
+\end{figure}
+
+\subsubsection{Varying Barrier Height ($U_0$)}
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5 \textwidth}
+    \centering
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/uo/Un0.eps}
+\end{minipage}\begin{minipage}{.5 \textwidth}
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/uo/Un1.eps}
+\end{minipage}
+\begin{minipage}{.5 \textwidth}
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/uo/Un2.eps}
+\end{minipage}\begin{minipage}{.5 \textwidth}
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/uo/Un3.eps}
+\end{minipage}
+ 
+    \caption{Density Profile for varying $U_0$}
+    \label{fig:RhoU0Cp}
+\end{figure}
+
+The simulation results obviously fit the analytic solution. Same holds for the calculated reaction rates as presented in the following Plot:
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5 \textwidth}
+    \centering
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/uo/Kabs.eps}
+\end{minipage}\begin{minipage}{.5 \textwidth}
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/uo/Krel.eps}
+\end{minipage}
+\caption{Absolute and relative Absorption rate for varying $U_0$}
+\label{fig:KU0Cp}
+\end{figure}
+
+
+\subsubsection{Varying Barrier Steepness ($U_n$)}
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5 \textwidth}
+    \centering
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/un/Ua1.eps}
+\end{minipage}\begin{minipage}{.5 \textwidth}
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/un/Ua3.eps}
+\end{minipage}
+\begin{minipage}{.5 \textwidth}
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/un/Ua5.eps}
+\end{minipage}\begin{minipage}{.5 \textwidth}
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/un/Ua5.eps}
+\end{minipage}
+ 
+    \caption{Density Profile for varying $U_n$}
+    \label{fig:RhoUnCp}
+\end{figure}
+
+The simulation results obviously fit the analytic solution. Same holds for the calculated reaction rates as presented in the following Plot:
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5 \textwidth}
+    \centering
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/un/Kabs.eps}
+\end{minipage}\begin{minipage}{.5 \textwidth}
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/un/Krel.eps}
+\end{minipage}
+\caption{Absolute and relative Absorption rate for varying $U_n$}
+\label{fig:KUnCP}
+\end{figure}
+
+
+\subsubsection{Varying Barrier Width}
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5 \textwidth}
+    \centering
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/ub/Ua1.eps}
+\end{minipage}\begin{minipage}{.5 \textwidth}
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/ub/Ua3.eps}
+\end{minipage}
+\begin{minipage}{.5 \textwidth}
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/ub/Ua5.eps}
+\end{minipage}\begin{minipage}{.5 \textwidth}
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/ub/Ua5.eps}
+\end{minipage}
+ 
+    \caption{Density Profile for varying $U_b$}
+    \label{fig:RhoUbCp}
+\end{figure}
+
+The simulation results obviously fit the analytic solution. Same holds for the calculated reaction rates as presented in the following Plot:
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5 \textwidth}
+    \centering
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/ub/Kabs.eps}
+\end{minipage}\begin{minipage}{.5 \textwidth}
+    \includegraphics[width=.95 \textwidth, keepaspectratio]{plots/cp/ub/Krel.eps}
+\end{minipage}
+\caption{Absolute and relative Absorption rate for varying $U_b$}
+\label{fig:KUbCp}
+\end{figure}
+
+
