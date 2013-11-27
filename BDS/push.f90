@@ -54,20 +54,28 @@ SUBROUTINE move_particles
 
 END SUBROUTINE move_particles
 
-SUBROUTINE grad_U(R, f_eff) 
+SUBROUTINE grad_U(X, f_eff) 
 
-    REAL(8), DIMENSION(3), INTENT(in)   :: R
-    REAL(8), DIMENSION(3)               :: Rn
+    REAL(8), DIMENSION(4), INTENT(in)   :: X
+    REAL(8), DIMENSION(3)               :: Rn, R
     REAL(8)                             :: Rr, grad_Ur, a, b
     REAL(8), DIMENSION(3), INTENT(out)  :: f_eff
+    INTEGER                             :: state
+
+    R = X(1:3)
+    state = X(4)
 
     Rr = SQRT(DOT_PRODUCT(R,R))
     Rn = R/Rr
 
     a = Rs + Ua + 0.5*Ub
     b = Ub
-
-    grad_Ur = -4*Un*U0*((2/b*(Rr-a))**(2*Un-1))/b/((2/b*(Rr-a))**(2*Un) + 1)**2
+    
+    IF(state == 0) THEN
+        grad_Ur = -4*Un*U0*((2/b*(Rr-a))**(2*Un-1))/b/((2/b*(Rr-a))**(2*Un) + 1)**2
+    ELSEIF(state == 1) THEN
+        grad_Ur = -4*Un*U1*((2/b*(Rr-a))**(2*Un-1))/b/((2/b*(Rr-a))**(2*Un) + 1)**2
+    ENDIF
     f_eff = -D/KT*grad_Ur*dt*Rn
 
 END SUBROUTINE grad_U
@@ -150,5 +158,25 @@ SUBROUTINE maintain_boundary_conditions(counter)
     !$OMP END DO
 
 END SUBROUTINE maintain_boundary_conditions
+
+SUBROUTINE update_state_of_potential
+
+    INTEGER                 :: i
+    REAL, DIMENSION(npar)   :: rand
+    REAL                    :: tmp
+
+    IF(fmode == 0) THEN
+        CALL RANDOM_NUMBER(tmp)
+        rand = tmp
+    ELSEIF(fmode == 1) THEN
+        CALL RANDOM_NUMBER(rand)
+    ENDIF
+
+    DO i = 1,npar
+        IF(rand(i) < K01*dt .AND. par(4,i) == 0) par(4,i) = 1
+        IF(rand(i) < K10*dt .AND. par(4,1) == 1) par(4,i) = 0
+    ENDDO
+
+END SUBROUTINE update_state_of_potential
 
 END MODULE push

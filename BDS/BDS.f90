@@ -40,8 +40,10 @@ i = 0
             CALL dens_statistics_accum(nbins)
         ENDIF
 
-        !Move particles according to overdamped Langewin eq.
+        !Fluctuations of Potential/Substrate particles
+        CALL update_state_of_potential
 
+        !Move particles according to overdamped Langewin eq.
         CALL move_particles
         CALL maintain_boundary_conditions(counter)
 

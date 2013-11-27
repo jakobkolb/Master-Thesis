@@ -15,7 +15,8 @@ SUBROUTINE init_parameters
     REAL(8) :: nparin, ntin, C
     CHARACTER(4)    :: trig, arg
 
-    NAMELIST /PARAMETER/ nparin, D, KT, dt, t0, t1, Rd, Rs, U0, Ua, Ub, Un, nbins
+    NAMELIST /PARAMETER/    nparin, D, KT, dt, t0, t1, Rd, Rs, U0,&
+                            U1, Ua, Ub, Un, K01, K10, fmode, nbins
 
     !Read simulation parameters from file
 
@@ -73,14 +74,14 @@ END SUBROUTINE init_parameters
 SUBROUTINE init_particles
 
     REAL(8), DIMENSION(3)       :: rand
-    REAL(8)                     :: Rr, dr, theta, phi, a1, a2, a3
+    REAL(8)                     :: Rr, dr, theta, phi, a1, a2, a3, fracU0, fracU1, randU
     INTEGER                     :: i, j, n
     REAL(8), DIMENSION(nbins)   :: Cumm, r
 
     !Allocate particle array
 
-    ALLOCATE(par(1:3,1:npar))
-    ALLOCATE(parold(1:3,1:npar))
+    ALLOCATE(par(1:4,1:npar))
+    ALLOCATE(parold(1:4,1:npar))
 
     !Initialize Particle Possitions - use inverse sampling to mime the original
     !debye solution for the density profile
@@ -132,6 +133,32 @@ SUBROUTINE init_particles
         par(3,i) = Rr*COS(theta) 
     ENDDO
 
+!Initialize particle state according to detailled equilibrium
+
+    IF(fmode == 0) THEN
+        fracU0 = K10/(K10+K01)*npar
+        fracU1 = K01/(K10+K01)*npar
+
+        CALL RANDOM_NUMBER(randU)
+
+        IF(randU <= fracU0) THEN
+            par(4,:) = 0
+        ELSEIF(randU > fracU0) THEN
+            par(4,:) = 1
+        ENDIF
+
+    ELSEIF(fmode == 1) THEN
+        fracU0 = K10/(K10+K01)*npar
+        fracU1 = K01/(K10+K01)*npar
+
+        DO i = 1,npar
+            IF(i <= fracU0) THEN
+                par(4,i) = 0
+            ELSEIF(i > fracU0) THEN
+                par(4,i) = 1
+            ENDIF
+        ENDDO
+    ENDIF
 END SUBROUTINE init_particles
 
 SUBROUTINE init_statistics(bins)
