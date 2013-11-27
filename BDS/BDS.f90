@@ -31,7 +31,7 @@ IMPLICIT NONE
 
     !start iteration for particles
 i = 0
-    DO WHILE(t<t1)
+    DO WHILE(t<=t1)
         i = i+1
         parold = par
         !Call statistic routines for density profile and absorption rate

@@ -18,13 +18,13 @@ def index_map(i):
 
 print 'read data from files '
 
-mrate = np.zeros((np.shape(list_of_Rs)[0],11))
+mrate = np.zeros((np.shape(list_of_Rs)[0],14))
 for i in list_of_Rs:
         target = ''
         target =  'rate_data.out'
         load = np.loadtxt(target, skiprows=2)
         k = index_map(i)
-        mrate[k,0:11] = load
+        mrate[k,0:14] = load
 print np.shape(mrate)
 print mrate
 
@@ -33,13 +33,13 @@ print mrate
 
 print 'read density data from files'
 
-densdata = np.zeros((1000,5,np.shape(list_of_Rs)[0]))
+densdata = np.zeros((1000,7,np.shape(list_of_Rs)[0]))
 k = 0
 for i in list_of_Rs:
     target = ''
     target =  'dens_data.out'
     k = index_map(i)
-    densdata[:,0:5,k] = np.loadtxt(target)
+    densdata[:,0:7,k] = np.loadtxt(target)
 
 #print densdata
 
@@ -52,8 +52,7 @@ for k in list_of_Rs:
         voli = 4./3.*np.pi*((r+dr)**3-r**3)
         r = r + dr
         particles = particles + densdata[i,1,j]
-        densdata[i,1:3,j] =  densdata[i,1:3,j]/voli
-denssolution = np.zeros((1000,5,np.shape(list_of_Rs)[0]))
+        densdata[i,1:5,j] =  densdata[i,1:5,j]/voli
 
 def rho_1(r, Rs, Ua, Ub, U0, KT):
     alpha1 = 1
@@ -98,11 +97,11 @@ for k in pltlist:
 
     print rho_0(mrate[i,0], mrate[i,1], 1, mrate[i,2], mrate[i,3], mrate[i,6], mrate[i,7], mrate[i,8])
 
-    lns1 = mp.plot( densdata[:,0,i]/mrate[i,2], densdata[:,1,i]/rho_0(mrate[i,0], mrate[i,1], 1, mrate[i,2], mrate[i,3], mrate[i,6], mrate[i,7], mrate[i,8]), label='Ua = ' + `list_of_Rs[i]`)
+    lns1 = mp.plot( densdata[:,0,i]/mrate[i,2], densdata[:,1,i], label='rho_0')
     print i
 #    mp.plot( densdata[:,0,i], densdata[:,3,i])
-    mp.fill_between(densdata[:,0,i]/mrate[i,2],densdata[:,1,i]/rho_0(mrate[i,0], mrate[i,1], 1, mrate[i,2], mrate[i,3],mrate[i,6], mrate[i,7], mrate[i,8])-densdata[:,2,i]/rho_0(mrate[i,0], mrate[i,1],1 ,mrate[i,2], mrate[i,3],mrate[i,6], mrate[i,7], mrate[i,8]),densdata[:,1,i]/rho_0(mrate[i,0], mrate[i,1], 1, mrate[i,2], mrate[i,3],mrate[i,6], mrate[i,7], mrate[i,8])+densdata[:,2,i]/rho_0(mrate[i,0], mrate[i,1], 1, mrate[i,2], mrate[i,3],mrate[i,6], mrate[i,7], mrate[i,8]),color='grey', alpha=0.3)
-    lns2 = mp.plot( densdata[:,0,i]/mrate[i,2], rho_1( densdata[:,0,i], mrate[i,2], mrate[i,7], mrate[i,8], mrate[i,6], 1), label = 'analytic solution \nfor boxcar potential')
+    mp.fill_between(densdata[:,0,i]/mrate[i,2],densdata[:,1,i]-densdata[:,2,i],densdata[:,1,i]+densdata[:,2,i],color='grey', alpha=0.3)
+    lns2 = mp.plot( densdata[:,0,i]/mrate[i,2], densdata[:,3,i], label='rho_1')
 
 ax2 = ax.twinx()
 #for k in pltlist:

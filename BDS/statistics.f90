@@ -9,7 +9,7 @@ CONTAINS
     SUBROUTINE dens_statistics_accum(bins)
 
     INTEGER, INTENT(in) :: bins
-    INTEGER             :: i
+    INTEGER             :: i, j
     REAL(8), DIMENSION(2,bins) :: hist
 
     !calculate histogramm of particle distance to sink
@@ -18,8 +18,10 @@ CONTAINS
 
     !accumulate density histrogramm in statistics module
 
-    DO i = 1,bins
-        CALL accum5(i,hist(2,i)) 
+    DO i = 1,2
+        DO j = 1,bins
+            CALL accum5(j+(i-1)*bins,hist(i,j)) 
+        ENDDO
     ENDDO
 
     END SUBROUTINE dens_statistics_accum
@@ -44,7 +46,11 @@ CONTAINS
         binnumber = INT(r/Rd*bins)
         IF(binnumber .LE. bins) THEN
             if(binnumber .LE. 0)print*, i, binnumber, r, Rd, X(:,i)
-            Xhist(2,binnumber) = Xhist(2,binnumber) + 1
+            IF(X(4,i) == 0) THEN
+                Xhist(1,binnumber) = Xhist(1,binnumber) + 1
+            ELSEIF(X(4,i) == 1) THEN
+                Xhist(2,binnumber) = Xhist(2,binnumber) + 1
+            ENDIF
         ENDIF
     ENDDO
     !$OMP END PARALLEL DO
@@ -62,7 +68,7 @@ CONTAINS
 
     !accumulate absorption rate in statistics module
 
-    CALL accum5(bins+1,rate)
+    CALL accum5(2*bins+1,rate)
 
     END SUBROUTINE rate_statistics_accum
 
@@ -80,14 +86,15 @@ CONTAINS
 
     DO i = 1,bins
         Rr = real(i)*Rd/real(bins)
-        WRITE(dens_final, "(5f15.4)")    (REAL(i))/REAL(bins)*Rd, aver5(i), sigma5(i), &
+        WRITE(dens_final, "(7f15.4)")   (REAL(i))/REAL(bins)*Rd, aver5(i), sigma5(i), &
+                                        aver5(i + bins), sigma5(i + bins), &
                                 -4.*Un*U0*((2./b*(Rr-a))**(2.*Un-1.))/b/((2./b*(Rr-a))**(2.*Un) + 1.)**2, &
                                 U0/((2./b*(Rr-a))**(2.*Un) + 1.)
     ENDDO
 
     WRITE(rate_final, *) "this file contains simulation parameters and measured absorption rate"
     WRITE(rate_final, *)
-    WRITE(rate_final, "(11f15.4)") REAL(npar), D, Rs, Rd, t0, t1, U0, Ua, Ub, aver5(bins+1), sigma5(bins+1)
+    WRITE(rate_final, "(14f15.4)") REAL(npar), D, Rs, Rd, t0, t1, U0, U1, Ua, Ub, K01, K10, aver5(bins+1), sigma5(bins+1)
 
     END SUBROUTINE statistics_output
 

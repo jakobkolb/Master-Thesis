@@ -165,7 +165,7 @@ SUBROUTINE init_statistics(bins)
 
     INTEGER, INTENT(in) :: bins
 
-    CALL clear5(bins+1,500)
+    CALL clear5(2*bins+1,500)
 
 END SUBROUTINE init_statistics
 

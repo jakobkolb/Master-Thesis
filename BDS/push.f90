@@ -173,8 +173,12 @@ SUBROUTINE update_state_of_potential
     ENDIF
 
     DO i = 1,npar
-        IF(rand(i) < K01*dt .AND. par(4,i) == 0) par(4,i) = 1
-        IF(rand(i) < K10*dt .AND. par(4,1) == 1) par(4,i) = 0
+        IF(rand(i) < K01*dt .AND. par(4,i) == 0)THEN
+            par(4,i) = 1
+            CYCLE
+        ELSEIF(rand(i) < K10*dt .AND. par(4,i) == 1)THEN
+            par(4,i) = 0
+        ENDIF
     ENDDO
 
 END SUBROUTINE update_state_of_potential

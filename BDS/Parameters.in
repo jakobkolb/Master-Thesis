@@ -1,10 +1,10 @@
 &parameter
-    nparin  = 1.5D3
+    nparin  = 1.5D1
     D       = 0.05
     KT      = 1.
     dt      = 3.0D-3 !time step
-    t0      = 2D2   !beginning of sampling (assumed relaxation time to steady state)
-    t1      = 4D2  !end of sampling
+    t0      = 0D0   !beginning of sampling (assumed relaxation time to steady state)
+    t1      = 3D3  !end of sampling
     Rd      = 10    !simulation domain
     Rs      = 1     !sink radius
     U0      = 0
