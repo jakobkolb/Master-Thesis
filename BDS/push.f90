@@ -171,7 +171,7 @@ SUBROUTINE update_state_of_potential
     ELSEIF(fmode == 1) THEN
         CALL RANDOM_NUMBER(rand)
     ENDIF
-
+    !$OMP PARALLEL DO
     DO i = 1,npar
         IF(rand(i) < K01*dt .AND. par(4,i) == 0)THEN
             par(4,i) = 1
@@ -180,7 +180,7 @@ SUBROUTINE update_state_of_potential
             par(4,i) = 0
         ENDIF
     ENDDO
-
+    !$OMP END PARALLEL DO
 END SUBROUTINE update_state_of_potential
 
 END MODULE push
