@@ -47,11 +47,14 @@ SUBROUTINE init_parameters
         Rd = REAL(tmp)
     ENDIF
 
-    IF(trig .EQ. 'U0') U0 = REAL(tmp)
-    IF(trig .EQ. 'Ua') Ua = REAL(tmp)
-    IF(trig .EQ. 'Ub') Ub = REAL(tmp)
-    IF(trig .EQ. 'Un') Un = REAL(tmp)
-
+    IF(trig .EQ. 'U0' ) U0  = REAL(tmp)/10.0
+    IF(trig .EQ. 'U1' ) U1  = REAL(tmp)/10.0
+    IF(trig .EQ. 'Ua' ) Ua  = REAL(tmp)/10.0
+    IF(trig .EQ. 'Ub' ) Ub  = REAL(tmp)/10.0
+    IF(trig .EQ. 'Un' ) Un  = REAL(tmp)/10.0
+    IF(trig .EQ. 'K01') K01 = REAL(tmp)/10.0
+    IF(trig .EQ. 'K10') K10 = REAL(tmp)/10.0
+ 
     print*, 'npar = ', npar
     print*, 'D  = ', D
     print*, 'KT = ', KT
@@ -61,9 +64,12 @@ SUBROUTINE init_parameters
     print*, 'Rd = ', Rd
     print*, 'Rs = ', Rs
     print*, 'U0 = ', U0
+    print*, 'U1 = ', U1
     print*, 'Ua = ', Ua
     print*, 'Ub = ', Ub
     print*, 'Un = ', Un
+    print*, 'K01= ', K01
+    print*, 'K10= ', K10
     print*, 'it = ', INT(t1/dt)
 
     msqd= 0
