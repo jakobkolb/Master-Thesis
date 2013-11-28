@@ -98,8 +98,8 @@ SUBROUTINE maintain_boundary_conditions(counter)
     !calculate mean square displacement and mean displacement to check...
 
     DO i = 1,npar
-        dmsqr(i) = DOT_PRODUCT(par(:,i) - parold(:,i), par(:,i) - parold(:,i))
-        dmr(i)   = SUM(par(:,i) - parold(:,i))
+        dmsqr(i) = DOT_PRODUCT(par(1:3,i) - parold(1:3,i), par(1:3,i) - parold(1:3,i))
+        dmr(i)   = SUM(par(1:3,i) - parold(1:3,i))
     ENDDO
 
     msqd = msqd + SUM(dmsqr)/npar
@@ -111,16 +111,16 @@ SUBROUTINE maintain_boundary_conditions(counter)
 
         !Calculate closest point of particle trajectory to sink
 
-        A = parold(:,i)
-        B = par(:,i)
-        AB = parold(:,i) - par(:,i)
+        A = parold(1:3,i)
+        B = par(1:3,i)
+        AB = parold(1:3,i) - par(1:3,i)
 
         px = A + DOT_PRODUCT(A,AB)*AB/DOT_PRODUCT(AB,AB)
 
         IF( DOT_PRODUCT((px-A),(px-B)) < 0 )THEN
             Rr = SQRT(DOT_PRODUCT(px,px))
         ELSEIF( DOT_PRODUCT((px-A),(px-B)) >= 0 )THEN
-            Rr = SQRT(DOT_PRODUCT(par(:,i),par(:,i)))
+            Rr = SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))
         ENDIF
 
         !Set particles to domain boundary (ensure steady state solution
@@ -140,7 +140,7 @@ SUBROUTINE maintain_boundary_conditions(counter)
             dr(1) = COS(phi)*SIN(theta)
             dr(2) = SIN(phi)*SIN(theta)
             dr(3) = COS(theta) 
-            par(:,i) = (Rs + Rd - Rr)*dr
+            par(1:3,i) = (Rs + Rd - Rr)*dr
         ELSEIF( Rr > Rd )THEN
 
         !Reset particles to some random place at the boundary if they exceed the
@@ -152,7 +152,7 @@ SUBROUTINE maintain_boundary_conditions(counter)
             dr(1) = COS(phi)*SIN(theta)
             dr(2) = SIN(phi)*SIN(theta)
             dr(3) = COS(theta) 
-            par(:,i) = (2*Rd - Rr)*dr
+            par(1:3,i) = (2*Rd - Rr)*dr
         ENDIF
     ENDDO
     !$OMP END DO

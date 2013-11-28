@@ -1,10 +1,10 @@
 &parameter
-    nparin  = 1.5D1
+    nparin  = 1.5D2
     D       = 0.05
     KT      = 1.
     dt      = 3.0D-3 !time step
     t0      = 0D0   !beginning of sampling (assumed relaxation time to steady state)
-    t1      = 3D3  !end of sampling
+    t1      = 3D2  !end of sampling
     Rd      = 10    !simulation domain
     Rs      = 1     !sink radius
     U0      = 0
@@ -13,7 +13,7 @@
     Ub      = 1     !width of potential
     Un      = 10    !steepness of potential
     K01     = 1     !switching rate for Potential U0 -> U1
-    K10     = 1     !switching rate for Potential U1 -> U0
+    K10     = 0     !switching rate for Potential U1 -> U0
     fmode   = 1     !mode for potential switching ( 0:all particles or 1:individual particle)
     nbins   = 1000
 /

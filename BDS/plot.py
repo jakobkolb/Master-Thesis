@@ -51,9 +51,9 @@ for k in list_of_Rs:
     for i in range(0,np.shape(densdata)[0]):
         voli = 4./3.*np.pi*((r+dr)**3-r**3)
         r = r + dr
-        particles = particles + densdata[i,1,j]
+        particles = particles + densdata[i,1,j]+densdata[i,3,j]
         densdata[i,1:5,j] =  densdata[i,1:5,j]/voli
-
+    print particles
 def rho_1(r, Rs, Ua, Ub, U0, KT):
     alpha1 = 1
     alpha2 = (1-Rs/(Rs+Ua))*np.exp(-U0/KT) + Rs/(Rs + Ua)

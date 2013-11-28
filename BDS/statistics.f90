@@ -42,7 +42,7 @@ CONTAINS
 
     !$OMP PARALLEL DO REDUCTION(+:Xhist) PRIVATE(binnumber, r)
     DO i = 1,imax
-        r = SQRT(DOT_PRODUCT(X(:,i),X(:,i)))
+        r = SQRT(DOT_PRODUCT(X(1:3,i),X(1:3,i)))
         binnumber = INT(r/Rd*bins)
         IF(binnumber .LE. bins) THEN
             if(binnumber .LE. 0)print*, i, binnumber, r, Rd, X(:,i)
