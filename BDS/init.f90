@@ -52,9 +52,30 @@ SUBROUTINE init_parameters
     IF(trig .EQ. 'Ua' ) Ua  = REAL(tmp)/10.0
     IF(trig .EQ. 'Ub' ) Ub  = REAL(tmp)/10.0
     IF(trig .EQ. 'Un' ) Un  = REAL(tmp)/10.0
-    IF(trig .EQ. 'K01') K01 = REAL(tmp)/10.0
-    IF(trig .EQ. 'K10') K10 = REAL(tmp)/10.0
- 
+
+    IF(trig .EQ. 'KDUb10')THEN
+        K01 = REAL(tmp)/(Ub**2/D)
+        K10 = K01
+    ENDIF
+
+    IF(trig .EQ. 'KDUb100')THEN
+        K10 = REAL(tmp)/(Ub**2/D)
+        K01 = K10
+    ENDIF
+
+    IF(trig .EQ. 'K100')THEN
+        K01 = REAL(tmp)/(100.0)
+        K10 = K01
+    ENDIF
+
+    IF(trig .EQ. 'K1000')THEN
+        K10 = REAL(tmp)/(1000.0)
+        K01 = K10
+    ENDIF
+
+
+
+
     print*, 'npar = ', npar
     print*, 'D  = ', D
     print*, 'KT = ', KT
