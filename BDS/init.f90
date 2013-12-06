@@ -54,12 +54,12 @@ SUBROUTINE init_parameters
     IF(trig .EQ. 'Un' ) Un  = REAL(tmp)/10.0
 
     IF(trig .EQ. 'KDUb10')THEN
-        K01 = REAL(tmp)/(Ub**2/D)
+        K01 = REAL(tmp)*(D/Ub**2)
         K10 = K01
     ENDIF
 
     IF(trig .EQ. 'KDUb100')THEN
-        K10 = REAL(tmp)/(Ub**2/D)
+        K10 = REAL(tmp)*(Ub**2)
         K01 = K10
     ENDIF
 
