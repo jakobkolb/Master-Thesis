@@ -102,7 +102,8 @@ for k in pltlist:
 #    mp.plot( densdata[:,0,i], densdata[:,3,i])
     mp.fill_between(densdata[:,0,i]/mrate[i,2],densdata[:,1,i]-densdata[:,2,i],densdata[:,1,i]+densdata[:,2,i],color='grey', alpha=0.3)
     lns2 = mp.plot( densdata[:,0,i]/mrate[i,2], densdata[:,3,i], label='rho_1')
-
+    mp.fill_between(densdata[:,0,i]/mrate[i,2],densdata[:,3,i]-densdata[:,4,i],densdata[:,3,i]+densdata[:,4,i],color='grey', alpha=0.3)
+ 
 ax2 = ax.twinx()
 #for k in pltlist:
 
