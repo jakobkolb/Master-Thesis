@@ -3,10 +3,8 @@
 import numpy as np
 import matplotlib.pyplot as mp
 
-kt = 1
-d = 1
-spacing = np.array([1.,3.,5.])
-
+kt = 1.
+d = 1.
 def rho(r,eig,d):
     rho = np.array([[1.,1./r,0,0],[0,0,np.exp(-np.sqrt(abs(eig[1])/d)*r)/r,np.exp(np.sqrt(abs(eig[1])/d)*r)/r]])
     return rho
@@ -45,26 +43,32 @@ def calc_rate(u,rate,spacing,kt,d):
     return k
 
 
-srates = range(1,10000,10)
+srates = range(-25,18,1)
 arates = np.zeros((np.shape(srates)[0],2))
 
 
-fig = mp.figure()
-ax = fig.add_subplot(111)
+for k in range(1,8,1):
+    fig = mp.figure()
+    ax = fig.add_subplot(111)
+    spacing = np.array([1.,2,2+2**k])
+    for j in range(-24,2,2):
+        for i in range(0,np.shape(srates)[0],1):
+            print srates[i]/5.
+            u = np.array([0,j/4.])
+            arates[i,1] = calc_rate(u,10**(srates[i]/5.),spacing,kt,d)
+            arates[i,0] = 10**(srates[i]/5.)
 
-for j in [-16,-8,-4,-2,-1,1,2,4,8,16]:
-    for i in range(0,np.shape(srates)[0],1):
-        u = np.array([0,j])
-        arates[i,1] = calc_rate(u,srates[i]/100.,spacing,kt,d)
-        arates[i,0] = i
-
-    #print arates
+        #print arates
 
 
-    mp.plot(arates[:,0], arates[:,1], label='u1 = ' + `j`)
+        mp.plot(arates[:,0], arates[:,1], label='u1 = ' + `j/4.`)
 
-ax.set_xscale('log')
-mp.legend(loc='lower right')
-ax.set_xlabel('switching rate')
-ax.set_ylabel('reaction rate')
+    ax.set_title('Rs = ' + `spacing[0]` + ', a = ' + `spacing[1]` + ', b = ' + `spacing[2]`) 
+    ax.set_xscale('log')
+    mp.legend(loc='upper left')
+    ax.set_ylim([15,35])
+    ax.set_xlabel('switching rate')
+    ax.set_ylabel('reaction rate')
+    mp.grid()
+
 mp.show()
