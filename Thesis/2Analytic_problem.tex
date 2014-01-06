@@ -231,3 +231,74 @@ We solve the emerging system of linear equations and obtain the following soluti
     K &= 4 \pi R_s D \rho_0
     \label{Boxcar_solution}
 \end{align}
+\subsection{Treatment of fluctuating Boxcar Potential Barrier}
+
+The following section will treat the analytic solution of a boxcar potential barrier with fluctuating hight. The equations for the system are Focker Planck equations that are coupled by the transition rate matrix for the different states of the barrier.
+\begin{equation}
+    \frac{\partial \vect{\rho}}{\partial t} = \nabla \vect{\rho} \nabla \hat{U} f(\vec{r}) + D\nabla^2\vect{\rho} + \hat{W} \vect{\rho} 
+    \label{Rection_Diffusion}
+\end{equation}
+The Matrix $\hat{U}$ has diagonal elements $U_{ii}$ equal to the different hights of the potential barier and is zero elsewhere. For the rate matrix holds: $W_{ii} = -\sum_{i \ne j} W_{ij}$. The Matrix $\hat{W}$ is generally not symmetric. But one can show that there allways is an eigenvector to it, that satisfies $\hat{W} \vect{\rho}_{eq} = 0$ and that for this eigenvector holds the following relation, also known as {\it detailed balance}:
+\begin{equation}
+    W_{ij} \vect{\rho}^{(eq)}(i) = W_{ji} \vect{\rho}^{(eq)}(j).
+    \label{detailled_ballance}
+\end{equation}
+Therefore the similarity transformation
+\begin{equation}
+    \hat{T}^{-1}\hat{W}\hat{T} = \hat{S}
+\end{equation}
+where
+\begin{equation}
+    T_{ij} =\delta_{ij} \vect{\rho}^{(eq)}(i)^{-\frac{1}{2}}
+    \label{similarity_transform}
+\end{equation}
+symmetrizes $\hat{W}$ such that
+\begin{align}
+    S_{il} &= T^{-1}_{ij} W_{jk} T_{kl} \\ \nonumber
+    &= \sum_j \delta_{ij} \rho^{(eq)}(i)^{\frac{1}{2}} W_{jk} T_{kl} \\ \nonumber
+    &= \rho^{(eq)}(i)^{\frac{1}{2}} \sum_{k} W_{ik} \delta_{kl} \rho^{(eq)}(l)^{-\frac{1}{2}} \\ \nonumber
+    &= W_{il}^{\frac{1}{2}} \left( W_{il} \frac{\rho^{(eq)}(i)}{\rho^{(eq)}(l)} \right)^{\frac{1}{2}} \\ \nonumber
+    &= \left(W_{il} W_{li}\right)^{\frac{1}{2}} \\ \nonumber
+    S_{ii} &= W_{ii} 
+\end{align}
+The resulting matrix can then be diagonalized by a orthogonal matrix $\hat{D}$:
+\begin{equation}
+    \hat{D}^{\dagger} \hat{S} \hat{D} = -\hat{d}
+    \label{orthogonal_transform}
+\end{equation}
+It can be shown that $d_i \le 0$ and $d_1 = 0$ with the corresponding eigenvector:
+\begin{equation}
+    D_{i1} = \rho^{(eq)}(i)^{\frac{1}{2}}.
+\end{equation}
+Now we will treat the potential term in \eqref{Rection_Diffusion}. Since $f(r)$ is constant except for the $r = a, r = b$ where it jumps from 0 to 1 and from 1 to 0 respectively, the barrier can be treated analogously to \eqref{Boxcar_BC}. Integration over an infinitesimally small intervall containing the jump discontinuity of the potential results in fitting conditions for each component of  $\vect{\rho}$:
+\begin{align}
+    \vect{\rho}^{(I)}(a) &= \mathrm{diag}[\exp(\frac{U_i}{K_B T})] \vect{\rho}^{(II)}(a), \\ \nonumber
+    \vect{\rho '}^{(I)}(a) &= \vect{\rho '}^{(II)}(a), \\ \nonumber
+    \vect{\rho}^{(III)}(b) &= \mathrm{diag}[\exp(\frac{U_i}{K_B T})] \vect{\rho}^{(II)}(b), \\ \nonumber
+    \vect{\rho '}^{(III)}(b) &= \vect{\rho '}^{(II)}(b).
+    \label{fitting_conditions}
+\end{align}
+other boundary conditions are:
+\begin{align}
+    \vect{\rho}^{(I)}(R_s) &= 0, \\ \nonumber
+    \vect{\rho}^{(III)}(r \rightarrow \infty) &= \vect{\rho}^{(eq)}.
+    \label{fp_boundary_conditions}
+\end{align}
+Here I, II and III denote the different regions for $ R_s < r \le a$, $a < r \le b$ and $ b < r$.
+Now, to find a solution for the density profile, eq. \eqref{Rection_Diffusion} is transformed into new, independent coordinates via the transformations \eqref{similarity_transform} and \eqref{orthogonal_transform}. Also the drift term from the potential is spared, since it is treated via fitting conditions only. For the steady state case this results in
+\begin{equation}
+    0 = D \nabla^{2} \vect{\tilde{\rho}} - \hat{d} \vect{\tilde{\rho}}
+    \label{independent_rd}
+\end{equation}
+The solution then reads:
+\begin{align}
+    \tilde{\rho}_{1}^{(j)}(r) &= c_{1,1}^{(j)} + c_{1,2}^{(j)} \frac{1}{r} \\
+    \tilde{\rho}_{i \ne 1}^{(j)}(r) &= c_{i,1}^{j} \exp\left[-r\sqrt{\frac{d_i}{D}}\right] + c_{i,2}^{j} \exp\left[r\sqrt{\frac{d_i}{D}}\right] \nonumber
+    \label{fp_ind_solutions}
+\end{align}
+Now an efficient formulation for the calculation of the coefficients $c_{i,k}^{(j)}$ must be found. Therefore the fitting and boundary conditions from \eqref{fitting_conditions} and \eqref{fp_boundary_conditions} are transformed to the new coordinates:
+\begin{align}
+    \hat{A}^{-1}\vect{\rho}^{(I)}(R_s) &= \vect{\tilde{\rho}}^{(I)}(R_s) = 0 \nonumber \\
+    \vect{\tilde{\rho}}(r \rightarrow \infty) &= \hat{A}^{-1} \vect{\rho}^{(eq)} = (1,0,\cdots,0)
+    \label{}
+\end{align}
