@@ -238,7 +238,7 @@ The following section will treat the analytic solution of a boxcar potential bar
     \frac{\partial \vect{\rho}}{\partial t} = \nabla \vect{\rho} \nabla \hat{U} f(\vec{r}) + D\nabla^2\vect{\rho} + \hat{W} \vect{\rho} 
     \label{Rection_Diffusion}
 \end{equation}
-The Matrix $\hat{U}$ has diagonal elements $U_{ii}$ equal to the different hights of the potential barier and is zero elsewhere. For the rate matrix holds: $W_{ii} = -\sum_{i \ne j} W_{ij}$. The Matrix $\hat{W}$ is generally not symmetric. But one can show that there allways is an eigenvector to it, that satisfies $\hat{W} \vect{\rho}_{eq} = 0$ and that for this eigenvector holds the following relation, also known as {\it detailed balance}:
+The Matrix $\hat{U}$ has diagonal elements $U_{ii}$ equal to the different hight of the potential barrier and is zero elsewhere. For the rate matrix holds: $W_{ii} = -\sum_{i \ne j} W_{ij}$. The Matrix $\hat{W}$ is generally not symmetric. But one can show that there always is an eigenvector to it, that satisfies $\hat{W} \vect{\rho}_{eq} = 0$ and that for this eigenvector holds the following relation, also known as {\it detailed balance}:
 \begin{equation}
     W_{ij} \vect{\rho}^{(eq)}(i) = W_{ji} \vect{\rho}^{(eq)}(j).
     \label{detailled_ballance}
@@ -270,19 +270,19 @@ It can be shown that $d_i \le 0$ and $d_1 = 0$ with the corresponding eigenvecto
 \begin{equation}
     D_{i1} = \rho^{(eq)}(i)^{\frac{1}{2}}.
 \end{equation}
-Now we will treat the potential term in \eqref{Rection_Diffusion}. Since $f(r)$ is constant except for the $r = a, r = b$ where it jumps from 0 to 1 and from 1 to 0 respectively, the barrier can be treated analogously to \eqref{Boxcar_BC}. Integration over an infinitesimally small intervall containing the jump discontinuity of the potential results in fitting conditions for each component of  $\vect{\rho}$:
+Now we will treat the potential term in \eqref{Rection_Diffusion}. Since $f(r)$ is constant except for the $r = a, r = b$ where it jumps from 0 to 1 and from 1 to 0 respectively, the barrier can be treated analogously to \eqref{Boxcar_BC}. Integration over an infinitesimally small interval containing the jump discontinuity of the potential results in fitting conditions for each component of  $\vect{\rho}$:
 \begin{align}
-    \vect{\rho}^{(I)}(a) &= \mathrm{diag}[\exp(\frac{U_i}{K_B T})] \vect{\rho}^{(II)}(a), \\ \nonumber
+    \vect{\rho}^{(I)}(a) &= \mathrm{diag}[\exp(\frac{U_i}{K_B T})] \vect{\rho}^{(II)}(a), \nonumber \\ \nonumber
     \vect{\rho '}^{(I)}(a) &= \vect{\rho '}^{(II)}(a), \\ \nonumber
-    \vect{\rho}^{(III)}(b) &= \mathrm{diag}[\exp(\frac{U_i}{K_B T})] \vect{\rho}^{(II)}(b), \\ \nonumber
+    \vect{\rho}^{(III)}(b) &= \mathrm{diag}[\exp(\frac{U_i}{K_B T})] \vect{\rho}^{(II)}(b), \\ 
     \vect{\rho '}^{(III)}(b) &= \vect{\rho '}^{(II)}(b).
     \label{fitting_conditions}
 \end{align}
 other boundary conditions are:
 \begin{align}
-    \vect{\rho}^{(I)}(R_s) &= 0, \\ \nonumber
+    \vect{\rho}^{(I)}(R_s) &= 0, \nonumber \\ 
     \vect{\rho}^{(III)}(r \rightarrow \infty) &= \vect{\rho}^{(eq)}.
-    \label{fp_boundary_conditions}
+    \label{fp_bc}
 \end{align}
 Here I, II and III denote the different regions for $ R_s < r \le a$, $a < r \le b$ and $ b < r$.
 Now, to find a solution for the density profile, eq. \eqref{Rection_Diffusion} is transformed into new, independent coordinates via the transformations \eqref{similarity_transform} and \eqref{orthogonal_transform}. Also the drift term from the potential is spared, since it is treated via fitting conditions only. For the steady state case this results in
@@ -292,13 +292,25 @@ Now, to find a solution for the density profile, eq. \eqref{Rection_Diffusion} i
 \end{equation}
 The solution then reads:
 \begin{align}
-    \tilde{\rho}_{1}^{(j)}(r) &= c_{1,1}^{(j)} + c_{1,2}^{(j)} \frac{1}{r} \\
-    \tilde{\rho}_{i \ne 1}^{(j)}(r) &= c_{i,1}^{j} \exp\left[-r\sqrt{\frac{d_i}{D}}\right] + c_{i,2}^{j} \exp\left[r\sqrt{\frac{d_i}{D}}\right] \nonumber
-    \label{fp_ind_solutions}
+    \tilde{\rho}_{1}^{(j)}(r) &= c_{1,1}^{(j)} + c_{1,2}^{(j)} \frac{1}{r} \nonumber \\
+    \tilde{\rho}_{i \ne 1}^{(j)}(r) &= c_{i,1}^{j} \exp\left[-r\sqrt{\frac{d_i}{D}}\right] + c_{i,2}^{j} \exp\left[r\sqrt{\frac{d_i}{D}}\right] 
+    \label{fp_ind_sol}
 \end{align}
-Now an efficient formulation for the calculation of the coefficients $c_{i,k}^{(j)}$ must be found. Therefore the fitting and boundary conditions from \eqref{fitting_conditions} and \eqref{fp_boundary_conditions} are transformed to the new coordinates:
+Now an efficient formulation for the calculation of the coefficients $c_{i,k}^{(j)}$ must be found. Therefore the fitting and boundary conditions from \eqref{fitting_conditions} and \eqref{fp_bc} are transformed to the new coordinates:
 \begin{align}
     \hat{A}^{-1}\vect{\rho}^{(I)}(R_s) &= \vect{\tilde{\rho}}^{(I)}(R_s) = 0 \nonumber \\
     \vect{\tilde{\rho}}(r \rightarrow \infty) &= \hat{A}^{-1} \vect{\rho}^{(eq)} = (1,0,\cdots,0)
-    \label{}
 \end{align}
+and
+\begin{align}
+    \vect{\tilde{\rho}}^{(I)}(a) &= \hat{A}^{-1}\mathrm{diag}[\exp(\frac{U_i}{K_B T})]\hat{A} \vect{\tilde{\rho}}^{(II)}(a), \\ \nonumber
+    \vect{\tilde{\rho} '}^{(I)}(a) &= \vect{\tilde{\rho} '}^{(II)}(a), \\ \nonumber
+    \vect{\tilde{\rho}}^{(III)}(b) &= \hat{A}^{-1}\mathrm{diag}[\exp(\frac{U_i}{K_B T})]\hat{A} \vect{\tilde{\rho}}^{(II)}(b), \\ \nonumber
+    \vect{\tilde{\rho} '}^{(III)}(b) &= \vect{\tilde{\rho} '}^{(II)}(b)
+\end{align}
+where $\hat{A} = \hat{D}\hat{T}$.
+The resulting system of linear equations is then used to determine the coefficients $c_{i,k}^{j}$. The absorption rate can still be calculated as
+\begin{equation}
+    K = 4 \pi R_s^2 \left. \frac{\partial}{\partial r} \right|_{R_s} \sum_{i} \rho^{I}_{i}
+\end{equation}
+where $\rho^{I}_{i}$ are the entries of the reverse transformed of $\vect{\tilde{\rho}}$ i.e. $\vect{\rho} = \hat{A} \vect{\tilde{\rho}} = \hat{D}\hat{T} \vect{\tilde{\rho}}$.
