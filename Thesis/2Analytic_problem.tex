@@ -238,7 +238,7 @@ The following section will treat the analytic solution of a boxcar potential bar
     \frac{\partial \vect{\rho}}{\partial t} = \nabla \vect{\rho} \nabla \hat{U} f(\vec{r}) + D\nabla^2\vect{\rho} + \hat{W} \vect{\rho} 
     \label{Rection_Diffusion}
 \end{equation}
-The Matrix $\hat{U}$ has diagonal elements $U_{ii}$ equal to the different hight of the potential barrier and is zero elsewhere. For the rate matrix holds: $W_{ii} = -\sum_{i \ne j} W_{ij}$. The Matrix $\hat{W}$ is generally not symmetric. But one can show that there always is an eigenvector to it, that satisfies $\hat{W} \vect{\rho}_{eq} = 0$ and that for this eigenvector holds the following relation, also known as {\it detailed balance}:
+The Matrix $\hat{U}$ has diagonal elements $U_{ii}$ equal to the different hight of the potential barrier in different states and is zero elsewhere. $f(\vec{r})$ describes the radial shape of the potential. For the rate matrix holds: $W_{ii} = -\sum_{i \ne j} W_{ij}$. The Matrix $\hat{W}$ is generally not symmetric. But one can show that it always has an eigenvector satisfying $\hat{W} \vect{\rho}_{eq} = 0$ and that for this eigenvector the following relation, also known as {\it detailed balance} is valid:
 \begin{equation}
     W_{ij} \vect{\rho}^{(eq)}(i) = W_{ji} \vect{\rho}^{(eq)}(j).
     \label{detailled_ballance}
@@ -261,9 +261,9 @@ symmetrizes $\hat{W}$ such that
     &= \left(W_{il} W_{li}\right)^{\frac{1}{2}} \\ \nonumber
     S_{ii} &= W_{ii} 
 \end{align}
-The resulting matrix can then be diagonalized by a orthogonal matrix $\hat{D}$:
+The resulting matrix can then be diagonalized by an orthogonal matrix $\hat{D}$:
 \begin{equation}
-    \hat{D}^{\dagger} \hat{S} \hat{D} = -\hat{d}
+    \hat{D}^{\dagger} \hat{S} \hat{D} = -\hat{d}.
     \label{orthogonal_transform}
 \end{equation}
 It can be shown that $d_i \le 0$ and $d_1 = 0$ with the corresponding eigenvector:
@@ -284,7 +284,7 @@ other boundary conditions are:
     \vect{\rho}^{(III)}(r \rightarrow \infty) &= \vect{\rho}^{(eq)}.
     \label{fp_bc}
 \end{align}
-Here I, II and III denote the different regions for $ R_s < r \le a$, $a < r \le b$ and $ b < r$.
+Here I, II and III denote the different regions for I: $ R_s < r \le a$, II: $a < r \le b$ and III: $ b < r$.
 Now, to find a solution for the density profile, eq. \eqref{Rection_Diffusion} is transformed into new, independent coordinates via the transformations \eqref{similarity_transform} and \eqref{orthogonal_transform}. Also the drift term from the potential is spared, since it is treated via fitting conditions only. For the steady state case this results in
 \begin{equation}
     0 = D \nabla^{2} \vect{\tilde{\rho}} - \hat{d} \vect{\tilde{\rho}}
