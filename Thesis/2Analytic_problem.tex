@@ -240,7 +240,7 @@ The following section will treat the analytic solution of a boxcar potential bar
 \end{equation}
 The Matrix $\hat{U}$ has diagonal elements $U_{ii}$ equal to the different hight of the potential barrier in different states and is zero elsewhere. $f(\vec{r})$ describes the radial shape of the potential. For the rate matrix holds: $W_{ii} = -\sum_{i \ne j} W_{ij}$. The Matrix $\hat{W}$ is generally not symmetric. But one can show that it always has an eigenvector satisfying $\hat{W} \vect{\rho}_{eq} = 0$ and that for this eigenvector the following relation, also known as {\it detailed balance} is valid:
 \begin{equation}
-    W_{ij} \vect{\rho}^{(eq)}(i) = W_{ji} \vect{\rho}^{(eq)}(j).
+    W_{ij} \vect{\rho}^{(eq)}[i] = W_{ji} \vect{\rho}^{(eq)}[j].
     \label{detailled_ballance}
 \end{equation}
 Therefore the similarity transformation
@@ -249,15 +249,15 @@ Therefore the similarity transformation
 \end{equation}
 where
 \begin{equation}
-    T_{ij} =\delta_{ij} \vect{\rho}^{(eq)}(i)^{-\frac{1}{2}}
+    T_{ij} =\delta_{ij} \vect{\rho}^{(eq)}[i]^{-\frac{1}{2}}
     \label{similarity_transform}
 \end{equation}
 symmetrizes $\hat{W}$ such that
 \begin{align}
     S_{il} &= T^{-1}_{ij} W_{jk} T_{kl} \\ \nonumber
-    &= \sum_j \delta_{ij} \rho^{(eq)}(i)^{\frac{1}{2}} W_{jk} T_{kl} \\ \nonumber
-    &= \rho^{(eq)}(i)^{\frac{1}{2}} \sum_{k} W_{ik} \delta_{kl} \rho^{(eq)}(l)^{-\frac{1}{2}} \\ \nonumber
-    &= W_{il}^{\frac{1}{2}} \left( W_{il} \frac{\rho^{(eq)}(i)}{\rho^{(eq)}(l)} \right)^{\frac{1}{2}} \\ \nonumber
+    &= \sum_j \delta_{ij} \rho^{(eq)}[i]^{\frac{1}{2}} W_{jk} T_{kl} \\ \nonumber
+    &= \rho^{(eq)}[i]^{\frac{1}{2}} \sum_{k} W_{ik} \delta_{kl} \rho^{(eq)}[l]^{-\frac{1}{2}} \\ \nonumber
+    &= W_{il}^{\frac{1}{2}} \left( W_{il} \frac{\rho^{(eq)}[i]}{\rho^{(eq)}[l]} \right)^{\frac{1}{2}} \\ \nonumber
     &= \left(W_{il} W_{li}\right)^{\frac{1}{2}} \\ \nonumber
     S_{ii} &= W_{ii} 
 \end{align}
