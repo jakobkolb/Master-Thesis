@@ -45,7 +45,7 @@ def calc_rate(u,rate,spacing,kt,d):
 
 
 srates = range(-25,15,1)
-potential = range(0,20,2)
+potential = range(0,10,1)
 spacing_parameter = range(1,6,1)
 arates = np.zeros((np.shape(srates)[0],2))
 
@@ -54,7 +54,7 @@ kmax = np.zeros((np.shape(potential)[0],np.shape(spacing_parameter)[0]))
 for k in spacing_parameter:
     fig = mp.figure()
     ax = fig.add_subplot(111)
-    spacing = np.array([1.,6.+2.*k,8.+2.*k])
+    spacing = np.array([1.,2.*k,2+2.*k])
     for j in potential:
         for i in range(0,np.shape(srates)[0],1):
             u1 = np.array([0,j/4.])

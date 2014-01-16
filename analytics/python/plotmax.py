@@ -46,15 +46,14 @@ def calc_rate(u,rate,spacing,kt,d):
 srates = np.arange(-1,0,0.001)
 potential = range(1,10,3)
 spacing_parameter = range(1,20,1)
+drange = np.arange(0,10,1)
 arates = np.zeros((np.shape(srates)[0],2))
-kmax = np.zeros((np.shape(spacing_parameter)[0],np.shape(potential)[0],3))
+kmax = np.zeros((np.shape(spacing_parameter)[0],np.shape(potential)[0],4))
 
 space_index = -1
 
 for k in spacing_parameter:
     space_index = space_index + 1
-    fig = mp.figure()
-    ax = fig.add_subplot(111)
     spacing = np.array([1.,2.+k,4.+k])
     potential_index = -1
     for j in potential:
@@ -67,25 +66,29 @@ for k in spacing_parameter:
             arates[i,1] = Ku1/Ku0
             arates[i,0] = 10**(srates[i])
 
-        mp.plot(arates[:,0], arates[:,1], label='u1 = ' + `j/4.`)
-
         if j != 0:
             indices = np.argmax(arates[:,1])
             print indices, spacing, j/4., arates[indices]
-            kmax[space_index,potential_index,:] = [k, j/4., arates[indices,0]]
+            kmax[space_index,potential_index,:] = [k, j/4., arates[indices,0], arates[indices,1]]
 
-#    ax.set_title('Rs = ' + `spacing[0]` + ', a = ' + `spacing[1]` + ', b = ' + `spacing[2]`)
-    ax.set_xscale('log')
-#    mp.legend(loc='upper left')
-#    ax.set_ylim([0.6,1.3])
-#    ax.set_xlabel('switching rate')
-#    ax.set_ylabel('reaction rate')
-#    mp.grid()
+
+fig1 = mp.figure()
+ax1 = fig1.add_subplot(111)
+for i in range(np.shape(potential)[0]):
+    mp.plot(kmax[:,i,0], kmax[:,i,2], label='u1 = ' + `kmax[1,i,1]`)
+
+mp.legend(loc='upper right')
+ax1.set_xlabel('a')
+ax1.set_ylabel('Wres')
+ax1.set_title('Resonant barrier fluct. rate for constant b-a=2')
+ax1.set_xscale('log')
 
 fig2 = mp.figure()
 for i in range(np.shape(potential)[0]):
-    u = i/4.
-    mp.plot(kmax[:,i,0], (kmax[:,i,2]) , label='u1 = ' + `kmax[1,i,1]`)
-    mp.legend(loc='upper right')
+    mp.plot(kmax[:,i,0], kmax[:,i,3], label='u1 = ' + `kmax[1,i,1]`)
+
+ax2.set_xacale('log')
+
+mp.legend(loc='upper right')
 
 mp.show()

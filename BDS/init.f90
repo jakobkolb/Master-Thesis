@@ -73,6 +73,11 @@ SUBROUTINE init_parameters
         K01 = K10
     ENDIF
 
+    IF(trig .EQ. 'K')THEN
+        K10 = 10.0**REAL(tmp-10)
+        K01 = K10
+    ENDIF
+
 
 
 
