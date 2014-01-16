@@ -14,13 +14,13 @@ def rhodash(r,eig,d):
     return rhodash
 
 def calc_rate(u,rate,spacing,kt,d):
- 
+
     w = np.array([[-rate,rate],[rate,-rate]])
-   
+
     (eig,s) = np.linalg.eig(w)
     s[0:2,0] = s[0:2,0]/np.linalg.norm(s[0:2,0])
     s[0:2,1] = s[0:2,1]/np.linalg.norm(s[0:2,1])
-    
+
     invs = np.linalg.inv(s)
 
     expu = np.diag(np.exp(u/kt))
@@ -34,6 +34,7 @@ def calc_rate(u,rate,spacing,kt,d):
     bc_matrix[6:8,4:12] = np.concatenate((-np.dot(invs,expu).dot(s).dot(rho(spacing[2],eig,d)),rho(spacing[2],eig,d)),1)
     bc_matrix[8:10,4:12] = np.concatenate((rhodash(spacing[2],eig,d),-rhodash(spacing[2],eig,d)),1)
     bc_matrix[10:12,8:12] = np.array([[1,0,0,0],[0,0,0,0]])
+    #print np.linalg.det(bc_matrix[0:11,0:11])
     b = np.zeros((12))
     b[10] = 1
     c = np.linalg.solve(bc_matrix[0:11,0:11],np.transpose(b[0:11]))
@@ -43,30 +44,32 @@ def calc_rate(u,rate,spacing,kt,d):
     return k
 
 
-srates = range(-25,18,1)
+srates = range(-25,15,1)
+potential = range(0,20,2)
+spacing_parameter = range(1,6,1)
 arates = np.zeros((np.shape(srates)[0],2))
 
+kmax = np.zeros((np.shape(potential)[0],np.shape(spacing_parameter)[0]))
 
-for k in range(1,8,1):
+for k in spacing_parameter:
     fig = mp.figure()
     ax = fig.add_subplot(111)
-    spacing = np.array([1.,2,2+2**k])
-    for j in range(-24,2,2):
+    spacing = np.array([1.,6.+2.*k,8.+2.*k])
+    for j in potential:
         for i in range(0,np.shape(srates)[0],1):
-            print srates[i]/5.
-            u = np.array([0,j/4.])
-            arates[i,1] = calc_rate(u,10**(srates[i]/5.),spacing,kt,d)
+            u1 = np.array([0,j/4.])
+            u0= np.array([0,0])
+            Ku1 = calc_rate(u1,10**(srates[i]/5.),spacing,kt,d)
+            Ku0 = calc_rate(u0,10**(srates[i]/5.),spacing,kt,d)
+            arates[i,1] = Ku1/Ku0
             arates[i,0] = 10**(srates[i]/5.)
-
-        #print arates
-
 
         mp.plot(arates[:,0], arates[:,1], label='u1 = ' + `j/4.`)
 
-    ax.set_title('Rs = ' + `spacing[0]` + ', a = ' + `spacing[1]` + ', b = ' + `spacing[2]`) 
+    ax.set_title('Rs = ' + `spacing[0]` + ', a = ' + `spacing[1]` + ', b = ' + `spacing[2]`)
     ax.set_xscale('log')
     mp.legend(loc='upper left')
-    ax.set_ylim([15,35])
+   # ax.set_ylim([1,2])
     ax.set_xlabel('switching rate')
     ax.set_ylabel('reaction rate')
     mp.grid()

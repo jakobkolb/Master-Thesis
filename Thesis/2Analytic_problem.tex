@@ -309,8 +309,12 @@ and
     \vect{\tilde{\rho} '}^{(III)}(b) &= \vect{\tilde{\rho} '}^{(II)}(b)
 \end{align}
 where $\hat{A} = \hat{D}\hat{T}$.
-The resulting system of linear equations is then used to determine the coefficients $c_{i,k}^{j}$. The absorption rate can still be calculated as
+The resulting system of linear equations is then used to determine the coefficients $c_{i,k}^{j}$. The absorption rate can still be calculated from the derivative of the particle density at the sink boundary:
 \begin{equation}
-    K = 4 \pi R_s^2 \left. \frac{\partial}{\partial r} \right|_{R_s} \sum_{i} \rho^{I}_{i}
+    K = 4 \pi R_s^2 \left. \frac{\partial}{\partial r} \right|_{R_s} \rho_{tot} 
+\end{equation}
+Where $\rho_{tot}$ is the total particle density i.e. the sum of the components of the particle density vector:
+\begin{equation}
+    \rho_{tot} =  \sum_{i} \rho^{I}_{i}
 \end{equation}
 where $\rho^{I}_{i}$ are the entries of the reverse transformed of $\vect{\tilde{\rho}}$ i.e. $\vect{\rho} = \hat{A} \vect{\tilde{\rho}} = \hat{D}\hat{T} \vect{\tilde{\rho}}$.
