@@ -27,12 +27,12 @@ From this one can derive the Kramers Moyal expansion for $P(x,t)$:
 \end{equation}
 with the {\it jump moments} of the transition probability $W(x,\Delta x,t, \Delta t) = P(x+\Delta x,t+\Delta t | x, t)$:
 \begin{equation}
-    a^{(m)}(x,t) = \int {\rm d} W(x,r,t, \Delta t) r^m .
+    a^{(m)}(x,t) = \int {\rm d}r W(x,r,t, \Delta t) r^m .
     \label{jump moments}
 \end{equation}
 If the expansion is truncated after the second term, the result gives the well known Focker Planck Equation:
 \begin{equation}
-    \frac{\partial P(x,t)}{\partial t} = - \frac{\partial}{\partial x} \left[a^{(1)}P(x,t) \right] + \frac{\partial^2}{\partial x^2}\left[ a^{(2)}P(x,t) \right] 
+    \frac{\partial P(x,t)}{\partial t} = - \frac{\partial}{\partial x} \left[a^{(1)}P(x,t) \right] + \frac{1}{2}\frac{\partial^2}{\partial x^2}\left[ a^{(2)}P(x,t) \right] 
     \label{FPE}
 \end{equation}
 These {\it jump moments} can be calculated from the Langewin equation, describing the 
@@ -50,13 +50,13 @@ In the overdamped limit this expression can be discretized in time and transform
 \end{equation}
 From the distribution of the random force:
 \begin{equation}
-    P(\varepsilon ' ) = \sqrt{\frac{\Delta t}{4 \pi D \gamma^{2}}} \exp \left\{ \frac{\gamma^{2} \Delta t}{4 D \gamma^{2}} \right\}
+    P(\varepsilon ' ) = \sqrt{\frac{\Delta t}{4 \pi D \gamma^{2}}} \exp \left\{ - \frac{\varepsilon ' ^{2} \Delta t}{4 D \gamma^{2}} \right\}
     \label{eps dist}
 \end{equation}
 one can compute the transitions probability for the Brownian particle as:
 \begin{align}
     W(x,\Delta x,t, \Delta t)  &= \left< \delta \left(  \Delta x - (x(t-\Delta t) - x(t)) \right)\right> \\
-                        &= \int \rm{d}\varepsilon ' \delta \left(  \Delta x - (x(t-\Delta t) - x(t)) \right)  \sqrt{\frac{\Delta t}{4 \pi D \gamma^{2}}} \exp \left[ \frac{\gamma^{2} \Delta t}{4 D \gamma^{2}} \right] \\
+                        &= \int \rm{d}\varepsilon ' \delta \left(  \Delta x - (x(t-\Delta t) - x(t)) \right)  \sqrt{\frac{\Delta t}{4 \pi D \gamma^{2}}} \exp \left[ - \frac{\varepsilon ' ^{2} \Delta t}{4 D \gamma^{2}} \right] \\
                         &= \sqrt{\frac{1}{4 \pi D \Delta t}} \exp \left[ \frac{-\left(\Delta x - f(x) \frac{\Delta t}{\gamma} \right)^2}{4 D \Delta t} \right]
     \label{W}
 \end{align}
