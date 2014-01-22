@@ -68,8 +68,8 @@ SUBROUTINE grad_U(X, f_eff)
     Rr = SQRT(DOT_PRODUCT(R,R))
     Rn = R/Rr
 
-    a = Rs + Ua + 0.5*Ub
-    b = Ub
+    a = Rs + (Ua + Ub)*0.5
+    b = Ub-Ua
     
     IF(state == 0) THEN
         grad_Ur = -4*Un*U0*((2/b*(Rr-a))**(2*Un-1))/b/((2/b*(Rr-a))**(2*Un) + 1)**2
