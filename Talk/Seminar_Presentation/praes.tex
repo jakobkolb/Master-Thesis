@@ -72,7 +72,56 @@
         \vect{\rho}^{I} =  {\rm diag}\left[\exp\left\{\frac{U_i}{K_B T} \right\}\right] \vect{\rho}^{II}
     \end{equation}
     }
+\frame{
+for $r \ne a,b$ and steady state:
+\begin{equation*}
+    0 = D \vec{\nabla}^{2} \vect{\rho} + \hat{W} \vect{\rho}
+\end{equation*}
+Goal: decoupling of equations i.e. orthonalization of $\hat{W}$.
+\begin{equation*}
+    \hat{T}_{i,j} = \delta_{i,j}\frac{1}{\sqrt{\rho^{(eq)}_{i}}}; \quad \hat{T}^{-1}\hat{W}\hat{T} = \hat{S}
+\end{equation*}
+since $\hat{S}$ is symetric, there is an orthononal transformation $\hat{D}$ such that:
+\begin{equation*}
+    \hat{D}^{\dagger}\hat{S}\hat{D} = -\hat{d}; \quad \hat{d} = {\rm diag}\left[|\lambda_i|\right], \quad \lambda_1 = 0, \lambda_{i>0}<0
+\end{equation*}
+thus the FPE becomes independent for different states of $U$
+\begin{equation}
+    0 = D \vec{\nabla}^{2}\tilde{\vect{\rho}} - \hat{d} \tilde{\vect{\rho}}, \quad \tilde{\vect{\rho}} = \hat{L} \vect{\rho} = \hat{T}\hat{D}\vect{\rho}
+\end{equation}
+}
+\frame{
+Solutions for this equation are:
+\begin{align}
+    &\tilde{\rho}_{1}(r) = C_{1,1} + C_{1,2}\frac{1}{r} \nonumber \\
+    &\tilde{\rho}_{i \ne 1}(r) = C_{i,1} \exp \left[-r \sqrt{\frac{|\lambda_i|}{D}} \right]+C_{i,2} \exp \left[r \sqrt{\frac{|\lambda_i|}{D}} \right]
+\end{align}
+Transformed boundary and fit conditions:
+\begin{align*}
+    \hat{L}^{-1}\tilde{\vect{\rho}}^{(I)}(R_s) &= \tilde{\vect{\rho}}^{(I)}(R_s) = 0 \nonumber \\
+    \tilde{\vect{\rho}}(r \rightarrow \infty) &= \hat{L}^{-1} \tilde{\vect{\rho}}^{(eq)} = (1,0,\cdots,0)
+\end{align*}
+and
+\begin{align*}
+    \tilde{\vect{\rho}}^{(I)}(a) &= \hat{L}^{-1}\mathrm{diag}[\exp(\frac{U_i}{K_B T})]\hat{L} \tilde{\vect{\rho}}^{(II)}(a), \\ \nonumber
+    \tilde{\vect{\rho} '}^{(I)}(a) &= \tilde{\vect{\rho} '}^{(II)}(a), \\ \nonumber
+    \tilde{\vect{\rho}}^{(III)}(b) &= \hat{L}^{-1}\mathrm{diag}[\exp(\frac{U_i}{K_B T})]\hat{L} \tilde{\vect{\rho}}^{(II)}(b), \\ \nonumber
+    \tilde{\vect{\rho} '}^{(III)}(b) &= \tilde{\vect{\rho} '}^{(II)}(b)
+\end{align*}
+}
+\frame{
+Now, lets calculate some rates!
+\begin{align}
+    K = \int_{\partial Sink} \vec{J} {\rm d} \vec{A} &= 4 \pi D R_{s}^{2} \left. \frac{\partial}{\partial r} \right|_{R_s} \sum_i \rho_{i}(r) \nonumber \\
+    & = 4 \pi D R_{s}^{2} \left. \frac{\partial}{ \partial r } \right|_{R_s} \sum_i \left\{ \hat{L} \tilde{\vect{\rho}}(r) \right\}_i
+\end{align}
+\begin{itemize}
+    \item numeric calculation of $C_{i,j}$ coefficients for fitting and boundary conditions
+    \item plot analytic solution for reaction rates
+    \item comparison with results from BD simulations
+\end{itemize}
 
+}
 \section{Modell}
 
 \frame{
