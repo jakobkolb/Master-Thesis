@@ -78,9 +78,6 @@ SUBROUTINE init_parameters
         K01 = K10
     ENDIF
 
-
-
-
     print*, 'npar = ', npar
     print*, 'D  = ', D
     print*, 'KT = ', KT
@@ -142,14 +139,6 @@ SUBROUTINE init_particles
     ENDDO
     Cumm = Cumm/Cumm(nbins)
    
-
-    OPEN(unit=25, file='cummulative.out', action='write')
-    DO i = 1,nbins-1
-        WRITE(25,*) r(i), Cumm(i), Cumm(i+1) - Cumm(i)
-    ENDDO
-    CLOSE(25)
-
-
     DO i = 1,npar
         CALL RANDOM_NUMBER(rand)
         DO j = 1,nbins

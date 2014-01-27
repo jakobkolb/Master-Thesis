@@ -72,9 +72,9 @@ SUBROUTINE grad_U(X, f_eff)
     b = Ub-Ua
     
     IF(state == 0) THEN
-            grad_Ur = -U0*EXP(-(Rr-Ua)**(2*Un)) + U0*EXP(-(Rr-Ub)**(2*Un))
+        grad_Ur = -U0*EXP(-(Rr-Ua)**(2*Un)) + U0*EXP(-(Rr-Ub)**(2*Un))
     ELSEIF(state == 1) THEN
-        grad_Ur = -4*Un*U1*((2/b*(Rr-a))**(2*Un-1))/b/((2/b*(Rr-a))**(2*Un) + 1)**2
+        grad_Ur = -U1*EXP(-(Rr-Ua)**(2*Un)) + U1*EXP(-(Rr-Ub)**(2*Un))
     ENDIF
     f_eff = -D/KT*grad_Ur*dt*Rn
 
@@ -97,13 +97,13 @@ SUBROUTINE maintain_boundary_conditions(counter)
 
     !calculate mean square displacement and mean displacement to check...
 
-    DO i = 1,npar
-        dmsqr(i) = DOT_PRODUCT(par(1:3,i) - parold(1:3,i), par(1:3,i) - parold(1:3,i))
-        dmr(i)   = SUM(par(1:3,i) - parold(1:3,i))
-    ENDDO
-
-    msqd = msqd + SUM(dmsqr)/npar
-    md   = md   + SUM(dmr)/npar
+!   DO i = 1,npar
+!       dmsqr(i) = DOT_PRODUCT(par(1:3,i) - parold(1:3,i), par(1:3,i) - parold(1:3,i))
+!       dmr(i)   = SUM(par(1:3,i) - parold(1:3,i))
+!   ENDDO
+!
+!   msqd = msqd + SUM(dmsqr)/npar
+!   md   = md   + SUM(dmr)/npar
 
 
     !$OMP DO REDUCTION(+:counter) PRIVATE(Rr, rand, dr, A, B, AB, px, theta, phi)
