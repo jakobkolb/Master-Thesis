@@ -72,9 +72,9 @@ SUBROUTINE grad_U(X, f_eff)
     b = Ub-Ua
     
     IF(state == 0) THEN
-        grad_Ur = -U0*EXP(-(Rr-Ua)**(2*Un)) + U0*EXP(-(Rr-Ub)**(2*Un))
+        grad_Ur = -U0/SQRT(pi)**Un*EXP(-(Rr-Ua)**(2*Un)) + U0/SQRT(pi)**Un*EXP(-(Rr-Ub)**(2*Un))
     ELSEIF(state == 1) THEN
-        grad_Ur = -U1*EXP(-(Rr-Ua)**(2*Un)) + U1*EXP(-(Rr-Ub)**(2*Un))
+        grad_Ur = -U1/SQRT(pi)**Un*EXP(-(Rr-Ua)**(2*Un)) + U1/SQRT(pi)**Un*EXP(-(Rr-Ub)**(2*Un))
     ENDIF
     f_eff = -D/KT*grad_Ur*dt*Rn
 
