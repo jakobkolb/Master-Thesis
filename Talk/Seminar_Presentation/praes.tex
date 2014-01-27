@@ -1,7 +1,7 @@
 \documentclass{beamer}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{ngerman}
+\usepackage[english]{babel}
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{booktabs}
 \usepackage{xcolor}
@@ -122,84 +122,137 @@ Now, lets calculate some rates!
 \end{itemize}
 
 }
-\section{Modell}
-
+\section{Results}
 \frame{
-\frametitle{\textbf{Modell}}
-	
+	\begin{minipage}[t]{0.5 \textwidth}
+        \begin{figure}[H]
+            \includegraphics[width = 1 \textwidth]{interpol.eps}
+            \caption{Limiting cases and analytic solution for reaction rate}
+        \end{figure}
+    \end{minipage}\vspace{.05 \textwidth}\begin{minipage}[t]{0.5 \textwidth}
+        \begin{figure}[H]
+            \includegraphics[width = 1 \textwidth]{det.eps}
+            \caption{Determinant of boundary condition matrix}
+        \end{figure}
+    \end{minipage}
+}
+\frame{
+	\begin{minipage}[t]{0.6 \textwidth}
+        \begin{figure}[H]
+            \includegraphics[width = 1 \textwidth]{u+1.eps}
+            \caption{Reaction rates for different barrier width}
+        \end{figure}
+    \end{minipage}\vspace{.05 \textwidth}\begin{minipage}[t]{0.4 \textwidth}
+        \begin{figure}[H]
+            \includegraphics[width = 1 \textwidth]{skizze2.eps}
+            \caption{Sketch of potential barrier}
+        \end{figure}
+    \end{minipage}
+}
+\frame{
+	\begin{minipage}[t]{0.6 \textwidth}
+        \begin{figure}[H]
+            \includegraphics[width = 1 \textwidth]{u+2.eps}
+            \caption{Reaction rates for different barrier width}
+        \end{figure}
+    \end{minipage}\vspace{.05 \textwidth}\begin{minipage}[t]{0.4 \textwidth}
+        \begin{figure}[H]
+            \includegraphics[width = 1 \textwidth]{skizze3.eps}
+            \caption{Sketch of potential barrier}
+        \end{figure}
+    \end{minipage}
+    \begin{itemize}
+        \item \textbf{System shows resonant activation!}
+    \end{itemize}
+}
+\section{Simulations}
+\frame{
+    \begin{minipage}[t]{0.4 \textwidth}
+        \begin{figure}[H]
+            \includegraphics[width = 1 \textwidth]{skizze4.eps}
+        \end{figure}
+        \begin{figure}[H]
+            \includegraphics[width = 0.8 \textwidth]{skizze5.eps}
+        \end{figure}
+        \end{minipage}\hspace{.09 \textwidth}\begin{minipage}[t]{.5 \textwidth}
+            Brownian dynamics with approximate boxcar potential barrier:
+            \begin{align*}
+                &x(t + \Delta t) = x(t) + \frac{1}{\gamma}\vec{\nabla}U(x(t)) \Delta t \\
+                &\qquad+ \sqrt{2 D \Delta t} R(t) \\
+                &U(r) = \frac{U_0}{\left( \frac{2}{b}(r - a) \right)^{2n}+1} \\
+                &K = E\left( \frac{\Delta N}{\Delta t} \right)
+            \end{align*}
+            Spherical simulation domain to retain symmetry of solution.
+        \end{minipage}
+}
+\frame{
+    \frametitle{Analytic solution vs. simulated density profile}
+    \begin{minipage}[t]{.5 \textwidth}
+        \begin{figure}
+            \includegraphics[width = 1 \textwidth]{rho002.eps}
+        \end{figure}
+    \end{minipage}\begin{minipage}[t]{.5 \textwidth}
+        \begin{figure}
+            \includegraphics[width = 1 \textwidth]{rho200.eps}
+        \end{figure}
+    \end{minipage}
+
+We see: Approximation with smooth potential does not work too well.
+
 }
 
-
-
-
-\subsection{Lösungsweg}
-
-\section{Ergebnisse}
-
 \frame{
-\frametitle{\textbf{Lösungsmethoden}}
-\begin{itemize}
-	\item gekoppeltes Differentialgleichungssystem $\rightarrow$ Dipol-Dipol-Korrelationsfunktion
-	\item Fouriertransformation $\rightarrow$ Absorption
-	\item analytische Lösung
-		\begin{itemize}
-			\item Greensche Funktionen
-			\item Exzitonenzustände müssen bekannt sein
-		\end{itemize}
-	\item numerische Lösungsweg
-		\begin{itemize}
-			\item Integration (z.B. Runge-Kutta)
-			\item Fast Fourier Transform
-		\end{itemize}
-\end{itemize}
+    \frametitle{Analytic solution vs. simulated reaction rates}
+    \begin{minipage}[c]{0.6 \textwidth}
+        \begin{figure}[H]
+            \includegraphics[width = 1 \textwidth]{comp.eps}
+        \end{figure}
+    \end{minipage}\begin{minipage}[t]{0.4 \textwidth}
+    \begin{itemize}
+        \item qualitative behaviour matches
+        \item quantitatively wrong
+    \end{itemize}
+    \end{minipage}
 }
-\subsection{Parameter}
 \frame{
-\frametitle{\textbf{Parameter}}
-\begin{tabular}{l c c}
-\toprule
-Anzahl d. Moleküle pro Kette & $N$ & 10 \\
-Übergangsdipolmoment d. Moleküle & $d_m$ & 8 D\\
-Intermolekularer Abstand & $\Delta x_{mol}$ & 1.2 nm\\
-Energie d. ersten angeregten Zustands & $E_m$ & variiert um $E_N$\\
-Radius d. MNP & $a$ & 10 nm\\
-Übergangsdipolmoment des MNP & $d_N$ & 2925 D\\
-Plasmonenergie & $E_N$ & 2.6 eV\\
-\bottomrule
-\end{tabular}
+    \frametitle{Convergence for increasing potential steepness?}
+    \begin{minipage}{0.6 \textwidth}
+    \begin{figure}[H]
+        \only<1>{\includegraphics[width = 1 \textwidth]{Un10.eps}}
+           \only<2>{\includegraphics[width = 1 \textwidth]{Un15.eps}}
+           \only<3>{\includegraphics[width = 1 \textwidth]{Un20.eps}}
+           \only<4>{\includegraphics[width = 1 \textwidth]{Un25.eps}}
+           \only<5>{\includegraphics[width = 1 \textwidth]{Un30.eps}}
+           \only<6>{\includegraphics[width = 1 \textwidth]{Un-rates.eps}}
+        \end{figure}
+    \end{minipage}\begin{minipage}[t]{0.38 \textwidth}
+    \begin{itemize}
+        \item convergence in density profiles
+        \item count for absorbed particles still buggy
+    \end{itemize}
+    \end{minipage}
 }
 
-
-
-
-
-
-
-
-
-
-\subsection{Ausblick}
-
-
-\subsection{Zusammenfassung}
+\section{Summary}
 \frame{
-\frametitle{\textbf{Zusammenfassung}}
-\begin{itemize}
-	\item 
-	\item 
-	\item 
-		\begin{itemize}
-			\item 
-		\end{itemize}
-	\item 
-\end{itemize}
+    \frametitle{\textbf{Summary}}
+    \begin{itemize}
+        \item Analytic solution for boxcar like potential barrier possible,
+        \item numeric calculation breaks down in limiting cases,
+        \item approximation of boxcar potential in BD causes problems
+        \item but qualitative behaviour matches well.
+    \end{itemize}
 }
-
-
-
-
-
-
+\section{To Do}
+\frame{
+    \frametitle{\textbf{To Do}}
+    \begin{itemize}
+        \item find limiting behaviour for very fast/slow potential fluctuations,
+        \item find limiting behaviour for very attractive/repulsive barrier,
+        \item are approximate solutions for smooth potentials possible?
+        \item Some work to do to converge simulation and analytic solution
+    \end{itemize}
+}
 \end{document}
 
 

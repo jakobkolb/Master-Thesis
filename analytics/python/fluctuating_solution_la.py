@@ -39,40 +39,52 @@ def calc_rate(u,rate,spacing,kt,d):
     b[10] = 1
     c = np.linalg.solve(bc_matrix[0:11,0:11],np.transpose(b[0:11]))
     c = np.concatenate((c[0:11],[0]))
+    det = np.linalg.det(bc_matrix[0:11,0:11])
+    k = 4.*np.pi*d*spacing[0]**2*sum(np.dot(s,rhodash(spacing[0],eig,d)).dot(np.transpose(c[0:4])))/sum(np.dot(s,rho(spacing[3],eig,d)).dot(np.transpose(c[8:12])))
+    return k, det
 
-    k = 4.*np.pi*d*spacing[0]**2*sum(np.dot(s,rhodash(spacing[0],eig,d)).dot(np.transpose(c[0:4])))
-    return k
-
+def k0(rs,a,b,rd,u,kt):
+    return (1-rs/rd)/(rs*(np.exp(u/kt)-1)*(1/a-1/b)+1-rs/rd)
 
 srates = range(-25,15,1)
-potential = np.arange(-5,-4,1)
+potential = np.arange(-2,-1,1)
 print potential
-spacing_parameter = range(7,8,1)
-arates = np.zeros((np.shape(srates)[0],2))
+spacing_parameter = range(0,19,1)
+arates = np.zeros((np.shape(srates)[0],3))
 
 kmax = np.zeros((np.shape(potential)[0],np.shape(spacing_parameter)[0]))
 
+fig1 = mp.figure()
+ax = fig1.add_subplot(111)
+
 for k in spacing_parameter:
-    fig = mp.figure()
-    ax = fig.add_subplot(111)
-    spacing = np.array([1.,1.,k])
+    spacing = np.array([1.,1.+k/10.,20.,20.])
     for j in potential:
         for i in range(0,np.shape(srates)[0],1):
-            u1 = np.array([0,j])
+            u1 = np.array([0,4.])
             u0= np.array([0,0])
-            Ku1 = calc_rate(u1,10**(srates[i]/5.),spacing,kt,d)
-            Ku0 = calc_rate(u0,10**(srates[i]/5.),spacing,kt,d)
+            Ku1, det = calc_rate(u1,10**(srates[i]/5.),spacing,kt,d)
+            Ku0, tmp = calc_rate(u0,10**(srates[i]/5.),spacing,kt,d)
             arates[i,1] = Ku1/Ku0
             arates[i,0] = 10**(srates[i]/5.)
-
-        mp.plot(arates[:,0], arates[:,1], label='u1 = ' + `j/4.`)
-
-    ax.set_title('Rs = ' + `spacing[0]` + ', a = ' + `spacing[1]` + ', b = ' + `spacing[2]`)
+            arates[i,2] = det
+        mp.plot(arates[:,0], arates[:,1], label='a = ' + `spacing[1]`)
+        #mp.plot(arates[:,0], np.ones((np.shape(arates)[0]))*k0(spacing[0],spacing[1],spacing[2],spacing[3],u1[1]/2.,1.))
+        #mp.plot(arates[:,0], np.ones((np.shape(arates)[0]))*(k0(spacing[0],spacing[1],spacing[2],spacing[3],u1[1],1.)/2.+1/2.))
+    ax.set_title('Rs = ' + `spacing[0]` + ', U1 = %1.1f, a = %1.1f, b = %1.1f' % (u1[1], spacing[1],spacing[2]))
     ax.set_xscale('log')
-    mp.legend(loc='upper left')
-   # ax.set_ylim([1,2])
-    ax.set_xlabel('switching rate')
-    ax.set_ylabel('reaction rate')
     mp.grid()
+    #mp.legend(loc='lower left')
+    #ax.set_ylim([1,2])
+    ax.set_xlabel('switching rate')
+    ax.set_ylabel('reaction rate/debye rate')
+   #fig2 = mp.figure()
+   #ax2 = fig2.add_subplot(111)
+   #mp.plot(arates[:,0], arates[:,2], label='a = ' + `spacing[1]`)
+   #ax2.set_xscale('log')
+   #ax2.set_yscale('log')
+   #ax2.set_xlabel('switching rate')
+   #ax2.set_ylabel('determinant of fit matrix')
 
+    mp.grid()
 mp.show()
