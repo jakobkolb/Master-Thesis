@@ -68,13 +68,15 @@ SUBROUTINE grad_U(X, f_eff)
     Rr = SQRT(DOT_PRODUCT(R,R))
     Rn = R/Rr
 
-    a = Rs + (Ua + Ub)*0.5
-    b = Ub-Ua
-    
+    a = Rs + (Ua + Ub)*0.5  !gap
+    b = Ub-Ua               !width
+    a = a + b/2.0
+    !a: gap between sink and barrier+1/2 barrier width, b:barrier width
+
     IF(state == 0) THEN
-        grad_Ur = -U0/SQRT(pi)**Un*EXP(-(Rr-Ua)**(2*Un)) + U0/SQRT(pi)**Un*EXP(-(Rr-Ub)**(2*Un))
+        grad_Ur = -U0*EXP(-((Rr-(a+b/2.0))*2.0/b)**(2*Un))*2.0*Un/b*((Rr-(a+b/2.0))*2.0/b)**(2*Un-1)
     ELSEIF(state == 1) THEN
-        grad_Ur = -U1/SQRT(pi)**Un*EXP(-(Rr-Ua)**(2*Un)) + U1/SQRT(pi)**Un*EXP(-(Rr-Ub)**(2*Un))
+        grad_Ur = -U1*EXP(-((Rr-(a+b/2.0))*2.0/b)**(2*Un))*2.0*Un/b*((Rr-(a+b/2.0))*2.0/b)**(2*Un-1)
     ENDIF
     f_eff = -D/KT*grad_Ur*dt*Rn
 
