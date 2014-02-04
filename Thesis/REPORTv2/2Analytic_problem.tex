@@ -1,0 +1,70 @@
+\section{Model}
+This part will introduce the basic equations that are relevant for the handling of Brownian motion as a stochastic process (and its realisations in a computational model) and give an equivalent Focker-Planck equation. Furthermore it will treat the fluctuating potential barrier in terms of a Master-Equation. \\
+The combination of both leads to a system of coupled partial differential equations that can be used to derive an analytic expression for the wanted density profiles and reaction rates.
+\subsection{The Focker Planck Equation for Brownian Particles}
+Brownian motion is a markovian process, i.e. each time step in the random motion of particles does only depend on their preceding position. This implies, that the conditional distribution of their coordinates obeys the following relation:
+\begin{equation}
+    P(x,t|y,u;y,v) = P(x,t|y,v), \quad t>u>v
+    \label{}
+\end{equation}
+This relation implies, that for a Markov process every multi step probability distribution can be expressed as a hierarchy of a initial distribution and the two step transition probabilities. For $ t_1 < t_2 < \cdots < t_n$:
+\begin{align}
+    P(x_1,t_1;x_2,t_2;\cdots;x_n,t_n) &= P(x_n,t_n|x_{n-1},t_{n-1})P(x_{n-1},t_{n-1}|x_{n-2},t_{n-2}) \cdots \nonumber \\
+                                      & \cdots P(x_2,t_2|x_1,t_1)P(x_1,t_1)
+    \label{hierarchy}
+\end{align}
+So the entire realization of the process is determined by the initial distribution and the two step transition probability. \\
+Integrating the three step joint probability distribution over the intermediate step leads to the Chapman Kolmogorov equation:
+\begin{equation}
+    P(x,t|y,v) = \int P(x,t|z,u) P(z,u|y,v).
+    \label{Chapman Kolmogorov equation}
+\end{equation}
+From this one can derive the Kramers Moyal expansion for $P(x,t)$:
+\begin{equation}
+\frac{\partial P(x,t)}{\partial t} = \sum_{m = 1}^{\infty}\frac{(-1)^{m}}{m!}\frac{\partial^m}{\partial x^m} \left[ a^{(m)}(x,t) P(x,t) \right]
+    \label{Kramers Moyal expansion}
+\end{equation}
+with the {\it jump moments} of the transition probability $W(x,\Delta x,t, \Delta t) = P(x+\Delta x,t+\Delta t | x, t)$:
+\begin{equation}
+    a^{(m)}(x,t) = \int {\rm d}r W(x,r,t, \Delta t) r^m .
+    \label{jump moments}
+\end{equation}
+If the expansion is truncated after the second term, the result gives the well known Focker Planck Equation:
+\begin{equation}
+    \frac{\partial P(x,t)}{\partial t} = - \frac{\partial}{\partial x} \left[a^{(1)}P(x,t) \right] + \frac{1}{2}\frac{\partial^2}{\partial x^2}\left[ a^{(2)}P(x,t) \right] 
+    \label{FPE}
+\end{equation}
+These {\it jump moments} can be calculated from the Langewin equation, describing the 
+Brownian motion of a Particle in solution:
+\begin{equation}
+    m \frac{{\rm d}^2 x}{{\rm d}t^2} = -\gamma \frac{ {\rm d}x}{{\rm d}t} + f(x) + \varepsilon(t)
+    \label{Langewin equation}
+\end{equation}
+in which $\varepsilon(t)$ is a Gaussian distributed random process describing the 
+collision interaction of the particle and the solute. 
+In the overdamped limit this expression can be discretized in time and transforms to:
+\begin{equation}
+        x(t + \Delta t) = x(t) + \frac{1}{\gamma}f(x,t) \Delta t + \frac{1}{\gamma} \varepsilon'(t) \Delta t.
+    \label{overdamped limit}
+\end{equation}
+From the distribution of the random force:
+\begin{equation}
+    P(\varepsilon ' ) = \sqrt{\frac{\Delta t}{4 \pi D \gamma^{2}}} \exp \left[ - \frac{\varepsilon ^{\prime 2} \Delta t}{4 D \gamma^{2}} \right]
+    \label{eps dist}
+\end{equation}
+one can compute the transitions probability for the Brownian particle as:
+\begin{align}
+    W(x,\Delta x,t, \Delta t)  &= \left< \delta \left(  \Delta x - (x(t-\Delta t) - x(t)) \right)\right> \\
+                        &= \int \rm{d}\varepsilon ' \delta \left(  \Delta x - (x(t-\Delta t) - x(t)) \right)  \sqrt{\frac{\Delta t}{4 \pi D \gamma^{2}}} \exp \left[ - \frac{\varepsilon  ^{\prime 2} \Delta t}{4 D \gamma^{2}} \right] \\
+                        &= \sqrt{\frac{1}{4 \pi D \Delta t}} \exp \left[ \frac{-\left(\Delta x - f(x) \frac{\Delta t}{\gamma} \right)^2}{4 D \Delta t} \right]
+    \label{W}
+\end{align}
+For this Gaussian transition probability the coefficients of the Kramers Moyal Expansion vanish after the second term, such that the resulting Focker Planck equation holds the full analytic solution for the time evolution of the distribution of particles.
+\begin{equation}
+    \frac{\partial P(x,t)}{\partial t} = - \frac{\partial}{\partial x} \left[f(x)P(x,t) \right] + D\frac{\partial^2}{\partial x^2}\left[P(x,t) \right] 
+    \label{FPE2}
+\end{equation}
+
+\subsection{The Master-Equation for a Stationary Dichotomous Process}
+
+
