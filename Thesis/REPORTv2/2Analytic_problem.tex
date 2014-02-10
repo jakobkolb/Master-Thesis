@@ -1,4 +1,4 @@
-\section{Short summary of Stochastic Processes}
+\section{Short Introduction to Stochastic Processes}
 This part will introduce the basic equations that are relevant for the handling of Brownian motion as a stochastic process (and its realisations in a computational model) and give an equivalent Fokker-Planck equation. Furthermore it will treat the fluctuating potential barrier in terms of a Master-Equation. \\
 The combination of both will be used to treat the problem of reaction rates over fluctuating barrier as a system of coupled partial differential equations that can be used to derive an analytic expression for the wanted density profiles and reaction rates.
 \subsection{The Fokker Planck Equation}
@@ -183,6 +183,108 @@ such that eq. \eqref{fpmeq1} has the following more compact form
     \label{fpmeq2}
 \end{equation}
 
+\section{The Debye Reaction Rate}
+For educational reasons and since we will refer to it later, we will at this point give the solution to the original Debye problem.
+The problem involves a perfect spherical of radius $R_s$ sink embedded in an initially homogeneous distribution of Brownian particles. The aim is to calculate the time dependent and stationary absorption rate of particles into the sink.
+The boundary and initial conditions are therefore
+\begin{align}
+    \rho(r > R_s, t = 0) &= \rho_o, \\
+    \rho(r=R_s,t) &= 0, \\
+    \lim_{r \rightarrow \infty} \rho(r, t) &= \rho_o.
+    \label{BC}
+\end{align}
+In the following, the corresponding Fokker Planck Equation in terms of particle densities
+\begin{equation}
+        \frac{\partial \rho(\vec{r},t)}{\partial t} = - \vec \nabla \left[ \vec f(\vec{r})\rho(\vec{r},t) \right] + D\vec \nabla ^2 \left[\rho(\vec{r},t) \right] 
+    \label{FPE3}
+\end{equation}
+will be solved without external force, i.e. $\vec f(r) = 0$ and subject to the given boundary and initial conditions.
+With the substitution $r \cdot \rho(r,t) = u(r,t)$ and the assumption, that the problem is spherically symmetric the derivatives in the Fokker Planck equation simplify to
+\begin{equation}
+    \frac{\partial u(r,t)}{\partial t} = D \frac{\partial ^2 u(r,t)}{\partial r^2}
+    \label{Simplified FPE}
+\end{equation}
+Laplace transform of the equation yields:
+\begin{align}
+    \int_0^\infty e^{-st}\frac{\partial u(r,t)}{\partial t} \rm{d} t &= D \frac{\partial ^2 }{\partial r^2} \int_0^\infty e^{-st} u(r,t) \rm{d} t \\
+    \left[e^{-st} u(r,t) \right]_0^\infty + s \int_0^\infty e^{-st} u(r,t) \rm{d} t &= D \frac{\partial^2}{\partial r^2} \tilde{u}(r,s)\\
+    u(r,0) + s \tilde{u}(r,s) &= D \frac{\rm{d}^2}{\rm{d} r^2} \tilde{u}(r,s).
+\end{align}
+This is an ordinary 2nd degree inhomogeneous differential equation with constant coefficients.
+For the standard ansatz $\tilde{u}(r,s) = \exp(\lambda(s) r)$ for the homogeneous solution we get the following characteristic polynomial:
+\begin{equation}
+    \lambda(s) ^2 - \frac{s}{D} = 0
+    \label{}
+\end{equation}
+resulting in the following homogeneous solution:
+\begin{equation}
+    \tilde{u}_h(r,s) = C_1 e^{ - \sqrt{\frac{s}{D}} \cdot r } + C_2 e^{ \sqrt{\frac{s}{D}} \cdot r }
+    \label{u_h}
+\end{equation}
+We find the inhomogeneous solution using a polynomial ansatz of the form $\tilde{u}_i = C_3 r + C_4$ leading to the following relation:
+\begin{align}
+    s(C_3 r + C_4)  &= -u(r,0)\\
+                    &= - r \rho_o \\
+    \Rightarrow C_3 &= \frac{r}{s}\rho_o \\
+                C_4 &= 0
+\end{align}
+Now the entire solution has to be fitted to the boundary conditions as in (\ref{BC}). The solution in Laplace space then reads:
+\begin{equation}
+\tilde{u}(r,s) = \rho_o \left( \frac{r}{s} + \frac{R_s}{s} e^{ \sqrt{\frac{s}{D}}(R_s - r) } \right) 
+\end{equation}
+The inverse Laplace transform
+\begin{align}
+    u(r,t)  &= \frac{1}{2 \pi i} \int\limits_{\gamma - i \infty}^{\gamma + i \infty}  e^{st} \tilde{u}(r,s){\rm d}t \\
+    &= \frac{\rho_o}{ 2 \pi i} \left\{  \int\limits_{\gamma - i \infty}^{\gamma + i \infty} \frac{r}{s}  {\rm d}t +  \int\limits_{\gamma - i \infty}^{\gamma + i \infty}\frac{R_s}{s} e^{ \sqrt{\frac{s}{D}}(R_s - r) }  {\rm d}t \right\}
+    \label{inverse laplace}
+\end{align}
+is done using the residue theorem for the first integral:
+\begin{align}
+    \oint_{ \gamma } {\rm d}z f(z) &= 2 \pi i \sum_{k = 1}^{n}I(\gamma, a_k) {\rm Res}(f,a_k) \\
+    { \rm Res}(f,y_o) &= \frac{1}{(m-1)!} \lim_{z\rightarrow z_o} \frac{{ \rm d} ^{m-1}}{{\rm d} z^{m-1}} \left[ (z - z_o)^{m}f(z) \right]
+    \label{residue theorem}
+\end{align}
+and the following identity for the second:
+\begin{equation}
+    \mathcal{L}\left[ {\rm erfc\left( \frac{a}{2\sqrt{t}} \right)} \right] = \frac{1}{s}e^{a\sqrt{s}}
+    \label{L(erfc)}
+\end{equation}
+resulting in the following time dependent solution for $u(r,t)$ resp. the particle density $\rho(r,t)$:
+\begin{align}
+    u(r,t) &= \rho_o \left\{ r - R_s {\rm erfc} \left( \frac{r - R_s}{\sqrt{4 D t}} \right) \right\} \\
+    \rho(r,t) &= \rho_o \left\{ 1 - \frac{R_s}{r} + {\rm erf} \left( \frac{r - R_s}{\sqrt{4Dt}} \right) \right\}.
+    \label{u(r,t)}
+\end{align}
+In the limit $t \leftarrow \infty$ this results in the steady state density profile:
+\begin{equation}
+    \rho(r) =  \rho_o \left( 1 - \frac{R_s}{r} \right)
+    \label{steady state density}
+\end{equation}
+The reaction rate can be defined as the total flux of particles through the boundary $\Omega$ of the sink:
+\begin{equation}
+    K = \int_\Omega \vec{J} {\rm d}\vec{A} 
+    \label{reaction rate}
+\end{equation}
+Using the differential continuity equation:
+\begin{align}
+    \frac{\partial \rho(\vec{r},t)}{\partial t}&= \vec{\nabla} \vec{J}(\vec{r},t) \\
+    &= \vec{\nabla} \left\{ \rho(\vec{r},t) \nabla \vec{U}(\vec{r}) + D \vec{\nabla} \rho(\vec{r},t) \right\}
+    \label{contiuity equation}
+\end{align}
+and the spherical symmetry of the solution one can derive the time dependent reaction rate of the Brownian particles with the spherical sink of radius $R_s$ as follows:
+\begin{align}
+    K(t) &= \int_\Omega D  \vec{\nabla} \rho(\vec{r},t) \\
+    &= 4 \pi D R_s^2 \left. \vec{\nabla} \rho(\vec{r},t) \right|_{r = R_s}\\
+    &= 4 \pi D R_s \rho_o \left( 1 + \frac{R_s}{\sqrt{4Dt}} \right)
+    \label{ideal reaction rate}
+\end{align}
+Again in the limit of $t \rightarrow \infty$ this results in the steady state absorption rate:
+\begin{equation}
+    K = 4 \pi D R_s \rho_o
+    \label{steady state ideal rate}
+\end{equation}
+
+
 \section{Reaction Rates over Fluctuating Barriers}
 \subsection{Model Description}
 The system under consideration consists of a spherical sink of radius $R_s$ that is surrounded by a potential barrier. The barrier is assumed to be of boxcar shape with limiting radius $a,b>R_s$. It fluctuates between states $n$ with different hight $U_n \in [U_0, \cdots U_N]$ subject to a transition rate matrix $\mathbb{W}$. The system is embedded in a reservoir of Brownian particles. It is desired to find the rate at which the particles are absorbed by the sink, given that the transition rate matrix of the potential fluctuations satisfies the detailed balance property.\\
@@ -277,7 +379,7 @@ We now write equation \eqref{fpmeq3} in terms of eigenfunctions of $\mathbb{W}$
     \tilde{\vect{\rho}}(\vec{r},t) = \mathbb{A}^{-1} \vect{\rho}(\vec{r},t)
     \label{eigenfunctions}
 \end{equation}
-where $\mathbb{A}$ denotes the transformation $\mathbb{T}\mathbb{D}$ and use the fact that the potential term vanishes everywhere but at the jump discontinuities. Therefore the equation reads
+where $\mathbb{A}$ denotes the transformation $\mathbb{T}\mathbb{D}$ and use the fact that the potential term vanishes everywhere but at the jump discontinuities. Therefore equation \eqref{fpmeq3} reads
 \begin{equation}
     \frac{\partial }{\partial t} \tilde{\vect{\rho}}^{(j)}(\vec{r},t) = {\rm diag} \left[D \vec{\nabla}^{2} - \lambda_i  \right] \tilde{\vect{\rho}}^{(j)}(\vec{r},t)
     \label{fpmeq4}
@@ -285,10 +387,11 @@ where $\mathbb{A}$ denotes the transformation $\mathbb{T}\mathbb{D}$ and use the
 For the steady state case where the lhs. vanishes it it straight forward to write down the solution to this equation
 \begin{align}
     \tilde{\rho}_{1}^{(j)}(r) &= c_{1,1}^{(j)} + c_{1,2}^{(j)} \frac{1}{r} \nonumber \\
-    \tilde{\rho}_{i \ne 1}^{(j)}(r) &= c_{i,1}^{j} \exp\left[-r\sqrt{\frac{\lambda_i}{D}}\right] + c_{i,2}^{j} \exp\left[r\sqrt{\frac{\lambda_i}{D}}\right] 
+    \tilde{\rho}_{i \ne 1}^{(j)}(r) &= c_{i,1}^{j}\frac{1}{r} \exp\left[-r\sqrt{\frac{\lambda_i}{D}}\right] + c_{i,2}^{j}\frac{1}{r} \exp\left[r\sqrt{\frac{\lambda_i}{D}}\right] 
     \label{fp_ind_sol}
 \end{align}
 \subsection{Treatment of Boundary and Fit Conditions}
+\label{FBC}
 Now we have to find an expression, that allows for the calculation of the coefficients $c_{i,k}^{(j)}$ from the transformed boundary and fit conditions
 \begin{align}
     \mathbb{A}^{-1}\vect{\rho}^{(I)}(R_s) &= \vect{\tilde{\rho}}^{(I)}(R_s) = 0 \nonumber \\
@@ -305,8 +408,8 @@ Therefore it is useful to write the solution of eq. \eqref{fpmeq4} as
 \begin{equation}
     \tilde{\vect{\rho}}^{(j)} = \underbrace{ \left( \begin{array}{cllllllll}
        1   & \frac{1}{r}   & 0                 & 0                 & 0              & 0             & 0 & \cdots &\\
-       0   & 0             & e^{-r \alpha_2}   & e^{r \alpha_2 }   & 0              & 0             & 0 & \cdots &\\
-       0   & 0             & 0                 & 0                 & e^{-r\alpha_3} & e^{r\alpha_3} & 0 & \cdots &\\
+       0   & 0             &\frac{1}{r} e^{-r \alpha_2}   &\frac{1}{r} e^{r \alpha_2 }   & 0              & 0             & 0 & \cdots &\\
+       0   & 0             & 0                 & 0                 &\frac{1}{r} e^{-r\alpha_3} &\frac{1}{r} e^{r\alpha_3} & 0 & \cdots &\\
        \vdots  &&&&&&&\ddots &\\
        \vdots  &&&&&&&&\ddots
    \end{array} \right)}_\text{\large$\hat{\rho}(r)$}
@@ -331,13 +434,171 @@ Here $\alpha_i = (\lambda_i / D)^{1/2}$. Using this notation, the boundary and f
     \left( \begin{array}{c} 0 \\ \vdots \\ 0 \\ 1 \\ 0 \\ \vdots \end{array} \right) \begin{array}{c} \vdots \\ \vdots \\ \vdots \\ i = 5N+1 \\ \vdots \\ \vdots \end{array}
     \label{lgs}
 \end{equation}
-where dashes denote derivatives with respect to $r$. Solving this system of linear equations yields the somehow lengthy expressions for the coefficients $c_{i,k}^{(j)}$. \\ We obtain the actual density profile by applying the inverse transformation $\mathbb{A}^{-1}$
+where dashes denote derivatives with respect to $r$. Solving this system of linear equations yields the somehow lengthy expressions for the coefficients $c_{i,k}^{(j)}$. \\ We obtain the actual density profile by applying the transformation $\mathbb{A}$ to return to the actual particle densities for the different states of the potential barrier.
 \subsection{Calculation of Rates}
+\label{Rates}
 The rate of the particles absorbed by the sink is calculated by taking the surface integral over the flux through the surface of the sphere with radius $R_s$
 \begin{align}
     K   &= \int_{\partial \Omega_{R_s}} \vec{J} {\rm d} \vec{A}\nonumber\\
     &= \int_{\partial \Omega_{R_s}} D \vec{\nabla} \sum_{n=1}^{N} \rho_n^{(1)}(r)\nonumber \\
-    &= 4 \pi D R_s^{2} \sum_{n=1}^{N} \left\{ \mathbb{A}^{-1} \left. \frac{\partial}{ \partial r}\right|_{R_s} \tilde{\vect{\rho}} \right\}_n
+    &= 4 \pi D R_s^{2} \sum_{n=1}^{N} \left\{ \mathbb{A} \left. \frac{\partial}{ \partial r}\right|_{R_s} \tilde{\vect{\rho}} \right\}_n
     \label{Rate}
 \end{align}
-
+\section{Two state Potential Barrier}
+\subsection{Particle Density}
+In this section we will treat the example of a two state potential barrier with switching rate $\gamma$ between states $[U_1=0,U_2]$ that is located between $r = a$ and $r = b$. The transition rate matrix thus has the form 
+\begin{equation}
+    \mathbb{W} = \left( \begin{array}{rr}
+    \gamma & -\gamma \\
+    -\gamma & \gamma 
+\end{array} \right)
+    \label{two_state_transition_matrix}
+\end{equation}
+With eigenvalues $\lambda_1 = 0$ and $\lambda_2 = -2\gamma$. The steady state solution to the transition matrix is 
+\begin{equation}
+    \vect{\rho}^{(eq)}=\left(\frac{1}{2}, \frac{1}{2}\right)^{T}
+    \label{rhoeq}
+\end{equation}
+which obviously satisfies the detailed balance property \eqref{detailed_balance}. \\
+The diagonal form of equation \eqref{fpmeq3} is now 
+\begin{equation}
+    \frac{\partial}{\partial t} \tilde{\vect{\rho}} = \left( \begin{array}{ll}
+        D\vec{\nabla}^{2} & 0 \\
+        0 & D\vec{\nabla}^{2} - 2\gamma 
+    \end{array} \right) \tilde{\vect{\rho}}
+    \label{fpmeq5}
+\end{equation}
+and the solution in terms of eigenfunctions of $\mathbb{W}$ reads
+\begin{align}
+    \tilde{\rho}_1^{(j)} &= c_{1,1}^{(j)} + \frac{c_{1,2}^{(j)}}{r} \\
+    \tilde{\rho}_2^{(j)} &= \frac{c_{2,1}^{(j)}}{r}{\rm exp}\left[-\alpha_2r\right]+ \frac{c_{2,2}^{(j)}}{r}{\rm exp}\left[\alpha_2 r\right]
+    \label{ind_sol_U2}
+\end{align}
+where $\alpha_2 = (2\gamma/D)^{1/2}$ takes the function of a persistence length of the influence of the potential fluctuations. Distances $d_a = |r - a|$ and $d_b = |r - b|$ far from the jump discontinuities of the potential $d_a, d_b >> \alpha_2^{-1}$ the thermal motion of the Brownian particles will have damped the influence of the potential barrier and the densities of particles in state $1$ and $2$ respectively will converge to the same value again.\\
+The following plot gives an example of the density profiles that are obtained by solving the system of linear equations for the fit and boundary conditions as outlined in section \ref{FBC}
+\begin{equation}
+    \vect{\rho} = \mathbb{A} \tilde{\vect{\rho}}
+\end{equation}
+for the following parameters:
+\begin{equation}
+    \begin{array}{r|l}
+        Parameter & Value \\ \hline
+        R_s & 1 \\
+        a   & 4 \\
+        b   & 6 \\
+        U/K_B T & 4 \\
+        \gamma/D & 1/2
+    \end{array} \nonumber
+    \label{Parameters}
+\end{equation}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = .9 \textwidth]{plots/rho.pdf}
+    \caption{Density Profiles for fluctuating repulsive potential}
+    \label{fig:rho}
+\end{figure}
+In the following we will set $R_s = 1$ and give all other length scales relative to it.
+\newpage
+\subsection{Reaction Rates}
+The calculation of the reaction rate as outlined in section \ref{Rates} leads to the following expression. The index of $\alpha_2$ will be omitted for reasons of convenience.
+\begin{align}
+    \frac{K}{K_{Debye}} &= \frac{F_1}{F_2}
+    \label{two_state_rate}
+\end{align}
+$F_1$ and $F_2$ denote the following expressions:
+\begin{align*}
+    F_1 =& 2 \left(a \left(\alpha-5 b \alpha^2\right)+b \alpha-1\right) e^{2 \alpha (a+b)+u}-2 (a \alpha+1) (b \alpha-1) e^{2 (b+1) \alpha+u}-4 b \alpha (b \alpha+1) e^{3 a \alpha+b \alpha+u} \\
+    &+2 b \alpha (b \alpha+1) e^{3 a \alpha+b \alpha+2 u}+4 b \alpha (b \alpha+1) e^{\alpha (a+b+2)+u}-2 b \alpha (b \alpha+1) e^{\alpha (a+b+2)+2 u} \\
+    &-2 (a \alpha-1) (b \alpha+1) e^{4 a \alpha+u}+(a \alpha-1) (b \alpha+1) e^{4 a \alpha+2 u}-2 (a \alpha+1) (b \alpha+1) e^{2 (a+1) \alpha+u} \\
+    &-(a \alpha+1) (b \alpha+1) e^{2 (b \alpha+u+\alpha)}-(3 a \alpha-1) (b \alpha+1) e^{2 (\alpha (a+b)+u)} \\
+    &+(3 a \alpha+1) (b \alpha+1) e^{2 (a \alpha+u+\alpha)}-2 b \alpha (b \alpha+1) e^{\alpha (a+b+2)}+2 b \alpha (b \alpha+1) e^{\alpha (3 a+b)} \\
+    &+e^{4 a \alpha} (a \alpha-1) (b \alpha+1)-e^{2 (a+1) \alpha} (a \alpha-1) (b \alpha+1)+(a \alpha+1) e^{2 (b+1) \alpha} (3 b \alpha-1) \\
+    &-(a \alpha+1) (3 b \alpha-1) e^{2 \alpha (a+b)} \\
+    F_2 =& -4 \alpha \left(a^2 \alpha-a \alpha+a-b \alpha-2\right) e^{\alpha (a+b+2)+u}+2 \alpha \left(a^2 \alpha-a \alpha+a-b \alpha-2\right) e^{\alpha (a+b+2)+2 u} \\
+    &-4 \alpha \left(a^2 \alpha-a (\alpha+1)+b \alpha+2\right) e^{3 a \alpha+b \alpha+u}+2 \alpha \left(a^2 \alpha-a (\alpha+1)+b \alpha+2\right) e^{3 a \alpha+b \alpha+2 u} \\
+    &+2 \alpha e^{\alpha (a+b+2)} \left(a^2 \alpha-a \alpha+a-b \alpha-2\right)+2 \alpha e^{\alpha (3 a+b)} \left(a^2 \alpha-a (\alpha+1)+b \alpha+2\right) \\
+    &-\left(3 \alpha^2 (a (b-2)+2 b)+\alpha (a-3 b+4)-1\right) e^{2 (\alpha (a+b)+u)} \\
+    &-2 \left(\alpha^2 (a (5 b+2)-2 b)+\alpha (a+b-4)+1\right) e^{2 \alpha (a+b)+u} \\
+    &+2 (a \alpha+1) ((b-2) \alpha+1) e^{2 (b+1) \alpha+u}+2 ((a-2) \alpha-1) (b \alpha+1) e^{2 (a+1) \alpha+u} \\
+    &-2 (a \alpha-1) (b \alpha+1) e^{4 a \alpha+u}+(a \alpha-1) (b \alpha+1) e^{4 a \alpha+2 u}+((a+2) \alpha+1) (b \alpha+1) e^{2 (a \alpha+u+\alpha)} \\
+    &-(a \alpha+1) ((3 b-2) \alpha+1) e^{2 (b \alpha+u+\alpha)}-e^{2 \alpha (a+b)} \left(\alpha^2 (a (3 b+2)-2 b)+\alpha (-3 a+b+4)-1\right) \\
+    &+e^{4 a \alpha} (a \alpha-1) (b \alpha+1)-e^{2 (a+1) \alpha} ((3 a-2) \alpha-1) (b \alpha+1)+(a \alpha+1) e^{2 (b+1) \alpha} ((b+2) \alpha-1)
+\end{align*}
+Sadly, this form of the solution does not tell us very much about the behaviour of the system. For a first impression, we will give some plots of the reaction rate vs. the persistence length of the solution using the parameters given above if not stated differently.\\
+\begin{minipage}[t]{0.7 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/rate1.pdf}
+    \caption{Reaction rate vs. switching rate for repulsive barrier}
+    \end{figure}
+\end{minipage}\begin{minipage}[t]{0.3 \textwidth}
+The plot on the left shows the reaction rate relative to the reaction rate of the ungated Debye problem for a fluctuating potential barrier of hight $[U_1 = 0, U_2 = 4]$. It is obvious that it shows some sort of resonant behaviour. The reaction rate converges to some constant, finite values lower than the ungated rate and is maximised by a certain ratio of switching rate and diffusion constant. For certain parameters the rate at its maximum is even higher higher than the rate of the ungated problem.
+\end{minipage}
+\par
+\begin{minipage}[t]{0.7 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/rate2.pdf}
+    \caption{Reaction rate vs. switching rate for attractive barrier}
+    \end{figure}
+\end{minipage}\begin{minipage}[t]{0.3 \textwidth}
+This plot shows the quotient of the reaction rates of the gated and the ungated Debye problem for an attractive fluctuating potential barrier of hight $[U_1 = 0, U_2 = -4]$. Under these conditions the reaction rate of the gated problem is always higher than the one of the ungated problem. Similar to the behaviour emerging from a repulsive barrier the rate is maximised at a certain ratio of switching rate and diffusion constant. The reaction rate at the maximum is
+thereby\end{minipage}
+considerably higher than at the limiting cases for very fast and very slow switching of the barrier. Comparing the repulsive barrier and the attractive barrier setting it is apparent, that the limiting cases for $\gamma/D \rightarrow 0$ and $\gamma/D \rightarrow \infty$ do differ considerably in the first case whilst in the second they do not. \par
+Next we investigate if this kind of resonant activation does always occur or only for certain parameters. Therefore we calculate approximate expressions for the limiting behaviour of the reaction rate.
+\subsection{Limit of $\alpha >> 1$}
+To find the behaviour in the limit of $\alpha >>1$ we take a closer look at the different exponents that occur in the numerator and denominator of equation \eqref{two_state_rate}. Namely
+\begin{align}
+& e_1 = (3a+b)\alpha \nonumber \\
+& e_2 = (2+2b)\alpha \nonumber \\
+& e_3 = (2+a+b)\alpha \nonumber \\
+& e_4 = 4a\alpha \nonumber \\
+& e_5 = (2+2b)\alpha \nonumber \\
+& e_6 = (2a+2b)\alpha
+\end{align}
+Using the fact that $b > a > 1$ we find that for $\alpha >>1$ the terms containing $e_6$ will dominate all others. Therefore numerator and denominator can be reduced to
+\begin{align*}
+    F_1' =& ( 1 + a \alpha + e^u (-1 + 3 a \alpha)) (-1 + 3 b \alpha + e^u (1 + b \alpha))\\
+    F_2' =& (-1 + (4 - 3 a + b) \alpha + (2 a - 2 b + 3 a b) \alpha^2 + e^{2 u} (-1 + (4 + a - 3 b) \alpha \\
+          &+ 3 (a (-2 + b) + 2 b) \alpha^2) + 2 e^u (1 + (-4 + a + b) \alpha + (2 a - 2 b + 5 a b) \alpha^2))
+\end{align*}
+If then again only linear and quadratic terms in $\alpha$ are collected the expression reduces to 
+\begin{align}
+    \frac{K}{K_{Debye}} \approx &a \left(3 e^u+1\right) \left(e^u (b x+1)+3 b x-1\right)-b \left(2 e^u+e^{2 u}-3\right) / \nonumber \\
+                          &\left\{a \left(e^{2 u} (3 (b-2) x+1)+2 e^u ((5 b+2) x+1)+3 b x+2 x-3\right) \right.  \nonumber \\
+                          & \left. +\left(e^u-1\right) \left(b \left(3 e^u+1\right) (2 x-1)+4 \left(e^u-1\right)\right) \right\}
+    \label{kla}
+\end{align}
+and in the actual limit we obtain 
+\begin{equation}
+    \lim_{\alpha \rightarrow \infty} \frac{K}{K_{Debye}} = \frac{a b \left(e^u+3\right)}{a \left(b \left(e^u+3\right)-2 e^u+2\right)+2 b \left(e^u-1\right)}
+    \label{kliminfa}
+\end{equation}
+\subsection{Limit of $\alpha << 1$}
+To find the behaviour of the system for small $\alpha$ it proves to be sufficient to do a Taylor expansion around $\alpha_0 = 0$ to obtain
+\begin{equation}
+    \frac{K}{K_{Debue}} \approx \frac{\left(e^u-1\right)^2  (a-b)^2}{4 \left(a \left(b-e^u+1\right)+b \left(e^u-1\right)\right)^2} \alpha+\frac{a \left(-2 b+e^u-1\right)+b \left(1-e^u\right)}{2 \left(a \left(-b+e^u-1\right)+b \left(1-e^u\right)\right)}.
+    \label{ksa}
+\end{equation}
+In the limit $\alpha \rightarrow 0$ then holds
+\begin{equation}
+    \lim_{\alpha \rightarrow 0} \frac{K}{K_{Debye}} = \frac{a \left(-2 b+e^u-1\right)+b \left(-e^u\right)+b}{2 \left(a \left(-b+e^u-1\right)+b \left(-e^u\right)+b\right)}.
+    \label{klim0a}
+\end{equation}
+The following plots will illustrate the above \par
+\begin{minipage}[t]{0.5 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/largelimit.pdf}
+    \caption{Limit of $\alpha >>1$}
+    \end{figure}
+\end{minipage}\begin{minipage}[t]{0.49 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/smalllimit.pdf}
+    \caption{Limit of $\alpha <<1$}
+    \end{figure}
+\end{minipage}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 1 \textwidth]{plots/bothlimits.pdf}
+    \caption{Limiting behaviour of Reaction Rate}
+    \label{fig:rrlimit}
+\end{figure}
+So it seems the above calculations were correct up to this point. To prove that resonant activation always occurs it still has to be shown that the slope of the fast and slow switching limits both remain positive for all $a,b,u$. (Plotting strongly suggests it)
