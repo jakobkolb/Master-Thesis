@@ -10,7 +10,7 @@ SUBROUTINE move_particles
 
     REAL(8), DIMENSION(3,npar)  :: erand
     REAL(8), DIMENSION(3,npar)  :: nrand1, nrand2
-    REAL(8), DIMENSION(3,npar)  :: f_eff
+    REAL(8), DIMENSION(npar)  :: r1, r2
     INTEGER                     :: i, j
 
     CALL RANDOM_NUMBER(nrand1)
@@ -26,31 +26,53 @@ SUBROUTINE move_particles
     ENDDO
     !$OMP END PARALLEL DO
 
-    !Calculate effective interaction forces
-    !f_eff = -D/KT*grad_U*dt
-
-    f_eff = 0
-    !$OMP PARALLEL DO
-    DO i = 1,npar
-        CALL grad_U(par(:,i), f_eff(:,i))
-    ENDDO
-    !$OMP END PARALLEL DO
-
-    !Calculate sigma for random force using the Einstein Smoluchowski relation
+    !Calculate effective displacement due to thermal noise
 
     erand = SQRT(2*D*dt)*erand
 
-    !Apply random force to Particles
+    !Calculate particle distance from origin before step
 
+    !$OMP PARALLEL DO
+        DO i = 1,npar
+            r1(i) = SQRT(DOT_PRODUCT(par(:,i),par(:,i)))
+        ENDDO
+    !$OMP END PARALLEL DO
+
+    !Apply random force to Particles (do step)
 
     !$OMP PARALLEL DO
     DO i = 1,npar
         DO j = 1,3
-            par(j,i) = par(j,i) +f_eff(j,i) + erand(j,i)
+            par(j,i) = par(j,i) + erand(j,i)
         ENDDO
     ENDDO
     !$OMP END PARALLEL DO
 
+    !Calculate particle distance from origin after step
+
+    !$OMP PARALLEL DO
+        DO i = 1,npar
+            r2 = SQRT(DOT_PRODUCT(par(:,i),par(:,i)))
+        ENDDO
+    !$OMP END PARALLEL DO
+
+    !Check if particles crossed boundaries of potential
+
+    !$OMP PARALLEL DO
+    DO i = 1,npar
+        !Did it cross from outside, did it see the barrier?
+        IF(r1(i)>Ub .AND. r2(i) < Ub .AND. par(4,i)==1) THEN
+            !Then throw it out again!
+            par(:,i) =  par(:,i)/SQRT(DOT_PRODUCT(par(:,i),par(:,i)))&
+                        *(2*Ub+r2(i))
+        !Did it cross from inside, did it see the barrier?
+        ELSEIF(r1(i)<Ua .AND. r2(i)>Ua .AND. par(4,i)==1) THEN
+            !Then keep it in!
+            par(:,i) =  par(:,i)/SQRT(DOT_PRODUCT(par(:,i),par(:,i)))&
+                        *(2*Ua-r2(i))
+        ENDIF
+    ENDDO
+    !$OMP END PARALLEL DO
 
 END SUBROUTINE move_particles
 
