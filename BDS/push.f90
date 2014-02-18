@@ -84,7 +84,6 @@ END SUBROUTINE grad_U
 
 SUBROUTINE maintain_boundary_conditions(counter)
 
-
     REAL(8), DIMENSION(3)   :: px   !closest point on trajectory to sink
     REAL(8), DIMENSION(3)   :: A, B, AB !Work vectors
     REAL(8)                 :: Rr   !minimum distance of Particle to sink
@@ -96,17 +95,6 @@ SUBROUTINE maintain_boundary_conditions(counter)
     REAL(8), DIMENSION(npar):: dmsqr
     REAL(8), DIMENSION(npar):: dmr
     counter = 0
-
-    !calculate mean square displacement and mean displacement to check...
-
-!   DO i = 1,npar
-!       dmsqr(i) = DOT_PRODUCT(par(1:3,i) - parold(1:3,i), par(1:3,i) - parold(1:3,i))
-!       dmr(i)   = SUM(par(1:3,i) - parold(1:3,i))
-!   ENDDO
-!
-!   msqd = msqd + SUM(dmsqr)/npar
-!   md   = md   + SUM(dmr)/npar
-
 
     !$OMP DO REDUCTION(+:counter) PRIVATE(Rr, rand, dr, A, B, AB, px, theta, phi)
     DO i = 1,npar
