@@ -22,25 +22,9 @@ def calc_rate(u,rate,spacing,kt,d):
     s[0:2,1] = s[0:2,1]/np.linalg.norm(s[0:2,1])
 
     invs = np.linalg.inv(s)
-
-    expu = np.diag(np.exp(u/kt))
-
-    lgsdim = np.shape(eig)[0]*np.shape(spacing)[0]*2
-
-    bc_matrix = np.zeros((12,12))
-    bc_matrix[0:2,0:4] = rho(spacing[0],eig,d)
-    bc_matrix[2:4,0:8] = np.concatenate((rho(spacing[1],eig,d),-np.dot(invs,expu).dot(s).dot(rho(spacing[1],eig,d))),1)
-    bc_matrix[4:6,0:8] = np.concatenate((rhodash(spacing[1],eig,d),-rhodash(spacing[1],eig,d)),1)
-    bc_matrix[6:8,4:12] = np.concatenate((-np.dot(invs,expu).dot(s).dot(rho(spacing[2],eig,d)),rho(spacing[2],eig,d)),1)
-    bc_matrix[8:10,4:12] = np.concatenate((rhodash(spacing[2],eig,d),-rhodash(spacing[2],eig,d)),1)
-    bc_matrix[10:12,8:12] = np.array([[1,0,0,0],[0,0,0,0]])
-    #print np.linalg.det(bc_matrix[0:11,0:11])
-    b = np.zeros((12))
-    b[10] = 1
-    c = np.linalg.solve(bc_matrix[0:11,0:11],np.transpose(b[0:11]))
-    c = np.concatenate((c[0:11],[0]))
-
-    k = 4.*np.pi*d*spacing[0]**2*sum(np.dot(s,rhodash(spacing[0],eig,d)).dot(np.transpose(c[0:4])))
+    
+    k=(-np.exp(4*a*x)+np.exp(2*(1+a)*x)-np.exp(2*(1+b)*x)+np.exp(2*(a+b)*x)+a*np.exp(4*a*x)*x-b*np.exp(4*a*x)*x-a*np.exp(2*(1+a)*x)*x+b*np.exp(2*(1+a)*x)*x-a*np.exp(2*(1+b)*x)*x+3*b*np.exp(2*(1+b)*x)*x+a*np.exp(2*(a+b)*x)*x-3*b*np.exp(2*(a+b)*x)*x-2*b*np.exp((2+a+b)*x)*x+2*b*np.exp((3*a+b)*x)*x+a*b*np.exp(4*a*x)*x^2-a*b*np.exp(2*(1+a)*x)*x^2+3*a*b*np.exp(2*(1+b)*x)*x^2-3*a*b*np.exp(2*(a+b)*x)*x^2-2*b^2*np.exp((2+a+b)*x)*x^2+2*b^2*np.exp((3*a+b)*x)*x^2)/(-np.exp(4*a*x)+np.exp(2*(1+a)*x)-np.exp(2*(1+b)*x)+np.exp(2*(a+b)*x)+a*np.exp(4*a*x)*x-b*np.exp(4*a*x)*x+2*np.exp(2*(1+a)*x)*x-3*a*np.exp(2*(1+a)*x)*x+b*np.exp(2*(1+a)*x)*x+2*np.exp(2*(1+b)*x)*x-a*np.exp(2*(1+b)*x)*x+b*np.exp(2*(1+b)*x)*x-4*np.exp(2*(a+b)*x)*x+3*a*np.exp(2*(a+b)*x)*x-b*np.exp(2*(a+b)*x)*x-4*np.exp((2+a+b)*x)*x+2*a*np.exp((2+a+b)*x)*x+4*np.exp((3*a+b)*x)*x-2*a*np.exp((3*a+b)*x)*x+a*b*np.exp(4*a*x)*x^2+2*b*np.exp(2*(1+a)*x)*x^2-3*a*b*np.exp(2*(1+a)*x)*x^2+2*a*np.exp(2*(1+b)*x)*x^2+a*b*np.exp(2*(1+b)*x)*x^2-2*a*np.exp(2*(a+b)*x)*x^2+2*b*np.exp(2*(a+b)*x)*x^2-3*a*b*np.exp(2*(a+b)*x)*x^2-2*a*np.exp((2+a+b)*x)*x^2+2*a^2*np.exp((2+a+b)*x)*x^2-2*b*np.exp((2+a+b)*x)*x^2-2*a*np.exp((3*a+b)*x)*x^2+2*a^2*np.exp((3*a+b)*x)*x^2+2*b*np.exp((3*a+b)*x)*x^2)
+    
     return k
 
 srates = np.arange(-1,0,0.001)
