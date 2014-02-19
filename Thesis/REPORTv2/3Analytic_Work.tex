@@ -103,7 +103,7 @@ For this Gaussian transition probability the coefficients of the Kramers Moyal E
 
 \subsection{The Master-Equation}
 \label{meq}
-The master equation is an equivalent formulation of the Fokker-Planck equation for a certain class of stochastic processes. Namely those, whose transition probability has the following behaviour in the limit of small time steps $\Delta t$:
+The master equation is an equivalent formulation of the Kramers Moyal expansion for a certain class of stochastic processes. Namely those, whose transition probability has the following behaviour in the limit of small time steps $\Delta t$:
 \begin{equation}
     p(x_2,t+\Delta t|x_1,t) = W(x_2|x_1)\Delta t + \left[ 1 - \Delta t \int {\rm d} x W(x_2|x_1) \right] \delta(x_2-x_1) + O(\Delta t ^{2})
     \label{master assumption}
@@ -216,7 +216,7 @@ This is an ordinary 2nd degree inhomogeneous differential equation with constant
 For the standard ansatz $\tilde{u}(r,s) = \exp(\lambda(s) r)$ for the homogeneous solution we get the following characteristic polynomial:
 \begin{equation}
     \lambda(s) ^2 - \frac{s}{D} = 0
-    \label{}
+    \label{characteristic_polynomial}
 \end{equation}
 resulting in the following homogeneous solution:
 \begin{equation}
@@ -257,10 +257,10 @@ resulting in the following time dependent solution for $u(r,t)$ resp. the partic
     \rho(r,t) &= \rho_o \left\{ 1 - \frac{R_s}{r} + {\rm erf} \left( \frac{r - R_s}{\sqrt{4Dt}} \right) \right\}.
     \label{u(r,t)}
 \end{align}
-In the limit $t \leftarrow \infty$ this results in the steady state density profile:
+In the limit $t \rightarrow \infty$ this results in the steady state density profile:
 \begin{equation}
     \rho(r) =  \rho_o \left( 1 - \frac{R_s}{r} \right)
-    \label{steady state density}
+    \label{steady_state_density}
 \end{equation}
 The reaction rate can be defined as the total flux of particles through the boundary $\Omega$ of the sink:
 \begin{equation}
@@ -343,11 +343,13 @@ Now we integrate over a small vicinity of the jump discontinuity with width $\va
 Since the terms on the rhs. of the equation scale only with $\varepsilon$ we end up with a result previously known for systems in thermal equilibrium:
 \begin{equation}
     \vect{\rho}^{(I)}(a) = \underbrace{ {\rm diag}\left[\exp\left\{\frac{U_n}{K_B T} \right\}\right]}_\text{\large$\mathbb{U}$} \vect{\rho}^{(II)}(a)
+    \label{dens_fit}
 \end{equation}
 Here $\vect{\rho}^{(I)}$ and $\vect{\rho}^{(II)}$ refers to the particle density at different side of the jump discontinuity.
 Analogously we find relations for the derivatives of the particle density at the jump discontinuity:
 \begin{equation}
     \vec{\nabla}\vect{\rho}^{(I)}(a) = \vec{\nabla}\vect{\rho}^{(II)}(a)
+    \label{ddens_fit}
 \end{equation}
 \subsection{Expansion in Eigenfunctions of $\mathbb{W}$}
 The assumption of the detailed balance property that implies the existence of an equilibrium distribution $\vect{\rho}^{(eq)}$ allows for the definition of an operator $\mathbb{T}$
@@ -392,6 +394,13 @@ For the steady state case where the lhs. vanishes it it straight forward to writ
     \tilde{\rho}_{i \ne 1}^{(j)}(r) &= c_{i,1}^{j}\frac{1}{r} \exp\left[-r\sqrt{\frac{\lambda_i}{D}}\right] + c_{i,2}^{j}\frac{1}{r} \exp\left[r\sqrt{\frac{\lambda_i}{D}}\right] 
     \label{fp_ind_sol}
 \end{align}
+Note that the solution corresponding to the first eigenvalue $\lambda_1 = 0$ equals the one derived in \eqref{steady_state_density} for the ungated problem. Together with the fitting conditions obtained in \eqref{dens_fit} they would result in the solution for a constant boxcar shaped potential barrier. \\
+The other solutions corresponding to the nonzero eigenvalues of the transition rate matrix $\lambda_i<0$ describe deviations from this solution due to the metastability of the potential barrier. Note that they exponentially decay in space with a \textit{decay length}
+\begin{equation}
+    r_d^{(i)} = \sqrt{\frac{\lambda_i}{D}}
+    \label{decay_length}
+\end{equation}
+that is unique for each state of the potential and which is closely related to its decay rate in time.
 \subsection{Treatment of Boundary and Fit Conditions}
 \label{FBC}
 Now we have to find an expression, that allows for the calculation of the coefficients $c_{i,k}^{(j)}$ from the transformed boundary and fit conditions
@@ -486,7 +495,7 @@ and the solution in terms of eigenfunctions of $\mathbb{W}$ reads
     \tilde{\rho}_2^{(j)} &= \frac{c_{2,1}^{(j)}}{r}{\rm exp}\left[-\alpha_2r\right]+ \frac{c_{2,2}^{(j)}}{r}{\rm exp}\left[\alpha_2 r\right]
     \label{ind_sol_U2}
 \end{align}
-where $\alpha_2 = (2\gamma/D)^{1/2}$ takes the function of a persistence length of the influence of the potential fluctuations. Distances $d_a = |r - a|$ and $d_b = |r - b|$ far from the jump discontinuities of the potential $d_a, d_b >> \alpha_2^{-1}$ the thermal motion of the Brownian particles will have damped the influence of the potential barrier and the densities of particles in state $1$ and $2$ respectively will converge to the same value again.\\
+where $\alpha_2$ is the inverse of the \textit{decay length} as defined in \eqref{decay_length}. This case neatly illustrates the role of $r_d^{(i)}$ as the persistence length of the influence of the potential fluctuations. For distances $d_a = |r - a|$ and $d_b = |r - b|$ far from the jump discontinuities of the potential $d_a, d_b >> r_d^{(2)}$ the thermal motion of the Brownian particles will have damped the influence of the potential barrier and the densities of particles in state $1$ and $2$ respectively will converge to the same value again.\\
 The following plot gives an example of the density profiles that are obtained by solving the system of linear equations for the fit and boundary conditions as outlined in section \ref{FBC}
 \begin{equation}
     \vect{\rho} = \mathbb{A} \tilde{\vect{\rho}}
@@ -511,7 +520,11 @@ for the following parameters:
 \end{figure}
 In the following we will set $R_s = 1$ and give all other length scales relative to it.
 \newpage
-
+The decay length for this example is 
+\begin{equation}
+    r_d^{(2)} = 1
+\end{equation}
+It becomes clear, that the density profiles 
 \subsection{Reaction Rates}
 
 The calculation of the reaction rate as outlined in section \ref{Rates} leads to the following expression. The index of $\alpha_2$ will be omitted for reasons of convenience.
@@ -622,7 +635,7 @@ It is obvious, that the reaction rate does not smoothly interpolate between the 
 From the signs of the coefficients of the first order correction to the limits of the reaction rate for $\alpha>>1$ and $\alpha<<1$ it becomes obvious that this resonant behaviour always appears. Since the slope of the reaction rate is positive in both limits there must be a certain value of $\alpha$ that maximises the reaction rate. This effect has been observed in escape and first passage time problems and is known as \textit{Resonant Activation}.
 In the next sections we will take a closer look to some limiting cases. Hopefully, this will lead to a better understanding of the behaviour of the system and point out features that are essential for the resonance to appear.
 
-\section{The ideal two state Barrier}
+\subsection{The ideal two state Barrier}
 
 The first limit we take is the one of an ideal barrier. Therefore we take $|u| \rightarrow \infty$ and obtain for the Rate
 \begin{equation}
@@ -664,7 +677,6 @@ In the negative limit. The following plots demonstrate the behaviour of the syst
     The plot on the left shows the reaction rate relative to the reaction rate of the ungated Debye problem for a fluctuating potential barrier of hight $[U_1 = 0, U_2 = \infty]$. It is obvious that it does not show any qualitative differences from the system with a fluctuating barrier of finite hight as illustrated in figure \ref{fig:finite_barrier_rate+}. The reaction rate does still converge to finite constant values for infinitely slow or fast potential switching rates and takes a maximum value in between.
 \end{minipage}
 
-\par
 \begin{minipage}[t]{0.7 \textwidth}
     \begin{figure}[H]
         \includegraphics[width = 1 \textwidth]{plots/K-.pdf}
@@ -673,11 +685,14 @@ In the negative limit. The following plots demonstrate the behaviour of the syst
 \end{minipage}\begin{minipage}[t]{0.3 \textwidth}
     This plot shows the quotient of the reaction rates of the gated and the ungated Debye problem for an attractive fluctuating potential barrier of hight $[U_1 = 0, U_2 = -\infty]$. As in the previous case the qualitative behaviour of the system does not change compared to the case of a finitely high potential (comp. figure \ref{fig:finite_barrier_rate-}). 
 \end{minipage}
+
 \begin{itemize}
     \item Therefore we conclude that \textit{the finite hight of the potential barrier is not essential for the appearance of resonant activation in reaction rates}.
 \end{itemize}
 Now that we have seen that the magnitude of the potential barrier does not alter the system qualitatively (as long as it does not equal zero) we will test other possible feature of the system on their significance regarding resonant activation. 
-\section{The one dimensional Limit}
+
+\subsection{The one dimensional Limit}
+
 The question is now: does the local curvature of the potential barrier matter or does the system still show resonant activation if it is approximated by an absorbing wall and a flat fluctuating barrier.
 Before we use advanced methods such as path integrals to investigate the simplified problem we will find out, if there is something to find out at all.
 Therefore we continue from the limits on an ideal barrier \eqref{K+} and \eqref{K-} and substitute
@@ -710,4 +725,7 @@ In this case the expression is fully independent from $/alpha$ and does solely d
 \begin{itemize}
     \item We conclude that the resonant activation effect can not be reproduced in a locally one dimensional approximation of the system. Therefore \textit{the spherical shape of the system must be critical for the emergence of resonant activation in reaction rates over metastable barriers}.
 \end{itemize}
-%\section{Approximate Expressions for Resonant Potential Switching Rate}
+\subsection{Approximate Expressions for Resonant Potential Switching Rate}
+As it is obvious from equation \eqref{two_state_rate} and following the search for an expression for the resonant transition rate of the potential barrier leads to transcendental equations that do not have an analytic solution. \\
+Therefore we will try to find some approximative description for the resonant transition rate and compare it to numeric solutions of the equations that emerge from the derivative of the reaction rate in the limits of $|u| \rightarrow \infty$ as given in equation \eqref{K+} and \eqref{K-}.
+

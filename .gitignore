@@ -1,3 +1,11 @@
-*.swp 
+*.*.swp 
 *.mod
 *.o
+*.out
+*.aux
+*.toc
+*.log
+*converted-to.pdf
+*.nav
+*.snm
+
