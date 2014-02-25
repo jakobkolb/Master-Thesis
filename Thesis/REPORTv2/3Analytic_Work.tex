@@ -701,7 +701,7 @@ Therefore we continue from the limits on an ideal barrier \eqref{K+} and \eqref{
     \label{Substitution}
 \end{equation}
 \par
-This way the radius of the sink is set to be one. The gap between sink and barrier is $t$ wide and the barrier itself is $gt$ wide. Now by taking $t<<1=R_s$ the radius of the system becomes very much larger than the length scale of the barrier width and distance from the sink. This way locally the situation is that of a fluctuating flat barrier in front of an absorbing wall. Lets see, if the resonant activation effect still persists.
+The gap between sink and barrier $t$ is given in units of the sink radius $R_s$. The barrier itself is $gt$ wide. Now by taking $t/R_s \ll 1$ the radius of the system becomes very much larger than the length scale of the barrier width and distance from the sink. The radius of the sink therefore becomes equal to the curvature radius of the entire system. This way locally the situation is that of a fluctuating flat barrier in front of an absorbing wall. Lets see, if the resonant activation effect still persists.
 \par
 First consider the \textit{perfect repulsive barrier} as in \eqref{K+}. Substitution and Taylor expansion in $t$ to first order leads to
 \begin{equation}
@@ -728,4 +728,42 @@ In this case the expression is fully independent from $/alpha$ and does solely d
 \subsection{Approximate Expressions for Resonant Potential Switching Rate}
 As it is obvious from equation \eqref{two_state_rate} and following the search for an expression for the resonant transition rate of the potential barrier leads to transcendental equations that do not have an analytic solution. \\
 Therefore we will try to find some approximative description for the resonant transition rate and compare it to numeric solutions of the equations that emerge from the derivative of the reaction rate in the limits of $|u| \rightarrow \infty$ as given in equation \eqref{K+} and \eqref{K-}.
+\par
+Until now we have identified two essential parameters in the system. First the \textit{decay length} in eq. \eqref{decay_length} and second the length scale of the barrier. Both are given in units of the sink radius. So it is only reasonable to assume that the condition for resonant activation to take place can be expressed in terms of these to system parameters. 
+\par
+In the following the transcendental equation
+\begin{equation}
+    \frac{\partial}{\partial \alpha} \frac{K^{+}}{K_{Debye}} = G^{+}(\alpha, t, g) = 0
+    \label{dk+=0}
+\end{equation}
+has been subject to numerical evaluation for different $t$ and $g$ (comp. \eqref{Substitution}). The result is given in the following plot.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.95 \textwidth]{plots/maxdclvst.pdf}
+    \caption{Decay length $r_d$ vs system size $t$ at maximum absorption rate}
+    \label{fig:maxdclvst}
+\end{figure}
+Both axis are have a logarithmic scale which makes it easily visible that there must be a power law of the form
+\begin{equation}
+    r_d^{(res)} = C \cdot t^{\kappa}
+    \label{powerlaw}
+\end{equation}
+with $C$ and $\kappa$ being functions of $g$. Now the remaining task is to find expressions for the prefactor and exponent of the above \textit{empiric} relation.
+The following plot displays the results of linear fits to the data presented in figure \ref{fig:maxdclvst}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.8 \textwidth]{plots/powerlawparameters.pdf}
+    \caption{Values for $C$ and $\kappa$ obtained from fitting eq. \eqref{powerlaw} to data in fig \ref{fig:maxdclvst}}
+    \label{fig:powerlawparameters}
+\end{figure}
+Now the preceding plots give rise to the assumption, that in the region of $t,g \approx 1$ a linear expansion in $g$ will give good results for $C$ and $\kappa$.\par
+Numeric fits result in the linear equations for $C$ and $\kappa$:
+\begin{align}
+C(g) &= 0.313 + 0.239\cdot g \\
+\kappa(g) &= 1.218 - 0.077 \cdot g
+\end{align}
+\begin{itemize}
+    \item for $g,t \approx 1$ there is a power law connecting the \textit{decay length} to the length scale of the barrier,
+    \item prefactor and exponent of the power law can be obtained from numeric evaluation of transcendental equations.
+\end{itemize}
 
