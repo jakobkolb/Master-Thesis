@@ -74,7 +74,7 @@ SUBROUTINE init_parameters
     ENDIF
 
     IF(trig .EQ. 'K')THEN
-        K10 = 10.0**REAL(tmp-8)
+        K10 = D/2*10.0**REAL(tmp-3)**2
         K01 = K10
     ENDIF
 
