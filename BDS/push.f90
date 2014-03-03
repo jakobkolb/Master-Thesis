@@ -34,7 +34,7 @@ SUBROUTINE move_particles
 
     !$OMP PARALLEL DO
         DO i = 1,npar
-            r1(i) = SQRT(DOT_PRODUCT(par(:,i),par(:,i)))
+            r1(i) = SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))
         ENDDO
     !$OMP END PARALLEL DO
 
@@ -52,7 +52,7 @@ SUBROUTINE move_particles
 
     !$OMP PARALLEL DO
         DO i = 1,npar
-            r2 = SQRT(DOT_PRODUCT(par(:,i),par(:,i)))
+            r2(i) = SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))
         ENDDO
     !$OMP END PARALLEL DO
 
@@ -61,48 +61,20 @@ SUBROUTINE move_particles
     !$OMP PARALLEL DO
     DO i = 1,npar
         !Did it cross from outside, did it see the barrier?
-        IF(r1(i)>Ub .AND. r2(i) < Ub .AND. par(4,i)==1) THEN
+        IF(r1(i)>Ub .AND. r2(i)<Ub .AND. par(4,i)==1) THEN
             !Then throw it out again!
-            par(:,i) =  par(:,i)/SQRT(DOT_PRODUCT(par(:,i),par(:,i)))&
-                        *(2*Ub+r2(i))
+            par(1:3,i) =  par(1:3,i)/SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))&
+                        *(2*Ub-r2(i))
         !Did it cross from inside, did it see the barrier?
         ELSEIF(r1(i)<Ua .AND. r2(i)>Ua .AND. par(4,i)==1) THEN
             !Then keep it in!
-            par(:,i) =  par(:,i)/SQRT(DOT_PRODUCT(par(:,i),par(:,i)))&
+            par(1:3,i) =  par(1:3,i)/SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))&
                         *(2*Ua-r2(i))
         ENDIF
     ENDDO
     !$OMP END PARALLEL DO
 
 END SUBROUTINE move_particles
-
-SUBROUTINE grad_U(X, f_eff) 
-
-    REAL(8), DIMENSION(4), INTENT(in)   :: X
-    REAL(8), DIMENSION(3)               :: Rn, R
-    REAL(8)                             :: Rr, grad_Ur, a, b
-    REAL(8), DIMENSION(3), INTENT(out)  :: f_eff
-    INTEGER                             :: state
-
-    R = X(1:3)
-    state = X(4)
-
-    Rr = SQRT(DOT_PRODUCT(R,R))
-    Rn = R/Rr
-
-    a = Rs + (Ua + Ub)*0.5  !gap
-    b = Ub-Ua               !width
-    a = a + b/2.0
-    !a: gap between sink and barrier+1/2 barrier width, b:barrier width
-
-    IF(state == 0) THEN
-        grad_Ur = -U0*EXP(-((Rr-(a+b/2.0))*2.0/b)**(2*Un))*2.0*Un/b*((Rr-(a+b/2.0))*2.0/b)**(2*Un-1)
-    ELSEIF(state == 1) THEN
-        grad_Ur = -U1*EXP(-((Rr-(a+b/2.0))*2.0/b)**(2*Un))*2.0*Un/b*((Rr-(a+b/2.0))*2.0/b)**(2*Un-1)
-    ENDIF
-    f_eff = -D/KT*grad_Ur*dt*Rn
-
-END SUBROUTINE grad_U
 
 SUBROUTINE maintain_boundary_conditions(counter)
 

@@ -51,9 +51,7 @@ i = 0
             CALL rate_statistics_accum(counter, nbins)
         ENDIF
         t = t + dt
-
-!        print*, 'msq/t - 2*d =',  msqd/t - 6, ' md = ', md/t
-
+        IF(MOD(i,100) == 0) print*, i, t 
     ENDDO
 
     !Output statistics to file
