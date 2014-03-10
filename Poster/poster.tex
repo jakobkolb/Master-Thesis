@@ -1,0 +1,72 @@
+\documentclass{a0poster}
+\usepackage{fancytikzposter}
+
+\usetemplate{3}
+
+\usepackage[margin=\margin cm, paperwidth=84.1cm, paperheight=118.9cm]{geometry}
+
+%% changing the fonts
+\usepackage{cmbright}
+%\usepackage[default]{cantarell}
+%\usepackage{avant}
+%\usepackage[math]{iwona}
+\usepackage[math]{kurier}
+\usepackage[T1]{fontenc}
+
+
+\title{Diffusion-Controlled Reactions over Fluctuating Barriers}
+
+\author{Jakob J. Kolb}
+
+
+\begin{document}
+\ClearShipoutPicture
+\AddToShipoutPicture{\BackgroundPicture}
+
+\noindent
+\begin{tikzpicture}
+    \initializesizeandshifts
+    \titleblock{50}{1}
+    \blocknode{Motivation}{
+        ***Some sort of an Abstract***
+    }
+    \blocknode{System description}{
+        \begin{minipage}[t]{.5 \textwidth}
+            ***System description and sketch***
+            have to figure out, how to fix the scalling issue with \textbackslash input
+        \end{minipage}\begin{minipage}[t]{.5 \textwidth}
+            \begin{tikzfigure}[Caption]
+                \input{plots/Skizze.eps_tex}
+            \end{tikzfigure}
+        \end{minipage}
+        
+    }
+    \blocknode{Analytical Tricks and stuff}{
+        Lots of Formulas and explanations
+    }
+    \startsecondcolumn
+    \blocknode{Density profiles}{
+        \begin{minipage}[t]{.6 \textwidth}
+        \begin{tikzfigure}[Caption]
+            \includegraphics[width = 0.9\textwidth]{plots/density_profiles.pdf}
+        \end{tikzfigure}
+        \end{minipage}\begin{minipage}[t]{.4 \textwidth}
+            just some text explaining the figure
+        \end{minipage}
+    }
+    \blocknode{Absorption Rates}{
+        \begin{minipage}[t]{.6 \textwidth}
+             \begin{tikzfigure}[Caption]
+                \includegraphics[width = 0.9 \textwidth]{plots/rep_barrier.pdf}
+            \end{tikzfigure}
+            \begin{tikzfigure}[Caption]
+                \includegraphics[width = 0.9 \textwidth]{plots/att_barrier.pdf}
+            \end{tikzfigure}
+        \end{minipage}\begin{minipage}[t]{.4 \textwidth}
+            some more text explaining these figure and giving hints to resonant activation phenomena
+        \end{minipage}
+
+
+    }
+\end{tikzpicture}
+\end{document}

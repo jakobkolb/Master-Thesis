@@ -38,9 +38,11 @@ def powerlaw(x,a,b):
 
 u = 10.
 
-srates = 10**np.arange(-1,6,0.01)
-tvalues = 10**np.arange(-1,0.1,0.1)
-gvalues = np.arange(0.2,4,0.1)
+srates = 10**np.arange(-1,6,0.001)
+tvalues = 10**np.arange(-1,0.2,0.1)
+#gvalues = np.arange(1,4,0.1)
+gvalues = [1,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.81,1.9,2.,2.11,2.2,2.31,2.4,2.5,2.6,2.7,2.8,2.9,3.]
+#gvalues = [1,2,3]
 arates = np.zeros((np.shape(srates)[0],2))
 kmax = np.zeros((np.shape(tvalues)[0],np.shape(gvalues)[0],4))
 fit_parameters = np.zeros((np.shape(gvalues)[0],3))
@@ -64,44 +66,64 @@ for g in gvalues:
         if  math.isnan(arates[indices,1]):
             print 'there still are fuckin nans'
         kmax[t_index,g_index,:] = [t, g, arates[indices,0], arates[indices,1]]
-        istop = indices + 10
+        istop = indices + 100
     popt, cov = curve_fit(powerlaw, kmax[:,g_index,2], kmax[:,g_index,0])
-    print cov
+    print cov, g
     fit_parameters[g_index,:] = g, popt[0], popt[1]
 
-
+#Direct input 
+mp.rcParams['text.latex.preamble']=[r"\usepackage{lmodern}"]
+#Options
+params = {'text.usetex' : True,
+          'font.size' : 11,
+          'font.family' : 'lmodern',
+          'text.latex.unicode': True,
+          }
+mp.rcParams.update(params) 
 fig1 = mp.figure()
 ax1 = fig1.add_subplot(111)
 for i in range(np.shape(gvalues)[0]):
-    mp.plot(kmax[:,i,0], kmax[:,i,2], label='g = ' + `kmax[1,i,1]`)
+    mp.plot(kmax[:,i,0], kmax[:,i,2], label=('g = %1.1f' %kmax[1,i,1]))
 
-mp.legend(loc='lower right')
+mp.legend(loc='upper left')
 ax1.set_xlabel('t')
-ax1.set_ylabel('resonant switching rate')
+ax1.set_ylabel(r'r_d^{(res)}')
 ax1.set_yscale('log')
-ax1.set_title('Resonant decay length vs. barrier length scale \n for different gap to width ratio and u=10')
 ax1.set_xscale('log')
+ax1.set_xlim(0.1,1.1)
 
-fig2 = mp.figure()
-ax2 = fig2.add_subplot(111)
-for i in range(np.shape(gvalues)[0]):
-    mp.plot(kmax[:,i,0], kmax[:,i,3], label='g = ' + `kmax[1,i,1]`)
+#You must select the correct size of the plot in advance
+fig1.set_size_inches(3.54,3.54) 
 
-ax2.set_xscale('log')
-ax2.set_xlabel('a')
-ax2.set_ylabel('absorption rate')
-#mp.legend(loc='upper right')
+
+mp.savefig("resonant_decay_length.pdf", 
+            #This is simple recomendation for publication plots
+            dpi=1000, 
+            # Plot will be occupy a maximum of available space
+            bbox_inches='tight', 
+            )
+
 
 fig3 = mp.figure()
 ax31 = fig3.add_subplot(211)
-ax31.set_title(r'parameters from powerlaw fit for different gap to width ratio $g$')
-ax31.set_xlabel(r'$g$', fontsize=16)
-ax31.set_ylabel(r'$C(g)$', fontsize=16)
+ax31.set_xlabel(r'$g$')
+ax31.set_ylabel(r'$C(g)$')
 mp.plot(fit_parameters[:,0], fit_parameters[:,1])
 
 ax32 = fig3.add_subplot(212)
-ax32.set_ylabel(r'$\kappa (g)$', fontsize=16)
-ax32.set_xlabel(r'$g$', fontsize=16)
+ax32.set_ylabel(r'$\kappa (g)$')
+ax32.set_xlabel(r'$g$')
 mp.plot(fit_parameters[:,0], fit_parameters[:,2])
 
-mp.show()
+#You must select the correct size of the plot in advance
+fig3.set_size_inches(3.54,4.54) 
+
+
+mp.savefig("powerlaw_parameters.pdf", 
+            #This is simple recomendation for publication plots
+            dpi=1000, 
+            # Plot will be occupy a maximum of available space
+            bbox_inches='tight', 
+            )
+
+

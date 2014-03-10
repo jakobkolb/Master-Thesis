@@ -10,13 +10,15 @@
 
 \usepackage{array}
 \usepackage{multirow}
+\usepackage{color}
+\usepackage{transparent}
+\usepackage{float}
 
 \newcommand{\vect}[1]{\boldsymbol{\mathbf{#1}}}
 
 
 
 \begin{document}
-
 \bibliographystyle{apsrev4-1} 
 
 \title{Diffusion-Controlled Reactions over Fluctuating Barriers} 
@@ -45,6 +47,14 @@ To investigate this effect a simplified system of diffusing particles in the vic
 
 \section{Introduction}
 
+
+\begin{figure}[H]
+    \input{plots/Skizze.eps_tex}
+    \caption{Sketch of the system consisting of sink and fluctuating barrier. Sink radius is $R_s$, potential barrier boarders are $r=a$ and $r=b$. Barrier transition rates between states $U_0$ and $U_1$ are $\gamma_{01}, \gamma_{10}$.}
+\label{fig0}
+\end{figure}
+
+
 \section{Methods} We study the problem of diffusion limited reaction rates in the Smoluchowski Debye sense \cite{Smoluchowski1917a, Debye1942} in the presence of a fluctuating boxcar shaped potential barrier. The barrier switches between different states according to a discrete time reversible Markov process $\eta(t)$. Therefore the system evolution follows the following stochastic differential equation
 \begin{equation}
     \frac{{\rm d} \vec{r}}{{\rm d} t} = \vec{\nabla}\frac{1}{\gamma}f(r)\eta(t) + \sqrt{2D}\vec{\varepsilon}(t)
@@ -70,7 +80,12 @@ Now we can give a steady state solution to eq. \eqref{mfpe} in terms of eigenfun
     \tilde{\rho}_{1}^{(j)}(r) &= c_{1,1}^{(j)} + c_{1,2}^{(j)} \frac{1}{r} \\
     \tilde{\rho}_{n \ne 1}^{(j)}(r) &= c_{n,1}^{(j)}\frac{1}{r} \exp\left[-r\sqrt{\frac{\lambda_n}{D}}\right] + c_{n,2}^{(j)}\frac{1}{r} \exp\left[r\sqrt{\frac{\lambda_n}{D}}\right]  \nonumber
 \end{align}
-separately for the regions $(I)$, $(II)$ and $(III)$ exploiting the fact that the Fokker-Planck operator $\mathbb{F}$ is invariant under the transormations $\mathbb{T}$ and $\mathbb{D}$ for $r\ne a, b$. The coefficients $c^{(j)}_{n,k}$ have to be obtained from boundary and fitting conditions at $r=a,b$. \\
+separately for the regions $(I)$, $(II)$ and $(III)$ exploiting the fact that the Fokker-Planck operator $\mathbb{F}$ is invariant under the transormations $\mathbb{T}$ and $\mathbb{D}$ for $r\ne a, b$. The coefficients $c^{(j)}_{n,k}$ have to be obtained from boundary and fitting conditions at $r=a,b$. From this solution it is visible that the spacial influence of the potential fluctuations decays with a certain \textit{decay length} equal to
+\begin{equation}
+    r_d = \sqrt{\frac{\lambda_m}{D}}
+    \label{decay_length}
+\end{equation}
+that only depends on the diffusion constant of the Brownian particles and the largest nonzero eigenvalue of the transition matrix $\lambda_m$.\\
 To derive these fitting conditions we use eq. \eqref{mfpe} which in steady state is equivalent to
 \begin{equation*}
      \frac{1}{\gamma}\rho_n(r) \vec{\nabla} U_n(r) + D \vec{\nabla} \rho_n(r) = \frac{J_n(R_s)}{4 \pi} - \left\{ \mathbb{W} \int_{R_s}^{r} \vect{\rho}(r') {\rm d} r' \right\}_{n}
@@ -92,22 +107,44 @@ The coefficients $c_{n,i}^{(j)}$ in eq. \eqref{solution} are calculated by apply
     \label{rate_konstant}
 \end{equation}
 \section{Results and Discussion}
-We used the preceding methods to study a system with a two state potential barrier and symmetric transition rates.\\
-Results:
-\begin{itemize}
-    \item Density profile
-    \item Absorption rate vs Switching Rate
-    \item Limiting cases -> Resonant activation
-    \item Powerlaw for resonant switching rate
-\end{itemize}
-Szabo {\it et al.}~\cite{Szabo1982}
-\begin{minipage}{0.5 \textwidth}
-\begin{figure}
-\includegraphics[width= .5 \textwidth]{density_profile.pdf}
-\caption{Selected density profiles for $a=6$, $b=10$, $U_1/K_B T = 10$. Decay length is varied and equals A): $r_d = 20$, B): $r_d=2$, and C): $r_d=0.5$.}
+We consider the most simple model to illustrate some basic features of the model. Therefore we set $U_0$ to zero and vary only $U_1$. Furthermore, we take the transition rates between these states to be symmetric i.e. $\gamma_{01}=\gamma_{10}$.
+For this simplified system we calculate the radial steady state density profiles resulting from the reverse transform of eqs. \eqref{solution} and the solution of the system of linear equations for the remaining coefficients.
+\begin{figure}[H]
+\includegraphics[width= .5 \textwidth]{plots/density_profiles.pdf}
+\caption{Steady state density profiles $\rho_0, \rho_1$ for states $U_0, U_1$ of the barrier and mean density profile $\rho_m$ vs. distance from center of sink. All parameters but decay length are fixed: $a=6$, $b=10$, $U_1 = 10 K_B T, U_0 = 0$ are constant and decay length is A) $r_d = 20$, B) $r_d=2$, and C) $r_d=0.5$.}
 \label{fig1}
 \end{figure}
-\end{minipage}
+It becomes obvious, that for a certain value of the decay length comparable to the barrier dimensions the density inside the barrier is considerably higher that what is is for decay lengths far off.
+\begin{figure}[H]
+\includegraphics[width= .5 \textwidth]{plots/rep_barrier.pdf}
+\caption{normalized absorption rate vs. decay length for repulsive fluctuating barrier. \newline Parameters are $U_1 = 10 K_B T, U_0 = 0, g = 1$ and $t=2,4,10$. Approximation for very fast and very slow barrier fluctuations are depicted by dashed blue and red lines respectively.}
+\label{fig2}
+\end{figure}
+
+\vspace{-2 cm}
+\begin{figure}[H]
+\includegraphics[width= .5 \textwidth]{plots/att_barrier.pdf}
+\caption{normalized absorption rate vs. decay length for attractive fluctuating barrier. \newline Parameters are $U_1 = -10 K_B T, U_0= 0, g = 1$ and $t=2,4,10$. Approximation for very fast and very slow barrier fluctuations are depicted by dashed blue and red lines respectively.}
+\label{fig3}
+\end{figure}
+\begin{figure}[H]
+\includegraphics[width= .5 \textwidth]{plots/diff_plot.pdf}
+\caption{A) difference in limiting cases of absorption rate vs barrier hight $U_1$ for different $t$ where $g=1$. \newline B) difference in limiting cases of absorption rate vs. $t$ for various positive $U_1$ at fixed $g=1$.}
+\label{fig4}
+\end{figure}
+Ok, this looks interesting but at least for the second plot I have no idea how to explain this behaviour whatsoever.
+\begin{figure}[H]
+\includegraphics[width= .5 \textwidth]{plots/resonant_decay_length.pdf}
+\caption{Resonant decay length $r_d^{(res)}$ vs. system size $t$ for fixed barrier hight $U_1=10 K_B T$ and barrier gap to width ratio $g=1$. The resonant decay length obviously shows a power law dependency $r_d^{(res)}=C\cdot t^{\kappa}$, where the exponent $\kappa$ is only weakly depending on the gap to width ratio for $g \approx 1$.}
+\label{fig5}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width= .5 \textwidth]{plots/powerlaw_parameters.pdf}
+\caption{Dependence of power law prefactor $C$ and exponent $\kappa$ on the barrier gap to width ratio $g$. }
+\label{fig6}
+\end{figure}
+
 
 
 \section{Concluding Remarks}

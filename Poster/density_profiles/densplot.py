@@ -14,7 +14,8 @@ dens3 = np.loadtxt('table3.tsv')
 mp.rcParams['text.latex.preamble']=[r"\usepackage{lmodern}"]
 #Options
 params = {'text.usetex' : True,
-          'font.size' : 11,
+          'font.size' : 10,
+          'legend.fontsize' : 10,
           'font.family' : 'lmodern',
           'text.latex.unicode': True,
           }
