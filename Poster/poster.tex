@@ -12,8 +12,11 @@
 %\usepackage[math]{iwona}
 \usepackage[math]{kurier}
 \usepackage[T1]{fontenc}
-
-
+\setheaddrawingheight{15}
+\usebackgroundtemplate{2}
+\setblockfillcolor{white}
+\setbackgrounddarkcolor{white}
+\setbackgroundlightcolor{colortwo!60!white}
 \title{Diffusion-Controlled Reactions over Fluctuating Barriers}
 
 \author{Jakob J. Kolb}
@@ -28,7 +31,14 @@
     \initializesizeandshifts
     \titleblock{50}{1}
     \blocknode{Motivation}{
-        ***Some sort of an Abstract***
+        \begin{itemize}
+            \item Recent studies on tunable nano-reactors with a thermosensitive polymer shell 
+                have shown curious effects in reaction rates right at the polymer critical solution temperature.
+            \item The shell is presumably stochastically fluctuating between states with different permeability for the substrate.
+        \end{itemize}
+To investigate this effect a simplified system of diffusing particles in the vicinity of a spherical sink shielded by a metastable potential barrier is investigated. We derive an implicit solution for the resulting Fokker-Planck equation to obtain the diffusion-controlled reaction rate and verify these results with Brownian dynamics computer simulations. The system shows resonant activation as previously seen with thermally activated escape over fluctuating barriers.
+
+
     }
     \blocknode{System description}{
         \begin{minipage}[t]{.5 \textwidth}
@@ -36,6 +46,7 @@
             have to figure out, how to fix the scalling issue with \textbackslash input
         \end{minipage}\begin{minipage}[t]{.5 \textwidth}
             \begin{tikzfigure}[Caption]
+                \setlength{\unitlength}{\textwidth}
                 \input{plots/Skizze.eps_tex}
             \end{tikzfigure}
         \end{minipage}
@@ -46,27 +57,39 @@
     }
     \startsecondcolumn
     \blocknode{Density profiles}{
-        \begin{minipage}[t]{.6 \textwidth}
+        \begin{minipage}[t]{.5 \textwidth}
         \begin{tikzfigure}[Caption]
             \includegraphics[width = 0.9\textwidth]{plots/density_profiles.pdf}
         \end{tikzfigure}
         \end{minipage}\begin{minipage}[t]{.4 \textwidth}
-            just some text explaining the figure
+            Examples of density profiles for different decay length.
+            \begin{itemize}
+                \item give an expression for the decay length and explain according to the figure
+                \item Compare to the normal Debye solution ?
+                \item 
+            \end{itemize}
         \end{minipage}
     }
     \blocknode{Absorption Rates}{
-        \begin{minipage}[t]{.6 \textwidth}
-             \begin{tikzfigure}[Caption]
-                \includegraphics[width = 0.9 \textwidth]{plots/rep_barrier.pdf}
+        \begin{minipage}[t]{.5 \textwidth}
+           \begin{tikzfigure}[Caption]
+                \includegraphics[width = 1 \textwidth]{plots/att_barrier.pdf}
             \end{tikzfigure}
-            \begin{tikzfigure}[Caption]
-                \includegraphics[width = 0.9 \textwidth]{plots/att_barrier.pdf}
+        \end{minipage}\begin{minipage}[t]{.5 \textwidth}
+              \begin{tikzfigure}[Caption]
+                \includegraphics[width = 1 \textwidth]{plots/rep_barrier.pdf}
             \end{tikzfigure}
-        \end{minipage}\begin{minipage}[t]{.4 \textwidth}
-            some more text explaining these figure and giving hints to resonant activation phenomena
         \end{minipage}
 
-
+            some more text explaining these figure and giving hints to resonant activation phenomena
+        \begin{itemize}
+            \item \textit{Breathing Barrier} in the repulsive case
+            \item \textit{Pumping Barrier} in the attractive case
+ 
+        \end{itemize}
+        }
+    \blocknode{Limit of $t \ll 1$.}{
+        Give the expansion and pose the question about why the resonant effect breaks down in the locally one dimensional limit.
     }
 \end{tikzpicture}
 \end{document}
