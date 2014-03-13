@@ -24,7 +24,7 @@ rlrate4 = np.loadtxt("rlrate5.tsv")
 rlrate10 = np.loadtxt("rlrate10.tsv")
 
 statepoints = [[1./0.04,1./0.4,1./4],[1.09836,2.13511,1.79642]]
-print statepoints[1]
+print statepoints
 
 #Direct input
 mp.rcParams['text.latex.preamble']=[r"\usepackage{lmodern}"]
@@ -40,9 +40,11 @@ mp.rcParams.update(params)
 fig = mp.figure()
 
 #You must select the correct size of the plot in advance
-fig.set_size_inches(3.54,2.*3.84)
+#fig.set_size_inches(3.54,2.*3.84)
+fig.set_size_inches(2.*3.54,3.04)
 
-ax1 = fig.add_subplot(211)
+#ax1 = fig.add_subplot(211)
+ax1 = fig.add_subplot(121)
 ln1a = mp.plot(arate2[:,0],     arate2[:,1], color = '0.55', label = 'analytic solution')
 ln1b = mp.plot(arate4[:,0],     arate4[:,1], color = '0.55')
 ln1c = mp.plot(arate10[:,0],    arate10[:,1], color = '0.55')
@@ -63,7 +65,8 @@ ax1.annotate('increasing t', xy=(10**0.5, 1.05),  xycoords='data',
                 )
 
 
-ax2 = fig.add_subplot(212)
+#ax2 = fig.add_subplot(212)
+ax2 = fig.add_subplot(122)
 mp.plot(statepoints[0], statepoints[1], 'kx', label = 'state points')
 ln1a = mp.plot(rrate2[:,0],     rrate2[:,1], color = '0.55', label = 'analytic solution')
 ln1b = mp.plot(rrate4[:,0],     rrate4[:,1], color = '0.55')

@@ -24,7 +24,7 @@ mp.rcParams.update(params)
 fig = mp.figure()
 
 #You must select the correct size of the plot in advance
-fig.set_size_inches(3.54,6.54) 
+fig.set_size_inches(3.54,1.6*3.54) 
 
 
 ax1 = fig.add_subplot(311)
