@@ -39,7 +39,7 @@
 \noindent
 \begin{tikzpicture}
     \initializesizeandshifts
-    \titleblock{70}{1}
+    \titleblock{90}{1}
     \blocknode{Motivation}{
         \vspace{.5 cm}
         \begin{itemize}
@@ -65,6 +65,7 @@
             \begin{itemize}
                 \item The probabilities $P_n$ for the barrier to be in one of the states $U_n \in [U_0, \cdots U_N]$ follow a Master equation with a rate matrix that obeys detailed balance:
             \end{itemize}
+            \vspace{.3 cm}
             \begin{equation}
                 \frac{\partial \mathbf{P}}{\partial t} = \mathbb{W} \mathbf{P}; \quad W_{mn} P^{(eq)}_n = W_{nm} P^{(eq)}_m
             \end{equation}
@@ -74,6 +75,7 @@
             \end{itemize}
             \vspace{.5 cm}
         \end{minipage}\begin{minipage}[t]{.5 \textwidth}
+            \vspace{1 cm}
             \begin{tikzfigure}[]
                 \input{plots/tSkizze.eps_tex}
             \end{tikzfigure}
@@ -117,25 +119,31 @@
             \label{fp_ind_sol}
         \end{align}
         \begin{itemize}
-            \item Coefficients $c_{i,k}^{(j)}$ are derived from the system of linear equations emerging from boundary conditions and fit conditions @ $r = 1+l$ and $r = 1 + l + gl$
+            \item Coefficients $c_{i,k}^{(j)}$ are derived from the system of linear equations emerging from boundary conditions and fit conditions @ $r = 1+l$ and $r = 1 + l + gl$.
         \end{itemize}
     }
     \blocknode{Boundary and Fit Conditions}{
         \vspace{.5 cm}
         \begin{itemize}
-            \item Fit conditions are obtained by integrating over a box including the jump discontinuity of the potential and then taking the limit of the box size to zero. 
+            \item Fit conditions are obtained by integrating over a box including the jump discontinuity of the potential and then taking the limit of the box size to zero: 
         \end{itemize}
+        \vspace{.3 cm}
         \begin{equation}
-            \vect{\rho}^{(I)}(1+l) = {\rm diag}\left[\exp\left\{U_n \right\}\right] \vect{\rho}^{(II)}(1+l); \qquad \left.\vec{\nabla}\vect{\rho}^{(I)}\right|_{1+l} = \left.\vec{\nabla}\vect{\rho}^{(II)}\right|_{1+l}
+            \vect{\rho}^{(I)}(1+l) = {\rm diag}\left[\exp\left\{U_n \right\}\right] \vect{\rho}^{(II)}(1+l); \qquad \left.\vec{\nabla}\vect{\rho}^{(I)}\right|_{1+l} = \left.\vec{\nabla}\vect{\rho}^{(II)}\right|_{1+l}.
             \label{fit_condition}
         \end{equation}
         \begin{itemize}
             \item Boundary conditions at $r=1$ and $r \rightarrow \infty$ are
         \end{itemize}
+        \vspace{.2 cm}
         \begin{equation}
-            \vect{\rho}^{(I)}(1)=0; \qquad \lim_{r\rightarrow \infty} \vect{\rho}(r) = \vect{P}^{(eq)}
+            \vect{\rho}^{(I)}(1)=0; \qquad \lim_{r\rightarrow \infty} \vect{\rho}(r) = \vect{P}^{(eq)}.
             \label{boundary_condition}
         \end{equation}
+        \begin{itemize}
+            \item The total density at infinity is thereby set to one.
+        \end{itemize}
+        \vspace{.2 cm }
     }
     \startsecondcolumn
     \blocknode{Density profiles}{
@@ -169,41 +177,44 @@
             \textbf{Attractive Barrier}
             \vspace{0.3 cm}
             \begin{tikzfigure}
-            \includegraphics[width = 0.85 \textwidth]{plots/ab_rates.pdf}
+            \includegraphics[width = 1 \textwidth]{plots/ab_rates.pdf}
             \end{tikzfigure}
         \end{minipage}\begin{minipage}[t]{.48 \textwidth}
             \center
             \textbf{Repulsive Barrier}
             \begin{tikzfigure}
-                \includegraphics[width = 0.85 \textwidth]{plots/rb_rates.pdf}
+                \includegraphics[width = 1 \textwidth]{plots/rb_rates.pdf}
             \end{tikzfigure}
         \end{minipage}
-        \vspace{-1 cm}
+        \vspace{-.7 cm}
         \begin{tikzfigure}[normalized absorption rate vs. decay length for attractive fluctuating barrier. \newline Parameters are $U_1 = 10,-10 , U_0= 0, g = 1$ and $l=2,5,10$. ]
         
         \end{tikzfigure}
-        \vspace{-0.0 \textwidth}
-        \hspace{0.025 \textwidth}\begin{minipage}[t]{.45 \textwidth}
-            \coloredbox{colorthree!50!}{\textbf{Breathing Barrier} $U_1<0$: the barrier collects particles while at an active state and releases them when its state changes}
-        \end{minipage}\hspace{0.05 \textwidth}\begin{minipage}[t]{.45 \textwidth}
-            \coloredbox{colorthree!50!}{\textbf{Pumping Barrier} $U_1>0$: particles can cross the outer barrier border while it is down and get lifted up when the barrier state changes}
+        \vspace{-.7cm}
+        \hspace{0.019 \textwidth}\begin{minipage}[t]{.47 \textwidth}
+            \coloredbox{colorthree!50!}{\textbf{Breathing Barrier} $U_1<0$: the barrier collects particles while at an active state and releases them when its state changes.}
+        \end{minipage}\hspace{0.07 \textwidth}\begin{minipage}[t]{.42 \textwidth}
+            \coloredbox{colorthree!50!}{\textbf{Pumping Barrier} $U_1>0$: particles can cross the outer barrier border while it is down and get lifted up when the barrier state changes.}
         \end{minipage}
+        \vspace{.4 cm}
         \hspace{0.025 \textwidth}\begin{minipage}[t]{.48 \textwidth}
-        The absorption rate profiles exhibit a resonant peak depending on decay length and size of the barrier. Similar phenomenon are found in escape over fluctuating barriers. The resonant peak follows a power law: 
+        The absorption rate profiles exhibit a resonant peak depending on decay length and size of the barrier. Similar phenomena are found in escape over fluctuating barriers. The resonant peak follows a power law: 
         \begin{equation}
             r_d^{(res)} = C l^{\kappa}
             \label{powerlaw}
         \end{equation}
         with $C \approx 1$ and $\kappa \approx 2/5$. Also for fixed gap to width ratio $g$ of the barrier, the resonant rate $K^{(res)}$ converges to a finite value.
-        \begin{tikzfigure}[caption for the resonance plot]
+        \begin{tikzfigure}[Resonant decay length $r_d^{(res)}$ and absorption rate $K^{(res)}$ for repulsive parrier $U_1 = 10$ and $g = 1$]
         \end{tikzfigure}
     \end{minipage}\hspace{0.05 \textwidth}\begin{minipage}[t]{.48 \textwidth}
-        here goes the actual plot plot
-        \vspace{13.4 cm}
+        \vspace{-1 cm}
+        \begin{tikzfigure}
+           \hspace{-3 cm} \includegraphics[width = .9 \textwidth]{plots/powerlaw.pdf}
+        \end{tikzfigure}
     \end{minipage}
 
                 }
-    \blocknode{Limit of $l \ll 1$ $\rightarrow$ No Resonant Activation}{
+    \blocknode{Limit $l \ll 1$ $\rightarrow$ No Resonant Activation}{
         \vspace{.5 cm}
         \hspace{0.005 \textwidth}\begin{minipage}[t]{.48 \textwidth}
         In the limit of $t \gtrsim 0$ the system can locally be approximated by a metastable barrier in front of an absorbing wall.
