@@ -37,14 +37,14 @@ params = {'text.usetex' : True,
           }
 mp.rcParams.update(params)
 
-fig = mp.figure()
+fig1 = mp.figure()
 
 #You must select the correct size of the plot in advance
 #fig.set_size_inches(3.54,2.*3.84)
-fig.set_size_inches(2.*3.54,3.04)
+fig1.set_size_inches(3.54,3.04)
 
 #ax1 = fig.add_subplot(211)
-ax1 = fig.add_subplot(121)
+ax1 = fig1.add_subplot(111)
 ln1a = mp.plot(arate2[:,0],     arate2[:,1], color = '0.55', label = 'analytic solution')
 ln1b = mp.plot(arate4[:,0],     arate4[:,1], color = '0.55')
 ln1c = mp.plot(arate10[:,0],    arate10[:,1], color = '0.55')
@@ -57,16 +57,25 @@ ln3c = mp.plot(alrate10[:,0],   alrate10[:,1], 'b-.')
 ax1.set_xscale('log')
 ax1.set_ylim([0.98,1.4])
 ax1.set_yticks(np.arange(1.,1.5,0.1))
-ax1.set_ylabel(r'$ K/K_{Debye}$')
+ax1.set_ylabel(r'$ K/K_{r_d \rightarrow \infty}$')
 ax1.set_xlabel(r'$r_d$')
-ax1.annotate('increasing t', xy=(10**0.5, 1.05),  xycoords='data',
+ax1.annotate('increasing $l$', xy=(10**0.5, 1.05),  xycoords='data',
                 xytext=(40, 60), textcoords='offset points',
                 arrowprops=dict(arrowstyle="<-")
                 )
 
+mp.savefig("ab_rates.pdf",
+            #This is simple recomendation for publication plots
+            dpi=1000,
+            # Plot will be occupy a maximum of available space
+            bbox_inches='tight',
+            )
+
+fig2 = mp.figure()
+fig2.set_size_inches(3.54,3.04)
 
 #ax2 = fig.add_subplot(212)
-ax2 = fig.add_subplot(122)
+ax2 = fig2.add_subplot(111)
 mp.plot(statepoints[0], statepoints[1], 'kx', label = 'state points')
 ln1a = mp.plot(rrate2[:,0],     rrate2[:,1], color = '0.55', label = 'analytic solution')
 ln1b = mp.plot(rrate4[:,0],     rrate4[:,1], color = '0.55')
@@ -80,16 +89,16 @@ ln3c = mp.plot(rlrate10[:,0],   rlrate10[:,1], 'b-.')
 ax2.set_xscale('log')
 ax2.set_ylim([0.9,3.5])
 ax2.legend(loc = 'upper right')
-ax2.set_ylabel(r'$ K/K_{Debye}$')
+ax2.set_ylabel(r'$ K/K_{r_d \rightarrow \infty}$')
 ax2.set_xlabel(r'$r_d$')
-ax2.annotate('increasing t', xy=(10**0, 1.4),  xycoords='data',
+ax2.annotate('increasing $l$', xy=(10**0, 1.4),  xycoords='data',
                 xytext=(60, 60), textcoords='offset points',
                 arrowprops=dict(arrowstyle="<-")
                 )
 
 
 
-mp.savefig("density_profiles.pdf",
+mp.savefig("rb_rates.pdf",
             #This is simple recomendation for publication plots
             dpi=1000,
             # Plot will be occupy a maximum of available space
