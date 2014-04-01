@@ -12,11 +12,12 @@ SUBROUTINE init_parameters
     USE global
 
     INTEGER :: in=10, tmp
-    REAL(8) :: nparin, ntin, C
+    REAL(8) :: nparin, ntin, C, decay_length
     CHARACTER(4)    :: trig, arg
 
-    NAMELIST /PARAMETER/    nparin, D, KT, dt, t0, t1, Rd, Rs, U0,&
-                            U1, Ua, Ub, Un, K01, K10, fmode, nbins
+    NAMELIST /PARAMETER/    nparin, D, KT, dt, t0, t1, Rd, U0,&
+                            U1, l, g, Un, decay_length, fmode, nbins,&
+                            potential_shape
 
     !Read simulation parameters from file
 
@@ -37,46 +38,16 @@ SUBROUTINE init_parameters
     IF(trig .EQ. 't1') t1 = REAL(tmp)
     IF(trig .EQ. 'D' ) D  = REAL(tmp)/1000.
 
-    C = npar/(1/3.*Rd**3 - Rs/2.*Rd**2 - 1/3.*Rs**3 + Rs/2.*Rs**2)
-
-    IF(trig .EQ. 'Rs') THEN
-        npar = INT(C*(1/3.*Rd**3 - REAL(tmp)/2.*Rd**2 - 1/3.*REAL(tmp)**3 + REAL(tmp)/2.*REAL(tmp)**2))
-        Rs = REAL(tmp)
-    ELSEIF(trig .EQ. 'Rd') THEN
-        npar = INT(C*(1/3.*REAL(tmp)**3 - Rs/2.*REAL(tmp)**2 - 1/3.*Rs**3 + Rs/2.*Rs**2))
-        Rd = REAL(tmp)
-    ENDIF
-
     IF(trig .EQ. 'U0' ) U0  = REAL(tmp)/10.0
     IF(trig .EQ. 'U1' ) U1  = REAL(tmp)/10.0
-    IF(trig .EQ. 'Ua' ) Ua  = REAL(tmp)/10.0
-    IF(trig .EQ. 'Ub' ) Ub  = REAL(tmp)/10.0
+    IF(trig .EQ. 'l' ) l  = REAL(tmp)/10.0
+    IF(trig .EQ. 'g' ) g  = REAL(tmp)/10.0
     IF(trig .EQ. 'Un' ) Un  = REAL(tmp)/10.0
 
-    IF(trig .EQ. 'KDUb10')THEN
-        K01 = REAL(tmp)*(D/Ub**2)
-        K10 = K01
-    ENDIF
+    IF(trig .EQ. 'rd') decay_length = 10**(REAL(tmp)-6)
 
-    IF(trig .EQ. 'KDUb100')THEN
-        K10 = REAL(tmp)*(Ub**2)
-        K01 = K10
-    ENDIF
-
-    IF(trig .EQ. 'K100')THEN
-        K01 = REAL(tmp)/(100.0)
-        K10 = K01
-    ENDIF
-
-    IF(trig .EQ. 'K1000')THEN
-        K10 = REAL(tmp)/(1000.0)
-        K01 = K10
-    ENDIF
-
-    IF(trig .EQ. 'K')THEN
-        K10 = D/2*10.0**REAL(tmp-3)**2
-        K01 = K10
-    ENDIF
+    K01 = decay_length**2*D*0.5
+    K10 = K01
 
     print*, 'npar = ', npar
     print*, 'D  = ', D
@@ -88,8 +59,8 @@ SUBROUTINE init_parameters
     print*, 'Rs = ', Rs
     print*, 'U0 = ', U0
     print*, 'U1 = ', U1
-    print*, 'Ua = ', Ua
-    print*, 'Ub = ', Ub
+    print*, 'l = ', l
+    print*, 'g = ', g
     print*, 'Un = ', Un
     print*, 'K01= ', K01
     print*, 'K10= ', K10
@@ -103,7 +74,7 @@ END SUBROUTINE init_parameters
 SUBROUTINE init_particles
 
     REAL(8), DIMENSION(3)       :: rand
-    REAL(8)                     :: Rr, dr, theta, phi, a1, a2, a3, fracU0, fracU1, randU
+    REAL(8)                     :: Rr, dr, theta, phi, a1, a2, a3, fracU0, fracU1, randU, Ua, Ub
     INTEGER                     :: i, j, n
     REAL(8), DIMENSION(nbins)   :: Cumm, r
 
@@ -114,7 +85,8 @@ SUBROUTINE init_particles
 
     !Initialize Particle Possitions - use inverse sampling to mime the original
     !debye solution for the density profile
-
+    Ub = Rs+(1+g)*l
+    Ua = Rs+l
     Cumm = 0
     Rr = Rs
     dr = (Rd-Rs)/(nbins)

@@ -8,10 +8,21 @@ CONTAINS
 
 SUBROUTINE move_particles
 
-    REAL(8), DIMENSION(3,npar)  :: erand
+    REAL(8), DIMENSION(3,npar)  :: erand, force
     REAL(8), DIMENSION(3,npar)  :: nrand1, nrand2
     REAL(8), DIMENSION(npar)  :: r1, r2
     INTEGER                     :: i, j
+    REAL(8)                     :: Ua, Ub
+    Ua = 1+l 
+    Ub = 1+(1+g)*l
+
+    !Calculate particle distance from origin before step
+
+    !$OMP PARALLEL DO
+        DO i = 1,npar
+            r1(i) = SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))
+        ENDDO
+    !$OMP END PARALLEL DO
 
     CALL RANDOM_NUMBER(nrand1)
     CALL RANDOM_NUMBER(nrand2)
@@ -30,20 +41,31 @@ SUBROUTINE move_particles
 
     erand = SQRT(2*D*dt)*erand
 
-    !Calculate particle distance from origin before step
+    !Calculate force on particles in case of linear potential
 
+    IF(potential_shape .EQ. 'lin') THEN
     !$OMP PARALLEL DO
-        DO i = 1,npar
-            r1(i) = SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))
-        ENDDO
+    DO i = 1,npar
+        !Did it cross from outside, did it see the barrier?
+        IF(r1(i)<Ub .AND. r1(i)>Ua+g*l*0.5.AND. par(4,i)==1) THEN
+            !Then force points out
+            force(:,i) = par(:,i)/r1(i)*2.0*Ua/g/l*dt
+        !Did it cross from inside, did it see the barrier?
+        ELSEIF(r1(i)>Ua .AND. r1(i)>Ua+g*l*0.5 .AND. par(4,i)==1) THEN
+            !Then force points in
+            force(:,i) = par(:,i)/r1(i)*2.0*Ua/g/l*dt
+        ENDIF
+    ENDDO
     !$OMP END PARALLEL DO
+        
+    ENDIF 
 
     !Apply random force to Particles (do step)
 
     !$OMP PARALLEL DO
     DO i = 1,npar
         DO j = 1,3
-            par(j,i) = par(j,i) + erand(j,i)
+            par(j,i) = par(j,i) + erand(j,i) + force(j,i)
         ENDDO
     ENDDO
     !$OMP END PARALLEL DO
@@ -57,7 +79,7 @@ SUBROUTINE move_particles
     !$OMP END PARALLEL DO
 
     !Check if particles crossed boundaries of potential
-
+    IF(potential_shape .EQ. 'box') THEN
     !$OMP PARALLEL DO
     DO i = 1,npar
         !Did it cross from outside, did it see the barrier?
@@ -73,6 +95,8 @@ SUBROUTINE move_particles
         ENDIF
     ENDDO
     !$OMP END PARALLEL DO
+    ENDIF
+    
 
 END SUBROUTINE move_particles
 

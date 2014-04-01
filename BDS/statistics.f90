@@ -80,21 +80,15 @@ CONTAINS
 
     !Write statistics output to file
     
-
-    a = Rs + Ua + 0.5*Ub
-    b = Ub
-
     DO i = 1,bins
         Rr = real(i)*Rd/real(bins)
         WRITE(dens_final, "(7f15.4)")   (REAL(i))/REAL(bins)*Rd, aver5(i), sigma5(i), &
-                                        aver5(i + bins), sigma5(i + bins), &
-                                -4.*Un*U0*((2./b*(Rr-a))**(2.*Un-1.))/b/((2./b*(Rr-a))**(2.*Un) + 1.)**2, &
-                                U0/((2./b*(Rr-a))**(2.*Un) + 1.)
+                                        aver5(i + bins), sigma5(i + bins)
     ENDDO
 
     WRITE(rate_final, *) "this file contains simulation parameters and measured absorption rate"
     WRITE(rate_final, *)
-    WRITE(rate_final, "(14f16.8)") REAL(npar), D, Rs, Rd, t0, t1, U0, U1, Ua, Ub, K01, K10, aver5(2*bins+1), sigma5(2*bins+1)
+    WRITE(rate_final, "(14f16.8)") REAL(npar), D, Rs, Rd, t0, t1, U0, U1, l, g, K01, K10, aver5(2*bins+1), sigma5(2*bins+1)
 
     END SUBROUTINE statistics_output
 
