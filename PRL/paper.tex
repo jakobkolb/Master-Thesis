@@ -116,17 +116,17 @@ For this simplified system we calculate the radial steady state density profiles
 \end{figure}
 It becomes obvious, that for a certain value of the decay length comparable to the barrier dimensions the density inside the barrier is considerably higher that what is is for decay lengths far off.
 \begin{figure}[H]
-\includegraphics[width= .5 \textwidth]{plots/rep_barrier.pdf}
-\caption{normalized absorption rate vs. decay length for repulsive fluctuating barrier. \newline Parameters are $U_1 = 10 K_B T, U_0 = 0, g = 1$ and $t=2,4,10$. Approximation for very fast and very slow barrier fluctuations are depicted by dashed blue and red lines respectively.}
-\label{fig2}
-\end{figure}
-
-\vspace{-2 cm}
-\begin{figure}[H]
-\includegraphics[width= .5 \textwidth]{plots/att_barrier.pdf}
-\caption{normalized absorption rate vs. decay length for attractive fluctuating barrier. \newline Parameters are $U_1 = -10 K_B T, U_0= 0, g = 1$ and $t=2,4,10$. Approximation for very fast and very slow barrier fluctuations are depicted by dashed blue and red lines respectively.}
+\includegraphics[width= .5 \textwidth]{plots/v_rates.pdf}
+\caption{normalized absorption rate vs. decay length for attractive fluctuating barrier. \newline Parameters are $U_1 = -10 K_B T, U_0= 0, g = 1$ and $t=2,5,10$. Approximation for very fast and very slow barrier fluctuations are depicted by dashed blue and red lines respectively. State points from the density profiles are marked by black crosses.}
 \label{fig3}
 \end{figure}
+We find that in the limit of fast barrier fluctuations i.e. $r_d \ll 1$ the absorption rate becomes equal to
+\begin{align}
+    K &= \frac{4 \pi D ab}{ab - \varepsilon(b-a)(1-\exp[U_1/2])}; \\
+    \varepsilon &= \frac{2(1+\exp[U_1/2])}{3+exp[U_1]}
+    \label{kliminf}
+\end{align}
+whereas the naive Debye rate for an average potential barrier would not have the $\varepsilon$ correction.
 \begin{figure}[H]
 \includegraphics[width= .5 \textwidth]{plots/diff_plot.pdf}
 \caption{A) difference in limiting cases of absorption rate vs barrier hight $U_1$ for different $t$ where $g=1$. \newline B) difference in limiting cases of absorption rate vs. $t$ for various positive $U_1$ at fixed $g=1$.}
