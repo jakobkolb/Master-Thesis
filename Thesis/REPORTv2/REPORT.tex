@@ -33,7 +33,29 @@
     bm
 	}
 \usepackage[toc,page]{appendix}
+\usepackage{listings}
+\usepackage{color}
 
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=none,
+    language=[90]Fortran,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=none,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3
+                            }
 %Spalten mit Breitenangabe und Umbrüchen
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} 	% zentriert
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}} 	% linksbündig
@@ -86,9 +108,9 @@
 %\input{0Cover}
 \input{1Preface}
 \input{2Motivation}
-\input{3Analytic_Work}
-%\input{4Numeric_Work}
-%\input{5Conclusion}
+\input{3Analytic_Model}
+\input{4Numeric_Model}
+\input{5Results}
 %\input{6Bib}
 %\fnput{7Appendix}
 \end{document}
