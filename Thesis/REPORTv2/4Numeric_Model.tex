@@ -1,0 +1,59 @@
+\section{Numeric Model}
+\subsection{Brownian Dynamics}
+The term \textit{Brownian Dynamics Simulation} refers to the integration of the overdamped Langewin equation \eqref{BD1} i.e. the motion of particles with respect to a Gaussian random force. Therefore the equation for the diffusive coordinate $r_n$ of the Brownian particles is discretized in time, such that the actual discrete equation of Motion has the Form
+\begin{equation}
+    \vec r_n(t + \Delta t) = \vec r_n(t) - \frac{\vec \nabla U_n(\vec r)}{\gamma}\Delta t + \sqrt{2 D \Delta t} R(t)
+    \label{discrete_eqm}
+\end{equation}
+where $R(t)$ is a Gaussian random process with zero average and $\sigma = 1$. $n$ denotes the reactive coordinate of the Brownian particle. This coordinate is updated in each time step with respect to the appropriate Master equation. This is done via a probabilistic scheme. For each time step we draw a random number from an uniform distribution on the inverval $[0,1]$ and if the particle is in state $j$ we check which of the bis on the bins on 
+\begin{equation}
+    [W_{1,j}, \cdots , W_{j-1,j},1 - \sum_{i \ne j} W_{i,j}, W_{j+1,j}, \cdots , W_{N,j}]
+    \label{num_meq}
+\end{equation}
+it hits. The particle does not change its state, if the random number is in bin number $j$ and changes its state to $n = k$ if the random number hits bin number $k$.\\
+This is probably the most trivial numerical solution to the given problem, but since the substrate particles do not interact it is still sufficient to evaluate the situation.
+
+\subsection{Boundary Conditions}
+Since we are looking for a steady state solution we must make sure that the number of particles is conserved. Therefore the flux of particles out of the simulation domain through the surface of the sink must equal the flux of particles into the simulation domain through its outer boundary.
+Also, it proves appropriate to use spherical simulation domain of Radius $R_b$ with the sink of radius $R_s$ in its center to preserve the spherical symmetry of the anticipated solution.
+Keeping these necessities in mind the boundary conditions at the sink surface and at the outer domain boundary are implemented as follows: \\
+\begin{itemize}
+    \item particles are reflected at the outer simulation boundary:
+        \begin{lstlisting}
+        r = SQRT(DOT_PRODUCT(par(:),par(:)))
+        IF(r>Rd) THEN
+            rnew = 2*Rd - r
+        ENDIF
+        \end{lstlisting}
+        where par(:) are the particles x,y and z coordinate, r is therefore the particles radial position after an integration step of the integration of the eqm.
+    \item If the trajectory that connects the position of a particles before (A) and after (B) an integration step crosses the boundary of the sink the particle is set to the outer boundary of the simulation domain:
+        \begin{lstlisting}
+        A   = parold(:)
+        B   = parnew(:)
+        AB  = parold(:) - parnew(:)
+
+        px = A + DOT_PRODUCT(A,AB)*AB/DOT_PRODUCT(AB,AB)
+
+        IF( DOT_PRODUCT( px-A),(px-B)) < 0 )THEN
+            r = SQRT(DOT_PRODUCT(px,px))
+        ELSEIF( DOT_PRODUCT( px-A),(px-B)) >= 0 )THEN
+            r = SQRT(DOT_PRODUCT(B,B))
+        ENDIF
+        
+        IF(r<Rs) THEN
+            rnew = Rs + Rd - r
+        ENDIF
+        \end{lstlisting}
+        This fragment of code calculates the closest point px to the sink center on the line containing A and B. Then it checks, if this point px is between A and B. Based on this, it updates the radial position of the particle to set it to the boundary of the simulation domain, if it crossed the boundary of the sink.
+\end{itemize}
+\subsection{Fit Conditions}
+The fit conditions at the jump discontinuities of the potential barrier as given in \eqref{dens_fit} are implemented as follows. If a particle in state $n$ crosses the boundary of the potential barrier from a lower to a higher level, it has a probability $P_r = P_{\Delta U_n}$ to be reflected and a probability $P_p = 1 - P_{\Delta U_n}$ to pass where $P_{\Delta U_n}$ is given by an Arrhenius factor
+\begin{equation}
+    P_{ \Delta U_n} + \exp \left[\frac{\Delta U_n}{K_B T}  \right].
+    \label{arrhenius_factor}
+\end{equation}
+If a particle crosses the boundary of the potential barrier from a higher to a lower level it does so with probability $P_p = 1$.
+\subsection{Density Profile}
+To calculate the radial density profile of the substrate particles we bin their radii at each time step and normalize the resulting histogram to its volume per bin. This is averaged over each time step after a certain equilibration time of the simulation.
+\subsection{Absorption rate}
+To calculate the absorption rate, we simply count the number of particles that crosses the sink surface and is set to the simulation boundary. This number is then normalized to the time per time step and averaged over each time step after a certain equilibration time of the simulation.

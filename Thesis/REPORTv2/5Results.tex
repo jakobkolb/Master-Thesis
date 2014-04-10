@@ -1,0 +1,364 @@
+\section{The Two state Potential Barrier}
+
+\subsection{Particle Density}
+In this section we will treat the example of a two state potential barrier with switching rate $W_{1,2}, W_{2.1}$ between states $[U_1=0,U_2]$ that is located between $r = a$ and $r = b$. The Fokker-Planck Equation of the system therefore has the form
+\begin{align}
+    \frac{\partial \rho_1(r,t)}{\partial t} &= \vec \nabla \left[ D \vec \nabla \rho_1(r,t) \right] - W_{2,1}\rho_1(r,t) + W_{1,2}\rho_2(r,t) \nonumber \\
+    \frac{\partial \rho_2(r,t)}{\partial t} &= \vec \nabla \left[\rho_2(r,t) \vec \nabla \frac{U_2(r)}{\gamma} + D \vec \nabla \rho_2(r,t) \right] - W_{1,2}\rho_2(r,t) + W_{2,1}\rho_1(r,t)
+    \label{two_state_fpe}
+\end{align}
+We take the transition rates to be symmetric $W_{1,2} = W_{2.1} = W$ such that the transition rate matrix thus has the form 
+\begin{equation}
+    \mathbb{W} = \left( \begin{array}{rr}
+    W & -W \\
+    -W & W 
+\end{array} \right)
+    \label{two_state_transition_matrix}
+\end{equation}
+With eigenvalues $\lambda_1 = 0$ and $\lambda_2 = -2W$. The steady state solution to the transition matrix is 
+\begin{equation}
+    \vect{\rho}^{(eq)}=\left(\frac{1}{2}, \frac{1}{2}\right)^{T}
+    \label{rhoeq}
+\end{equation}
+which obviously satisfies the detailed balance property \eqref{detailed_balance}. \\
+The diagonal form of equation \eqref{fpmeq3} is now 
+\begin{equation}
+    \frac{\partial}{\partial t} \tilde{\vect{\rho}} = \left( \begin{array}{ll}
+        D\vec{\nabla}^{2} & 0 \\
+        0 & D\vec{\nabla}^{2} - 2W
+    \end{array} \right) \tilde{\vect{\rho}}
+    \label{fpmeq5}
+\end{equation}
+and the steady state solution in terms of eigenfunctions of $\mathbb{W}$ reads
+\begin{align}
+    \tilde{\rho}_1^{(j)} &= c_{1,1}^{(j)} + \frac{c_{1,2}^{(j)}}{r} \\
+    \tilde{\rho}_2^{(j)} &= \frac{c_{2,1}^{(j)}}{r}{\rm exp}\left[-\alpha_2r\right]+ \frac{c_{2,2}^{(j)}}{r}{\rm exp}\left[\alpha_2 r\right]
+    \label{ind_sol_U2}
+\end{align}
+where $\alpha_2$ is the inverse of the \textit{decay length} as defined in \eqref{decay_length}. This case neatly illustrates the role of $r_d^{(i)}$ as the persistence length of the influence of the potential fluctuations. For distances $d_a = |r - a|$ and $d_b = |r - b|$ far from the jump discontinuities of the potential $d_a, d_b >> r_d^{(2)}$ the thermal motion of the Brownian particles will have damped the influence of the potential barrier and the densities of particles in state $1$ and $2$ respectively will converge to the same value again.\\
+The following plot gives an example of the density profiles that are obtained by solving the system of linear equations for the fit and boundary conditions as outlined in section \ref{FBC}
+\begin{equation}
+    \vect{\rho} = \mathbb{A} \tilde{\vect{\rho}}
+\end{equation}
+for the following parameters:
+\begin{equation}
+    \begin{array}{r|l}
+        Parameter & Value \\ \hline
+        R_s & 1 \\
+        a   & 4 \\
+        b   & 6 \\
+        U/K_B T & 4 \\
+        W/D & 1/2
+    \end{array} \nonumber
+    \label{Parameters}
+\end{equation}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = .9 \textwidth]{plots/rho.pdf}
+    \caption{Density Profiles for fluctuating repulsive potential}
+    \label{fig:rho}
+\end{figure}
+In the following we will set $R_s = 1$ and give all other length scales relative to it.
+\newpage
+The decay length for this example is 
+\begin{equation}
+    r_d^{(2)} = 1
+\end{equation}
+It becomes clear, that the density profiles 
+\subsection{Reaction Rates}
+
+The calculation of the reaction rate as outlined in section \ref{Rates} leads to the following expression. The index of $\alpha_2$ will be omitted for reasons of convenience.
+\begin{align}
+    \frac{K}{K_{Debye}} &= \frac{F_1}{F_2}
+    \label{two_state_rate}
+\end{align}
+$F_1$ and $F_2$ denote the following expressions:
+\begin{align*}
+    F_1 =& 2 \left(a \left(\alpha-5 b \alpha^2\right)+b \alpha-1\right) e^{2 \alpha (a+b)+u}-2 (a \alpha+1) (b \alpha-1) e^{2 (b+1) \alpha+u}-4 b \alpha (b \alpha+1) e^{3 a \alpha+b \alpha+u} \\
+    &+2 b \alpha (b \alpha+1) e^{3 a \alpha+b \alpha+2 u}+4 b \alpha (b \alpha+1) e^{\alpha (a+b+2)+u}-2 b \alpha (b \alpha+1) e^{\alpha (a+b+2)+2 u} \\
+    &-2 (a \alpha-1) (b \alpha+1) e^{4 a \alpha+u}+(a \alpha-1) (b \alpha+1) e^{4 a \alpha+2 u}-2 (a \alpha+1) (b \alpha+1) e^{2 (a+1) \alpha+u} \\
+    &-(a \alpha+1) (b \alpha+1) e^{2 (b \alpha+u+\alpha)}-(3 a \alpha-1) (b \alpha+1) e^{2 (\alpha (a+b)+u)} \\
+    &+(3 a \alpha+1) (b \alpha+1) e^{2 (a \alpha+u+\alpha)}-2 b \alpha (b \alpha+1) e^{\alpha (a+b+2)}+2 b \alpha (b \alpha+1) e^{\alpha (3 a+b)} \\
+    &+e^{4 a \alpha} (a \alpha-1) (b \alpha+1)-e^{2 (a+1) \alpha} (a \alpha-1) (b \alpha+1)+(a \alpha+1) e^{2 (b+1) \alpha} (3 b \alpha-1) \\
+    &-(a \alpha+1) (3 b \alpha-1) e^{2 \alpha (a+b)} \\
+    F_2 =& -4 \alpha \left(a^2 \alpha-a \alpha+a-b \alpha-2\right) e^{\alpha (a+b+2)+u}+2 \alpha \left(a^2 \alpha-a \alpha+a-b \alpha-2\right) e^{\alpha (a+b+2)+2 u} \\
+    &-4 \alpha \left(a^2 \alpha-a (\alpha+1)+b \alpha+2\right) e^{3 a \alpha+b \alpha+u}+2 \alpha \left(a^2 \alpha-a (\alpha+1)+b \alpha+2\right) e^{3 a \alpha+b \alpha+2 u} \\
+    &+2 \alpha e^{\alpha (a+b+2)} \left(a^2 \alpha-a \alpha+a-b \alpha-2\right)+2 \alpha e^{\alpha (3 a+b)} \left(a^2 \alpha-a (\alpha+1)+b \alpha+2\right) \\
+    &-\left(3 \alpha^2 (a (b-2)+2 b)+\alpha (a-3 b+4)-1\right) e^{2 (\alpha (a+b)+u)} \\
+    &-2 \left(\alpha^2 (a (5 b+2)-2 b)+\alpha (a+b-4)+1\right) e^{2 \alpha (a+b)+u} \\
+    &+2 (a \alpha+1) ((b-2) \alpha+1) e^{2 (b+1) \alpha+u}+2 ((a-2) \alpha-1) (b \alpha+1) e^{2 (a+1) \alpha+u} \\
+    &-2 (a \alpha-1) (b \alpha+1) e^{4 a \alpha+u}+(a \alpha-1) (b \alpha+1) e^{4 a \alpha+2 u}+((a+2) \alpha+1) (b \alpha+1) e^{2 (a \alpha+u+\alpha)} \\
+    &-(a \alpha+1) ((3 b-2) \alpha+1) e^{2 (b \alpha+u+\alpha)}-e^{2 \alpha (a+b)} \left(\alpha^2 (a (3 b+2)-2 b)+\alpha (-3 a+b+4)-1\right) \\
+    &+e^{4 a \alpha} (a \alpha-1) (b \alpha+1)-e^{2 (a+1) \alpha} ((3 a-2) \alpha-1) (b \alpha+1)+(a \alpha+1) e^{2 (b+1) \alpha} ((b+2) \alpha-1)
+\end{align*}
+Sadly, this form of the solution does not tell us very much about the behaviour of the system. For a first impression, we will give some plots of the reaction rate vs. the persistence length of the solution using the parameters given above if not stated differently.\\
+\begin{minipage}[t]{0.7 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/rate1.pdf}
+    \caption{Reaction rate vs. switching rate for repulsive barrier}
+    \label{fig:finite_barrier_rate+}
+    \end{figure}
+\end{minipage}\begin{minipage}[t]{0.3 \textwidth}
+The plot on the left shows the reaction rate relative to the reaction rate of the ungated Debye problem for a fluctuating potential barrier of hight $[U_1 = 0, U_2 = 4]$. It is obvious that it shows some sort of resonant behaviour. The reaction rate converges to some constant, finite values lower than the ungated rate and is maximised by a certain ratio of switching rate and diffusion constant. For certain parameters the rate at its maximum is even higher higher than the rate of the ungated problem.
+\end{minipage}
+\par
+\begin{minipage}[t]{0.7 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/rate2.pdf}
+    \caption{Reaction rate vs. switching rate for attractive barrier}
+    \label{fig:finite_barrier_rate-}
+    \end{figure}
+\end{minipage}\begin{minipage}[t]{0.3 \textwidth}
+This plot shows the quotient of the reaction rates of the gated and the ungated Debye problem for an attractive fluctuating potential barrier of hight $[U_1 = 0, U_2 = -4]$. Under these conditions the reaction rate of the gated problem is always higher than the one of the ungated problem. Similar to the behaviour emerging from a repulsive barrier the rate is maximised at a certain ratio of switching rate and diffusion constant. The reaction rate at the maximum is
+thereby\end{minipage}
+considerably higher than at the limiting cases for very fast and very slow switching of the barrier. Comparing the repulsive barrier and the attractive barrier setting it is apparent, that the limiting cases for $\gamma/D \rightarrow 0$ and $\gamma/D \rightarrow \infty$ do differ considerably in the first case whilst in the second they do not. \par
+Next we investigate if this kind of resonant activation does always occur or only for certain parameters. Therefore we calculate approximate expressions for the limiting behaviour of the reaction rate.
+
+\subsection{Slow Fluctuation Limit}
+For slow fluctuations of the potential barrier the decay length $r_d$ and therefore the spatial influence of the potential barrier becomes large compared to the length scale of the system. This is equivalent with the fact, that the diffusion time of the substrate particles across the system is much smaller than the inverse switching rate of the potential barrier. 
+To evaluate this limit, we use eq. \eqref{two_state_fpe} with symmetric rates take the limit of $W \rightarrow 0$ and consider the steady state case.
+This results in two independent equations for the two states of the potential:
+\begin{align}
+    \frac{\partial \rho_1(r,t)}{\partial t} &= \vec \nabla \left[ D \vec \nabla \rho_1(r,t) \right] \\ \nonumber
+    \frac{\partial \rho_2(r,t)}{\partial t} &= \vec \nabla \left[\rho_2(r,t) \vec \nabla \frac{U_2(r)}{\gamma} + D \vec \nabla \rho_2(r,t) \right]
+    \label{two_state_fpe_W_to_0}
+\end{align}
+Where $U_2$ has the form given in \eqref{step_potential}.
+The reaction rates for these independent equations can be calculated using the expressions given in \eqref{steady state ideal rate} and \eqref{K_Debye}. If one takes the detailed balance assumption for $r \rightarrow \infty$ to be still valid the combined rate can be calculated as the weighted average of the two independent rates. Since we the transition rates are taken to be symmetric, this results in:
+\begin{align}
+    K &= \frac{1}{2} \left[ 4 \pi D R_s^2 + 4 \pi D  \left\{\int_{R_s}^{\infty} \frac{\exp \left[ \frac{U_2(r')}{K_B T}\right]}{r'^2} \rm d r' \right\}^{-1} \right] \\ \nonumber
+    &= 2 \pi D \left[ R_s^2 +\left\{\int_{R_s}^{a} \frac{1}{r'^2} \rm d r' + \int_{a}^{b} \frac{\exp \left[ \frac{U_2(r')}{K_B T}\right]}{r'^2} \rm d r' + \int_{b}^{\infty} \frac{1}{r'^2} \rm d r' \right\}^{-1} \right]
+\end{align}
+Now we evaluate the Integrals and divide by the Smoluchowski rate. Also $R_s$ and $K_B T $ are set to one such that the result is:
+\begin{align}
+    \frac{K}{K_{S}} &= \frac{1}{2} \left[1 + \left\{ 1 -\frac{1}{a} + \exp[U_2] \left(\frac{1}{a} - \frac{1}{b}  \right) + \frac{1}{b} \right\}^{-1} \right] \nonumber \\
+    &= \frac{1}{2}\left[ 1 + \left\{ 1 + \left( \frac{1}{a} - \frac{1}{b} \right)\left( \exp[U_2] -1 \right) \right\}^{-1} \right] \nonumber \\
+    &= \frac{1}{2} \left[ 1 + \left\{ 1 - \frac{(b - a)}{ab}\left(1 - \exp[U_2] \right) \right\}^{-1} \right] \nonumber \\
+    &= \frac{1}{2} \left[ 1 + \frac{ab}{ab - \left( b-a \right)\left(1 - \exp[U_2] \right)} \right].
+    \label{two_state_K_slow}
+\end{align}
+The result of this somewhat intuitive calculation can now be compared to the slow switching limit of eq. \eqref{two_state_rate}.
+It proves to be sufficient to do a Taylor expansion around $\alpha_0 = 0$ to obtain
+\begin{equation}
+    \frac{K}{K_{S}} \approx \frac{(b-a)(1-e^u)-2ab }{2 \left((b-a) \left(1-e^u\right)-ab\right)} + \frac{  (b-a)^2\left(1-e^u\right)^2}{4 \left(ab + (b-a)(1-e^u)\right)^2} \alpha.
+    \label{ksa}
+\end{equation}
+Where the leading therm can be modified to take the form
+\begin{equation}
+    \lim_{\alpha \rightarrow 0} \frac{K}{K_{S}} =\frac{1}{2}\left(1+ \frac{ab}{ab-(b-a) \left(1-e^u\right)}\right).
+    \label{klim0a}
+\end{equation}
+This is exactly the result, that we obtained by the previous calculation.
+\subsection{Fast Fluctuation Limit}
+For fast fluctuations of the potential barrier, there is another way to deal with eq. \eqref{two_state_fpe}. In the limit of $W \rightarrow \infty$ the diffusion therm can be neglected compared to the reactive therms, such that in the case of symmetric rates $\rho_1(r) \equiv \rho_2(r) = \rho(r)$ holds for all $r>R_s$. Therefore both equations can be added resulting in 
+\begin{equation}
+    \frac{\partial \rho(r,t)}{\partial t} = \vec \nabla \left[\rho(r,t) \vec \nabla \frac{U_2(r)}{\gamma} + 2 D \vec \nabla \rho(r,t) \right]
+    \label{fast_limit_fpe}
+\end{equation}
+Which is in fact equivalent to the case of a constant average potential barrier. In the steady state case this again reduces to
+\begin{equation}
+    0 = \vec \nabla \left[\rho(r,t) \vec \nabla \frac{U_2(r)}{2\gamma} + D \vec \nabla \rho(r,t) \right]
+\end{equation}
+such that the steady state rate can be calculated using the Debye formula:
+\begin{align}
+    K &=  4 \pi D \left\{\int_{R_s}^{\infty} \frac{\exp \left[ \frac{U_2(r')}{2 K_B T}\right]}{r'^2} \rm d r' \right\}^{-1} \nonumber \\
+    &= 4 \pi D \left\{\int_{R_s}^{a} \frac{1}{r'^2} \rm d r' + \int_{a}^{b} \frac{\exp \left[ \frac{U_2(r')}{2K_B T}\right]}{r'^2} \rm d r' + \int_{b}^{\infty} \frac{1}{r'^2} \rm d r' \right\}^{-1}.
+    \label{mean_potential_rate}
+\end{align}
+We evaluate the integrals, simplify and divide by the Smoluchowski rate to obtain
+\begin{equation}
+    \frac{K}{K_S} = \frac{ab}{ab - (b-a)(1-\exp\left[ \frac{U_2}{2} \right])}
+    \label{K_fast_limit_false}
+\end{equation}
+where $R_s$ and $K_B T$ have been set to be one again. \\
+Now a useful examination of the fast switching limit of eq. \eqref{two_state_rate} requires a bit more work.
+To find the behaviour in the limit of $\alpha >>1$ we take a closer look at the different exponents that occur in the numerator and denominator of equation \eqref{two_state_rate}. Namely
+\begin{align}
+& e_1 = (3a+b)\alpha \nonumber \\
+& e_2 = (2+2b)\alpha \nonumber \\
+& e_3 = (2+a+b)\alpha \nonumber \\
+& e_4 = 4a\alpha \nonumber \\
+& e_5 = (2+2b)\alpha \nonumber \\
+& e_6 = (2a+2b)\alpha
+\end{align}
+Using the fact that $b > a > 1$ we find that for $\alpha >>1$ the terms containing $e_6$ will dominate all others. Therefore numerator and denominator can be reduced to
+\begin{align*}
+    F_1' =& ( 1 + a \alpha + e^u (-1 + 3 a \alpha)) (-1 + 3 b \alpha + e^u (1 + b \alpha))\\
+    F_2' =& (-1 + (4 - 3 a + b) \alpha + (2 a - 2 b + 3 a b) \alpha^2 + e^{2 u} (-1 + (4 + a - 3 b) \alpha \\
+          &+ 3 (a (-2 + b) + 2 b) \alpha^2) + 2 e^u (1 + (-4 + a + b) \alpha + (2 a - 2 b + 5 a b) \alpha^2)).
+\end{align*}
+If then again only linear and quadratic terms in $\alpha$ are collected the expression further reduces to 
+\begin{align}
+    \frac{K}{K_{S}} \approx &a \left(3 e^u+1\right) \left(e^u (b x+1)+3 b x-1\right)-b \left(2 e^u+e^{2 u}-3\right) / \nonumber \\
+                          &\left\{a \left(e^{2 u} (3 (b-2) x+1)+2 e^u ((5 b+2) x+1)+3 b x+2 x-3\right) \right.  \nonumber \\
+                          & \left. +\left(e^u-1\right) \left(b \left(3 e^u+1\right) (2 x-1)+4 \left(e^u-1\right)\right) \right\}
+    \label{kla}
+\end{align}
+and in the actual limit we obtain 
+\begin{equation}
+    \lim_{\alpha \rightarrow \infty} \frac{K}{K_{S}} = \frac{a b \left(e^u+3\right)}{ab \left(e^u+3\right)-2(b-a)(1-e^u)}.
+    \label{kliminfa}
+\end{equation}
+This can be simplified to 
+\begin{align}
+    \frac{K}{K_S} &= \frac{ab}{ab - (b-a)(1-e^{u/2} \kappa} \\
+    \kappa &= \frac{2(1+e^{u/2})}{e^u + 3}
+    \label{K_fast_limit_correct}
+\end{align}
+Now since $\kappa$ as given above is certainly not equal to one in all cases, this solution deviate from the one in \eqref{K_fast_limit_false}. Now to explain this, it is necessary to review the assumptions that were made to decouple the equations to obtain \eqref{fast_limit_fpe}. It was assumed, that the diffusion term can be neglected relative to the reaction term. While this is certainly true for smooth potentials where the forces acting on particles are finite, the assumption breaks down in the case of step potential in use. \textit{In this case at least for $r=a$ and $r=b$ the diffusive term does not have an upper boundary and it is therefore not possible to decouple the equations taking the fast fluctuation limit.} \\
+What we learn from this is, that although the solution for the step potential barrier might be sleek it shows some features, that are artificial and probably limited to potentials with jump discontinuities. It will therefore be necessary to explore this further and to check, if effects can be at least qualitatively be reproduced with potentials of other shape.
+The following plots will illustrate the above \par
+\begin{minipage}[t]{0.5 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/largelimit.pdf}
+    \caption{Limit of $\alpha >>1$}
+    \end{figure}
+\end{minipage}\begin{minipage}[t]{0.49 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/smalllimit.pdf}
+    \caption{Limit of $\alpha <<1$}
+    \end{figure}
+\end{minipage}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 1 \textwidth]{plots/bothlimits.pdf}
+    \caption{Limiting behaviour of Reaction Rate}
+    \label{fig:rrlimit}
+\end{figure}
+It is obvious, that the reaction rate does not smoothly interpolate between the two limiting values but instead it has a local maximum. The obtained approximations for the limiting values can be used as a reasonable approximation.
+\subsection{Resonant activation}
+From the signs of the coefficients of the first order correction to the limits of the reaction rate for $\alpha>>1$ and $\alpha<<1$ it becomes obvious that this resonant behaviour always appears. Since the slope of the reaction rate is positive in both limits there must be a certain value of $\alpha$ that maximises the reaction rate. This effect has been observed in escape and first passage time problems and is known as \textit{Resonant Activation}.
+In the next sections we will take a closer look to some limiting cases. Hopefully, this will lead to a better understanding of the behaviour of the system and point out features that are essential for the resonance to appear.
+
+\subsection{The ideal two state Barrier}
+
+The first limit we take is the one of an ideal barrier. Therefore we take $|u| \rightarrow \infty$ and obtain for the Rate
+\begin{equation}
+    \frac{1}{K_{Debye}}\lim_{u \rightarrow \infty}K = \frac{K^{+}}{K_{Debye}} = \frac{F_{1}^{+}}{F_{2}^{+}}
+    \label{K+}
+\end{equation}
+\begin{align*}
+    F_{1}^{+} = -(b \alpha+1)  & \left( 2 b \alpha e^{\alpha (a+b+2)}-2 b \alpha e^{\alpha (3 a+b)}+(a \alpha+1) e^{2 (b+1) \alpha} \right. \\
+                                & \left.+(3 a \alpha-1) e^{2 \alpha (a+b)} -e^{2 (a+1) \alpha} (3 a \alpha+1)+e^{4 a \alpha} (1-a \alpha) \right)
+\end{align*}
+\begin{align*}
+    F_{2}^{+} = & 2 \alpha e^{\alpha (a+b+2)} \left(a^2 \alpha-a \alpha+a-b \alpha-2\right)+2 \alpha e^{\alpha (3 a+b)} \left(a^2 \alpha-a (\alpha+1)+b \alpha+2\right) \\
+                &-e^{2 \alpha (a+b)} \left(3 \alpha^2 (a (b-2)+2 b)+\alpha (a-3 b+4)-1\right)+e^{4 a \alpha} (a \alpha-1) (b \alpha+1) \\
+                &+e^{2 (a+1) \alpha} ((a+2) \alpha+1) (b \alpha+1)-(a \alpha+1) e^{2 (b+1) \alpha} ((3 b-2) \alpha+1)
+\end{align*}
+In the positive limit and 
+\begin{equation}
+    \frac{1}{K_{Debye}} \lim_{u \rightarrow -\infty}K = \frac{K^{-}}{K_{Debye}} =  \frac{F_{1}^{-}}{F_{2}^{-}}
+        \label{K-}
+\end{equation}
+
+\begin{align*}
+    F_{1}^{-} + &-2 b \alpha (b \alpha+1) e^{\alpha (a+b+2)}+2 b \alpha (b \alpha+1) e^{\alpha (3 a+b)}+e^{4 a \alpha} (a \alpha-1) (b \alpha+1)- \\
+                &e^{2 (a+1) \alpha} (a \alpha-1) (b \alpha+1)+(a \alpha+1) e^{2 (b+1) \alpha} (3 b \alpha-1)-(a \alpha+1) (3 b \alpha-1) e^{2 \alpha (a+b)}
+\end{align*}
+\begin{align*}
+    F_{2}^{-} = & 2 \alpha e^{\alpha (a+b+2)} \left(a^2 \alpha-a \alpha+a-b \alpha-2\right)+2 \alpha e^{\alpha (3 a+b)} \left(a^2 \alpha-a (\alpha+1)+b \alpha+2\right) \\
+                &-e^{2 \alpha (a+b)} \left(\alpha^2 (a (3 b+2)-2 b)+\alpha (-3 a+b+4)-1\right)+e^{4 a \alpha} (a \alpha-1) (b \alpha+1) \\
+                &-e^{2 (a+1) \alpha} ((3 a-2) \alpha-1) (b \alpha+1)+(a \alpha+1) e^{2 (b+1) \alpha} ((b+2) \alpha-1)
+\end{align*}
+In the negative limit. The following plots demonstrate the behaviour of the system in the limiting cases.
+\newpage
+\begin{minipage}[t]{0.7 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/K+.pdf}
+    \caption{Normalized reaction rate vs. switching rate for \newline repulsive barrier in the limit of $u \rightarrow \infty$,\newline parameters: $a = 4$, $b = 6$}
+    \end{figure}
+\end{minipage}\begin{minipage}[t]{0.3 \textwidth}
+    The plot on the left shows the reaction rate relative to the reaction rate of the ungated Debye problem for a fluctuating potential barrier of hight $[U_1 = 0, U_2 = \infty]$. It is obvious that it does not show any qualitative differences from the system with a fluctuating barrier of finite hight as illustrated in figure \ref{fig:finite_barrier_rate+}. The reaction rate does still converge to finite constant values for infinitely slow or fast potential switching rates and takes a maximum value in between.
+\end{minipage}
+
+\begin{minipage}[t]{0.7 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/K-.pdf}
+    \caption{Normalized reaction rate vs. switching rate for \newline attractive barrier in the limit of $u \rightarrow - \infty$,\newline parameters: $a = 4$, $b = 6$}
+    \end{figure}
+\end{minipage}\begin{minipage}[t]{0.3 \textwidth}
+    This plot shows the quotient of the reaction rates of the gated and the ungated Debye problem for an attractive fluctuating potential barrier of hight $[U_1 = 0, U_2 = -\infty]$. As in the previous case the qualitative behaviour of the system does not change compared to the case of a finitely high potential (comp. figure \ref{fig:finite_barrier_rate-}). 
+\end{minipage}
+
+\begin{itemize}
+    \item Therefore we conclude that \textit{the finite hight of the potential barrier is not essential for the appearance of resonant activation in reaction rates}.
+\end{itemize}
+Now that we have seen that the magnitude of the potential barrier does not alter the system qualitatively (as long as it does not equal zero) we will test other possible feature of the system on their significance regarding resonant activation. 
+
+\subsection{The one dimensional Limit}
+
+The question is now: does the local curvature of the potential barrier matter or does the system still show resonant activation if it is approximated by an absorbing wall and a flat fluctuating barrier.
+Before we use advanced methods such as path integrals to investigate the simplified problem we will find out, if there is something to find out at all.
+Therefore we continue from the limits on an ideal barrier \eqref{K+} and \eqref{K-} and substitute
+\begin{equation}
+    a \Rightarrow 1+t, \qquad b = a + gt.
+    \label{Substitution}
+\end{equation}
+\par
+The gap between sink and barrier $t$ is given in units of the sink radius $R_s$. The barrier itself is $gt$ wide. Now by taking $t/R_s \ll 1$ the radius of the system becomes very much larger than the length scale of the barrier width and distance from the sink. The radius of the sink therefore becomes equal to the curvature radius of the entire system. This way locally the situation is that of a fluctuating flat barrier in front of an absorbing wall. Lets see, if the resonant activation effect still persists.
+\par
+First consider the \textit{perfect repulsive barrier} as in \eqref{K+}. Substitution and Taylor expansion in $t$ to first order leads to
+\begin{equation}
+    \frac{\bar{K}^{+}}{K_{Debye}} = \frac{\alpha+1}{\alpha+2}-\frac{g t \alpha^2}{(\alpha+2)^2} 
+    \label{K+linear}
+\end{equation}
+Obviously the first term is monotonously increasing and interpolates from 0.5 to 1. Now including the linear term in $t$ the expression does have a maximum at
+\begin{equation}
+    \alpha_m = \frac{2}{4t(g+1) - 1}.
+    \label{alpham+}
+\end{equation}
+But a closer look reveals, that this maximum is positive only for $4t(g+1) < 1$ so only if $gt \approx 1$ which violates the assumptions we made in the first place when we did the Taylor expansion of equation \eqref{K+} for the reaction rate. 
+\par
+Now we consider the \textit{perfect attractive barrier} as in \eqref{K-}. We again substitute as in \eqref{Substitution} and do a Taylor expansion to first order in $t$ do derive
+\begin{equation}
+    \frac{\bar{K}^{+}}{K_{Debye}} = 1+\frac{g t}{4}.
+    \label{K-linear}
+\end{equation}
+In this case the expression is fully independent from $/alpha$ and does solely depend on the geometric properties of the barrier-sink system.
+\par
+\begin{itemize}
+    \item We conclude that the resonant activation effect can not be reproduced in a locally one dimensional approximation of the system. Therefore \textit{the spherical shape of the system must be critical for the emergence of resonant activation in reaction rates over metastable barriers}.
+\end{itemize}
+\subsection{Approximate Expressions for Resonant Potential Switching Rate}
+As it is obvious from equation \eqref{two_state_rate} and following the search for an expression for the resonant transition rate of the potential barrier leads to transcendental equations that do not have an analytic solution. \\
+Therefore we will try to find some approximative description for the resonant transition rate and compare it to numeric solutions of the equations that emerge from the derivative of the reaction rate in the limits of $|u| \rightarrow \infty$ as given in equation \eqref{K+} and \eqref{K-}.
+\par
+Until now we have identified two essential parameters in the system. First the \textit{decay length} in eq. \eqref{decay_length} and second the length scale of the barrier. Both are given in units of the sink radius. So it is only reasonable to assume that the condition for resonant activation to take place can be expressed in terms of these to system parameters. 
+\par
+In the following the transcendental equation
+\begin{equation}
+    \frac{\partial}{\partial \alpha} \frac{K^{+}}{K_{Debye}} = G^{+}(\alpha, t, g) = 0
+    \label{dk+=0}
+\end{equation}
+has been subject to numerical evaluation for different $t$ and $g$ (comp. \eqref{Substitution}). The result is given in the following plot.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.95 \textwidth]{plots/maxdclvst.pdf}
+    \caption{Decay length $r_d$ vs system size $t$ at maximum absorption rate}
+    \label{fig:maxdclvst}
+\end{figure}
+Both axis are have a logarithmic scale which makes it easily visible that there must be a power law of the form
+\begin{equation}
+    r_d^{(res)} = C \cdot t^{\kappa}
+    \label{powerlaw}
+\end{equation}
+with $C$ and $\kappa$ being functions of $g$. Now the remaining task is to find expressions for the prefactor and exponent of the above \textit{empiric} relation.
+The following plot displays the results of linear fits to the data presented in figure \ref{fig:maxdclvst}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.8 \textwidth]{plots/powerlawparameters.pdf}
+    \caption{Values for $C$ and $\kappa$ obtained from fitting eq. \eqref{powerlaw} to data in fig \ref{fig:maxdclvst}}
+    \label{fig:powerlawparameters}
+\end{figure}
+Now the preceding plots give rise to the assumption, that in the region of $t,g \approx 1$ a linear expansion in $g$ will give good results for $C$ and $\kappa$.\par
+Numeric fits result in the linear equations for $C$ and $\kappa$:
+\begin{align}
+C(g) &= 0.313 + 0.239\cdot g \\
+\kappa(g) &= 1.218 - 0.077 \cdot g
+\end{align}
+\begin{itemize}
+    \item for $g,t \approx 1$ there is a power law connecting the \textit{decay length} to the length scale of the barrier,
+    \item prefactor and exponent of the power law can be obtained from numeric evaluation of transcendental equations.
+\end{itemize}
+
