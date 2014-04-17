@@ -1,10 +1,10 @@
 
 \section{Short Introduction to Stochastic Processes}
-
+\label{Short_Introduction_to_Stochastic_Processes}
 This part will introduce the basic equations that are relevant for the handling of Brownian motion as a stochastic process (and its realisations in a computational model) and give an equivalent Fokker-Planck equation. Furthermore it will treat the fluctuating potential barrier in terms of a Master-Equation. \\
 The combination of both will be used to treat the problem of reaction rates over fluctuating barrier as a system of coupled partial differential equations that can be used to derive an analytic expression for the wanted density profiles and reaction rates.
 \subsection{The Fokker Planck Equation}
-\label{fpeq}
+\label{The_Fokker_Planck_Equation}
 Brownian motion is a markovian process, i.e. each time step in the random motion of particles does only depend on their preceding position. This implies, that the conditional probability density function (pdf) of their coordinates obeys the following relation:
 \begin{equation}
     p(x_{3},t_{3}|x_{2},t_{2};x_{1},t_{1}) = p(x_{3},t_{3}|x_{2},t_{2}), \quad t_{3}>t_{2}>t_{1}
@@ -64,6 +64,7 @@ If the expansion is truncated after the second term, the result gives the well k
 \end{equation}
 where $A$ and $B$ are independent of $t$ if the process is stationary. \\
 \subsection{Brownian Motion}
+\label{Brownian_Motion}
 Brownian motion is the oldest example of a Markov process that is known in physics. A heavy particle in a solution of lighter particles, which collide with it in a random fashion. Consequently, the velocity of the heavier particle undergoes a series of supposedly uncorrelated jumps. When the velocity $v$ has a certain direction, there will be on average more collisions from this side, than from the other. Therefore the probability of a change in velocity $\Delta v$ depends on its current value, but not on the velocity at earlier times. As a consequence, the velocity of the heavier particle can be considered to be a Markov process. When the whole system is in equilibrium the process is stationary and its autocorrelation time is the time in which an initial velocity is damped out. \\
 Now in the \textit{overdamped limit} the correlation time of the velocity is much smaller then the time between two observations of the heavy particle. In that case the observation of the particle gives a series of positions $x(t_1), x(t_2) \cdots$. Each displacement $x(t_{i+1}) - x(t_{i})$ does not depend on the previous history of the process, i.e. it is independent of $x_{i=1}, x_{i-2}\cdots$. Hence not only the velocity, but also the position of the particle is a Markov process (at least on a coarse grained timescale). 
 \par
@@ -102,7 +103,7 @@ For this Gaussian transition probability the coefficients of the Kramers Moyal E
 \end{equation}
 
 \subsection{The Master-Equation}
-\label{meq}
+\label{The_Master_Equation}
 The master equation is an equivalent formulation of the Kramers Moyal expansion for a certain class of stochastic processes. Namely those, whose transition probability has the following behaviour in the limit of small time steps $\Delta t$:
 \begin{equation}
     p(x_2,t+\Delta t|x_1,t) = W(x_2|x_1)\Delta t + \left[ 1 - \Delta t \int {\rm d} x W(x_2|x_1) \right] \delta(x_2-x_1) + O(\Delta t ^{2})
@@ -157,12 +158,13 @@ This property requires, that the total amount of probability going from two stat
 \end{equation}
 This property implies a certain symmetry of the matrix and can be used to show, that for this class of transition rate matrices can be transformed to a symmetric state such that they can be diagonalized via a suitable orthogonal transformation.
 \subsection{Multivariate Markov Processes}
+\label{Multivariate_Markov_Processes}
 It is straight forward to continue to Markov processes whose sample space is a direct product of continuous and discrete variables i.e. $\Omega = \mathbb{R}^{3} \times [1,\cdots, N]$. The Chapman Kolmogorov equation then becomes
 \begin{equation}
     p(\vec{x}_3,n_3,t_3|\vec{x}_1,n_1,t_1) = \sum_{n_2} \int p(\vec{x}_3,n_3,t_1|\vec{x}_2,n_2,t_2)p(\vec{x}_2,n_2,t_2|\vec{x}_1,n_1,t_1) {\rm d} \vec{x}_2
     \label{MCK}
 \end{equation}
-In this case the variable $\vec{x}$ can be treated by the approach discussed in section \ref{fpeq} whereas the variable $n$ will be treated by the approach described in section \ref{meq}. This leads to a combined Master Fokker-Planck equation for the time evolution of the pdf
+In this case the variable $\vec{x}$ can be treated by the approach discussed in section \ref{The_Fokker_Planck_Equation} whereas the variable $n$ will be treated by the approach described in section \ref{The_Master_Equation}. This leads to a combined Master Fokker-Planck equation for the time evolution of the pdf
 \begin{align}
     \frac{\partial}{\partial t } p(\vec{x},n,t) =   &- \vec{ \nabla } \left[\vec{A}(\vec{x},n,t)p(\vec{x},n,t) \right] + \frac{1}{2}\vec{\nabla}^{2}\left[ B(\vec{x},n,t)p(\vec{x},n,t) \right] \nonumber \\
                                                     &+ \sum_{n'} \left\{ W_{nn'}p(\vec{x},n',t) - W_{n'n}p(\vec{x},n,t)\right\}
@@ -287,7 +289,7 @@ Again in the limit of $t \rightarrow \infty$ this results in the steady state ab
 \end{equation}
 
 \section{The Debye Reaction Rate}
-
+\label{The_Debye_Reaction_Rate}
 The problem of diffusion controlled reaction rates as outlined in the previous chapter was extended to interaction between the substrate and the absorbing particles. For the resulting Fokker-Plack Equation of the substrate particles
 \begin{equation}
     \frac{\partial \rho(r,t)}{\partial t} = \vec \nabla \left[ \frac{\rho(r,t)\vec \nabla U(r)}{\gamma} + D \nabla \rho(r,t) \right]
@@ -347,7 +349,9 @@ which is equivalent to
 In the case of $U(r) \equiv 0$ this simplifies to the result obtained by Smoluchowski (comp. eq. \eqref{steady state ideal rate}.
 
 \section{Reaction Rates over Fluctuating Barriers}
+\label{Reaction_Rates_over_Fluctuating_Barriers}
 \subsection{Model Description}
+\label{Model_Description}
 The system under consideration consists of a spherical sink of radius $R_s$ that is surrounded by a potential barrier. The barrier is assumed to be of boxcar shape with limiting radius $a,b>R_s$. It fluctuates between states $n$ with different hight $U_n \in [U_0, \cdots U_N]$ subject to a transition rate matrix $\mathbb{W}$. The system is embedded in a reservoir of Brownian particles. It is desired to find the rate at which the particles are absorbed by the sink, given that the transition rate matrix of the potential fluctuations satisfies the detailed balance property.\\
 The appropriate boundary conditions are, that the probability density function of the Brownian particles is zero at $R_s$ and takes a constant finite value for $|\vec{r}| \rightarrow \infty$. Due to the fact that the system is not spatially bounded it is not possible to normalize the joint pdf $\vect{p}(\vec{r},n,t)$ of the position of the Brownian particles and the state of the potential barrier in the sense that 
 \begin{equation}
@@ -371,6 +375,7 @@ Using the spherical symmetry of the system, the Fokker-Planck operator can be wr
 \end{equation}
 It becomes obvious from this equation, that the state of the potential might as well be seen as a property of the Brownian particles. One could for instance imagine the barrier as a constant electric potential. Then the particles are fluctuating between differently charged states. For the assumption of noninteracting particles to be still valid, the solution has to be dilute and the Debye screening length has to be small. \\
 \subsection{Fit Conditions}
+\label{Fit_Conditions}
 For the boundary at $|\vec{r}| \rightarrow \infty$ far away from the influence of the potential and the sink it is reasonable to assume that the particle density distribution is a stationary solution $\vect{\rho}^{(eq)}$ the sole Master equation. From the assumption of detailed balance it follows that it has to satisfy
 \begin{align}
     &\mathbb{W} \vect{\rho}^{(eq)} = 0 \nonumber \\
@@ -411,6 +416,7 @@ Analogously we find relations for the derivatives of the particle density at the
     \label{ddens_fit}
 \end{equation}
 \subsection{Expansion in Eigenfunctions of $\mathbb{W}$}
+\label{Expansion_in_Eigenfunctions}
 The assumption of the detailed balance property that implies the existence of an equilibrium distribution $\vect{\rho}^{(eq)}$ allows for the definition of an operator $\mathbb{T}$
 \begin{equation}
     \mathbb{T} = \delta_{n,n'} [\rho_n^{(eq)}]^{\frac{1}{2}}.
@@ -461,7 +467,7 @@ The other solutions corresponding to the nonzero eigenvalues of the transition r
 \end{equation}
 that is unique for each state of the potential and which is closely related to its decay rate in time.
 \subsection{Treatment of Boundary and Fit Conditions}
-\label{FBC}
+\label{Treatment_of_Boundary_and_Fit_Conditions}
 Now we have to find an expression, that allows for the calculation of the coefficients $c_{i,k}^{(j)}$ from the transformed boundary and fit conditions
 \begin{align}
     \mathbb{A}^{-1}\vect{\rho}^{(I)}(R_s) &= \vect{\tilde{\rho}}^{(I)}(R_s) = 0 \nonumber \\
@@ -506,7 +512,7 @@ Here $\alpha_i = (\lambda_i / D)^{1/2}$. Using this notation, the boundary and f
 \end{equation}
 where dashes denote derivatives with respect to $r$. Solving this system of linear equations yields the somehow lengthy expressions for the coefficients $c_{i,k}^{(j)}$. \\ We obtain the actual density profile by applying the transformation $\mathbb{A}$ to return to the actual particle densities for the different states of the potential barrier.
 \subsection{Calculation of Rates}
-\label{Rates}
+\label{Calculation_of_Rates}
 The rate of the particles absorbed by the sink is calculated by taking the surface integral over the flux through the surface of the sphere with radius $R_s$
 \begin{align}
     K   &= \int_{\partial \Omega_{R_s}} \vec{J} {\rm d} \vec{A}\nonumber\\

@@ -36,7 +36,7 @@ and the steady state solution in terms of eigenfunctions of $\mathbb{W}$ reads
     \label{ind_sol_U2}
 \end{align}
 where $\alpha_2$ is the inverse of the \textit{decay length} as defined in \eqref{decay_length}. This case neatly illustrates the role of $r_d^{(i)}$ as the persistence length of the influence of the potential fluctuations. For distances $d_a = |r - a|$ and $d_b = |r - b|$ far from the jump discontinuities of the potential $d_a, d_b >> r_d^{(2)}$ the thermal motion of the Brownian particles will have damped the influence of the potential barrier and the densities of particles in state $1$ and $2$ respectively will converge to the same value again.\\
-The following plot gives an example of the density profiles that are obtained by solving the system of linear equations for the fit and boundary conditions as outlined in section \ref{FBC}
+The following plot gives an example of the density profiles that are obtained by solving the system of linear equations for the fit and boundary conditions as outlined in section \ref{The_Fokker_Planck_Equation}
 \begin{equation}
     \vect{\rho} = \mathbb{A} \tilde{\vect{\rho}}
 \end{equation}
@@ -67,7 +67,7 @@ The decay length for this example is
 It becomes clear, that the density profiles 
 \subsection{Reaction Rates}
 
-The calculation of the reaction rate as outlined in section \ref{Rates} leads to the following expression. The index of $\alpha_2$ will be omitted for reasons of convenience.
+The calculation of the reaction rate as outlined in section \ref{Reaction_Rates_over_Fluctuating_Barriers} leads to the following expression. The index of $\alpha_2$ will be omitted for reasons of convenience.
 \begin{align}
     \frac{K}{K_{Debye}} &= \frac{F_1}{F_2}
     \label{two_state_rate}
@@ -205,9 +205,20 @@ This can be simplified to
     \kappa &= \frac{2(1+e^{u/2})}{e^u + 3}
     \label{K_fast_limit_correct}
 \end{align}
-Now since $\kappa$ as given above is only equal to $1$ for $u=0$ this solution deviates from the one in \eqref{K_fast_limit_false}. Now to explain this, it is necessary to review the assumptions that were made to decouple the equations to obtain \eqref{fast_limit_fpe}. It was assumed, that the diffusion term can be neglected relative to the reaction term. While this is certainly true for smooth potentials where the forces acting on particles are finite, the assumption breaks down in the case of step potential in use. \textit{In this case at least for $r=a$ and $r=b$ the diffusive term does not have an upper boundary and it is therefore not possible to decouple the equations taking the fast fluctuation limit.} \\
-What we learn from this is, that although the solution for the step potential barrier might be sleek it shows some features, that are artificial and probably limited to potentials with jump discontinuities. It will therefore be necessary to explore this further and to check, if effects can be at least qualitatively be reproduced with potentials of other shape.
-The following plots will illustrate the above \par
+Now since $\kappa$ as given above is only equal to $1$ for $u=0$ this solution deviates from the one in \eqref{K_fast_limit_false}. Now to explain this, it is necessary to review the assumptions that were made to decouple the equations to obtain \eqref{fast_limit_fpe}. It was assumed, that the diffusion term can be neglected relative to the reaction term. Therefore we
+implicitly made the assumption, that the density profiles $\rho^{(i)}(r)$ are independent of the transition rates of the potential. This is false. On the contrary, the solution (comp. \eqref{fp_ind_sol}) is crucially depending on the transition rates and in the fast switching limit, the dominating terms will be relative to
+\begin{equation}
+    \rho^{(i)}_{j}(r) \approx \exp\left[\sqrt{\frac{W_{12}+W_{21}}{D}}r\right]
+    \label{rate_dependence_of_ind_sol}
+\end{equation}
+such that the diffusive term in the Fokker-Planck equation is proportional to
+\begin{equation}
+D\vec{\nabla}^{2}\rho^{(i)}_{j}(r) \approx (W_{12}+W_{21})\exp\left[\sqrt{\frac{W_{12}+W_{21}}{D}r}\right].
+    \label{rate_dependence_of_dif_term}
+\end{equation}
+From this it is obvious that the reactive and the diffusive term in eq. \eqref{two_state_fpe} will always have a finite ratio and can thus not be decoupled in the fast switching limit.
+It will therefore be necessary to explore this further and to check, if effects can be at least qualitatively be reproduced with potentials of other shape. \par
+The following plots show the full solution for the reaction rate and the approximations derived in eq. \eqref{ksa} and \eqref{kla} for a repulsive potential. Y axis is the reaction rate and X axis is the decay length. Parameters for the potential are as given in \eqref{Parameters}. \par
 \begin{minipage}[t]{0.5 \textwidth}
     \begin{figure}[H]
         \includegraphics[width = 1 \textwidth]{plots/largelimit.pdf}
@@ -226,6 +237,25 @@ The following plots will illustrate the above \par
     \label{fig:rrlimit}
 \end{figure}
 It is obvious, that the reaction rate does not smoothly interpolate between the two limiting values but instead it has a local maximum. The obtained approximations for the limiting values can be used as a reasonable approximation.
+\subsection{Effective Diffusivity Profile}
+One approach to depict the effect of the barrier fluctuations to the particle movement is the calculation of an effective spatially depending diffusivity profile. Therefore the particles are assumed to move in a stable average potential such that they can be treated by means of the methods described in section \ref{The_Debye_Reaction_Rate}.\par
+The total particle density is then given by
+\begin{equation}
+    \rho(r) = K\exp \left[ -\frac{U_m(r)}{K_B T} \right] \int_{R_s}^{r} \frac{\exp \left[ \frac{U_m(r')}{K_B T}\right]}{4 \pi D(r')r'^2} {\rm d} r'
+\end{equation}
+Where $K$ is now the actual absorption rate at the sink boundary, $U_m$ is the mean potential of the barrier and $D(r)$ is the spatially depending diffusion constant. To derive an expression for $D(r)$ we derivate by $r$ and invert the resulting equations:
+\begin{align*}
+    \rho'(r) &= -K\frac{U'_m(r)}{K_B T}\exp \left[ \frac{U_m(r)}{K_B T} \right] \int_{R_s}^{r} \frac{\exp \left[ \frac{U_m(r')}{K_B T}\right]}{4 \pi D(r')r'^2} {\rm d} r' + K \exp\left[ \frac{U_m(r)}{K_B T} \right] \frac{\exp \left[ \frac{U_m(r)}{K_B T}\right]}{4 \pi D(r')r^2} \\
+\rho'(r) &= \frac{K}{4 \pi D(r) r^2} \\
+\rho'(r) &= \frac{4 \pi D(R_s) R_s^2 \rho(R_s)}{4 \pi D(r) r^2}
+\end{align*}
+Such that for the diffusivity profile is given by
+\begin{equation}
+    \frac{D(r)}{D(R_s)} = \frac{4 \pi R_s^2 \rho'(R_s)}{ 4 \pi r^2 \rho'(r)}.
+    \label{spatial_diffusivity_profile}
+\end{equation}
+
+
 \subsection{Resonant activation}
 From the signs of the coefficients of the first order correction to the limits of the reaction rate for $\alpha>>1$ and $\alpha<<1$ it becomes obvious that this resonant behaviour always appears. Since the slope of the reaction rate is positive in both limits there must be a certain value of $\alpha$ that maximises the reaction rate. This effect has been observed in escape and first passage time problems and is known as \textit{Resonant Activation}.
 In the next sections we will take a closer look to some limiting cases. Hopefully, this will lead to a better understanding of the behaviour of the system and point out features that are essential for the resonance to appear.
