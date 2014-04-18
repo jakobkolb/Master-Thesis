@@ -7,7 +7,7 @@
 # * Create.
  
 #PBS -N Mathematica-v3
-#PBS -l nodes=1:ppn=4,mem=64gb,walltime=720:00:00
+#PBS -l nodes=1:ppn=4,walltime=720:00:00
 #PBS -m ae
 #PBS -W x=gres:MathKernel+1
  

@@ -489,7 +489,7 @@ For[j = 1, j <= nmax, j++,
  n = 2^j;
  Print[Plot[{u1[r], u2[r]}, {r, Rsink, 8}, PlotRange -> All]];
  For[i = 0, i <= datapoints, i++,
-  rd = 10^(rdmin + 1*(rdmax - rdmin)/datapoints);
+  rd = 10^(rdmin + i*(rdmax - rdmin)/datapoints);
   w21 = d*rd^2/2;
   w12 = w21;
   sol = NDSolve[{pde, bc, ic}, {\[Rho]1, \[Rho]2}, {t, t0, t1}, {r, 
@@ -512,37 +512,15 @@ For[j = 1, j <= nmax, j++,
   Densities[[1, i + 1, j]] = \[Rho]1eq[r];
   Densities[[2, i + 1, j]] = \[Rho]2eq[r];
   Densities[[3, i + 1, j]] = \[Rho]tot[r];
-  ReactionRate[[1, i + 1, j]] = w12;
+  ReactionRate[[1, i + 1, j]] = rd;
   ReactionRate[[2, i + 1, j]] = D[\[Rho]tot[r], r] /. r -> 1;
   
   Densities2[[1, i + 1, j]] = \[Rho]1eq2[r];
   Densities2[[2, i + 1, j]] = \[Rho]2eq2[r];
   Densities2[[3, i + 1, j]] = \[Rho]tot2[r];
-  ReactionRate2[[1, i + 1, j]] = w12;
+  ReactionRate2[[1, i + 1, j]] = rd;
   ReactionRate2[[2, i + 1, j]] = D[\[Rho]tot2[r], r] /. r -> 1;
   ]]
-
-a = Table[0, {i, 1, nmax}];
-
-p = Table[{}, {j, 1, nmax}];
-For[j = 1, j <= nmax, j++,
- Print[j];
- a = N[Partition[Flatten[Transpose[ReactionRate[[All, All, j]]]], 
-    2]];
- p[[j]] = 
-  ListLogLinearPlot[{a}, PlotRange -> All, 
-   PlotStyle -> Opacity[j/nmax]];
- ]
-w21 = 1
-at = 2;
-bt = 4;
-u1 = 4;
-u2 = 0;
-\[Beta] = 1;
-pa = LogLinearPlot[
-   fk[at, bt, U01, U02, Abs[-w12 - w21], \[Beta]], {w12, 10^(-3), 
-    10^(3)}, PlotRange -> All];
-Show[pa, p, PlotRange -> All]
 
 b = Table[0, {i, 1, nmax + 1}];
 b[[1]] = N[ReactionRate[[1, All, 1]]];
@@ -552,7 +530,10 @@ For[j = 1, j <= nmax, j++,
 Export["numeric_rates.csv", Transpose[b]];
 
 resolution = 1000
-c = Table[{N[10^w12], fk[at, bt, U01, U02, rd^2*d, 1]}, {rd, rdmin, 
+at = 2;
+bt = 4;
+U01 = 4;
+U02 = 0;
+c = Table[{N[10^rd], fk[at, bt, U01, U02, 10^(rd)^2*d, 1]}, {rd, rdmin, 
     rdmax, (rdmax - rdmin)/resolution}];
 Export["analytic_rates.csv", N[c]]
-
