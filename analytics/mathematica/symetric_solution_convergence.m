@@ -442,7 +442,7 @@ U01 = 4;
 U02 = 0;
 a = 3;
 b = 1;
-nmax = 6;
+nmax = 8;
 Rsink = 1;
 Rmax = 25;
 t0 = 0;
@@ -490,7 +490,7 @@ For[j = 1, j <= nmax, j++,
  Print[Plot[{u1[r], u2[r]}, {r, Rsink, 8}, PlotRange -> All]];
  For[i = 0, i <= datapoints, i++,
   rd = 10^(rdmin + i*(rdmax - rdmin)/datapoints);
-  w21 = d*rd^2/2;
+  w21 = 2/(d*rd^2);
   w12 = w21;
   sol = NDSolve[{pde, bc, ic}, {\[Rho]1, \[Rho]2}, {t, t0, t1}, {r, 
      Rsink, Rmax}, MaxSteps -> Infinity, MaxStepFraction -> 0.002, 
@@ -534,6 +534,6 @@ at = 2;
 bt = 4;
 U01 = 4;
 U02 = 0;
-c = Table[{N[10^rd], fk[at, bt, U01, U02, 10^(rd)^2*d, 1]}, {rd, rdmin, 
+c = Table[{N[10^rd], fk[at, bt, U01, U02, 1/(d*10^(rd)^2), 1]}, {rd, rdmin, 
     rdmax, (rdmax - rdmin)/resolution}];
 Export["analytic_rates.csv", N[c]]
