@@ -8,7 +8,6 @@ stmp = Transpose[{Normalize[EvecWtmp[[1]]],
 invstmp = Simplify[Assuming[{w12 > 0, w21 > 0}, Inverse[stmp]]];
 DiagW = Simplify[invstmp.W.stmp];
 BCu = {{Exp[u1/kt], 0}, {0, Exp[u2/kt]}};
-ince they cancel out! *)
 DiagW = DiagW /. -w12 - w21 -> \[Alpha]
 EvecW = EvecWtmp /. w21/w12 -> \[Beta]
 s = Transpose[{Normalize[EvecW[[1]]], Normalize[EvecW[[2]]]}] 
