@@ -49,8 +49,8 @@ To investigate this effect a simplified system of diffusing particles in the vic
 
 
 \begin{figure}[H]
-    \input{plots/Skizze.eps_tex}
-    \caption{Sketch of the system consisting of sink and fluctuating barrier. Sink radius is $R_s$, potential barrier boarders are $r=a$ and $r=b$. Barrier transition rates between states $U_0$ and $U_1$ are $\gamma_{01}, \gamma_{10}$.}
+    \input{plots/tSkizzeSmall.eps_tex}
+    \caption{Sketch of the system consisting of sink and fluctuating barrier. Sink radius is $R_s$, gap between sink and Barrier is of with $l$ and barrier width is $g\cdot l$. Barrier transition rates between states $U_0$ and $U_1$ are $\gamma_{01}, \gamma_{10}$.}
 \label{fig0}
 \end{figure}
 
@@ -114,12 +114,23 @@ For this simplified system we calculate the radial steady state density profiles
 \caption{Steady state density profiles $\rho_0, \rho_1$ for states $U_0, U_1$ of the barrier and mean density profile $\rho_m$ vs. distance from center of sink. All parameters but decay length are fixed: $a=6$, $b=10$, $U_1 = 10 K_B T, U_0 = 0$ are constant and decay length is A) $r_d = 20$, B) $r_d=2$, and C) $r_d=0.5$.}
 \label{fig1}
 \end{figure}
-It becomes obvious, that for a certain value of the decay length comparable to the barrier dimensions the density inside the barrier is considerably higher that what is is for decay lengths far off.
+It becomes obvious, that for a certain value of the decay length comparable to the barrier dimensions the density inside the barrier is considerably higher that what is is for decay lengths far off. This is also directly reflected in the resulting reaction rates. For a certain decay length depending on the barrier spacing the reaction rate takes a maximum value. This phenomenon has previously been observed in escape over fluctuating barriers where a minimum in mean first passage times of trapped particles over a fluctuating barrier is known as \emph{Resonant Activation}.
 \begin{figure}[H]
-\includegraphics[width= .5 \textwidth]{plots/v_rates.pdf}
-\caption{normalized absorption rate vs. decay length for attractive fluctuating barrier. \newline Parameters are $U_1 = -10 K_B T, U_0= 0, g = 1$ and $t=2,5,10$. Approximation for very fast and very slow barrier fluctuations are depicted by dashed blue and red lines respectively. State points from the density profiles are marked by black crosses.}
+\includegraphics[width= .5 \textwidth]{plots/ab_rates.pdf}
+\includegraphics[width= .5 \textwidth]{plots/rb_rates.pdf}
+\caption{normalized absorption rate vs. decay length for attractive and repulsive fluctuating barrier. \newline Parameters are $U_1 = \pm 10 K_B T, U_0= 0, g = 1$ and $t=2,5,10$. Approximation for very fast and very slow barrier fluctuations are depicted by dashed blue and red lines respectively. State points from the density profiles are marked by black crosses.}
 \label{fig3}
 \end{figure}
+The limits in fig \ref{fig3} can be derived from the full solution of for the absorption rate by means of ether a Taylor expansion in the case of the $r_d \gg 1$ case:
+\begin{equation}
+    K=bla
+    \label{rd_large}
+\end{equation}
+Or by collecting the leading orders in nominator and denominator separately in the case of $r_d \ll 1$:
+\begin{equation}
+    K=bla
+    \label{rd_small}
+\end{equation}
 We find that in the limit of fast barrier fluctuations i.e. $r_d \ll 1$ the absorption rate becomes equal to
 \begin{align}
     K &= \frac{4 \pi D ab}{ab - \varepsilon(b-a)(1-\exp[U_1/2])}; \\
