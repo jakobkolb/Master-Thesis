@@ -32,7 +32,7 @@ rhodash[r_] = {{1, 1/r, 0, 0}, {0, 0,
 (* These are the "NEW" boundary conditions *)
 
 lgs1 = Join[
-   4 \[Pi] RSink^2 rhodash'[RSink] - 
+   rhodash'[RSink] - 
     kReact rhodash[RSink], {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 
      0, 0, 0}}, 2];
 (* This was the old boundary condition *)
@@ -64,8 +64,7 @@ c = Join[c, {{0}}];
 
 rhodash1[r_] = rhodash[r].c[[1 ;; 4]];
 rhodash2[r_] = rhodash[r].c[[5 ;; 8]];
-rhodash3[r_] = 
-  Simplify[rhodash[r].c[[9 ;; 12]], TimeConstraint -> Infinity];
+rhodash3[r_] = Simplify[rhodash[r].c[[9 ;; 12]]];
 n = Limit[Total[Total[s.rhodash3[r]]], r -> Infinity]
 (*Calculate density profiles*)
 rho1[r_] = s.rhodash1[r]/n;
@@ -75,9 +74,7 @@ rho3[r_] = s.rhodash3[r]/n;
 
 rhom1[r_] = Part[rho1[r], 1] + Part[rho1[r], 2];
 rhom2[r_] = Part[rho2[r], 1] + Part[rho2[r], 2];
-rhom3[r_] = 
-  Simplify[Part[rho3[r], 1] + Part[rho3[r], 2], 
-   TimeConstraint -> Infinity];
+rhom3[r_] = Part[rho3[r], 1] + Part[rho3[r], 2];
 (* Calculate absorption rate,this is just kReact x rho[RSink] for \
 this problem, as deduced from B.C. *)
 
@@ -87,6 +84,6 @@ Clear[u1, u2, \[Alpha], \[Beta], a, b, kReact]
 ktmp =  Total[rhom1'[RSink]];
 Put[ktmp, "non_simplified_ratev3.tmp"]
 
-k = Simplify[ktmp, TimeConstraint -> Infinity]
-k >> "simplified_ratev3.tmp"
+k = Simplify[ktmp]
+Put[k,"simplified_ratev3.tmp"]
 k

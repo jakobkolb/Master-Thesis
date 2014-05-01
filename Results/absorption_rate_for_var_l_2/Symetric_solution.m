@@ -157,8 +157,8 @@ For[i = 1, i <= 3, i++,
     rmax, (rmax - rmin)/resolution}];
  ]
 Clear[a, b, u, dr, rmin, rmax, r1, r2, g, t];
-For[i = 1, i <= 4, i++,
- g = gvalues[[i]];
+For[i = 1, i <= 3, i++,
+ t = lvalues[[i]];
  nfile1 = "arate" <> ToString[t] <> ".tsv";
  nfile2 = "alrate" <> ToString[t] <> ".tsv";
  nfile3 = "asrate" <> ToString[t] <> ".tsv";
@@ -194,8 +194,8 @@ For[i = 1, i <= 3, i++,
     rmax, (rmax - rmin)/resolution}];
  ]
 Clear[a, b, u, dr, rmin, rmax, r1, r2, g, t];
-For[i = 1, i <= 4, i++,
- g = gvalues[[i]];
+For[i = 1, i <= 3, i++,
+ t = lvalues[[i]];
  nfile1 = "rrate" <> ToString[t] <> ".tsv";
  nfile2 = "rlrate" <> ToString[t] <> ".tsv";
  nfile3 = "rsrate" <> ToString[t] <> ".tsv";
