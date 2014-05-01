@@ -14,7 +14,7 @@ Rmax = 10;
 t0 = 0;
 t1 = 50;
 rd = 1;
-resolution = 1000
+resolution = 10000
 u1[r_] := U01 Exp[-((r - a)/b)^n];
 u2[r_] := U02 Exp[-((r - a)/b)^n];
 pde = {D[\[Rho]1[r, t], t] == 
