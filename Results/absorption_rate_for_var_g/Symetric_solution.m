@@ -145,13 +145,13 @@ For[i = 1, i <= 4, i++,
  rmin = -3;
  rmax = 4;
  tab1[[i, All, All]] = 
-  Table[N[{10^r, fk[a, b, u, 10^-r]}], {r, rmin, 
+  Table[N[{10^r, fk[a, b, u, 10^-r]/klim0[a,b,u]}], {r, rmin, 
     rmax, (rmax - rmin)/resolution}];
  tab2[[i, All, All]] = 
-  Table[N[{10^r, fksmallx[a, b, u, 10^-r]}], {r, rmin, 
+  Table[N[{10^r, fksmallx[a, b, u, 10^-r]/klim0[a,b,u]}], {r, rmin, 
     rmax, (rmax - rmin)/resolution}];
  tab3[[i, All, All]] = 
-  Table[N[{10^r, fklargex[a, b, u, 10^-r]}], {r, rmin, 
+  Table[N[{10^r, fklargex[a, b, u, 10^-r]/klim0[a,b,u]}], {r, rmin, 
     rmax, (rmax - rmin)/resolution}];
  ]
 Clear[a, b, u, dr, rmin, rmax, r1, r2, g, t];
@@ -183,13 +183,13 @@ For[i = 1, i <= 4, i++,
  rmin = -1;
  rmax = 3;
  tab1[[i, All, All]] = 
-  Table[N[{10^r, fk[a, b, u, 10^-r]}], {r, rmin, 
+  Table[N[{10^r, fk[a, b, u, 10^-r]/klim0[a,b,u]}], {r, rmin, 
     rmax, (rmax - rmin)/resolution}];
  tab2[[i, All, All]] = 
-  Table[N[{10^r, fksmallx[a, b, u, 10^-r]}], {r, rmin, 
+  Table[N[{10^r, fksmallx[a, b, u, 10^-r]/klim0[a,b,u]}], {r, rmin, 
     rmax, (rmax - rmin)/resolution}];
  tab3[[i, All, All]] = 
-  Table[N[{10^r, fklargex[a, b, u, 10^-r]}], {r, rmin, 
+  Table[N[{10^r, fklargex[a, b, u, 10^-r]/klim0[a,b,u]}], {r, rmin, 
     rmax, (rmax - rmin)/resolution}];
  ]
 Clear[a, b, u, dr, rmin, rmax, r1, r2, g, t];

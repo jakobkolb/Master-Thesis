@@ -3,16 +3,16 @@
 import numpy as np
 import matplotlib.pyplot as mp
 
-save = 0
+save = 1
 
 g_values = [1,4,16,64]
 resolution = 100
 
-asrate_max = [1.25,1.5,2,1.5]
+asrate_max = [1.3,1.5,1.7,1.5]
 alrate_max = [1.12,1.2,1.29,1.05]
 
-rsrate_max = [1.1,1.3,1.4,1.5]
-rlrate_max = [1.1,1.25,1.35,1.5]
+rsrate_max = [1.1,1.2,1.3,1.5]
+rlrate_max = [0.8,1.,1.2,1.5]
 
 arate = {}
 asrate = {}
@@ -80,8 +80,8 @@ ln3a = mp.plot(alrate[`g_values[0]`][:,0],  alrate[`g_values[0]`][:,1], 'b-.')
 ln3b = mp.plot(alrate[`g_values[1]`][:,0],  alrate[`g_values[1]`][:,1], 'b-.')
 ln3c = mp.plot(alrate[`g_values[2]`][:,0],  alrate[`g_values[2]`][:,1], 'b-.')
 ax1.set_xscale('log')
-ax1.set_ylim([1.1,1.8])
-ax1.set_yticks(np.arange(1.1,1.81,0.1))
+ax1.set_ylim([1,1.8])
+ax1.set_yticks(np.arange(1,1.81,0.1))
 ax1.set_ylabel(r'$ K/K_{r_d \rightarrow \infty}$')
 ax1.set_xlabel(r'$r_d$')
 ax1.annotate('increasing $g$', xy=(10**0.5, 1.05),  xycoords='data',
