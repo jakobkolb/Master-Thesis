@@ -80,7 +80,7 @@ Now we can give a steady state solution to eq. \eqref{mfpe} in terms of eigenfun
     \tilde{\rho}_{1}^{(j)}(r) &= c_{1,1}^{(j)} + c_{1,2}^{(j)} \frac{1}{r} \\
     \tilde{\rho}_{n \ne 1}^{(j)}(r) &= c_{n,1}^{(j)}\frac{1}{r} \exp\left[-r\sqrt{\frac{\lambda_n}{D}}\right] + c_{n,2}^{(j)}\frac{1}{r} \exp\left[r\sqrt{\frac{\lambda_n}{D}}\right]  \nonumber
 \end{align}
-separately for the regions $(I)$, $(II)$ and $(III)$ exploiting the fact that the Fokker-Planck operator $\mathbb{F}$ is invariant under the transormations $\mathbb{T}$ and $\mathbb{D}$ for $r\ne a, b$. The coefficients $c^{(j)}_{n,k}$ have to be obtained from boundary and fitting conditions at $r=a,b$. From this solution it is visible that the spacial influence of the potential fluctuations decays with a certain \textit{decay length} equal to
+separately for the regions $(I)$, $(II)$ and $(III)$ exploiting the fact that the Fokker-Planck operator $\mathbb{F}$ is invariant under the tranfsormations $\mathbb{T}$ and $\mathbb{D}$ for $r\ne a, b$. The coefficients $c^{(j)}_{n,k}$ have to be obtained from boundary and fitting conditions at $r=a,b$. From this solution it is visible that the spacial influence of the potential fluctuations decays with a certain \textit{decay length} equal to
 \begin{equation}
     r_d = \left\{\sqrt{\frac{\lambda_m}{D}}\right\}^{-1}
     \label{decay_length}
@@ -110,53 +110,30 @@ The coefficients $c_{n,i}^{(j)}$ in eq. \eqref{solution} are calculated by apply
 We consider the most simple model to illustrate some basic features of the model. Therefore we set $U_0$ to zero and vary only $U_1$. Furthermore, we take the transition rates between these states to be symmetric i.e. $\gamma_{01}=\gamma_{10}$.
 For this simplified system we calculate the radial steady state density profiles resulting from the reverse transform of eqs. \eqref{solution} and the solution of the system of linear equations for the remaining coefficients.
 \begin{figure}[H]
-\includegraphics[width= .5 \textwidth]{plots/density_profiles.pdf}
-\caption{Steady state density profiles $\rho_0, \rho_1$ for states $U_0, U_1$ of the barrier and mean density profile $\rho_m$ vs. distance from center of sink. All parameters but decay length are fixed: $a=6$, $b=10$, $U_1 = 10 K_B T, U_0 = 0$ are constant and decay length is A) $r_d = 20$, B) $r_d=2$, and C) $r_d=0.5$.}
+\includegraphics[width= .45 \textwidth]{plots/d1.pdf}
+\includegraphics[width= .45 \textwidth]{plots/d2.pdf}
+\includegraphics[width= .45 \textwidth]{plots/d3.pdf}
+\caption{Steady state density profiles $\rho_0, \rho_1$ for states $U_0, U_1$ of the barrier and mean density profile $\rho_m$ vs. distance from center of sink. All parameters but decay length are fixed: $l=5$, $g=1$, $U_1 = 10 K_B T, U_0 = 0$ are constant and decay length is A) $r_d = 20$, B) $r_d=2$, and C) $r_d=0.5$. \emph{Density profiles strongly depend on the decay length.}}
 \label{fig1}
 \end{figure}
 It becomes obvious, that for a certain value of the decay length comparable to the barrier dimensions the density inside the barrier is considerably higher that what is is for decay lengths far off. This is also directly reflected in the resulting reaction rates. For a certain decay length depending on the barrier spacing the reaction rate takes a maximum value. This phenomenon has previously been observed in escape over fluctuating barriers where a minimum in mean first passage times of trapped particles over a fluctuating barrier is known as \emph{Resonant Activation}.
 \begin{figure}[H]
 \includegraphics[width= .5 \textwidth]{plots/ab_rates.pdf}
 \includegraphics[width= .5 \textwidth]{plots/rb_rates.pdf}
-\caption{normalized absorption rate vs. decay length for attractive and repulsive fluctuating barrier. \newline Parameters are $U_1 = \pm 10 K_B T, U_0= 0, g = 1$ and $t=2,5,10$. Approximation for very fast and very slow barrier fluctuations are depicted by dashed blue and red lines respectively. State points from the density profiles are marked by black crosses.}
+\caption{normalized absorption rate vs. decay length for attractive and repulsive fluctuating barrier. \newline Parameters are $U_1 = \pm 10 K_B T, U_0= 0, g = 1$ and $l=2,5,10$. Approximation for very fast and very slow barrier fluctuations are depicted by dashed blue and red lines respectively. State points from the density profiles are marked by black crosses. \emph{The resonance effect increases with barrier spacing}.}
 \label{fig3}
 \end{figure}
-The limits in fig \ref{fig3} can be derived from the full solution of for the absorption rate by means of ether a Taylor expansion in the case of the $r_d \gg 1$ case:
+The limits in fig \ref{fig3} can be derived from the full solution of for the absorption rate by means of ether a Taylor expansion in the case of the $r_d \gg 1$ case or by reducing nominator and denominator separately to leading orders in the $r_d \ll 1$ case. The slow fluctuation i.e. long decay limit can treated by standard Debye theory. In this case one half of the Brownian particles move subject to the potential in one state respectively with no switching possible. Then the total rate is the average of the rates over the stable barriers in each state. In the fast fluctuation i.e. short decay limit the changes in the reaction coordinate are much faster that the changes in the spatial coordinate. Therefore the Brownian particles will move subject to a mean potential barrier. This limit can then again be calculated by means of standard Debye theory.\\ Note that this limit is \emph{not} part of the solution we obtained. This is due to the fact, that the order of the limits from smooth to step potential and from finite to infinite switching rates is not arbitrary. This is illustrated by the comparison of results from numeric integration of the reaction rate over a barrier of shape
 \begin{equation}
-    K=bla
-    \label{rd_large}
+    U_n(r) = U_n \exp \left[- \left(\frac{r-R_s-l(1+g/2)}{gl}\right)^{n} \right] 
+    \label{generalized_gaussian}
 \end{equation}
-Or by collecting the leading orders in nominator and denominator separately in the case of $r_d \ll 1$:
-\begin{equation}
-    K=bla
-    \label{rd_small}
-\end{equation}
-We find that in the limit of fast barrier fluctuations i.e. $r_d \ll 1$ the absorption rate becomes equal to
-\begin{align}
-    K &= \frac{4 \pi D ab}{ab - \varepsilon(b-a)(1-\exp[U_1/2])}; \\
-    \varepsilon &= \frac{2(1+\exp[U_1/2])}{3+exp[U_1]}
-    \label{kliminf}
-\end{align}
-whereas the naive Debye rate for an average potential barrier would not have the $\varepsilon$ correction.
+compared to the solution of the $n \rightarrow \infty$ solution of the boxcar potential.
 \begin{figure}[H]
-\includegraphics[width= .5 \textwidth]{plots/diff_plot.pdf}
-\caption{A) difference in limiting cases of absorption rate vs barrier hight $U_1$ for different $t$ where $g=1$. \newline B) difference in limiting cases of absorption rate vs. $t$ for various positive $U_1$ at fixed $g=1$.}
-\label{fig4}
+    \includegraphics[width= 0.5 \textwidth]{plots/rates_for_barrier_transition.pdf}
+    \caption{Results from numeric integration with repulsive generalized Gaussian potential barrier vs. analytic results from step potential. Debye rate for average boxcar potential marked blue. \emph{For smooth potentials in fast switching limit the Rate is that over an average potential barrier}.}
 \end{figure}
-Ok, this looks interesting but at least for the second plot I have no idea how to explain this behaviour whatsoever.
-\begin{figure}[H]
-\includegraphics[width= .5 \textwidth]{plots/resonant_decay_length.pdf}
-\caption{Resonant decay length $r_d^{(res)}$ vs. system size $t$ for fixed barrier hight $U_1=10 K_B T$ and barrier gap to width ratio $g=1$. The resonant decay length obviously shows a power law dependency $r_d^{(res)}=C\cdot t^{\kappa}$, where the exponent $\kappa$ is only weakly depending on the gap to width ratio for $g \approx 1$.}
-\label{fig5}
-\end{figure}
-
-\begin{figure}[H]
-\includegraphics[width= .5 \textwidth]{plots/powerlaw_parameters.pdf}
-\caption{Dependence of power law prefactor $C$ and exponent $\kappa$ on the barrier gap to width ratio $g$. }
-\label{fig6}
-\end{figure}
-
-
+The solution for the step potential is a valid approximation of smooth potentials when the switching rate and diffusion constant are such that the decay length $r_d$ is larger than the length scale of potential variations. If the differences in the particle densities in different states decay much faster than the potential changes the system can be described by Debye theory for an average potential barrier. 
 
 \section{Concluding Remarks}
 
