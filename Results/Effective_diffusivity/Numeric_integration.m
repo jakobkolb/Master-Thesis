@@ -14,7 +14,7 @@ Rmax = 10;
 t0 = 0;
 t1 = 50;
 rd = 1;
-resolution = 100
+resolution = 1000
 u1[r_] := U01 Exp[-((r - a)/b)^n];
 u2[r_] := U02 Exp[-((r - a)/b)^n];
 pde = {D[\[Rho]1[r, t], t] == 
@@ -43,18 +43,18 @@ ic = {
 w21 = d/(2*rd^2);
 w12 = w21;
 sol = NDSolve[{pde, bc, ic}, {\[Rho]1, \[Rho]2}, {t, t1, t1}, {r, 
-    Rsink, Rmax}, MaxSteps -> Infinity, MaxStepFraction -> 0.02, 
-   AccuracyGoal -> 15, StartingStepSize -> 0.01, 
+    Rsink, Rmax}, MaxSteps -> Infinity, MaxStepFraction -> 0.002, 
+   AccuracyGoal -> 15, StartingStepSize -> 0.001, 
    Method -> {"MethodOfLines", 
      "SpatialDiscretization" -> {"TensorProductGrid", 
-       "MinPoints" -> 10000}}];
+       "MinPoints" -> 24000}}];
 \[Rho]1eq[r_] = \[Rho]1[r, t1] /. sol;
 \[Rho]2eq[r_] = \[Rho]2[r, t1] /. sol;
 \[Rho]tot[r_] = (\[Rho]1[r, t1] + \[Rho]2[r, t1]) /. sol;
 
 rhovals = 
  Partition[
-  Flatten[Table[{r, \[Rho]tot[r]}, {r, Rsink, 
-     Rmax, (Rmax - Rsink)/resolution}]], 2]
+  Flatten[Table[{r, \[Rho]tot[r], (u1[r]+u2[r])/2}, {r, Rsink, 
+     Rmax, (Rmax - Rsink)/resolution}]], 3]
 
 Export["rhovals.tsv", N[rhovals], "TSV"]

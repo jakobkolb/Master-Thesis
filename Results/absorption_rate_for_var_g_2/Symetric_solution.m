@@ -160,8 +160,8 @@ Clear[a, b, u, dr, rmin, rmax, r1, r2, g, t];
 For[i = 1, i <= 4, i++,
  g = gvalues[[i]];
  nfile1 = "arate" <> ToString[g] <> ".tsv";
- nfile2 = "asrate" <> ToString[g] <> ".tsv";
- nfile3 = "alrate" <> ToString[g] <> ".tsv";
+ nfile2 = "alrate" <> ToString[g] <> ".tsv";
+ nfile3 = "asrate" <> ToString[g] <> ".tsv";
  Export[nfile1, tab1[[i, All, All]], "TSV"];
  Export[nfile2, tab2[[i, All, All]], "TSV"];
  Export[nfile3, tab3[[i, All, All]], "TSV"];
@@ -200,8 +200,8 @@ Clear[a, b, u, dr, rmin, rmax, r1, r2, g, t];
 For[i = 1, i <= 4, i++,
  g = gvalues[[i]];
  nfile1 = "rrate" <> ToString[g] <> ".tsv";
- nfile2 = "rsrate" <> ToString[g] <> ".tsv";
- nfile3 = "rlrate" <> ToString[g] <> ".tsv";
+ nfile2 = "rlrate" <> ToString[g] <> ".tsv";
+ nfile3 = "rsrate" <> ToString[g] <> ".tsv";
  Export[nfile1, tab1[[i, All, All]], "TSV"];
  Export[nfile2, tab2[[i, All, All]], "TSV"];
  Export[nfile3, tab3[[i, All, All]], "TSV"];
