@@ -3,16 +3,16 @@
 import numpy as np
 import matplotlib.pyplot as mp
 
-save = 0
+save = 1
 
 g_values = [2,5,10]
 resolution = 100
 
-asrate_max = [1.25,1.5,2]
-alrate_max = [1.12,1.2,1.29]
+asrate_max = [1.25,1.3,1.35]
+alrate_max = [1.2,1.15,1.1]
 
-rsrate_max = [1.1,1.3,1.4]
-rlrate_max = [1.1,1.25,1.35]
+rsrate_max = [1.14,1.17,1.22]
+rlrate_max = [0.6,0.8,0.9]
 
 arate = {}
 asrate = {}
@@ -80,11 +80,11 @@ ln3a = mp.plot(alrate[`g_values[0]`][:,0],  alrate[`g_values[0]`][:,1], 'b-.')
 ln3b = mp.plot(alrate[`g_values[1]`][:,0],  alrate[`g_values[1]`][:,1], 'b-.')
 ln3c = mp.plot(alrate[`g_values[2]`][:,0],  alrate[`g_values[2]`][:,1], 'b-.')
 ax1.set_xscale('log')
-ax1.set_ylim([1.1,1.8])
-ax1.set_yticks(np.arange(1.1,1.81,0.1))
+ax1.set_ylim([1,1.4])
+ax1.set_yticks(np.arange(1,1.41,0.1))
 ax1.set_ylabel(r'$ K/K_{S}$')
 ax1.set_xlabel(r'$r_d$')
-ax1.annotate('increasing $g$', xy=(10**0.5, 1.05),  xycoords='data',
+ax1.annotate('increasing $g$', xy=(10**0.5, 1.1),  xycoords='data',
                 xytext=(40, 60), textcoords='offset points',
                 arrowprops=dict(arrowstyle="<-")
                 )
