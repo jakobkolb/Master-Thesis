@@ -5,14 +5,14 @@ import matplotlib.pyplot as mp
 
 save = 1
 
-g_values = [1,4,16,64]
+g_values = [1,4,16]
 resolution = 100
 
-asrate_max = [1.3,1.5,1.7,1.5]
-alrate_max = [1.12,1.2,1.29,1.05]
+asrate_max = [1.3,1.5,1.7]
+alrate_max = [1.12,1.2,1.29]
 
-rsrate_max = [1.1,1.2,1.3,1.5]
-rlrate_max = [0.8,1.,1.2,1.5]
+rsrate_max = [1.1,1.2,1.3]
+rlrate_max = [0.8,1.,1.2]
 
 arate = {}
 asrate = {}
@@ -84,7 +84,7 @@ ax1.set_ylim([1,1.8])
 ax1.set_yticks(np.arange(1,1.81,0.1))
 ax1.set_ylabel(r'$ K/K_{S}$')
 ax1.set_xlabel(r'$r_d$')
-ax1.annotate('increasing $g$', xy=(10**0.5, 1.05),  xycoords='data',
+ax1.annotate('increasing $l$', xy=(10**1, 1.1),  xycoords='data',
                 xytext=(40, 60), textcoords='offset points',
                 arrowprops=dict(arrowstyle="<-")
                 )
@@ -111,11 +111,11 @@ ln3a = mp.plot(rlrate[`g_values[0]`][:,0],  rlrate[`g_values[0]`][:,1], 'b-.')
 ln3b = mp.plot(rlrate[`g_values[1]`][:,0],  rlrate[`g_values[1]`][:,1], 'b-.')
 ln3c = mp.plot(rlrate[`g_values[2]`][:,0],  rlrate[`g_values[2]`][:,1], 'b-.')
 ax2.set_xscale('log')
-ax2.set_ylim([0.4,1.5])
+ax2.set_ylim([0.4,1.6])
 ax2.legend(loc = 'upper left')
 ax2.set_ylabel(r'$ K/K_{S}$')
 ax2.set_xlabel(r'$r_d$')
-ax2.annotate('increasing $l$', xy=(10**0, 0.6),  xycoords='data',
+ax2.annotate('increasing $l$', xy=(10**0.6, 0.6),  xycoords='data',
                 xytext=(60, 60), textcoords='offset points',
                 arrowprops=dict(arrowstyle="<-")
                 )
