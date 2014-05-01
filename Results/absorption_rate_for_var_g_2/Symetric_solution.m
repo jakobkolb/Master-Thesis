@@ -135,9 +135,7 @@ tab1 = Table[0, {k, 1, 4}, {i, 1, resolution + 1}, {l, 1, 2}];
 tab2 = Table[0, {k, 1, 4}, {i, 1, resolution + 1}, {l, 1, 2}];
 tab3 = Table[0, {k, 1, 4}, {i, 1, resolution + 1}, {l, 1, 2}];
 For[i = 1, i <= 4, i++,
- r1 = -0.2;
- r2 = 2.1;
- t = 2;
+ t = 5;
  g = gvalues[[i]];
  Print[g];
  a = 1 + t;
@@ -175,8 +173,6 @@ tab1 = Table[0, {k, 1, 4}, {i, 1, resolution + 1}, {l, 1, 2}];
 tab2 = Table[0, {k, 1, 4}, {i, 1, resolution + 1}, {l, 1, 2}];
 tab3 = Table[0, {k, 1, 4}, {i, 1, resolution + 1}, {l, 1, 2}];
 For[i = 1, i <= 4, i++,
- r1 = -0.2;
- r2 = 2.1;
  t = 5;
  g = gvalues[[i]];
  Print[g];
