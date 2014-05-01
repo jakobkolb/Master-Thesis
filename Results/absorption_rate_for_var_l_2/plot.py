@@ -84,7 +84,7 @@ ax1.set_ylim([1,1.4])
 ax1.set_yticks(np.arange(1,1.41,0.1))
 ax1.set_ylabel(r'$ K/K_{S}$')
 ax1.set_xlabel(r'$r_d$')
-ax1.annotate('increasing $g$', xy=(10**0.5, 1.1),  xycoords='data',
+ax1.annotate('increasing $l$', xy=(10**0.5, 1.1),  xycoords='data',
                 xytext=(40, 60), textcoords='offset points',
                 arrowprops=dict(arrowstyle="<-")
                 )

@@ -18,12 +18,17 @@ mp.rcParams.update(params)
 fig = mp.figure()
 ax1 = fig.add_subplot(111)
 for i in range(1,6):
-    mp.plot(rates[:,0], rates[:,i], label='U1='+`i*2-6`)
+    if i in [1,2]:
+        mp.plot(rates[:,0], rates[:,i], 'b', label='U1='+`i*2-6`, alpha = i/2.)
+    elif i == 3:
+        mp.plot(rates[:,0], rates[:,i], color = '0.55', label='U1='+`i*2-6`)
+    elif i in [4,5]:
+        mp.plot(rates[:,0], rates[:,i], 'r', label='U1='+`i*2-6`, alpha = (6-i)/2.)
 
 ax1.legend(loc='lower right')
 ax1.set_xscale('log')
-ax1.set_xlabel(r'$W_{12}$')
-ax1.set_ylabel(r'$K/4 \pi D$')
+ax1.set_xlabel(r'$W_{10}$')
+ax1.set_ylabel(r'$K/K_{S}$')
 
 #You must select the correct size of the plot in advance
 #fig.set_size_inches(3.54,2.*3.84)

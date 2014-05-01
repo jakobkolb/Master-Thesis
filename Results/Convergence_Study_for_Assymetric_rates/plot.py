@@ -19,10 +19,10 @@ mp.rcParams.update(params)
 fig = mp.figure()
 ax1 = fig.add_subplot(111)
 
-mp.plot(analytic_rates[:,0], analytic_rates[:,1],label='analytic \n solution')
+mp.plot(analytic_rates[:,0], analytic_rates[:,1],label='analytic \n solution', color = '0.55')
 for i in range(1,7):
-    mp.plot(numeric_rates[:,0], numeric_rates[:,i], 'o', label='n='+`np.power(2,i)`)
-
+    mp.plot(numeric_rates[:,0], numeric_rates[:,i]/numeric_rates[-1,i], 'ro', label='n='+`np.power(2,i)`, alpha=i/6., markersize = 4)
+ax1.set_ylim([0.95,1.9])
 ax1.legend()
 ax1.set_ylabel(r'$K/4 \pi D$')
 ax1.set_xlabel(r'$W_{01}$')

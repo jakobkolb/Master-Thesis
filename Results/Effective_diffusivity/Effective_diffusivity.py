@@ -19,7 +19,7 @@ for i in range(1,resolution-1):
         dsum += np.exp(u_n[j])/(d_n[j]*r_n[j]**2)
         if (d_n[j]*r_n[j] == 0):
             print 'ERROR', i, j
-    d_n[i] = (r_n[i]**2*np.exp(-u_n[i]))/(4*np.pi*rho_n[i]*np.exp(u_n[i])/(kd*(r_n[i+1]-r_n[i])) - dsum)
+    d_n[i] = (np.exp(u_n[i])/r_n[i]**2)/(4*np.pi*rho_n[i]*np.exp(u_n[i])/(kd*(r_n[i+1]-r_n[i])) - dsum)
 print i
 for i in range(resolution-1):
     dsum = 0
