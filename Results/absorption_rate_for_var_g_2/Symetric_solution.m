@@ -129,7 +129,7 @@ fksmallx[a_, b_, u_, x_] := (b - b E^u + a (-1 - 2 b + E^u))/(
      a^2 b (-4 b (-1 + E^u) + 3 (-1 + E^u)^2 + b^2 (-5 + 2 E^u)) - 
      a (4 b E^u - E^u (-1 + E^u) + b^3 (7 - 8 E^u + E^(2 u)))) x^2
 
-gvalues = {1, 4, 16, 64}
+gvalues = {1, 4, 16}
 resolution = 100
 tab1 = Table[0, {k, 1, 4}, {i, 1, resolution + 1}, {l, 1, 2}];
 tab2 = Table[0, {k, 1, 4}, {i, 1, resolution + 1}, {l, 1, 2}];
@@ -142,8 +142,8 @@ For[i = 1, i <= 4, i++,
  b = 1 + (g + 1) t;
  u = -10;
  dr = 0.02;
- rmin = -3;
- rmax = 4;
+ rmin = -2;
+ rmax = 5;
  tab1[[i, All, All]] = 
   Table[N[{10^r, fk[a, b, u, 10^-r]}], {r, rmin, 
     rmax, (rmax - rmin)/resolution}];
@@ -167,7 +167,7 @@ For[i = 1, i <= 4, i++,
 
 
 
-gvalues = {1, 4, 16, 64}
+gvalues = {1, 4, 16}
 resolution = 100
 tab1 = Table[0, {k, 1, 4}, {i, 1, resolution + 1}, {l, 1, 2}];
 tab2 = Table[0, {k, 1, 4}, {i, 1, resolution + 1}, {l, 1, 2}];
