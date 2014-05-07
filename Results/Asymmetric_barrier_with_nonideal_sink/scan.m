@@ -1,30 +1,34 @@
 rate[u1_,u2_,a_,b_,\[Alpha]_,\[Beta]_,kReact_]=Get["short_rate.m"];
 
-u1 = -4
-u2 = 1
+l=5
+g=1
+rSink=1
 
-a = 2
-b = 20
+a = rSink+l;
+b = a+l*g;
 
-DGstar = 1000;
-v0 = 500;
-TLCS = 300;
-DS = -50;
-v0Trans = 10;
-DGthermo[T_] := DS (T - TLCS);
-DGkinetic = 1000;
-resolution = 20
+resolution = 20;
+wmin = -3;
+wmax = 2;
+w21 = 1;
+umin = -4;
+umax = 4;
+u2=0;
+kReact = 0.1;
+usteps = (umax-umin)/2
 
-rateT = Table[{0,0},{i,1,resolution}];
+rateT = Table[0,{i,1,usteps+2}];
+rateT[[1]]=Table[N[10^w12],{w12, wmin, wmax, (wmax - wmin)/resolution}];
 
-For[i = 1, i <= resolution, i++,
+
+For[i = 0, i <= usteps, i++,
     (* List of instructions *)
-    T = 270 + i*3;
-    kReact = v0 Exp[-DGstar / T];
-    k12 = v0Trans Exp[-(DGthermo[T] + DGkinetic)/T];
-    k21 = v0Trans Exp[-(DGkinetic)/T];
-    \[Alpha] = k12+k21;
-    \[Beta] = k21/k12;
-    rateT[[i]] = N[{1/T,rate[u1,u2,a,b,\[Alpha],\[Beta],kReact],kReact}]
+    u1 = umin+2*i+0.01;
+    Print[i+2, u1];
+    rateT[[i+2]] = Table[N[rate[u1,u2,a,b,Abs[-10^w12-w21],w21/10^w12,kReact]],{w12, wmin, wmax, (wmax - wmin)/resolution}];    
     ]
-Export["rate_data.tsv",rateT,"TSV"]
+Export["rate_data.tsv",Transpose[rateT],"TSV"]
+
+(* Table[N[10^w12],{w12, wmin, wmax, (wmax - wmin)/resolution}];
+Table[N[rate[u1,u2,a,b,Abs[-10^w12-w21],w21/10^w12,kReact]],{w12, wmin, wmax, (wmax - wmin)/resolution}]*)
+

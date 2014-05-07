@@ -84,12 +84,12 @@ ax1.set_ylim([1,1.8])
 ax1.set_yticks(np.arange(1,1.81,0.1))
 ax1.set_ylabel(r'$ K/K_{S}$')
 ax1.set_xlabel(r'$r_d$')
-ax1.annotate('increasing $l$', xy=(10**1, 1.1),  xycoords='data',
+ax1.annotate('increasing $g$', xy=(10**1, 1.1),  xycoords='data',
                 xytext=(40, 60), textcoords='offset points',
                 arrowprops=dict(arrowstyle="<-")
                 )
 if save == 1:
-    mp.savefig("ab_rates.pdf",
+    mp.savefig("g2_ab_rates.pdf",
             #This is simple recomendation for publication plots
             dpi=1000,
             # Plot will be occupy a maximum of available space
@@ -115,14 +115,14 @@ ax2.set_ylim([0.4,1.6])
 ax2.legend(loc = 'upper left')
 ax2.set_ylabel(r'$ K/K_{S}$')
 ax2.set_xlabel(r'$r_d$')
-ax2.annotate('increasing $l$', xy=(10**0.6, 0.6),  xycoords='data',
+ax2.annotate('increasing $g$', xy=(10**0.6, 0.6),  xycoords='data',
                 xytext=(60, 60), textcoords='offset points',
                 arrowprops=dict(arrowstyle="<-")
                 )
 
 
 if save==1:
-    mp.savefig("rb_rates.pdf",
+    mp.savefig("g2_rb_rates.pdf",
             #This is simple recomendation for publication plots
             dpi=1000,
             # Plot will be occupy a maximum of available space

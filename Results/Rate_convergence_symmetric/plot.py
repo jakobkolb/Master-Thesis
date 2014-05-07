@@ -34,7 +34,7 @@ for i in range(1,5):
     mp.plot(numeric_rates[:,0], numeric_rates[:,i]/analytic_rates[-1,1]/0.96, 'ro', markersize=4, label='n='+`np.power(2,i+3)`, alpha = i/4.)
 ax1.set_ylim([1,2])
 ax1.legend(loc='upper left')
-ax1.set_ylabel(r'$K/4 \pi D$')
+ax1.set_ylabel(r'$K/K_{S}$')
 ax1.set_xlabel(r'$r_{d}$')
 
 ax1.set_xscale('log')
@@ -43,7 +43,7 @@ ax1.set_xscale('log')
 #fig.set_size_inches(3.54,2.*3.84)
 fig.set_size_inches(3.54,2.64)
 
-mp.savefig("rates_for_barrier_transition.pdf",
+mp.savefig("conv_symmetric.pdf",
             #This is simple recomendation for publication plots
             dpi=1000,
             # Plot will be occupy a maximum of available space

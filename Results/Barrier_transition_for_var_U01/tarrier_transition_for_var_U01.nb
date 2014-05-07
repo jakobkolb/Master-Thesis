@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[    139145,       3593]
-NotebookOptionsPosition[    138824,       3578]
-NotebookOutlinePosition[    139160,       3593]
-CellTagsIndexPosition[    139117,       3590]
+NotebookDataLength[    139621,       3607]
+NotebookOptionsPosition[    139225,       3589]
+NotebookOutlinePosition[    139561,       3604]
+CellTagsIndexPosition[    139518,       3601]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -3471,6 +3471,8 @@ Cell[BoxData[
    3.606557942082727*^9, {3.60655803310812*^9, 3.606558049802333*^9}, {
    3.6065583358715553`*^9, 3.606558343168706*^9}, 3.606567904621799*^9}],
 
+Cell[CellGroupData[{
+
 Cell[BoxData[{
  RowBox[{
   RowBox[{"d", "=", "1"}], ";"}], "\[IndentingNewLine]", 
@@ -3480,22 +3482,25 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"U02", "=", "0"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"a", "=", "3"}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"l", "=", "5"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"b", "=", "1"}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"at", "=", 
-   RowBox[{"a", "-", "b"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"bt", "=", 
-   RowBox[{"a", "+", "b"}]}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"g", "=", "1"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"Rsink", "=", "1"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"at", "=", 
+   RowBox[{"Rsink", "+", "l"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"bt", "=", 
+   RowBox[{"Rsink", "+", "l", "+", 
+    RowBox[{"g", "*", "l"}]}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"wmin", "=", 
    RowBox[{"-", "3"}]}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"wmax", "=", "3"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"w21", "=", "1"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"resolution", "=", "100"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
@@ -3574,7 +3579,13 @@ Cell[BoxData[{
    3.6065686612080793`*^9}, 3.606569167628203*^9, {3.606569233677058*^9, 
    3.606569244317617*^9}, {3.6065693065108557`*^9, 3.6065693731661386`*^9}, {
    3.607257259942631*^9, 3.607257267213143*^9}, {3.607257369547956*^9, 
-   3.607257376905291*^9}}]
+   3.607257376905291*^9}, {3.608007060820389*^9, 3.608007109715164*^9}, {
+   3.60800733954178*^9, 3.608007351906522*^9}}],
+
+Cell[BoxData["\<\"analytic_rates_for_var_U01.csv\"\>"], "Output",
+ CellChangeTimes->{
+  3.608007114639518*^9, {3.608007415006161*^9, 3.608007435832847*^9}}]
+}, Open  ]]
 },
 WindowSize->{956, 714},
 WindowMargins->{{-9, Automatic}, {Automatic, -8}},
@@ -3594,7 +3605,10 @@ CellTagsIndex->{}
 Notebook[{
 Cell[557, 20, 143, 2, 32, "Input"],
 Cell[703, 24, 134222, 3447, 4279, "Input"],
-Cell[134928, 3473, 3892, 103, 517, "Input"]
+Cell[CellGroupData[{
+Cell[134950, 3475, 4100, 107, 539, "Input"],
+Cell[139053, 3584, 156, 2, 32, "Output"]
+}, Open  ]]
 }
 ]
 *)

@@ -32,7 +32,7 @@ ax1.set_ylabel(r'$K/K_{S}$')
 
 #You must select the correct size of the plot in advance
 #fig.set_size_inches(3.54,2.*3.84)
-fig.set_size_inches(3.54,3.54)
+fig.set_size_inches(3.54,2.64)
 
 mp.savefig("rates_for_barrier_transition.pdf",
             #This is simple recomendation for publication plots
