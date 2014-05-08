@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as mp
 from scipy.weave import inline
 from scipy.weave import converters
+
 data = np.loadtxt('rhovals.tsv')
 r_n = data[:,0]
 rho_n = data[:,1]
@@ -10,6 +11,7 @@ kd=1
 pi = np.pi
 
 resolution = np.shape(data)[0]
+print resolution
 d_n = np.ones((resolution))
 rho_eval = np.zeros((resolution))
 
@@ -48,8 +50,12 @@ while(dif > 0.1){
 
 inline(code, ['resolution', 'u_n', 'r_n', 'rho_n', 'kd', 'rho_eval', 'd_n', 'pi'], type_converters=converters.blitz)
 
-
-
+#for i in range(resolution-1):
+#    dsum = 0
+#    for j in range(i-1):
+#        dsum += (r_n[j+1]-r_n[j])*np.exp(u_n[j])/(d_n[j]*r_n[j]**2)
+#    rho_eval[i]=kd/(4*np.pi)*np.exp(-u_n[i])*dsum
+#    print i
 #Direct input
 mp.rcParams['text.latex.preamble']=[r"\usepackage{lmodern}"]
 #Options

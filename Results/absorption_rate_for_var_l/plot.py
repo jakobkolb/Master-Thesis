@@ -5,6 +5,9 @@ import matplotlib.pyplot as mp
 
 save = 1
 
+statepoints = [[1./0.02,1./0.2,1./2],[1.09836,2.13511,1.79642]]
+print statepoints
+
 g_values = [2,5,10]
 resolution = 100
 
@@ -79,6 +82,7 @@ ln2c = mp.plot(asrate[`g_values[2]`][:,0],  asrate[`g_values[2]`][:,1], 'r--')
 ln3a = mp.plot(alrate[`g_values[0]`][:,0],  alrate[`g_values[0]`][:,1], 'b-.')
 ln3b = mp.plot(alrate[`g_values[1]`][:,0],  alrate[`g_values[1]`][:,1], 'b-.')
 ln3c = mp.plot(alrate[`g_values[2]`][:,0],  alrate[`g_values[2]`][:,1], 'b-.')
+ax1.text(0.03, 0.95, 'A)', transform=ax1.transAxes, fontsize=12, va='top')
 ax1.set_xscale('log')
 ax1.set_ylim([0.98,1.32])
 ax1.set_xlim([10**(-1.5),10**(4)])
@@ -90,11 +94,12 @@ ax1.annotate('increasing $l$', xy=(10**0.5, 1.05),  xycoords='data',
                 arrowprops=dict(arrowstyle="<-")
                 )
 if save == 1:
-    mp.savefig("ab_rates.pdf",
+    mp.savefig("l_ab_rates.pdf",
             #This is simple recomendation for publication plots
             dpi=1000,
             # Plot will be occupy a maximum of available space
             bbox_inches='tight',
+            pad_inches = 0.1
             )
 
 fig2 = mp.figure()
@@ -111,10 +116,12 @@ ln2c = mp.plot(rsrate[`g_values[2]`][:,0],  rsrate[`g_values[2]`][:,1], 'r--')
 ln3a = mp.plot(rlrate[`g_values[0]`][:,0],  rlrate[`g_values[0]`][:,1], 'b-.')
 ln3b = mp.plot(rlrate[`g_values[1]`][:,0],  rlrate[`g_values[1]`][:,1], 'b-.')
 ln3c = mp.plot(rlrate[`g_values[2]`][:,0],  rlrate[`g_values[2]`][:,1], 'b-.')
+mp.plot(statepoints[0], statepoints[1], 'kx', label = 'state points')
+ax2.text(0.05, 0.91, 'B)', transform=ax1.transAxes, fontsize=12, va='top')
 ax2.set_xscale('log')
-ax2.set_ylim([0.93,2.9])
+ax2.set_ylim([0.93,3])
 ax2.set_xlim([10**(-1.5),10**(4)])
-ax2.legend(loc = 'upper left')
+ax2.legend(loc = 'upper right')
 ax2.set_ylabel(r'$ K/K_{r_d \rightarrow \infty}$')
 ax2.set_xlabel(r'$r_d$')
 ax2.annotate('increasing $l$', xy=(10**0, 1.4),  xycoords='data',
@@ -124,11 +131,12 @@ ax2.annotate('increasing $l$', xy=(10**0, 1.4),  xycoords='data',
 
 
 if save==1:
-    mp.savefig("rb_rates.pdf",
+    mp.savefig("l_rb_rates.pdf",
             #This is simple recomendation for publication plots
             dpi=1000,
             # Plot will be occupy a maximum of available space
             bbox_inches='tight',
+            pad_inches = 0.1
             )
 elif save==0:
     mp.show()
