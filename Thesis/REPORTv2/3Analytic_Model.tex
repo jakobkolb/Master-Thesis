@@ -1,11 +1,13 @@
 
-\section{Short Introduction to Stochastic Processes}
+\section{Fundamentals and Methods}
 \label{Short_Introduction_to_Stochastic_Processes}
-This part will introduce the basic equations that are relevant for the handling of Brownian motion as a stochastic process (and its realisations in a computational model) and give an equivalent Fokker-Planck equation. Furthermore it will treat the fluctuating potential barrier in terms of a Master-Equation. \\
-The combination of both will be used to treat the problem of reaction rates over fluctuating barrier as a system of coupled partial differential equations that can be used to derive an analytic expression for the wanted density profiles and reaction rates.
+This section will introduce some basic concepts and fundamentals of stochastic processes and reaction rate theory as they concern the problem under study. For a broader context please refer to standard textbooks \cite{VanKampen1992} or review papers on the topic \cite{Calef1983a, Bressloff2013}. The goal here is to give a framework for the treatment of multivariate Markov processes in discrete and continuous space and to present the reference case for diffusion controlled reactions rates in the Debye-Smoluchowski interpretation \cite{Smoluchowski1917a, Debye1942}. \\
+Therefore we take the well-trodden trail from the Chapman Kolmogorow equation via the Kramers Moyal expansion to the Kolmogorow forward or Fokker-Planck equation. Here we take a step to the side to calculate the drift and diffusion coefficients from the Langevin equation in the 'overdamped' case of a Brownian particle before we show the derivation of the Master equation again from the Chapman-Kolmogorow equation.\\
+Thereafter we use the methods introduced before to illustrate the treatment of multivariate Markov processes in discrete and continuous space. \\
+Finally we show a rigorous derivation of the diffusion controlled reaction rate from the Fokker-Planck description of a spherical sink embedded in a bath of Brownian particles.
 \subsection{The Fokker Planck Equation}
 \label{The_Fokker_Planck_Equation}
-Brownian motion is a markovian process, i.e. each time step in the random motion of particles does only depend on their preceding position. This implies, that the conditional probability density function (pdf) of their coordinates obeys the following relation:
+Brownian motion is a Markovian process, i.e. each time step in the random motion of particles does only depend on their preceding position. This implies, that the conditional probability density function (PDF) of their coordinates obeys the following relation:
 \begin{equation}
     p(x_{3},t_{3}|x_{2},t_{2};x_{1},t_{1}) = p(x_{3},t_{3}|x_{2},t_{2}), \quad t_{3}>t_{2}>t_{1}
     \label{}
@@ -17,12 +19,12 @@ This relation implies, that for a Markov process every multi step probability di
     \label{hierarchy}
 \end{align}
 So the entire realization of the process is determined by the initial distribution and the two step transition probability. \\
-Integrating the three step joint probability distribution over the intermediate step leads to the Chapman Kolmogorov equation
+Integrating the three step joint probability distribution over the intermediate step leads to the Chapman Kolmogorow equation
 \begin{equation}
     p(x_3,t_3|x_1,t_1) = \int p(x_3,t_3|x_2,t_2) p(x_2,t_2|x_1,t_1) {\rm d} x_2.
     \label{Chapman Kolmogorov equation}
 \end{equation}
-From the Chapman Kolmogorov equation we will derive the Kramers Moyal expansion. Therefore we multiply  with $p(x_1,t_1)$ and integrating over $x_1$ which leads to
+From the Chapman Kolmogorow equation we will derive the Kramers Moyal expansion. Therefore we multiply  with $p(x_1,t_1)$ and integrating over $x_1$ which leads to
 \begin{equation}
     p(x_3,t_3) = \int p(x_3,t_3|x_2,t_2)p(x_2,t_2) {\rm d} x_2.
     \label{ck3}

@@ -2,7 +2,7 @@
 	ngerman,	%deutsch
 	a4paper,	%A4 Format
 	12pt,		%Schriftgröße
-	oneside,		%einseitig
+	twoside,		%zweiseitig
 %	liststoto
 %	bibtotocnumbered
 				]{article}%Artikel
@@ -35,6 +35,8 @@
 \usepackage[toc,page]{appendix}
 \usepackage{listings}
 \usepackage{color}
+
+%\setlength{\oddsidemargin}{20 mm}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -111,6 +113,7 @@
 \input{3Analytic_Model}
 \input{4Numeric_Model}
 \input{5Results}
-%\input{6Bib}
-%\fnput{7Appendix}
+%\input{6Conclusion}
+%\input{7Appendix}
+\input{8Bib}
 \end{document}

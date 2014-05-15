@@ -1,5 +1,5 @@
 Clear["Global`*"]
-
+SetSystemOptions["CatchMachineUnderflow" -> False]
 <<input.py
 
 Print[U01, U02, a, b, n, Rsink, Rmax, rd]
@@ -7,12 +7,18 @@ Print[U01, U02, a, b, n, Rsink, Rmax, rd]
 a = Rsink+l;
 b = Rsink+l+l*g
 
-at = a - b;
-bt = a + b;
+at = a + (b-a)/2
+bt = (b-a)/2;
+
+Print[a]
+Print[b]
+Print[at]
+Print[bt]
+
 npoints = nmax - nmin;
 
-u1[r_] := U01 Exp[-((r - a)/b)^n];
-u2[r_] := U02 Exp[-((r - a)/b)^n];
+u1[r_] := U01 Exp[-((r - at)/bt)^n];
+u2[r_] := U02 Exp[-((r - at)/bt)^n];
 pde = {D[\[Rho]1[r, t], t] == 
     2/r \[Rho]1[r, t] u1'[r] + 
      D[\[Rho]1[r, t], r] u1'[r] + \[Rho]1[r, t] u1''[r] + 
@@ -50,14 +56,14 @@ sol = NDSolve[{pde, bc, ic}, {\[Rho]1, \[Rho]2}, {t, t1, t1}, {r,
 
 rhovals = 
  Partition[
-  Flatten[Table[{r, \[Rho]tot[r], (u1[r]+u2[r])/2}, {r, Rsink, 
+  Flatten[Table[N[{r, \[Rho]tot[r], (u1[r]+u2[r])/2}], {r, Rsink, 
      Rmax, (Rmax - Rsink)/resolution}]], 3]
 
 Export["rhovals.tsv", N[rhovals], "TSV"]
 
 rhooff = 
  Partition[
-  Flatten[Table[{r, \[Rho]2eq[r], (u1[r]+u2[r])/2}, {r, Rsink, 
+  Flatten[Table[{r, \[Rho]2eq[r]}, {r, Rsink, 
      Rmax, (Rmax - Rsink)/resolution}]], 3]
 
 
@@ -65,7 +71,7 @@ Export["offrhovals.tsv", N[rhovals], "TSV"]
 
 rhoon = 
  Partition[
-  Flatten[Table[{r, \[Rho]1eq[r], (u1[r]+u2[r])/2}, {r, Rsink, 
+  Flatten[Table[{r, \[Rho]1eq[r]}, {r, Rsink, 
      Rmax, (Rmax - Rsink)/resolution}]], 3]
 
 Export["onrhovals.tsv", N[rhovals], "TSV"]
