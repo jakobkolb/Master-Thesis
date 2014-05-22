@@ -1,25 +1,124 @@
 strict digraph  {
-	graph [rankdir=RL];
-	node [shape=square];
-	"I on"	 [color=red];
-	"I off"	 [color=blue];
-	"I on" -> "I off"	 [dir=back,
-		penwidth="0.793935015651"];
-	"I on" -> Sink	 [penwidth="0.0182780707344"];
-	"II on"	 [color=red];
-	"II off"	 [color=blue];
-	"II on" -> "II off"	 [penwidth="4.0"];
-	"II on" -> "I on"	 [dir=back,
-		penwidth="0.044585226725"];
-	"III on"	 [color=red];
-	"III off"	 [color=blue];
-	"III on" -> "III off"	 [dir=back,
-		penwidth="3.20606498381"];
-	"III on" -> "II on"	 [penwidth="0.281267460644"];
-	"I off" -> Sink	 [penwidth="0.0283313541517"];
-	"II off" -> "I off"	 [penwidth="0.0911946516111"];
-	"III off" -> "II off"	 [dir=back,
-		penwidth="0.234658035758"];
-	Bath -> "III on"	 [penwidth="0.0229939213778"];
-	Bath -> "III off"	 [penwidth="0.0236155035083"];
+	graph [fontsize=25,
+		label="C)",
+		labeljust=left,
+		labelloc=top,
+		margin="0.1",
+		rankdir=RL
+	];
+	node [fixedsize=true,
+		label="\N",
+		shape=square,
+		width="0.8"
+	];
+	{
+		graph [rank=same];
+		BIi1		 [color=blue,
+			label=in,
+			shape=circle,
+			width="0.5"];
+		BIi0		 [color=red,
+			label=in,
+			shape=circle,
+			width="0.5"];
+	}
+	{
+		graph [rank=same];
+		BIo1		 [color=blue,
+			label=out,
+			shape=circle,
+			width="0.5"];
+		BIo0		 [color=red,
+			label=out,
+			shape=circle,
+			width="0.5"];
+	}
+	{
+		graph [rank=same];
+		BIIi1		 [color=blue,
+			label=in,
+			shape=circle,
+			width="0.5"];
+		BIIi0		 [color=red,
+			label=in,
+			shape=circle,
+			width="0.5"];
+	}
+	{
+		graph [rank=same];
+		BIIo1		 [color=blue,
+			label=out,
+			shape=circle,
+			width="0.5"];
+		BIIo0		 [color=red,
+			label=out,
+			shape=circle,
+			width="0.5"];
+	}
+	{
+		graph [rank=same];
+		"I on"		 [color=blue];
+		"I off"		 [color=red];
+	}
+	{
+		graph [rank=same];
+		"II on"		 [color=blue];
+		"II off"		 [color=red];
+	}
+	{
+		graph [rank=same];
+		"III on"		 [color=blue];
+		"III off"		 [color=red];
+	}
+	subgraph cluster_BI {
+		graph [color=grey,
+			label="Inner Barrier Border",
+			style=filled
+		];
+		BIi1;
+		BIi0;
+		BIi0 -> BIi1		 [dir=back,
+			penwidth="3.39368426301"];
+		BIo1;
+		BIo1 -> BIi1		 [penwidth="3.53092260963"];
+		BIo0;
+		BIo0 -> BIi0		 [dir=back,
+			penwidth="3.36071858676"];
+		BIo0 -> BIo1		 [penwidth="3.37261119045"];
+	}
+	subgraph cluster_BII {
+		graph [color=grey,
+			label="Outer Barrier Border",
+			style=filled
+		];
+		BIIi1;
+		BIIi0;
+		BIIi0 -> BIIi1		 [penwidth="13.6837463075"];
+		BIIo1;
+		BIIo1 -> BIIi1		 [dir=back,
+			penwidth="13.8297959771"];
+		BIIo0;
+		BIIo0 -> BIIi0		 [penwidth="14.0"];
+		BIIo0 -> BIIo1		 [dir=back,
+			penwidth="13.6373834977"];
+	}
+	"III on" -> BIIo1	 [dir=back,
+		penwidth="0.192412479454"];
+	"II on" -> BIo1	 [penwidth="0.158311419181"];
+	"I on" -> Sink	 [penwidth="0.0851020139027"];
+	"III off" -> "III on"	 [dir=back,
+		penwidth="0.277514507282"];
+	"III off" -> BIIo0	 [penwidth="0.362616502318"];
+	"II off" -> "II on"	 [penwidth="0.304361088812"];
+	"II off" -> BIo0	 [penwidth="0.0118926036834"];
+	"I off" -> "I on"	 [dir=back,
+		penwidth="0.0521363327161"];
+	"I off" -> Sink	 [penwidth="0.0851020089619"];
+	Bath -> "III on"	 [penwidth="0.0851020114323"];
+	Bath -> "III off"	 [penwidth="0.0851020114323"];
+	BIi1 -> "I on"	 [penwidth="0.137238346619"];
+	BIi0 -> "I off"	 [penwidth="0.0329656762459"];
+	BIIi1 -> "II on"	 [dir=back,
+		penwidth="0.146049669631"];
+	BIIi0 -> "II off"	 [penwidth="0.316253692496"];
 }
