@@ -1,0 +1,25 @@
+strict digraph  {
+	graph [rankdir=RL];
+	node [shape=square];
+	"I on"	 [color=red];
+	"I off"	 [color=blue];
+	"I on" -> "I off"	 [dir=back,
+		penwidth="0.793935015651"];
+	"I on" -> Sink	 [penwidth="0.0182780707344"];
+	"II on"	 [color=red];
+	"II off"	 [color=blue];
+	"II on" -> "II off"	 [penwidth="4.0"];
+	"II on" -> "I on"	 [dir=back,
+		penwidth="0.044585226725"];
+	"III on"	 [color=red];
+	"III off"	 [color=blue];
+	"III on" -> "III off"	 [dir=back,
+		penwidth="3.20606498381"];
+	"III on" -> "II on"	 [penwidth="0.281267460644"];
+	"I off" -> Sink	 [penwidth="0.0283313541517"];
+	"II off" -> "I off"	 [penwidth="0.0911946516111"];
+	"III off" -> "II off"	 [dir=back,
+		penwidth="0.234658035758"];
+	Bath -> "III on"	 [penwidth="0.0229939213778"];
+	Bath -> "III off"	 [penwidth="0.0236155035083"];
+}
