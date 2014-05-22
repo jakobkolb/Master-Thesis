@@ -1,196 +1,295 @@
 
 \section{Fundamentals and Methods}
 \label{Short_Introduction_to_Stochastic_Processes}
-This section will introduce some basic concepts and fundamentals of stochastic processes and reaction rate theory as they concern the problem under study. For a broader context please refer to standard textbooks \cite{VanKampen1992} or review papers on the topic \cite{Calef1983a, Bressloff2013}. The goal here is to give a framework for the treatment of multivariate Markov processes in discrete and continuous space and to present the reference case for diffusion controlled reactions rates in the Debye-Smoluchowski interpretation \cite{Smoluchowski1917a, Debye1942}. \\
-Therefore we take the well-trodden trail from the Chapman Kolmogorow equation via the Kramers Moyal expansion to the Kolmogorow forward or Fokker-Planck equation. Here we take a step to the side to calculate the drift and diffusion coefficients from the Langevin equation in the 'overdamped' case of a Brownian particle before we show the derivation of the Master equation again from the Chapman-Kolmogorow equation.\\
-Thereafter we use the methods introduced before to illustrate the treatment of multivariate Markov processes in discrete and continuous space. \\
-Finally we show a rigorous derivation of the diffusion controlled reaction rate from the Fokker-Planck description of a spherical sink embedded in a bath of Brownian particles.
+This section will introduce some basic concepts and fundamentals of stochastic processes and reaction rate theory as they concern the problem under study. For a broader context please refer to standard textbooks \cite{VanKampen1992} or review papers on the topic \cite{Calef1983a, Bressloff2013}. The goal here is to give a framework for the treatment of composite Markov processes in discrete and continuous space and to present the reference case for diffusion controlled reactions rates in the Debye-Smoluchowski interpretation \cite{Smoluchowski1917a, Debye1942}. \\
+Therefore it will take the well-trodden trail from the Chapman Kolmogorow equation via the Kramers Moyal expansion to the Kolmogorow forward or Fokker-Planck equation. Here it will take a step to the side to calculate the drift and diffusion coefficients from the Langevin equation in the 'overdamped' case of a Brownian particle before we show the derivation of the Master equation again from the Chapman-Kolmogorow equation.\\
+Thereafter the methods introduced before will be used to illustrate the treatment of multivariate Markov processes in discrete and continuous space. \\
+Finally it gives a rigorous derivation of the diffusion controlled reaction rate from the Fokker-Planck description of a spherical sink embedded in a bath of Brownian particles.
 \subsection{The Fokker Planck Equation}
 \label{The_Fokker_Planck_Equation}
-Brownian motion is a Markovian process, i.e. each time step in the random motion of particles does only depend on their preceding position. This implies, that the conditional probability density function (PDF) of their coordinates obeys the following relation:
+By definition a stochastic process is said to have the \emph{Markov property} if for any $n$ successive time steps its conditional probability density function is governed by the following relation:
 \begin{equation}
-    p(x_{3},t_{3}|x_{2},t_{2};x_{1},t_{1}) = p(x_{3},t_{3}|x_{2},t_{2}), \quad t_{3}>t_{2}>t_{1}
+    P(x_{n},t_{n}|x_{1},t_{1};\cdots;x_{n-1},t_{n-1}) = P(x_{n},t_{n}|x_{n-1},t_{n-1}), \quad t_{n}>t_{n-1}> \cdots >t_{1},
     \label{}
 \end{equation}
-This relation implies, that for a Markov process every multi step probability distribution can be expressed as a hierarchy of a initial distribution and the two step transition probabilities. For $ t_1 < t_2 < \cdots < t_n$:
+i.e. the conditional probability at $t_n$ is only determined by the value of $x_{n-1}$ at $t_{n-1}$ and not influenced by any knowledge of the process at earlier times.\\
+Hence, the entire realization of the process is determined by the initial distribution $P(x_1,t_1)$ and the two step transition probability $P(x_{n},t_{n}|x_{n-1},t_{n-1})$ and every multi step probability distribution function can be expressed as a hierarchy of these two. \\
+For instance for $ t_n > t_{n-1} > \cdots > t_1$ one has:
 \begin{align}
-    p(x_1,t_1;x_2,t_2;\cdots;x_n,t_n) &= p(x_n,t_n|x_{n-1},t_{n-1})P(x_{n-1},t_{n-1}|x_{n-2},t_{n-2}) \cdots \nonumber \\
-                                      & \cdots p(x_2,t_2|x_1,t_1)p(x_1,t_1)
+    P(x_1,t_1;x_2,t_2;\cdots;x_n,t_n) &= P(x_n,t_n|x_{n-1},t_{n-1})P(x_{n-1},t_{n-1}|x_{n-2},t_{n-2}) \cdots \nonumber \\
+                                      & \cdots P(x_2,t_2|x_1,t_1)P(x_1,t_1)
     \label{hierarchy}
 \end{align}
-So the entire realization of the process is determined by the initial distribution and the two step transition probability. \\
-Integrating the three step joint probability distribution over the intermediate step leads to the Chapman Kolmogorow equation
+For only three time steps $t_3>t_2>t_1$ the integration of the three step joint probability distribution over the intermediate step leads to:
 \begin{equation}
-    p(x_3,t_3|x_1,t_1) = \int p(x_3,t_3|x_2,t_2) p(x_2,t_2|x_1,t_1) {\rm d} x_2.
-    \label{Chapman Kolmogorov equation}
+    P(x_3,t_3;x_1,t_1) = P(x_1,t_1)\int P(x_3,t_3|x_2,t_2) P(x_2,t_2|x_1,t_1) {\rm d} x_2,
 \end{equation}
-From the Chapman Kolmogorow equation we will derive the Kramers Moyal expansion. Therefore we multiply  with $p(x_1,t_1)$ and integrating over $x_1$ which leads to
+and division by $P(x_1,t_1)$ results in the well known \emph{Chapman Kolmogorow} equation:
 \begin{equation}
-    p(x_3,t_3) = \int p(x_3,t_3|x_2,t_2)p(x_2,t_2) {\rm d} x_2.
-    \label{ck3}
+    P(x_3,t_3|x_1,t_1) = \int P(x_3,t_3|x_2,t_2) P(x_2,t_2|x_1,t_1) {\rm d} x_2.
+    \label{CKeq}
 \end{equation}
-The integrand may be written in terms of $\Delta x = x_3 - x_2$ and then be expanded for $\Delta x << 1$
+An equivalent formulation of the Chapman Kolmogorow equation is the \emph{Kramers Moyal expansion} \cite{Kramers1940, Moyal1949}. To derive it the expression for the transition probabilities \eqref{CKeq} is multiplied with the initial probability distribution $P(x_1,t_1)$ and integrated over $x_1$ which leads to
+\begin{equation}
+    P(x_3,t_3) = \int P(x_3,t_3|x_2,t_2)P(x_2,t_2) {\rm d} x_2.
+    \label{CKeq3}
+\end{equation}
+The integrand may be written in terms of $\Delta x = x_3 - x_2$ and then be expanded for $\Delta x \ll 1$
 \begin{align}
-    p(x_3,t_3|x_2,t_2)p(x_2,t_2) &= p( (x_3 - \Delta x) + \Delta x, t_3|x_3 - \Delta x, t_2)p( (x_3 - \Delta x), t_2) \nonumber \\
-    &= \sum_{n=0}^{\infty} \frac{(-1)_{n}}{n!}\frac{\partial^{n}}{\partial x_3^{n}}\left\{p(x_3 + \Delta x, t_3|x_3,t_2) p(x_3,t_2)\right\}
+    P(x_3,t_3|x_2,t_2)P(x_2,t_2) &= P( (x_3 - \Delta x) + \Delta x, t_3|x_3 - \Delta x, t_2)P( (x_3 - \Delta x), t_2) \nonumber \\
+    &= \sum_{n=0}^{\infty} \frac{(-1)_{n}}{n!}\frac{\partial^{n}}{\partial x_3^{n}}\left\{P(x_3 + \Delta x, t_3|x_3,t_2) P(x_3,t_2)\right\}
 \end{align}
-Inserting again in \eqref{ck3} integrating over $\Delta x$ and substituting $\Delta t = t_3 - t_2$ yields
+This is again plugged into \eqref{CKeq3}. Integration over $\Delta x$ and substitution of $\Delta t = t_3 - t_2$ then yields:
 \begin{equation}
-    p(x_3,t_2 + \Delta t) = \sum_{n=0}^{\infty} \frac{(-1)_{n}}{n!}\frac{\partial^{n}}{\partial x_3^{n}}\left\{ M_{n}(x_3,t,\Delta t) p(x_3,t_2) \right\}
-    \label{KM1}
+    P(x_3,t_2 + \Delta t) = \sum_{n=0}^{\infty} \frac{(-1)_{n}}{n!}\frac{\partial^{n}}{\partial x_3^{n}}\left\{ M_{n}(x_3,t,\Delta t) P(x_3,t_2) \right\}
+    \label{KME1}
 \end{equation}
 where $M_n$ are the so called \textit{jump moments} defined by
 \begin{equation}
-    M_n(x,t,\Delta t) = \int (\Delta x)^{n} p(x + \Delta x, t + \Delta t | x, t) {\rm d} (\Delta x).
+    M_n(x,t,\Delta t) = \int (\Delta x)^{n} P(x + \Delta x, t + \Delta t | x, t) {\rm d} (\Delta x).
     \label{Jump_moments}
 \end{equation}
-Since $p(x+\Delta x, t|x,t) = \delta (\Delta x)$ it follows from the definition of the jump moments, that $\lim_{\Delta t \rightarrow 0} M_{n}(x,t,\Delta t) = 0$ for $n > 1$. Also $M_{0}(x,t,\Delta t) = 1$. Bearing this in mind, we now assume, that the jump moments can be expanded for $n > 1$ and small $\Delta t$
+Note that from normalization of $P(x+\Delta x, t+ \Delta t|x,t)$ it follows that the lowest of the jump moments $ M_0(x,t,\Delta t) $ is equal to one. \\
+This formulation still gives describes the time evolution of the probability distribution in terms of discrete time steps. To derive a formulation in a continuous time variable one subtracts the first therm of the sum on the right hand side of equation \eqref{KME1}, divides by $\Delta t$ and takes the limit of $\Delta t \rightarrow 0$ to obtain \\
 \begin{equation}
-    M_{n}(x,t,\Delta t) = K^{(n)}(x,t)\Delta t + O(\Delta t^{2}).
+    \frac{\partial P(x,t)}{\partial t} = \sum_{n = 1}^{\infty}\frac{(-1)^{n}}{n!}\frac{\partial^n}{\partial x^n} \left\{ \lim_{\Delta t \rightarrow 0} M_n(x,t,\Delta t) P(x,t) \right\}.
+    \label{KME2}
 \end{equation}
-Substituting this into equation \eqref{KM1}, dividing by $\Delta t$ and taking the limit $\Delta t \rightarrow 0$ results in 
+As we will see later it is also reasonable to assume that for short time differences the jump moments go linear with $\Delta t$:
 \begin{equation}
-    \frac{\partial p(x,t)}{\partial t} = \sum_{n = 1}^{\infty}\frac{(-1)^{n}}{n!}\frac{\partial^n}{\partial x^n} \left\{ K^{(m)}(x,t) p(x,t) \right\}.
+    M_{n}(x,t,\Delta t) \sim \Delta t + \mathcal{O}(\Delta t^{2}).
+\end{equation}
+Bearing this in mind it makes sense to introduce so called \emph{kinetic coefficients} of the form
+\begin{align}
+    K^{(n)}(x,t) &= \lim_{\Delta t \rightarrow 0} \frac{1}{ \Delta t } M_n(x,t,\Delta t) \nonumber \\
+    &=\lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} \int (\Delta x)^m P(x+\Delta x,t+\Delta t|x,t) {\rm d}(\Delta x) .
+    \label{kinetic_coefficients}
+\end{align}
+(But note, that this is only a matter of notation and does not require the small $\Delta t$ behaviour of $M_n$ mentioned  before!) \\
+Substituting these coefficients back into equation \eqref{KME2} results in the desired formulation of the Kramers Moyal expansion \cite{Moyal1949}:
+\begin{equation}
+    \frac{\partial P(x,t)}{\partial t} = \sum_{n = 1}^{\infty}\frac{(-1)^{n}}{n!}\frac{\partial^n}{\partial x^n} \left\{ K^{(n)}(x,t) P(x,t) \right\}.
     \label{Kramers Moyal expansion}
 \end{equation}
-The so called Kramers-Moyal coefficients $K_{n}(x,t)$ can be calculated from the transition probability $T_{\Delta t}(x,\Delta x,t) = p(x+\Delta x,t+\Delta t | x, t)$:
+
+So far nothing has be assumed, other than the Markov property and the existence of the Taylor series. However in many application the examination of the jump moments reveals, that it is a suitable approximation to truncate the expansion for $n>2$. In this case, one obtains the following form, known as the \textit{Fokker Planck equation}:
 \begin{equation}
-    K^{(n)}(x,t) = \lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} \int {\rm d}(\Delta x) T_{\Delta t}(x,\Delta x,t) (\Delta x)^m .
-    \label{jump moments}
-\end{equation}
-So far nothing has be assumed, other than the Markov property and the existence of the Taylor series. However in many application the examination of the jump moments reveals, that it is a suitable approximation to truncate the expansion for $n>2$. In this case, one obtains the following form, known as the \textit{Fokker Planck equation}   
-If the expansion is truncated after the second term, the result gives the well known Fokker Planck Equation:
-\begin{equation}
-    \frac{\partial p(x,t)}{\partial t} = - \frac{\partial}{\partial x} \left[A(x,t)p(x,t) \right] + \frac{1}{2}\frac{\partial^2}{\partial x^2}\left[ B(x,t)p(x,t) \right] 
+    \frac{\partial P(x,t)}{\partial t} = - \frac{\partial}{\partial x} \left[K^{(1)}(x,t)P(x,t) \right] + \frac{1}{2}\frac{\partial^2}{\partial x^2}\left[ K^{(2)}(x,t)P(x,t) \right] 
     \label{FPE}
 \end{equation}
-where $A$ and $B$ are independent of $t$ if the process is stationary. \\
+where $K^{(1)}$ and $K^{(2)}$ are independent of $t$ if the process is stationary. \\
 \subsection{Brownian Motion}
 \label{Brownian_Motion}
-Brownian motion is the oldest example of a Markov process that is known in physics. A heavy particle in a solution of lighter particles, which collide with it in a random fashion. Consequently, the velocity of the heavier particle undergoes a series of supposedly uncorrelated jumps. When the velocity $v$ has a certain direction, there will be on average more collisions from this side, than from the other. Therefore the probability of a change in velocity $\Delta v$ depends on its current value, but not on the velocity at earlier times. As a consequence, the velocity of the heavier particle can be considered to be a Markov process. When the whole system is in equilibrium the process is stationary and its autocorrelation time is the time in which an initial velocity is damped out. \\
-Now in the \textit{overdamped limit} the correlation time of the velocity is much smaller then the time between two observations of the heavy particle. In that case the observation of the particle gives a series of positions $x(t_1), x(t_2) \cdots$. Each displacement $x(t_{i+1}) - x(t_{i})$ does not depend on the previous history of the process, i.e. it is independent of $x_{i=1}, x_{i-2}\cdots$. Hence not only the velocity, but also the position of the particle is a Markov process (at least on a coarse grained timescale). 
+Brownian motion is the oldest example of a Markov process that is known in physics \cite{Einstein1905,Smoluchowski1906}. It emerges from a heavy particle in a solution of lighter particles, that collide with each other in a random fashion. Consequently, the velocity of the heavier particle undergoes a series of supposedly uncorrelated jumps. When the velocity $v$ has a certain direction, there will be on average more collisions from this side, than from the other. Therefore the probability of a change in velocity $\Delta v$ depends on its current value, but not on the velocity at earlier times. As a consequence, the velocity of the heavier particle can be considered to be a Markov process. When the whole system is in equilibrium the process is stationary and its autocorrelation time is the time in which an initial velocity of the heavy particle is damped out. \\
+Now in the \textit{overdamped limit} the correlation time of the velocity is much smaller then the time between two observations of the heavy particle. In this case the observation of the particle gives a series $x(t_1), x(t_2), \cdots , x(t_n)$ of subsequent particle positions. Each displacement $x(t_{n}) - x(t_{n-1})$ does not depend on the previous history of the process, i.e. it is independent of $x_{n-2}, \cdots , x_{1}$. Hence not only the velocity, but also the position of the particle itself is a Markov process (at least on a coarse grained timescale). 
 \par
-In the following we will start with the Langewin equation for the velocity of a particle in a fluid and derive the corresponding Kramers Moyal coefficients to obtain a Fokker-Planck equation for the distribution of its position. 
-
+In the following we will start with the \emph{Langevin equation} \cite{Langevin1908} for the velocity of a particle in a fluid and calculate the corresponding kinetic coefficients to obtain a Fokker-Planck equation for the distribution of its position.\\ 
+This Langevin equation is given by:
 \begin{equation}
     m \frac{{\rm d}^2 x}{{\rm d}t^2} = -\gamma \frac{ {\rm d}x}{{\rm d}t} + f(x) + \varepsilon(t)
     \label{Langewin equation}
 \end{equation}
-Here $\varepsilon(t)$ is a Gaussian distributed random process describing the collision interaction of the particle and the solute. $f(x)$ is a force resulting from an external potential and is taken to be independent of $t$. It can be shown, that the correlation time of this process is $\tau = \dfrac{m}{\gamma}$. In the so called overdamped limit $ \tau >> 1$ this equation results in
+where $\varepsilon(t)$ is a random process describing the collision interaction of the particle and the solute. From the central limit theorem it follows that its distribution must be Gaussian. Also it is assumed first that the system is in thermal equilibrium, i.e. its velocities are governed by a Boltzmann distribution and therefore for the second moment it holds:
 \begin{equation}
-    \gamma \frac{ {\rm d}x}{{\rm d}t} = f(x) + \varepsilon(t)
+    \left< \dot{x}^{2} \right> = \frac{K_B T}{m}
+    \label{2nd_moment_of_velocities}
+\end{equation}
+and second that the spacial variable $x(t)$ and the random force $\varepsilon (t)$ are not correlated. \\
+Given these assumptions it can be shown that the autocorrelation of the random force is given by:
+\begin{equation}
+    \left< \varepsilon(t) \varepsilon(t') \right> = 2 K_B T \gamma \delta(|t-t'|)
+    \label{ff_autocorrelation}
+\end{equation}
+and that the correlation time of the velocities is equal to
+\begin{align}
+    \left< \dot{x}(t) \dot{x}(t') \right> &= \frac{K_B T}{m} \exp \left\{-\frac{\gamma}{m}|t-t'|\right\} \nonumber \\
+    &=\frac{K_B T}{m} \exp\left\{\frac{\tau}{\tau_0} \right\} .
+    \label{vv_autocorrelation}
+\end{align}
+In the so called overdamped limit this auto correlation time $ \tau_0 = \dfrac{m}{\gamma}$ is very small, such that the Langevin equation can be approximated by
+\begin{equation}
+    \gamma \frac{ {\rm d}x}{{\rm d}t} = f(x) + \varepsilon(t).
     \label{BD1}
 \end{equation}
-As described in the introductory part the process must be observed on a coarse grained timescale to be considered Markovian. Therefore the expression can be discretized in time and transforms to:
+As described in the introductory part of the section this process must be observed on a coarse grained timescale to be considered Markovian. Therefore one integrates equation \eqref{BD1} over one time step $\Delta t$ to describe it in discrete time. Doing so results in:
 \begin{equation}
-        x(t + \Delta t) = x(t) + \frac{1}{\gamma}f(x,t) \Delta t + \frac{1}{\gamma} \varepsilon'(t) \Delta t.
-    \label{overdamped limit}
+x(t + \Delta t) = x(t) + \frac{1}{\gamma} f(x) \Delta t + \frac{1}{\gamma} \int\limits_{t}^{t+\Delta t} \varepsilon(t) {\rm d} t.
+    \label{od1}
 \end{equation}
-with the distribution of the random force being
+The last term on the right hand side can be expressed in terms of a effective random force of the form:
+\begin{equation}
+    \varepsilon'(t) \Delta t = \frac{1}{\gamma}\int\limits_{t}^{t + \Delta t} \varepsilon(t) {\rm d} t
+    \label{eff_rdf}
+\end{equation}
+such that equation \eqref{od1} reads:
+\begin{equation}
+    x(t + \Delta t) = x(t) + \frac{1}{\gamma} f(x) \Delta t + \varepsilon'(t) \Delta t.
+    \label{od2}
+\end{equation}
+This effective random force must again be Gaussian distributed and from equation \eqref{ff_autocorrelation} it follows, that its autocorrelation is given by:
+\begin{equation}
+    \left< \varepsilon'(t) \varepsilon'(t') \right> = \frac{2 K_B T \gamma}{ \Delta t}
+    \label{ff_eff_autocorrelation}
+\end{equation}
+and its distribution is therefore equal to:
 \begin{equation}
     P(\varepsilon ' ) = \sqrt{\frac{\Delta t}{4 \pi D \gamma^{2}}} \exp \left[ - \frac{\varepsilon ^{\prime 2} \Delta t}{4 D \gamma^{2}} \right].
     \label{eps dist}
 \end{equation}
-From this distribution one can compute the transitions probability for the Brownian particle as:
-\begin{align}
-    T_{\Delta t}(x,\Delta x,t)  &= \left< \delta \left(  \Delta x - (x(t-\Delta t) - x(t)) \right)\right> \nonumber\\
-                        &= \int \rm{d}\varepsilon ' \delta \left(  \Delta x - (x(t-\Delta t) - x(t)) \right)  \sqrt{\frac{\Delta t}{4 \pi D \gamma^{2}}} \exp \left[ - \frac{\varepsilon  ^{\prime 2} \Delta t}{4 D \gamma^{2}} \right] \nonumber\\
-                        &= \sqrt{\frac{1}{4 \pi D \Delta t}} \exp \left[ \frac{-\left(\Delta x - f(x) \frac{\Delta t}{\gamma} \right)^2}{4 D \Delta t} \right]
-    \label{T}
-\end{align}
-For this Gaussian transition probability the coefficients of the Kramers Moyal Expansion vanish after the second term, such that the resulting Fokker Planck equation holds the full analytic solution for the time evolution of the distribution of particles.
+where the diffusion constant $D$ is given by the \emph{Einstein-Smoluchowski relation}:
 \begin{equation}
-    \frac{\partial p(x,t)}{\partial t} = - \frac{\partial}{\partial x} \left[f(x)p(x,t) \right] + D\frac{\partial^2}{\partial x^2}\left[p(x,t) \right] 
+    D = \frac{K_B T}{\gamma}
+    \label{ESR}
+\end{equation}
+From the distribution of the random force one can compute the transitions probability $P(x+\Delta x, t+ \Delta t| x, t)$ for the Brownian particle as the estimate over its translocations:
+\begin{equation}
+    P(x+\Delta x,t+\Delta t|x,t)  = \left< \delta \left(  \Delta x - (x(t-\Delta t) - x(t)) \right)\right>.
+\end{equation}
+Here we use equation \eqref{od2} and \eqref{eps dist} to write this as
+\begin{equation}
+     P(x+\Delta x,t+\Delta t|x,t) = \int {\rm d}\varepsilon ' \delta \left(  \Delta x - \left( \frac{1}{\gamma} f(x) \Delta t + \varepsilon'(t) \Delta t \right) \right)  \sqrt{\frac{\Delta t}{4 \pi D \gamma^{2}}} \exp \left[ - \frac{\varepsilon  ^{\prime 2} \Delta t}{4 D \gamma^{2}} \right] \nonumber\\
+ \end{equation}
+ which finally evaluates to 
+ \begin{equation}
+      P(x+\Delta x,t+\Delta t|x,t) = \sqrt{\frac{1}{4 \pi D \Delta t}} \exp \left[ \frac{-\left(\Delta x - f(x) \frac{\Delta t}{\gamma} \right)^2}{4 D \Delta t} \right]
+    \label{BM_transition_probability}
+\end{equation}
+Now it is straight forward to calculate the jump moments from this transition probability according to equation \eqref{Jump_moments} and as it was already anticipated it turns out to be true that the first and second moment are linear in $\Delta t$ in leading order: 
+\begin{equation}
+    M_1(x,t,\Delta t) = f(x)\frac{\Delta t}{\gamma}, \qquad M_2(x,t,\Delta t) = 2 D \Delta t + \left(f(x)\frac{\Delta t}{\gamma} \right)^{2}
+    \label{BM_jump_moments}
+\end{equation}
+such the kinetic coefficients \eqref{kinetic_coefficients} are equal to
+\begin{equation}
+    K^{(1)}(x,t) = \frac{f(x)}{\gamma}, \qquad K^{(2)}(x,t) = 2 D.
+    \label{BD_kinetic_coefficients}
+\end{equation}
+It can be shown that all higher jump moments are of order $\mathcal{O}(\Delta t ^{2})$ such that it is indeed valid to truncate the Kramers Moyal expansion after the second therm. Therefore the time evolution of the probability distribution of a Brownian particle is fully described by the following expression:
+\begin{equation}
+    \frac{\partial P(x,t)}{\partial t} = - \frac{\partial}{\partial x} \left[f(x)P(x,t) \right] + D\frac{\partial^2}{\partial x^2}\left[P(x,t) \right] 
     \label{FPE2}
 \end{equation}
 
 \subsection{The Master-Equation}
 \label{The_Master_Equation}
-The master equation is an equivalent formulation of the Kramers Moyal expansion for a certain class of stochastic processes. Namely those, whose transition probability has the following behaviour in the limit of small time steps $\Delta t$:
+The master equation is one more equivalent formulation of the Chapman Kolmogorow equation. The Chapman Kolmogorow equation usually is of not much help since it is essentially a property of the solution for the transition probabilities. The master equation however is its formulation in terms of a differential equation and is far more useful especially for the description in a discrete state space. \\
+In order to derive it one has to reason first about the short time behaviour of the transition probabilities. From the Chapman Kolmogorow equation for equal time arguments it is obvious that
 \begin{equation}
-    p(x_2,t+\Delta t|x_1,t) = W(x_2|x_1)\Delta t + \left[ 1 - \Delta t \int {\rm d} x W(x_2|x_1) \right] \delta(x_2-x_1) + O(\Delta t ^{2})
-    \label{master assumption}
+    P(x_2,t|x_1,t) = \delta(x_1-x_2)
+    \label{leading_order}
 \end{equation}
-This assumption has the following meaning: The system was in state $x_1$ at time $t$ and made a transition to state $x_2$ during the time $\Delta t$. Then the probability of the transition is expressed in terms of the (non negative) {\it transition rate} i.e. the transition probability per unit time $W(x_2|x_1)$. To maintain a readable form we introduce the notation $T_\tau (x_2|x_1) = p(x_2,t+\tau|x_1,t)$ and omit the absolute time dependence, since the process is assumed to be stationary. \\
-Using the Chapman-Kolmogorov equation it follows that
+which is the zero order therm of the following formulation of the short time transition probability $P(x_2,t+\Delta t|x_1,t)$:
 \begin{equation}
-    T_{\tau + \tau'}(x_3|x_2) = \int T_{\tau'}(x_3|x_2)T_{\tau}(x_2|x_1){\rm d} x_2,
+    P(x_2,t+\Delta t|x_1,t) = W(x_2|x_1)\Delta t + \left[ 1 - \Delta t \int {\rm d} x W(x_2|x_1) \right] \delta(x_2-x_1) + O(\Delta t ^{2})
+    \label{master_assumption}
+\end{equation}
+For the better understanding of this expression imagine the following: At time $t$ the system was in state $x_1$. In the subsequent time interval $\Delta t$ it might have made a transition to the state $x_2$.
+Here the probability of the transition is expressed in terms of the (non negative) {\it transition rate} i.e. the transition probability per unit time from state $x_1$ to $x_2$: $W(x_2|x_1)$. So the first term on the right hand side of equation \eqref{master_assumption} gives the transition probability from state $x_1$ to another state $x_2 \ne x_1$ whereas the second therm on the right hand side is equal to one minus the probability to move to any other state i.e. the probability for the system to rest in state $x_1$ during the time $\Delta t$.\\
+To maintain a readable form it is common to introduce the notation
+\begin{equation}
+    T_\tau (x_2|x_1) = P(x_2,t+\tau|x_1,t)
+\end{equation}
+and to omit the absolute time dependence, since the process is assumed to be stationary. \\
+Chapman-Kolmogorow equation in this formulation reads:
+\begin{equation}
+    T_{\tau + \tau'}(x_3|x_2) = \int T_{\tau'}(x_3|x_2)T_{\tau}(x_2|x_1){\rm d} x_2.
     \label{K2}
 \end{equation}
-and thus:
+Now the insertion of equation \eqref{master_assumption} on the right hand side leads to:
 \begin{equation*}
     T_{\tau+\tau'}(x_3|x_1) = \int \left\{ \left[1 - \tau' \int {\rm d} z W(z|x_3) \right] \delta(x_3 - x_2) + \tau' W(x_3|x_2) \right\} T_{\tau}(x_2|x_1){\rm d} x_2
 \end{equation*}
-Regrouping the terms and dividing by $\tau ' $ leads to:
+and regrouping the terms and dividing by $\tau ' $ results in:
 \begin{align*}
     \frac{1}{\tau'} T_{\tau+\tau'}(x_3|x_1) &= \frac{1}{\tau'}  \int T_{\tau}(x_2|x_1) \delta(x_3 - x_2){\rm d} x_2\\
     &- \int \left\{ W(z|x_2)  T_{\tau}(x_2|x_1)\delta(x_3 - x_2) \right\}{\rm d} z {\rm d} x_2 \\
-    &+ \int \left\{ W(x_3|x_2) T_{\tau}(x_2|x_1) \right\}{\rm d} x_2
+    &+ \int \left\{ W(x_3|x_2) T_{\tau}(x_2|x_1) \right\}{\rm d} x_2.
 \end{align*}
-which in the limit of $\tau' \rightarrow 0$ leads to the desired master equation:
+The integrals in the first and the second therm on the right hand side can be evaluated and the fist therm can be moved to the left hand side:
+\begin{align*}
+    \frac{1}{\tau}\left\{  T_{\tau+\tau'}(x_3|x_1) - T_{\tau}(x_3|x_1)\right\} &= \int \left\{ W(x_3|x_2) T_{\tau}(x_2|x_1) \right\}{\rm d} x_2  \nonumber \\
+    &- \int \left\{ W(z|x_3)  T_{\tau}(x_3|x_1) \right\}{\rm d} z.
+\end{align*}
+Finally one renames $z$ to $x_2$ and takes the limit of $\tau' \rightarrow 0$ to obtain the well known formulation of the master equation in continuous space:
 \begin{equation}
     \frac{\partial}{\partial \tau}T_{\tau}(x_3|x_1) = \int \left\{ W(x_3|x_2) T_{\tau}(x_2|x_1) - W(x_2|x_3) T_{\tau}(x_3|x_1) \right\}{\rm d} x_2
     \label{continuous_space_master_equation}
-\end{equation}
-where the $W(x_i|x_j)$ are properties of the specific process.
-This equation describes the time development of the transition probabilities given an initial condition $(x_1,t_1)$. A more intuitive form follows from multiplying and integrating over a distribution of initial conditions $p(x_1,t_1)$ and its spatial coordinate $x_1$.
+\end{equation}where the $W(x_i|x_j)$ are properties of the specific process.
+This equation describes the time development of the transition probabilities given an initial condition $(x_1,t_1)$. A more intuitive form follows from multiplying and integrating over a distribution of initial conditions $P(x_1,t_1)$ and its spatial coordinate $x_1$.
 \begin{equation}
-    \frac{\partial p(x,t)}{\partial t} = \int \left\{ W(x|x') p(x',t) - W(x'|x)p(x,t) \right\} {\rm } x'
+    \frac{\partial P(x,t)}{\partial t} = \int \left\{ W(x|x') P(x',t) - W(x'|x)P(x,t) \right\} {\rm } x'
 \end{equation}
-In this form the meaning becomes particularly clear. The master equation is a \textit{gain loss equaition} for the probabilities of each state $x$. The first term on the rhs. describes the gain of probability of state $x$ due to transitions from other states $x'$, whereas the second term on the lhs. describes the loss of probability of state $x$ due to transitions to other states.\\
-For a discrete state space, the master equation has the form of a system of coupled ordinary differential equations:
+In this form the meaning becomes particularly clear. The master equation is a \textit{gain loss equaition} for the probabilities of each state $x$. The first term on the right hand side describes the gain of probability of state $x$ due to transitions from other states $x'$, whereas the second term on the right hand side describes the loss of probability of state $x$ due to transitions to other states.\\
+For a discrete state space the integral on the right hand side is replaced by the sum over all possible states and the master equation has the form of a system of coupled ordinary differential equations:
 \begin{equation}
-    \frac{{\rm d} p_n(t)}{{\rm d} t} = \sum_{n'} W_{n n'}p_{n'}(t) - W_{n'n}p_{n}(t)
+    \frac{{\rm d} P_n(t)}{{\rm d} t} = \sum_{n'} W_{n n'}P_{n'}(t) - W_{n'n}P_{n}(t).
     \label{discrete_space_master_equation}
 \end{equation}
-$W$ is called a transition rate matrix and satisfies the following conditions:
+Or in a more compact form with the following \emph{transition rate matrix} $\mathbb{W}$:
+\begin{equation}
+    \mathbb{W}_{n n'} = W_{n n'} - \delta_{n n'}\sum\limits_{m n} W_{m n}
+    \label{transition_rate_matrix}
+\end{equation}
+resulting in 
+\begin{equation}
+    \frac{{\rm d} P_n(t)}{{\rm d} t} = \sum_{n'} \mathbb{W}_{n n'}P_{n'}(t).
+    \label{ME3}
+\end{equation}
+The transition rate matrix satisfies the following conditions:
 \begin{align*}
-    &0 \ge W_{n,n'} \quad \mbox{ for all } n \ne n' \\
-    &0 \ge -W_{n,n} \ge \infty \\
-    &\sum_{n'} W_{n,n'} = 0
+    &0 \ge \mathbb{W}_{n,n'} \quad \mbox{ for all } n \ne n' \\
+    &0 \ge -\mathbb{W}_{n,n} \ge \infty \\
+    &\sum_{n'} \mathbb{W}_{n,n'} = 0
     \label{Transitions_rate_matrix}
 \end{align*}
 In general it is not symmetric and can thus not be diagonalized. \\
-From eq. \eqref{discrete_space_master_equation} one immediately sees, that for a steady state solution this implies, that the loss of probability from one state is compensated by the gain of probability by transitions from other states.\\
+From equation \eqref{discrete_space_master_equation} one immediately sees, that for a steady state solution this implies, that the loss of probability from one state is compensated by the gain of probability by transitions from other states.\\
+\begin{equation}
+    \sum\limits_{n'} W_{n n'}P_{n'} = \sum\limits_{n'}W_{n' n} P_n
+    \label{equilibrium}
+\end{equation}
 For stationary time reversible Markov processes this criterion can even be tightened to a property called \textit{detailed equilibrium}.
-This property requires, that the total amount of probability going from two states in to each other must be equal i.e.
+This property requires, that the total exchange of probability between two states to each other must be equal i.e.
 \begin{equation}
      W_{n n'}p_{n'} = W_{n'n}p_{n}
     \label{detailed_balance}
 \end{equation}
-This property implies a certain symmetry of the matrix and can be used to show, that for this class of transition rate matrices can be transformed to a symmetric state such that they can be diagonalized via a suitable orthogonal transformation.
-\subsection{Multivariate Markov Processes}
+It can be proven to be true for a wide range of physical and chemical processes \cite{Boltzmann1872,Einstein1917,Wegscheider1911} and is also closely related to the Onsager reciprocal relations \cite{Onsager1931,Wigner1954}.
+It also implies a certain symmetry of the transition rate matrix that can be used to show that for this class of matrices it is possible to find a symmetric representation such that it can be diagonalized via a suitable orthogonal transformation.
+\subsection{Composite Markov Processes}
 \label{Multivariate_Markov_Processes}
-It is straight forward to continue to Markov processes whose sample space is a direct product of continuous and discrete variables i.e. $\Omega = \mathbb{R}^{3} \times [1,\cdots, N]$. The Chapman Kolmogorov equation then becomes
+It is straight forward to continue to Markov processes whose sample space is a direct product of continuous and discrete variables i.e. $\Omega = \mathbb{R}^{3} \times [1,\cdots, N]$. The Chapman Kolmogorow equation then reads
 \begin{equation}
-    p(\vec{x}_3,n_3,t_3|\vec{x}_1,n_1,t_1) = \sum_{n_2} \int p(\vec{x}_3,n_3,t_1|\vec{x}_2,n_2,t_2)p(\vec{x}_2,n_2,t_2|\vec{x}_1,n_1,t_1) {\rm d} \vec{x}_2
+    P(\vec{x}_3,n_3,t_3|\vec{x}_1,n_1,t_1) = \sum_{n_2} \int P(\vec{x}_3,n_3,t_1|\vec{x}_2,n_2,t_2)P(\vec{x}_2,n_2,t_2|\vec{x}_1,n_1,t_1) {\rm d} \vec{x}_2.
     \label{MCK}
 \end{equation}
-In this case the variable $\vec{x}$ can be treated by the approach discussed in section \ref{The_Fokker_Planck_Equation} whereas the variable $n$ will be treated by the approach described in section \ref{The_Master_Equation}. This leads to a combined Master Fokker-Planck equation for the time evolution of the pdf
+In this case the variable $\vec{x}$ can be treated by means of the Kramers Moyal expansion as discussed in section \ref{The_Fokker_Planck_Equation} whereas the variable $n$ can be treated by the approach of the Master equation as described in section \ref{The_Master_Equation}. Assuming that the driving process for the evolution of the continuous variable is Gaussian and that the Kramers Moyal expansion in moments of its transition probabilities can therefore be truncated after the second therm one can derive the following expression:
 \begin{align}
-    \frac{\partial}{\partial t } p(\vec{x},n,t) =   &- \vec{ \nabla } \left[\vec{A}(\vec{x},n,t)p(\vec{x},n,t) \right] + \frac{1}{2}\vec{\nabla}^{2}\left[ B(\vec{x},n,t)p(\vec{x},n,t) \right] \nonumber \\
-                                                    &+ \sum_{n'} \left\{ W_{nn'}p(\vec{x},n',t) - W_{n'n}p(\vec{x},n,t)\right\}
+    \frac{\partial}{\partial t } P(\vec{x},n,t) =   &- \vec{ \nabla } \left[\vec{K}^{(1)}(\vec{x},n,t)P(\vec{x},n,t) \right] + \frac{1}{2}\vec{\nabla}^{2}\left[ K^{(2)}(\vec{x},n,t)P(\vec{x},n,t) \right] \nonumber \\
+                                                    &+ \sum_{n'} \left\{ W_{nn'}P(\vec{x},n',t) - W_{n'n}P(\vec{x},n,t)\right\}.
+    \label{composite_mp}
+\end{align}
+This gives the time evolution of the composite Markov process. If the underlying process for the continuous variable is again Brownian motion in an external potential then it follows from \eqref{BD_kinetic_coefficients} that the previous expression can be refined to
+\begin{align}
+    \frac{\partial}{\partial t } P(\vec{x},n,t) =   &- \vec{ \nabla } \left[\frac{1}{\gamma}\vec{f}(\vec{x},n,t)P(\vec{x},n,t) \right] +\vec{\nabla}^{2}\left[ D(\vec{x},n)P(\vec{x},n,t) \right] \nonumber \\
+                                                    &+ \sum_{n'} \left\{ W_{nn'}P(\vec{x},n',t) - W_{n'n}P(\vec{x},n,t)\right\}
     \label{fpmeq1}
 \end{align}
-It is convenient to write this equation in a vector notation for the variable $n$ indicating with $\vect{p}$ the vector $(p(0),p(1),\cdots,p(N))$ the vector on the $N$ dimensional space over the closed interval $[0,1]$ (the variables $\vect{x}$ and $t$ have been omitted). \\ 
-Therefore we introduce a diagonal Fokker-Planck operator for the drift and diffusion terms
+This can be interpreted as the motion of Brownian particles with different internal states such as spatial or electronic confirmations or binding states to some surface. In each of these internal states the may therefore have different friction and diffusion constants, be under the influence of forces and may even be subject to different boundary conditions. \\
+It is convenient to write this equation in a vector notation for the variable $n$. Then $\vect{p}$ indicates the vector $(p(0),p(1),\cdots,p(N))$ on the $N$ dimensional space over the closed interval $[0,1]$ (the variables $\vect{x}$ and $t$ have been omitted). \\ 
+Also the diagonal Fokker-Planck operator for the drift and diffusion terms is introduced as
 \begin{equation}
-    \mathbb{F} = - \vec{ \nabla } \vec{A}(\vec{x},n,t) + \frac{1}{2}\vec{\nabla}^{2} B(\vec{x},n,t)
+    \mathbb{F} = {\rm diag} \left[- \vec{ \nabla } \frac{1}{\gamma}\vec{f}(\vec{x},n,t) + \vec{\nabla}^{2} D(\vec{x},n) \right]
     \label{fpo}
 \end{equation}
-and write the transition rate matrix as $\mathbb{W}$ as
-\begin{align*}
-    &\mathbb{W}_{n,n'} = W_{nn'} \mbox{ for } n \ne n' \mbox{ as in eq. \eqref{discrete_space_master_equation}} \\
-    &\mathbb{W}_{nn} = -\sum_{n \ne n'}W_{nn'}
-\end{align*}
-such that eq. \eqref{fpmeq1} has the following more compact form
+and the transition rates are again written in terms of $\mathbb{W}$ as introduced in equation \eqref{transition_rate_matrix} such that equation \eqref{fpmeq1} has the following more compact form
 \begin{equation}
     \frac{\partial}{\partial t} \vect{p}(\vec{x},t) = \left\{ \mathbb{F} + \mathbb{W} \right\} \vect{p}(\vec{x},t).
     \label{fpmeq2}
 \end{equation}
-
+This kind of description has been used to explain various transport properties for instance on polymer chains or on reactive surfaces. \cite{Friedman1968,Caceres1990}.
 \section{The Smoluchowski Reaction Rate}
-For educational reasons and since we will refer to it later, we will at this point give the solution to the original Smoluchowski problem.
+For educational reasons and since it will referred to later, at this point the solution to the original Smoluchowski \cite{Smoluchowski1917a} problem will be given.
 The problem involves a perfect spherical sink of radius $R_s$ embedded in an initially homogeneous distribution of Brownian particles. The aim is to calculate the time dependent and stationary absorption rate of particles into the sink.
 The boundary and initial conditions are therefore
 \begin{align}
@@ -292,7 +391,7 @@ Again in the limit of $t \rightarrow \infty$ this results in the steady state ab
 
 \section{The Debye Reaction Rate}
 \label{The_Debye_Reaction_Rate}
-The problem of diffusion controlled reaction rates as outlined in the previous chapter was extended to interaction between the substrate and the absorbing particles. For the resulting Fokker-Plack Equation of the substrate particles
+The problem of diffusion controlled reaction rates as outlined in the previous chapter was extended to interaction between the substrate and the absorbing particles. For the resulting Fokker-Planck Equation of the substrate particles
 \begin{equation}
     \frac{\partial \rho(r,t)}{\partial t} = \vec \nabla \left[ \frac{\rho(r,t)\vec \nabla U(r)}{\gamma} + D \nabla \rho(r,t) \right]
     \label{fpe_debye}
@@ -483,7 +582,7 @@ and
     \vect{\tilde{\rho}}^{(III)}(b) &= \mathbb{A}^{-1}\mathbb{U}\mathbb{A} \vect{\tilde{\rho}}^{(II)}(b), \\ \nonumber
     \vect{\tilde{\rho} '}^{(III)}(b) &= \vect{\tilde{\rho} '}^{(II)}(b).
 \end{align}
-Therefore it is useful to write the solution of eq. \eqref{fpmeq4} as
+Therefore it is useful to write the solution of equation \eqref{fpmeq4} as
 \begin{equation}
     \tilde{\vect{\rho}}^{(j)} = \underbrace{ \left( \begin{array}{cllllllll}
        1   & \frac{1}{r}   & 0                 & 0                 & 0              & 0             & 0 & \cdots &\\
