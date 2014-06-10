@@ -1,13 +1,20 @@
-\section{The Two state Potential Barrier}
-
+\newpage
+\section{Results}
+This section will give some simple examples of the previously described system to illustrate the implications of the barrier fluctuations coupled to the diffusive transport of Brownian particles.\\
+It will also give a close examination of certain limits e.g. of very fast and very slow barrier fluctuations and compare these to simulation results. In addition, it will be evaluated if the solution for a step shaped barrier is a valid approximation for smooth potentials of similar shape depending on the timescale of the barrier fluctuations. \\
+Finally it will show the effects that come from the transition of the barrier between two states due to independent variation of its HIGH $\rightarrow$ LOW and LOW $\rightarrow$ HIGH switching rates.
+\section{A Two State Barrier with Symmetric Switching Rates}
+The first example will be the most simple system possible consisting only of a two state barrier of hight $U_1 = 0$ and $U_2 \ne 0$ that is ether on or off. Also the barrier switching is symmetric i.e. the on $\rightarrow$ off and off $\rightarrow$ on rates are equal $\mathbb{W}_{12}=\mathbb{W}_{21}=W$ such that the potential of mean force acting on the Brownian particles is independent of the switching rate.
+This allows for the detailed study of effects solely coming from the coupling of timescales between barrier fluctuations and diffusive transport without any other influence.
 \subsection{Particle Density}
-In this section we will treat the example of a two state potential barrier with switching rate $W_{1,2}, W_{2.1}$ between states $[U_1=0,U_2]$ that is located between $r = a$ and $r = b$. The Fokker-Planck Equation of the system therefore has the form
+The first step for the investigation of the example is the calculation of the analytic solution for the density profiles of the Brownian particles. Therefore one first writes down the corresponding Fokker-Planck equation:
 \begin{align}
     \frac{\partial \rho_1(r,t)}{\partial t} &= \vec \nabla \left[ D \vec \nabla \rho_1(r,t) \right] - W_{2,1}\rho_1(r,t) + W_{1,2}\rho_2(r,t) \nonumber \\
     \frac{\partial \rho_2(r,t)}{\partial t} &= \vec \nabla \left[\rho_2(r,t) \vec \nabla \frac{U_2(r)}{\gamma} + D \vec \nabla \rho_2(r,t) \right] - W_{1,2}\rho_2(r,t) + W_{2,1}\rho_1(r,t)
     \label{two_state_fpe}
 \end{align}
-We take the transition rates to be symmetric $W_{1,2} = W_{2.1} = W$ such that the transition rate matrix thus has the form 
+Note that the particles in state $m=1$ move freely and are not subject to any potential barrier. 
+Since the transition rates are symmetric $W_{1,2} = W_{2.1} = W$  the transition rate matrix has the form:
 \begin{equation}
     \mathbb{W} = \left( \begin{array}{rr}
     W & -W \\
@@ -21,7 +28,7 @@ With eigenvalues $\lambda_1 = 0$ and $\lambda_2 = -2W$. The steady state solutio
     \label{rhoeq}
 \end{equation}
 which obviously satisfies the detailed balance property \eqref{detailed_balance}. \\
-The diagonal form of equation \eqref{fpmeq3} is now 
+The diagonal form of equation \eqref{two_state_fpe} is now 
 \begin{equation}
     \frac{\partial}{\partial t} \tilde{\vect{\rho}} = \left( \begin{array}{ll}
         D\vec{\nabla}^{2} & 0 \\
@@ -31,40 +38,143 @@ The diagonal form of equation \eqref{fpmeq3} is now
 \end{equation}
 and the steady state solution in terms of eigenfunctions of $\mathbb{W}$ reads
 \begin{align}
-    \tilde{\rho}_1^{(j)} &= c_{1,1}^{(j)} + \frac{c_{1,2}^{(j)}}{r} \\
-    \tilde{\rho}_2^{(j)} &= \frac{c_{2,1}^{(j)}}{r}{\rm exp}\left[-\alpha_2r\right]+ \frac{c_{2,2}^{(j)}}{r}{\rm exp}\left[\alpha_2 r\right]
+    \tilde{\rho}_1^{(k)} &= c_{1,1}^{(k)} + \frac{c_{1,2}^{(k)}}{r} \\
+    \tilde{\rho}_2^{(k)} &= \frac{c_{2,1}^{(k)}}{r}{\rm exp}\left[-\frac{r}{r_d}\right]+ \frac{c_{2,2}^{(k)}}{r}{\rm exp}\left[\frac{r}{r_d}\right]
     \label{ind_sol_U2}
 \end{align}
-where $\alpha_2$ is the inverse of the \textit{decay length} as defined in \eqref{decay_length}. This case neatly illustrates the role of $r_d^{(i)}$ as the persistence length of the influence of the potential fluctuations. For distances $d_a = |r - a|$ and $d_b = |r - b|$ far from the jump discontinuities of the potential $d_a, d_b >> r_d^{(2)}$ the thermal motion of the Brownian particles will have damped the influence of the potential barrier and the densities of particles in state $1$ and $2$ respectively will converge to the same value again.\\
-The following plot gives an example of the density profiles that are obtained by solving the system of linear equations for the fit and boundary conditions as outlined in section \ref{The_Fokker_Planck_Equation}
+With the previously defined decay length $r_d$:
 \begin{equation}
-    \vect{\rho} = \mathbb{A} \tilde{\vect{\rho}}
+    r_d = \sqrt{\frac{d}{2W}}
+    \label{rd_two_state}
 \end{equation}
-for the following parameters:
+Once the coefficients $c^{(k)}_{i,j}$ are calculated from the boundary and fit conditions the density profiles can be plotted for several sets of parameters. If not stated differently, the parameters are given by the values in the following table. The choice of parameters is arbitrary now since the influence of each of them will be examined separately in later parts of this section.
 \begin{equation}
     \begin{array}{r|l}
         Parameter & Value \\ \hline
         R_s & 1 \\
-        a   & 4 \\
-        b   & 6 \\
-        U/K_B T & 4 \\
-        W/D & 1/2
+        a   & 6 \\
+        b   & 11 \\
+        U_2/K_B T & \mp 3 \\
     \end{array} \nonumber
     \label{Parameters}
 \end{equation}
+The first parameter that will be studied is the decay length $r_d$. The easiest way to get a first impression of its influence is to look at the density profiles. Therefore several examples for different parameter choices are given next.
+For illustrative reasons the total particle density is normalized to $\rho_{tot}^{(eq)}=2$ for $r \rightarrow \infty$ in the following plots and the particle densities in the different states are depicted together with the mean particle density. \\
+Since the state of the barrier can also be treated as a property of the Brownian particles as discussed in section \ref{Model_Description} it is convenient do so for the following discussion. The particles that are influenced by the barrier will hence be called \emph{active} whereas the particles that are not will be called \emph{inactive}. \\ In the following density plots the density of active particles is depicted in blue while the density of the inactive particles is depicted in red.
+
+\begin{minipage}[t]{0.5 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/d1.pdf}
+    \end{figure}
+\end{minipage}
+\begin{minipage}[t]{0.5 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/d2.pdf}
+    \end{figure}
+\end{minipage}
+\begin{minipage}[t]{0.5 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/d3.pdf}
+    \end{figure}
+\end{minipage}\hspace{0.02\textwidth}\begin{minipage}[t]{0.48 \textwidth}
+    \begin{figure}[H]
+        \caption{Density profiles for repulsive fluctuating barrier. The densities of particles in state $m=1$ and state $m=2$ are depicted in dashed red, and dotted blue respectively. The decay length is given by A): $r_d = 25$, B): $r_d=2.5$ and C): $r_d=0.25$. \label{rep_symm_dens_profile}}
+    \end{figure}
+\end{minipage}
+
+
+\begin{minipage}[t]{0.5 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/d4.pdf}
+    \end{figure}
+\end{minipage}
+\begin{minipage}[t]{0.5 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/d5.pdf}
+    \end{figure}
+\end{minipage}
+\begin{minipage}[t]{0.5 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/d6.pdf}
+    \end{figure}
+\end{minipage}\hspace{0.02\textwidth}\begin{minipage}[t]{0.48 \textwidth}
+    \begin{figure}[H]
+        \caption{Density profiles for attractive fluctuating barrier. The densities of particles in state $m=1$ and state $m=2$ are depicted in dashed red, and dotted blue respectively. The decay length is again given by A): $r_d = 25$, B): $r_d=2.5$ and C): $r_d=0.25$\label{att_symm_dens_profile}}
+    \end{figure}
+\end{minipage} 
+\newpage
+This case neatly illustrates the role of $r_d$ as the persistence length of the influence of the potential fluctuations. For distances $d_a = |r - a|$ and $d_b = |r - b|$ far from the jump discontinuities of the potential $d_a, d_b >> r_d$ the thermal motion of the Brownian particles dampens the influence of the potential barrier and the densities of active and inactive particles converge to the same value again.\\
+So if $r_d$ is much larger as the overall spacing of the potential barrier the particles in different states are mostly independent from each other. If $r_d$ is much smaller than the spacing of the barrier the particle densities are equal except for a small around the barrier borders that is approximately $r_d$ wide.\\
+The interesting behaviour emerges if the decay length is approximately of the same order as the barrier spacing. Then the densities of the different particles species are not independent of each other over the entire width of the system. This somehow has the effect that the average particle density at the inside of the barrier unexpectedly high. \\
+This is curious and worth a closer look. Therefore, in the following the underlying mechanism and its implications on the reaction rate will be thoroughly examined. \\ 
+
+\newpage
+\subsection{Flow Analysis}
+Density profiles only give information about where particles are. However, it is of interest how they got there and where they are going next. Therefore it is reasonable to use particle fluxes for a further study of the system. \\
+To do so the radial coordinate of the system is divided into different areas as depicted in figure \ref{fig:flowchart_scetch}.
 \begin{figure}[H]
     \centering
-    \includegraphics[width = .9 \textwidth]{plots/rho.pdf}
-    \caption{Density Profiles for fluctuating repulsive potential}
-    \label{fig:rho}
+    \includegraphics[width = .9 \textwidth]{plots/drawing.pdf}
+    \caption{sketch of the spatial discretization for the flow analysis of the system: The Sink and the Barrier are marked in gray. The circles represent narrow volumes of width $\varepsilon$ right at the barrier borders. $\varepsilon$ is set to be one tenth of the barrier width. The squares represent the large spaces between barrier and sink ($I$), between the sink boundaries ($II$) and outside the sink ($III)$. Each volume has the shape of a spherical shell (except the sink which is a sphere). Active and inactive particles are investigated separately in each of these volumes}
+    \label{fig:flowchart_scetch}
 \end{figure}
-In the following we will set $R_s = 1$ and give all other length scales relative to it.
-\newpage
-The decay length for this example is 
+For each of these areas one examines the spatial fluxes from and to neighbouring areas and the reactive fluxes from one particle state to the other. \\
+For this purpose it is convenient to use the integral form of the continuity equation derived in \eqref{ce0}. To employ it in the actual problem one takes the density profiles to be constant in time such that its left hand side vanishes. Then the terms on the right hand side are calculated separately. The spatial fluxes at the volume boundaries:
 \begin{equation}
-    r_d^{(2)} = 1
+    J_m^{(S)}(r_i) = \int_{r_i} \vec{j}_m(r) {\rm d} \vec{A}
+    \label{spatial_flux}
 \end{equation}
-It becomes clear, that the density profiles 
+and the reactive fluxes from one particle species to the other:
+\begin{equation}
+    J_{mm'}^{(R)}(r_i,r_j) =\int_{r_i}^{r_j} \left\{ \mathbb{W}_{m'm}\rho_m - \mathbb{W}_{mm'} \rho_{m'} \right\} {\rm d} r
+    \label{reaction_flux}
+\end{equation}
+where $r_i$ and $r_j$. are the radii $R_s$, $a-\varepsilon$, $a$ etc. of the spatial discretization given in figure \ref{fig:flowchart_scetch}.
+These fluxes are then represented as arrows between the icons representing the corresponding areas as illustrated in figure \ref{fig:flowchart_scetch}. Active and inactive particles are depicted separately where the icons representing active particles are blue and the icons representing inactive particles are red. \\ \textbf{Interpreting the following flow diagrams it is important to note, that the flows depicted by the arrows are normalized to the largest value for each example. Therefore the arrows only represent \emph{relative importance of fluxes} and have no meaning for their absolute values!} \newpage
+. \\ \vspace{-2 cm}
+
+\begin{minipage}[t]{.372 \textwidth}
+    \vspace{0.5 cm}
+    \begin{figure}[H]
+        \caption{Flow diagram for repulsive barrier: This plot shows spatial and reactive particle flows between different particle species (active particles are represented in blue, inactive particles are represented in blue) and different spatial regions (see figure \ref{fig:flowchart_scetch} for reference) for the examples given in figure \ref{rep_symm_dens_profile}. The difference between the different plots is again the decay length which is equal to \newline A): $r_d=25$, B): $r_d=2.5$ and \newline C): $r_d = 0.25$.
+    \label{fig:flow_repulsive}}
+    \end{figure}
+\end{minipage}\hspace{0.02 \textwidth}\begin{minipage}[t]{.608 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/rep_flowchart0.pdf} 
+        \includegraphics[width = 1 \textwidth]{plots/rep_flowchart1.pdf} 
+        \includegraphics[width = 1 \textwidth]{plots/rep_flowchart2.pdf}
+    \end{figure}
+\end{minipage}
+\vspace{0.5 cm} \\
+It is obvious from this illustration that the system behaves qualitatively different depending on its the decay length.
+\begin{itemize}
+    \item For long decay length as in figure \ref{fig:flow_repulsive} A) it is visible from the very narrow arrows connecting red and blue icons that the particles in both states are independent in good approximation. Therefore inactive particles are not hindered by the barrier on their way from the bath to the sink whereas active particles have to overcome the potential barrier and are thus less likely to interact with the sink. Ether way, particles are very unlikely to change their state in the process. 
+    \item For short decay length as in figure \ref{fig:flow_repulsive} C) The behavior is clearly different. Particle movement is closely tied to the potential boundaries at $r=a$ and $r=b$. There active particles are very likely to cross the boundary in downward direction only. Therefore the potential drives a spatial selection of particles that leads to an excess of active particles right outside and a deficit of active particles inside the barrier. The resulting difference in concentration of active and inactive particles at both sides of the barrier boundary leads to a strong reactive fluxes. Inside the barrier particles switch from inactive (red) to active (blue) and outside the barrier they switch from active to inactive state. The resulting imbalance of inactive particles draws them across the barrier from the out to the inside. As obvious from the flow diagram, the result is a strong \emph{circular current}. Since most of the particles switch states before they can diffuse more than $r_d$ away, the process is closely tied to the barrier boundaries. 
+    \item For medium decay length as in figure \ref{fig:flow_repulsive} B) These circular currents are still existent but not so closely tied to the boundaries of the barrier. Therefore they they overlap in space. This has the effect that once a particles has crossed the outer boundary of the barrier as part of one circular current it can switch to the other circular current to cross the inner boundary of the barrier. 
+\end{itemize}
+In the case of an attractive potential barrier the processes at work are quite similar. The differences to the repulsive case are outlined on the basis of the following flow diagrams: \vspace{-.5 cm} \\
+\begin{minipage}[t]{.372 \textwidth}
+    \vspace{.5 cm}
+    \begin{figure}[H]
+        \caption{Flow diagram for attractive barrier: This plot shows spatial and reactive particle flows between different particle species (active particles are represented in blue, inactive particles are represented in blue) and different spatial regions (see figure \ref{fig:flowchart_scetch} for reference) for the examples given in figure \ref{att_symm_dens_profile}. The difference between the different plots is again the decay length which is equal to \newline A): $r_d=25$, B): $r_d=2.5$ and \newline C): $r_d = 0.25$.
+    \label{fig:flow_attractive}}
+    \end{figure}
+\end{minipage}\hspace{0.02 \textwidth}\begin{minipage}[t]{.608 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/att_flowchart0.pdf}
+        \includegraphics[width = 1 \textwidth]{plots/att_flowchart1.pdf}
+        \includegraphics[width = 1 \textwidth]{plots/att_flowchart2.pdf}
+    \end{figure}
+\end{minipage}
+\vspace{.5 cm} \\
+The differences to the differences of these examples to the ones presented before in figure \ref{fig:flow_repulsive} can be pointed out one by one:
+\begin{itemize}
+    \item For long decay length as in figure \ref{fig:flow_attractive} D) the two particle species are independent from each other in good approximation. The difference to the former example is that the active particles are not hindered by the attractive barrier once the steady state is reached. They accumulate in the attractive potential until their concentration is high enough to to make it equally possible for particles to enter and leave the barrier (which es the essentially given by the probability for particles to enter the potential). Therefore both particle species do equally contribute to the flux of particles from the bath to the sink.
+    \item For short decay length as in figure \ref{fig:flow_attractive} F) the system again shows strong circular currents around the boundaries of the potential barrier. The difference is here that if active particles now cross the barrier in downward direction this means from the ``out'' to the ``in'' side. Therefore the circular currents are now directed in the other direction (clockwise vs. counter clockwise in this representation)
+    \item For medium decay length as in figure \ref{fig:flow_attractive} E)  the two circular currents overlap just as they do in the case of a repulsive barrier. Therefore it is again likely for active particles to be drawn across the outer border of the potential by one current and then cross the boundary of the inner barrier as part of the other current.
+\end{itemize}
+This analysis has shown how the system behaves qualitatively different depending on switching rate of the barrier or rather depending on the decay length of the particle densities. Knowing this, it is now time to turn to the key quantity in this investigation which is the reaction rate of particles interacting with the sink. 
 \subsection{Reaction Rates}
 
 The calculation of the reaction rate as outlined in section \ref{Reaction_Rates_over_Fluctuating_Barriers} leads to the following expression. The index of $\alpha_2$ will be omitted for reasons of convenience.

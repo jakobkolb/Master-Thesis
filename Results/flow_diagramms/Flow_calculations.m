@@ -110,14 +110,15 @@ Js2[r_] := 4 Pi  r^2 D[rho2[rdash], rdash] /. rdash -> r
 Jr3[r1_, r2_] := 4 Pi  NIntegrate[rho3[r] w r^2, {r, r1, r2}]
 Js3[r_] := 4 Pi  r^2 D[rho3[rdash], rdash] /. rdash -> r
 
-xvals = {0.04, 0.4, 4}
+xvals = {0.004, 0.4, 4}
+tt = 1/5;
 t = 5;
 g = 1;
 a = 1 + t;
 b = 1 + (g + 1) t;
 rs = 1.0;
 rd = 30;
-u = 10;
+u = -3;
 dr = 0.01;
 
 For[i = 1, i < 4, i++,
@@ -132,16 +133,47 @@ For[i = 1, i < 4, i++,
  Rfile = OpenAppend[filename2];
  dfile = OpenAppend[dfilename];
  
- Export[Rfile, Jr1[rs, a][[1]] - Jr1[rs, a][[2]], "TSV"];
+ 
+ (*Inside the boundary*)
+ 
+ Export[Rfile, Jr1[rs, a - tt*t][[1]] - Jr1[rs, a - tt*t][[2]], "TSV"];
  Export[Rfile, "\n", "TSV"];
- Export[Rfile, Jr2[a, b][[1]] - Jr2[a, b][[2]], "TSV"];
+ (*at the inner boundary boarder*)
+ 
+ Export[Rfile, Jr1[a - tt*t, a][[1]] - Jr1[a - tt*t, a][[2]], "TSV"];
  Export[Rfile, "\n", "TSV"];
- Export[Rfile, Jr3[b, rd][[1]] - Jr3[b, rd][[2]], "TSV"];
+ Export[Rfile, Jr2[a, a + tt*t][[1]] - Jr2[a, a + tt*t][[2]], "TSV"];
+ Export[Rfile, "\n", "TSV"];
+ (*On the boundary*)
+ 
+ Export[Rfile, 
+  Jr2[a + tt*t, b - tt*t][[1]] - Jr2[a + tt*t, b - tt*t][[2]], 
+  "TSV"];
+ Export[Rfile, "\n", "TSV"];
+ (*at the outer boundary border*)
+ 
+ Export[Rfile, Jr2[b - tt*t, b][[1]] - Jr2[b - tt*t, b][[2]], "TSV"];
+ Export[Rfile, "\n", "TSV"];
+ Export[Rfile, Jr3[b, b + tt*t][[1]] - Jr3[b, b + tt*t][[2]], "TSV"];
+ Export[Rfile, "\n", "TSV"];
+ (*Outside the boundary*)
+ 
+ Export[Rfile, Jr3[b + tt*t, rd][[1]] - Jr3[b + tt*t, rd][[2]], "TSV"];
+ 
+ 
  Export[Sfile, Transpose[Js1[rs]], "TSV"];
+ Export[Sfile, "\n", "TSV"];
+ Export[Sfile, Transpose[Js1[a - tt*t]], "TSV"];
  Export[Sfile, "\n", "TSV"];
  Export[Sfile, Transpose[Js2[a]], "TSV"];
  Export[Sfile, "\n", "TSV"];
+ Export[Sfile, Transpose[Js2[a + tt*t]], "TSV"];
+ Export[Sfile, "\n", "TSV"];
+ Export[Sfile, Transpose[Js2[b - tt*t]], "TSV"];
+ Export[Sfile, "\n", "TSV"];
  Export[Sfile, Transpose[Js3[b]], "TSV"];
+ Export[Sfile, "\n", "TSV"];
+ Export[Sfile, Transpose[Js3[b + tt*t]], "TSV"];
  Export[Sfile, "\n", "TSV"];
  Export[Sfile, Transpose[Js3[rd]], "TSV"];
  Export[Sfile, "\n", "TSV"];

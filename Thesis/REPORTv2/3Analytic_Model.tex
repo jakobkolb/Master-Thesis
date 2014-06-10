@@ -1,23 +1,23 @@
 
 \section{Fundamentals and Methods}
 \label{Short_Introduction_to_Stochastic_Processes}
-This section will introduce some basic concepts and fundamentals of stochastic processes and reaction rate theory as they concern the problem under study. For a broader context please refer to standard textbooks \cite{VanKampen1992} or review papers on the topic \cite{Calef1983a, Bressloff2013}. The goal here is to give a framework for the treatment of composite Markov processes in discrete and continuous space and to present the reference case for diffusion controlled reactions rates in the Debye-Smoluchowski interpretation \cite{Smoluchowski1917a, Debye1942}. \\
-Therefore it will take the well-trodden trail from the Chapman Kolmogorow equation via the Kramers Moyal expansion to the Kolmogorow forward or Fokker-Planck equation. Here it will take a step to the side to calculate the drift and diffusion coefficients from the Langevin equation in the 'overdamped' case of a Brownian particle before we show the derivation of the Master equation again from the Chapman-Kolmogorow equation.\\
+This section will introduce some basic concepts and fundamentals of stochastic processes and reaction rate theory as far as they concern the problem under study. For a broader context please refer to standard textbooks \cite{VanKampen1992} or review papers on the topic \cite{Calef1983a, Bressloff2013}. The goal here is to give a framework for the treatment of composite Markov processes in discrete and continuous space and to present the reference case for diffusion controlled reactions rates in the Debye-Smoluchowski interpretation \cite{Smoluchowski1917a, Debye1942}. \\
+Therefore it will take the well-trodden trail from the Chapman Kolmogorow equation via the Kramers Moyal expansion to the Kolmogorow forward or Fokker-Planck equation. Here it will take a step to the side to calculate the drift and diffusion coefficients from the Langevin equation in the 'overdamped' case of a Brownian particle before it shows the derivation of the Master equation again from the Chapman-Kolmogorow equation.\\
 Thereafter the methods introduced before will be used to illustrate the treatment of multivariate Markov processes in discrete and continuous space. \\
 Finally it gives a rigorous derivation of the diffusion controlled reaction rate from the Fokker-Planck description of a spherical sink embedded in a bath of Brownian particles.
-\subsection{The Fokker Planck Equation}
+\subsection{The Fokker-Planck Equation}
 \label{The_Fokker_Planck_Equation}
 By definition a stochastic process is said to have the \emph{Markov property} if for any $n$ successive time steps its conditional probability density function is governed by the following relation:
 \begin{equation}
     P(x_{n},t_{n}|x_{1},t_{1};\cdots;x_{n-1},t_{n-1}) = P(x_{n},t_{n}|x_{n-1},t_{n-1}), \quad t_{n}>t_{n-1}> \cdots >t_{1},
     \label{}
 \end{equation}
-i.e. the conditional probability at $t_n$ is only determined by the value of $x_{n-1}$ at $t_{n-1}$ and not influenced by any knowledge of the process at earlier times.\\
+i.e. the conditional probability to be at $x_n$ at $t_n$ is only determined by the value of $x_{n-1}$ at $t_{n-1}$ and not influenced by any knowledge of the process at earlier times.\\
 Hence, the entire realization of the process is determined by the initial distribution $P(x_1,t_1)$ and the two step transition probability $P(x_{n},t_{n}|x_{n-1},t_{n-1})$ and every multi step probability distribution function can be expressed as a hierarchy of these two. \\
 For instance for $ t_n > t_{n-1} > \cdots > t_1$ one has:
 \begin{align}
     P(x_1,t_1;x_2,t_2;\cdots;x_n,t_n) &= P(x_n,t_n|x_{n-1},t_{n-1})P(x_{n-1},t_{n-1}|x_{n-2},t_{n-2}) \cdots \nonumber \\
-                                      & \cdots P(x_2,t_2|x_1,t_1)P(x_1,t_1)
+                                      & \cdots P(x_2,t_2|x_1,t_1)P(x_1,t_1).
     \label{hierarchy}
 \end{align}
 For only three time steps $t_3>t_2>t_1$ the integration of the three step joint probability distribution over the intermediate step leads to:
@@ -37,11 +37,11 @@ An equivalent formulation of the Chapman Kolmogorow equation is the \emph{Kramer
 The integrand may be written in terms of $\Delta x = x_3 - x_2$ and then be expanded for $\Delta x \ll 1$
 \begin{align}
     P(x_3,t_3|x_2,t_2)P(x_2,t_2) &= P( (x_3 - \Delta x) + \Delta x, t_3|x_3 - \Delta x, t_2)P( (x_3 - \Delta x), t_2) \nonumber \\
-    &= \sum_{n=0}^{\infty} \frac{(-1)_{n}}{n!}\frac{\partial^{n}}{\partial x_3^{n}}\left\{P(x_3 + \Delta x, t_3|x_3,t_2) P(x_3,t_2)\right\}
+    &= \sum_{n=0}^{\infty} \frac{(-1)^{n}}{n!}\frac{\partial^{n}}{\partial x_3^{n}}\left\{P(x_3 + \Delta x, t_3|x_3,t_2) P(x_3,t_2)\right\}.
 \end{align}
 This is again plugged into \eqref{CKeq3}. Integration over $\Delta x$ and substitution of $\Delta t = t_3 - t_2$ then yields:
 \begin{equation}
-    P(x_3,t_2 + \Delta t) = \sum_{n=0}^{\infty} \frac{(-1)_{n}}{n!}\frac{\partial^{n}}{\partial x_3^{n}}\left\{ M_{n}(x_3,t,\Delta t) P(x_3,t_2) \right\}
+    P(x_3,t_2 + \Delta t) = \sum_{n=0}^{\infty} \frac{(-1)^{n}}{n!}\frac{\partial^{n}}{\partial x_3^{n}}\left\{ M_{n}(x_3,t,\Delta t) P(x_3,t_2) \right\}
     \label{KME1}
 \end{equation}
 where $M_n$ are the so called \textit{jump moments} defined by
@@ -50,7 +50,7 @@ where $M_n$ are the so called \textit{jump moments} defined by
     \label{Jump_moments}
 \end{equation}
 Note that from normalization of $P(x+\Delta x, t+ \Delta t|x,t)$ it follows that the lowest of the jump moments $ M_0(x,t,\Delta t) $ is equal to one. \\
-This formulation still gives describes the time evolution of the probability distribution in terms of discrete time steps. To derive a formulation in a continuous time variable one subtracts the first therm of the sum on the right hand side of equation \eqref{KME1}, divides by $\Delta t$ and takes the limit of $\Delta t \rightarrow 0$ to obtain \\
+This formulation still describes the time evolution of the probability distribution in terms of discrete time steps. To derive a formulation in a continuous time variable one subtracts the first term of the sum on the right hand side of equation \eqref{KME1}, divides by $\Delta t$ and takes the limit of $\Delta t \rightarrow 0$ to obtain \\
 \begin{equation}
     \frac{\partial P(x,t)}{\partial t} = \sum_{n = 1}^{\infty}\frac{(-1)^{n}}{n!}\frac{\partial^n}{\partial x^n} \left\{ \lim_{\Delta t \rightarrow 0} M_n(x,t,\Delta t) P(x,t) \right\}.
     \label{KME2}
@@ -62,17 +62,17 @@ As we will see later it is also reasonable to assume that for short time differe
 Bearing this in mind it makes sense to introduce so called \emph{kinetic coefficients} of the form
 \begin{align}
     K^{(n)}(x,t) &= \lim_{\Delta t \rightarrow 0} \frac{1}{ \Delta t } M_n(x,t,\Delta t) \nonumber \\
-    &=\lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} \int (\Delta x)^m P(x+\Delta x,t+\Delta t|x,t) {\rm d}(\Delta x) .
+    &=\lim_{\Delta t \rightarrow 0} \frac{1}{\Delta t} \int (\Delta x)^n P(x+\Delta x,t+\Delta t|x,t) {\rm d}(\Delta x) .
     \label{kinetic_coefficients}
 \end{align}
-(But note, that this is only a matter of notation and does not require the small $\Delta t$ behaviour of $M_n$ mentioned  before!) \\
+(But note that this is only a matter of notation and does not require the small $\Delta t$ behavior of $M_n$ mentioned  before!) \\
 Substituting these coefficients back into equation \eqref{KME2} results in the desired formulation of the Kramers Moyal expansion \cite{Moyal1949}:
 \begin{equation}
     \frac{\partial P(x,t)}{\partial t} = \sum_{n = 1}^{\infty}\frac{(-1)^{n}}{n!}\frac{\partial^n}{\partial x^n} \left\{ K^{(n)}(x,t) P(x,t) \right\}.
     \label{Kramers Moyal expansion}
 \end{equation}
 
-So far nothing has be assumed, other than the Markov property and the existence of the Taylor series. However in many application the examination of the jump moments reveals, that it is a suitable approximation to truncate the expansion for $n>2$. In this case, one obtains the following form, known as the \textit{Fokker Planck equation}:
+So far nothing has been assumed, other than the Markov property and the existence of the Taylor series. However in many application the examination of the jump moments reveals that it is a suitable approximation to truncate the expansion for $n>2$. In this case, one obtains the following form, known as the \textit{Fokker Planck equation}:
 \begin{equation}
     \frac{\partial P(x,t)}{\partial t} = - \frac{\partial}{\partial x} \left[K^{(1)}(x,t)P(x,t) \right] + \frac{1}{2}\frac{\partial^2}{\partial x^2}\left[ K^{(2)}(x,t)P(x,t) \right] 
     \label{FPE}
@@ -80,8 +80,8 @@ So far nothing has be assumed, other than the Markov property and the existence 
 where $K^{(1)}$ and $K^{(2)}$ are independent of $t$ if the process is stationary. \\
 \subsection{Brownian Motion}
 \label{Brownian_Motion}
-Brownian motion is the oldest example of a Markov process that is known in physics \cite{Einstein1905,Smoluchowski1906}. It emerges from a heavy particle in a solution of lighter particles, that collide with each other in a random fashion. Consequently, the velocity of the heavier particle undergoes a series of supposedly uncorrelated jumps. When the velocity $v$ has a certain direction, there will be on average more collisions from this side, than from the other. Therefore the probability of a change in velocity $\Delta v$ depends on its current value, but not on the velocity at earlier times. As a consequence, the velocity of the heavier particle can be considered to be a Markov process. When the whole system is in equilibrium the process is stationary and its autocorrelation time is the time in which an initial velocity of the heavy particle is damped out. \\
-Now in the \textit{overdamped limit} the correlation time of the velocity is much smaller then the time between two observations of the heavy particle. In this case the observation of the particle gives a series $x(t_1), x(t_2), \cdots , x(t_n)$ of subsequent particle positions. Each displacement $x(t_{n}) - x(t_{n-1})$ does not depend on the previous history of the process, i.e. it is independent of $x_{n-2}, \cdots , x_{1}$. Hence not only the velocity, but also the position of the particle itself is a Markov process (at least on a coarse grained timescale). 
+Brownian motion is the oldest example of a Markov process that is known in physics \cite{Einstein1905,Smoluchowski1906}. It emerges from the picture of a heavy particle in a solution of lighter particles, that collide with each other in a random fashion. Consequently, the velocity of the heavier particle undergoes a series of supposedly uncorrelated jumps. When its velocity $v$ has a certain direction, there will be on average more collisions from this side, than from the other. Therefore the probability of a change in velocity $\Delta v$ depends on its current value, but not on the velocity at earlier times. As a consequence, the velocity of the heavier particle can be treated as a Markov process. When the whole system is in equilibrium the process is stationary and its autocorrelation time is the time in which an initial velocity of the heavy particle is damped out. \\
+Now in the \textit{overdamped limit} the correlation time of the velocity is much smaller then the time between two observations of the heavy particle. In this case the observation of the particle gives a series $x(t_1), x(t_2), \cdots , x(t_n)$ of subsequent particle positions. Each displacement $x(t_{n}) - x(t_{n-1})$ does not depend on the previous history of the process, i.e. it is independent of $x(t_{n-2}), \cdots , x(t_{1})$. Hence not only the velocity, but also the position of the particle itself is a Markov process (at least on a coarse grained timescale). 
 \par
 In the following we will start with the \emph{Langevin equation} \cite{Langevin1908} for the velocity of a particle in a fluid and calculate the corresponding kinetic coefficients to obtain a Fokker-Planck equation for the distribution of its position.\\ 
 This Langevin equation is given by:
@@ -89,12 +89,12 @@ This Langevin equation is given by:
     m \frac{{\rm d}^2 x}{{\rm d}t^2} = -\gamma \frac{ {\rm d}x}{{\rm d}t} + f(x) + \varepsilon(t)
     \label{Langewin equation}
 \end{equation}
-where $\varepsilon(t)$ is a random process describing the collision interaction of the particle and the solute. From the central limit theorem it follows that its distribution must be Gaussian. Also it is assumed first that the system is in thermal equilibrium, i.e. its velocities are governed by a Boltzmann distribution and therefore for the second moment it holds:
+where $m$ is the mass and $\gamma$ is the friction constant of the particle in the solute, $f(x)$ describes any external forces present and $\varepsilon(t)$ is a random process describing the collision interaction of the particle and the solute. From the central limit theorem it follows that its distribution must be Gaussian. Also it is assumed first that the system is in thermal equilibrium, i.e. its velocities are governed by a Boltzmann distribution and therefore for the second moment it holds:
 \begin{equation}
     \left< \dot{x}^{2} \right> = \frac{K_B T}{m}
     \label{2nd_moment_of_velocities}
 \end{equation}
-and second that the spacial variable $x(t)$ and the random force $\varepsilon (t)$ are not correlated. \\
+with $K_B$ being the Boltzmann constant and second that the spacial variable $x(t)$ and the random force $\varepsilon (t)$ are not correlated. \\
 Given these assumptions it can be shown that the autocorrelation of the random force is given by:
 \begin{equation}
     \left< \varepsilon(t) \varepsilon(t') \right> = 2 K_B T \gamma \delta(|t-t'|)
@@ -103,7 +103,7 @@ Given these assumptions it can be shown that the autocorrelation of the random f
 and that the correlation time of the velocities is equal to
 \begin{align}
     \left< \dot{x}(t) \dot{x}(t') \right> &= \frac{K_B T}{m} \exp \left\{-\frac{\gamma}{m}|t-t'|\right\} \nonumber \\
-    &=\frac{K_B T}{m} \exp\left\{\frac{\tau}{\tau_0} \right\} .
+    &=\frac{K_B T}{m} \exp\left\{-\frac{\tau}{\tau_0} \right\} .
     \label{vv_autocorrelation}
 \end{align}
 In the so called overdamped limit this auto correlation time $ \tau_0 = \dfrac{m}{\gamma}$ is very small, such that the Langevin equation can be approximated by
@@ -111,12 +111,12 @@ In the so called overdamped limit this auto correlation time $ \tau_0 = \dfrac{m
     \gamma \frac{ {\rm d}x}{{\rm d}t} = f(x) + \varepsilon(t).
     \label{BD1}
 \end{equation}
-As described in the introductory part of the section this process must be observed on a coarse grained timescale to be considered Markovian. Therefore one integrates equation \eqref{BD1} over one time step $\Delta t$ to describe it in discrete time. Doing so results in:
+As described in the introductory part of this section this process must be observed on a coarse grained timescale to be considered Markovian. Therefore one integrates equation \eqref{BD1} over one time step $\Delta t$ to describe it in discrete time. Doing so results in:
 \begin{equation}
 x(t + \Delta t) = x(t) + \frac{1}{\gamma} f(x) \Delta t + \frac{1}{\gamma} \int\limits_{t}^{t+\Delta t} \varepsilon(t) {\rm d} t.
     \label{od1}
 \end{equation}
-The last term on the right hand side can be expressed in terms of a effective random force of the form:
+The last term on the right hand side can be expressed in terms of an effective random force of the form:
 \begin{equation}
     \varepsilon'(t) \Delta t = \frac{1}{\gamma}\int\limits_{t}^{t + \Delta t} \varepsilon(t) {\rm d} t
     \label{eff_rdf}
@@ -133,17 +133,17 @@ This effective random force must again be Gaussian distributed and from equation
 \end{equation}
 and its distribution is therefore equal to:
 \begin{equation}
-    P(\varepsilon ' ) = \sqrt{\frac{\Delta t}{4 \pi D \gamma^{2}}} \exp \left[ - \frac{\varepsilon ^{\prime 2} \Delta t}{4 D \gamma^{2}} \right].
+    P(\varepsilon ' ) = \sqrt{\frac{\Delta t}{4 \pi D \gamma^{2}}} \exp \left[ - \frac{\varepsilon ^{\prime 2} \Delta t}{4 D \gamma^{2}} \right]
     \label{eps dist}
 \end{equation}
 where the diffusion constant $D$ is given by the \emph{Einstein-Smoluchowski relation}:
 \begin{equation}
-    D = \frac{K_B T}{\gamma}
+    D = \frac{K_B T}{\gamma}.
     \label{ESR}
 \end{equation}
-From the distribution of the random force one can compute the transitions probability $P(x+\Delta x, t+ \Delta t| x, t)$ for the Brownian particle as the estimate over its translocations:
+From the distribution of the random force one can compute the transition probability $P(x+\Delta x, t+ \Delta t| x, t)$ for the Brownian particle as the estimate over its translocations:
 \begin{equation}
-    P(x+\Delta x,t+\Delta t|x,t)  = \left< \delta \left(  \Delta x - (x(t-\Delta t) - x(t)) \right)\right>.
+    P(x+\Delta x,t+\Delta t|x,t)  = \left< \delta \left(  \Delta x - \left[x(t-\Delta t) - x(t)\right] \right)\right>.
 \end{equation}
 Here we use equation \eqref{od2} and \eqref{eps dist} to write this as
 \begin{equation}
@@ -151,7 +151,7 @@ Here we use equation \eqref{od2} and \eqref{eps dist} to write this as
  \end{equation}
  which finally evaluates to 
  \begin{equation}
-      P(x+\Delta x,t+\Delta t|x,t) = \sqrt{\frac{1}{4 \pi D \Delta t}} \exp \left[ \frac{-\left(\Delta x - f(x) \frac{\Delta t}{\gamma} \right)^2}{4 D \Delta t} \right]
+      P(x+\Delta x,t+\Delta t|x,t) = \sqrt{\frac{1}{4 \pi D \Delta t}} \exp \left[ \frac{-\left(\Delta x - f(x) \frac{\Delta t}{\gamma} \right)^2}{4 D \Delta t} \right].
     \label{BM_transition_probability}
 \end{equation}
 Now it is straight forward to calculate the jump moments from this transition probability according to equation \eqref{Jump_moments} and as it was already anticipated it turns out to be true that the first and second moment are linear in $\Delta t$ in leading order: 
@@ -159,38 +159,38 @@ Now it is straight forward to calculate the jump moments from this transition pr
     M_1(x,t,\Delta t) = f(x)\frac{\Delta t}{\gamma}, \qquad M_2(x,t,\Delta t) = 2 D \Delta t + \left(f(x)\frac{\Delta t}{\gamma} \right)^{2}
     \label{BM_jump_moments}
 \end{equation}
-such the kinetic coefficients \eqref{kinetic_coefficients} are equal to
+such that the kinetic coefficients \eqref{kinetic_coefficients} are equal to
 \begin{equation}
     K^{(1)}(x,t) = \frac{f(x)}{\gamma}, \qquad K^{(2)}(x,t) = 2 D.
     \label{BD_kinetic_coefficients}
 \end{equation}
-It can be shown that all higher jump moments are of order $\mathcal{O}(\Delta t ^{2})$ such that it is indeed valid to truncate the Kramers Moyal expansion after the second therm. Therefore the time evolution of the probability distribution of a Brownian particle is fully described by the following expression:
+It can be shown that all higher jump moments are of order $\mathcal{O}(\Delta t ^{2})$ such that it is indeed valid to truncate the Kramers Moyal expansion after the second term. Therefore the time evolution of the probability distribution of a Brownian particle is fully described by the following expression:
 \begin{equation}
-    \frac{\partial P(x,t)}{\partial t} = - \frac{\partial}{\partial x} \left[f(x)P(x,t) \right] + D\frac{\partial^2}{\partial x^2}\left[P(x,t) \right] 
+    \frac{\partial P(x,t)}{\partial t} = - \frac{\partial}{\partial x} \left[f(x)P(x,t) \right] + D\frac{\partial^2}{\partial x^2}\left[P(x,t) \right] .
     \label{FPE2}
-\end{equation}
+\end{equation}i
 
-\subsection{The Master-Equation}
+\subsection{The Master Equation}
 \label{The_Master_Equation}
-The master equation is one more equivalent formulation of the Chapman Kolmogorow equation. The Chapman Kolmogorow equation usually is of not much help since it is essentially a property of the solution for the transition probabilities. The master equation however is its formulation in terms of a differential equation and is far more useful especially for the description in a discrete state space. \\
-In order to derive it one has to reason first about the short time behaviour of the transition probabilities. From the Chapman Kolmogorow equation for equal time arguments it is obvious that
+The master equation is yet another equivalent formulation of the Chapman Kolmogorow equation \eqref{CKeq}. The Chapman Kolmogorow equation usually is of not much help since it is essentially a property of the solution for the transition probabilities. The master equation however is its formulation in terms of a differential equation and is far more useful especially for the description in a discrete state space. \\
+In order to derive it one has to reason first about the short time behavior of the transition probabilities. From the Chapman Kolmogorow equation for equal time arguments it is obvious that
 \begin{equation}
     P(x_2,t|x_1,t) = \delta(x_1-x_2)
     \label{leading_order}
 \end{equation}
-which is the zero order therm of the following formulation of the short time transition probability $P(x_2,t+\Delta t|x_1,t)$:
+which is the zero order term of the following formulation of the short time transition probability $P(x_2,t+\Delta t|x_1,t)$:
 \begin{equation}
-    P(x_2,t+\Delta t|x_1,t) = W(x_2|x_1)\Delta t + \left[ 1 - \Delta t \int {\rm d} x W(x_2|x_1) \right] \delta(x_2-x_1) + O(\Delta t ^{2})
+    P(x_2,t+\Delta t|x_1,t) = W(x_2|x_1)\Delta t + \left[ 1 - \Delta t \int {\rm d} x W(x_2|x_1) \right] \delta(x_2-x_1) + O(\Delta t ^{2}).
     \label{master_assumption}
 \end{equation}
 For the better understanding of this expression imagine the following: At time $t$ the system was in state $x_1$. In the subsequent time interval $\Delta t$ it might have made a transition to the state $x_2$.
-Here the probability of the transition is expressed in terms of the (non negative) {\it transition rate} i.e. the transition probability per unit time from state $x_1$ to $x_2$: $W(x_2|x_1)$. So the first term on the right hand side of equation \eqref{master_assumption} gives the transition probability from state $x_1$ to another state $x_2 \ne x_1$ whereas the second therm on the right hand side is equal to one minus the probability to move to any other state i.e. the probability for the system to rest in state $x_1$ during the time $\Delta t$.\\
+Here the probability of the transition is expressed in terms of the (non negative) {\it transition rate}  $W(x_2|x_1)$ i.e. the transition probability per unit time from state $x_1$ to $x_2$. So the first term on the right hand side of equation \eqref{master_assumption} gives the transition probability from state $x_1$ to another state $x_2 \ne x_1$ whereas the second term on the right hand side is equal to one minus the probability to move to any other state i.e. the probability for the system to rest in state $x_1$ during the time $\Delta t$.\\
 To maintain a readable form it is common to introduce the notation
 \begin{equation}
     T_\tau (x_2|x_1) = P(x_2,t+\tau|x_1,t)
 \end{equation}
 and to omit the absolute time dependence, since the process is assumed to be stationary. \\
-Chapman-Kolmogorow equation in this formulation reads:
+The Chapman-Kolmogorow equation in this formulation reads:
 \begin{equation}
     T_{\tau + \tau'}(x_3|x_2) = \int T_{\tau'}(x_3|x_2)T_{\tau}(x_2|x_1){\rm d} x_2.
     \label{K2}
@@ -205,7 +205,7 @@ and regrouping the terms and dividing by $\tau ' $ results in:
     &- \int \left\{ W(z|x_2)  T_{\tau}(x_2|x_1)\delta(x_3 - x_2) \right\}{\rm d} z {\rm d} x_2 \\
     &+ \int \left\{ W(x_3|x_2) T_{\tau}(x_2|x_1) \right\}{\rm d} x_2.
 \end{align*}
-The integrals in the first and the second therm on the right hand side can be evaluated and the fist therm can be moved to the left hand side:
+The integrals in the first and the second term on the right hand side can be evaluated and the fist term can be moved to the left hand side:
 \begin{align*}
     \frac{1}{\tau}\left\{  T_{\tau+\tau'}(x_3|x_1) - T_{\tau}(x_3|x_1)\right\} &= \int \left\{ W(x_3|x_2) T_{\tau}(x_2|x_1) \right\}{\rm d} x_2  \nonumber \\
     &- \int \left\{ W(z|x_3)  T_{\tau}(x_3|x_1) \right\}{\rm d} z.
@@ -215,9 +215,9 @@ Finally one renames $z$ to $x_2$ and takes the limit of $\tau' \rightarrow 0$ to
     \frac{\partial}{\partial \tau}T_{\tau}(x_3|x_1) = \int \left\{ W(x_3|x_2) T_{\tau}(x_2|x_1) - W(x_2|x_3) T_{\tau}(x_3|x_1) \right\}{\rm d} x_2
     \label{continuous_space_master_equation}
 \end{equation}where the $W(x_i|x_j)$ are properties of the specific process.
-This equation describes the time development of the transition probabilities given an initial condition $(x_1,t_1)$. A more intuitive form follows from multiplying and integrating over a distribution of initial conditions $P(x_1,t_1)$ and its spatial coordinate $x_1$.
+This equation describes the time development of the transition probabilities given an initial condition $(x_1,t_1)$. A more intuitive form follows from multiplying with a distribution of initial conditions $P(x_1,t_1)$ and integrating over its spatial coordinate $x_1$:
 \begin{equation}
-    \frac{\partial P(x,t)}{\partial t} = \int \left\{ W(x|x') P(x',t) - W(x'|x)P(x,t) \right\} {\rm } x'
+    \frac{\partial P(x,t)}{\partial t} = \int \left\{ W(x|x') P(x',t) - W(x'|x)P(x,t) \right\} {\rm } x'.
 \end{equation}
 In this form the meaning becomes particularly clear. The master equation is a \textit{gain loss equaition} for the probabilities of each state $x$. The first term on the right hand side describes the gain of probability of state $x$ due to transitions from other states $x'$, whereas the second term on the right hand side describes the loss of probability of state $x$ due to transitions to other states.\\
 For a discrete state space the integral on the right hand side is replaced by the sum over all possible states and the master equation has the form of a system of coupled ordinary differential equations:
@@ -237,33 +237,33 @@ resulting in
 \end{equation}
 The transition rate matrix satisfies the following conditions:
 \begin{align*}
-    &0 \ge \mathbb{W}_{n,n'} \quad \mbox{ for all } n \ne n' \\
-    &0 \ge -\mathbb{W}_{n,n} \ge \infty \\
-    &\sum_{n'} \mathbb{W}_{n,n'} = 0
+    &0 \ge \mathbb{W}_{n,n'} \quad \mbox{ for all } n \ne n', \\
+    &0 \ge -\mathbb{W}_{n,n} \ge \infty, \\
+    &\sum_{n'} \mathbb{W}_{n,n'} = 0.
     \label{Transitions_rate_matrix}
 \end{align*}
 In general it is not symmetric and can thus not be diagonalized. \\
-From equation \eqref{discrete_space_master_equation} one immediately sees, that for a steady state solution this implies, that the loss of probability from one state is compensated by the gain of probability by transitions from other states.\\
+From equation \eqref{discrete_space_master_equation} one immediately sees that for a steady state solution the loss of probability from one state is compensated by the gain of probability from other states:\\
 \begin{equation}
-    \sum\limits_{n'} W_{n n'}P_{n'} = \sum\limits_{n'}W_{n' n} P_n
+    \sum\limits_{n'} W_{n n'}P_{n'} = \sum\limits_{n'}W_{n' n} P_n.
     \label{equilibrium}
 \end{equation}
 For stationary time reversible Markov processes this criterion can even be tightened to a property called \textit{detailed equilibrium}.
-This property requires, that the total exchange of probability between two states to each other must be equal i.e.
+This property requires, that the total exchange of probability between two states to each other must be equal, i.e.
 \begin{equation}
-     W_{n n'}p_{n'} = W_{n'n}p_{n}
+     W_{n n'}p_{n'} = W_{n'n}p_{n}.
     \label{detailed_balance}
 \end{equation}
 It can be proven to be true for a wide range of physical and chemical processes \cite{Boltzmann1872,Einstein1917,Wegscheider1911} and is also closely related to the Onsager reciprocal relations \cite{Onsager1931,Wigner1954}.
-It also implies a certain symmetry of the transition rate matrix that can be used to show that for this class of matrices it is possible to find a symmetric representation such that it can be diagonalized via a suitable orthogonal transformation.
+It further implies a certain symmetry of the transition rate matrix that can be used to show that for this class of matrices it is possible to find a symmetric representation such that it can be diagonalized via a suitable orthogonal transformation\cite{Oppenheim1977}.
 \subsection{Composite Markov Processes}
 \label{Multivariate_Markov_Processes}
-It is straight forward to continue to Markov processes whose sample space is a direct product of continuous and discrete variables i.e. $\Omega = \mathbb{R}^{3} \times [1,\cdots, N]$. The Chapman Kolmogorow equation then reads
+It is straight forward to continue to Markov processes whose sample spaces are a direct products of continuous and discrete variables, i.e. $\Omega = \mathbb{R}^{3} \times [1,\cdots, N]$. The Chapman Kolmogorow equation then reads
 \begin{equation}
     P(\vec{x}_3,n_3,t_3|\vec{x}_1,n_1,t_1) = \sum_{n_2} \int P(\vec{x}_3,n_3,t_1|\vec{x}_2,n_2,t_2)P(\vec{x}_2,n_2,t_2|\vec{x}_1,n_1,t_1) {\rm d} \vec{x}_2.
     \label{MCK}
 \end{equation}
-In this case the variable $\vec{x}$ can be treated by means of the Kramers Moyal expansion as discussed in section \ref{The_Fokker_Planck_Equation} whereas the variable $n$ can be treated by the approach of the Master equation as described in section \ref{The_Master_Equation}. Assuming that the driving process for the evolution of the continuous variable is Gaussian and that the Kramers Moyal expansion in moments of its transition probabilities can therefore be truncated after the second therm one can derive the following expression:
+In this case the variable $\vec{x}$ can be treated by means of the Kramers Moyal expansion as discussed in section \ref{The_Fokker_Planck_Equation} whereas the variable $n$ can be treated by the approach of the Master equation as described in section \ref{The_Master_Equation}. Assuming that the driving process for the evolution of the continuous variable is Gaussian and that the Kramers Moyal expansion in moments of its transition probabilities can therefore be truncated after the second term one can derive the following expression:
 \begin{align}
     \frac{\partial}{\partial t } P(\vec{x},n,t) =   &- \vec{ \nabla } \left[\vec{K}^{(1)}(\vec{x},n,t)P(\vec{x},n,t) \right] + \frac{1}{2}\vec{\nabla}^{2}\left[ K^{(2)}(\vec{x},n,t)P(\vec{x},n,t) \right] \nonumber \\
                                                     &+ \sum_{n'} \left\{ W_{nn'}P(\vec{x},n',t) - W_{n'n}P(\vec{x},n,t)\right\}.
@@ -272,11 +272,11 @@ In this case the variable $\vec{x}$ can be treated by means of the Kramers Moyal
 This gives the time evolution of the composite Markov process. If the underlying process for the continuous variable is again Brownian motion in an external potential then it follows from \eqref{BD_kinetic_coefficients} that the previous expression can be refined to
 \begin{align}
     \frac{\partial}{\partial t } P(\vec{x},n,t) =   &- \vec{ \nabla } \left[\frac{1}{\gamma}\vec{f}(\vec{x},n,t)P(\vec{x},n,t) \right] +\vec{\nabla}^{2}\left[ D(\vec{x},n)P(\vec{x},n,t) \right] \nonumber \\
-                                                    &+ \sum_{n'} \left\{ W_{nn'}P(\vec{x},n',t) - W_{n'n}P(\vec{x},n,t)\right\}
+                                                    &+ \sum_{n'} \left\{ W_{nn'}P(\vec{x},n',t) - W_{n'n}P(\vec{x},n,t)\right\}.
     \label{fpmeq1}
 \end{align}
-This can be interpreted as the motion of Brownian particles with different internal states such as spatial or electronic confirmations or binding states to some surface. In each of these internal states the may therefore have different friction and diffusion constants, be under the influence of forces and may even be subject to different boundary conditions. \\
-It is convenient to write this equation in a vector notation for the variable $n$. Then $\vect{p}$ indicates the vector $(p(0),p(1),\cdots,p(N))$ on the $N$ dimensional space over the closed interval $[0,1]$ (the variables $\vect{x}$ and $t$ have been omitted). \\ 
+This can be interpreted as the motion of Brownian particles with different internal states such as spatial or electronic confirmations or binding states to some surface. In each of these internal states they may therefore have different friction and diffusion constants, be under the influence of different forces and may even be subject to different boundary conditions. \\
+It is convenient to write this equation in a vector notation for the variable $n$. Then $\vect{p}$ indicates the vector $(p(0),p(1),\cdots,p(N))^{T}$ on the $N$ dimensional space over the closed interval $[0,1]$ (the variables $\vect{x}$ and $t$ have been omitted). \\ 
 Also the diagonal Fokker-Planck operator for the drift and diffusion terms is introduced as
 \begin{equation}
     \mathbb{F} = {\rm diag} \left[- \vec{ \nabla } \frac{1}{\gamma}\vec{f}(\vec{x},n,t) + \vec{\nabla}^{2} D(\vec{x},n) \right]
@@ -287,55 +287,68 @@ and the transition rates are again written in terms of $\mathbb{W}$ as introduce
     \frac{\partial}{\partial t} \vect{p}(\vec{x},t) = \left\{ \mathbb{F} + \mathbb{W} \right\} \vect{p}(\vec{x},t).
     \label{fpmeq2}
 \end{equation}
-This kind of description has been used to explain various transport properties for instance on polymer chains or on reactive surfaces. \cite{Friedman1968,Caceres1990}.
-\section{The Smoluchowski Reaction Rate}
-For educational reasons and since it will referred to later, at this point the solution to the original Smoluchowski \cite{Smoluchowski1917a} problem will be given.
-The problem involves a perfect spherical sink of radius $R_s$ embedded in an initially homogeneous distribution of Brownian particles. The aim is to calculate the time dependent and stationary absorption rate of particles into the sink.
-The boundary and initial conditions are therefore
+This kind of description has been used to explain various transport properties for instance on polymer chains or on reactive surfaces \cite{Friedman1968,Caceres1990}.
+\subsection{The Smoluchowski Reaction Rate}
+For educational reasons and since it will be referred to later, this section gives the solution to the original Smoluchowski problem. \\
+The problem, which is essentially the coagulation of gold particles in solution, was outlined by Marian von Smoluchowski in a series of three talks on diffusion given in 1916 \cite{Smoluchowski1916} and finally published in 1917 \cite{Smoluchowski1917a}. It involves a perfect spherical sink of radius $R_s$ embedded in an initially homogeneous distribution of Brownian particles $\rho(\vec{r},t)$. The aim is to calculate the time dependent and stationary absorption rate of particles into the sink. \\
+Therefore one is looking for a time dependent solution to the corresponding Fokker-Planck Equation in terms of particle densities:
+\begin{equation}
+        \frac{\partial \rho(\vec{r},t)}{\partial t} = - \vec \nabla \left[ \vec f(\vec{r})\rho(\vec{r},t) \right] + D\vec \nabla ^2 \left[\rho(\vec{r},t) \right] 
+    \label{FPE3}
+\end{equation}
+without external force $\vec{f}(\vec{r})=0$ and subject to the following boundary and initial conditions:
 \begin{align}
     \rho(r > R_s, t = 0) &= \rho_o, \\
     \rho(r=R_s,t) &= 0, \\
     \lim_{r \rightarrow \infty} \rho(r, t) &= \rho_o.
     \label{BC}
 \end{align}
-In the following, the corresponding Fokker Planck Equation in terms of particle densities
+The substitution $r \cdot \rho(r,t) = u(r,t)$ and the assumption of spherical symmetry reduce the equation to:
 \begin{equation}
-        \frac{\partial \rho(\vec{r},t)}{\partial t} = - \vec \nabla \left[ \vec f(\vec{r})\rho(\vec{r},t) \right] + D\vec \nabla ^2 \left[\rho(\vec{r},t) \right] 
-    \label{FPE3}
-\end{equation}
-will be solved without external force, i.e. $\vec f(r) = 0$ and subject to the given boundary and initial conditions.
-With the substitution $r \cdot \rho(r,t) = u(r,t)$ and the assumption, that the problem is spherically symmetric the derivatives in the Fokker Planck equation simplify to
-\begin{equation}
-    \frac{\partial u(r,t)}{\partial t} = D \frac{\partial ^2 u(r,t)}{\partial r^2}
+    \frac{\partial u(r,t)}{\partial t} = D \frac{\partial ^2 u(r,t)}{\partial r^2}.
     \label{Simplified FPE}
 \end{equation}
-Laplace transform of the equation yields:
+This expression can now be transformed to an ordinary 2nd degree inhomogeneous differential equation in Laplace space:
 \begin{align}
     \int_0^\infty e^{-st}\frac{\partial u(r,t)}{\partial t} \rm{d} t &= D \frac{\partial ^2 }{\partial r^2} \int_0^\infty e^{-st} u(r,t) \rm{d} t \\
     \left[e^{-st} u(r,t) \right]_0^\infty + s \int_0^\infty e^{-st} u(r,t) \rm{d} t &= D \frac{\partial^2}{\partial r^2} \tilde{u}(r,s)\\
-    u(r,0) + s \tilde{u}(r,s) &= D \frac{\rm{d}^2}{\rm{d} r^2} \tilde{u}(r,s).
+    u(r,0) + s \tilde{u}(r,s) &= D \frac{\rm{d}^2}{\rm{d} r^2} \tilde{u}(r,s)
 \end{align}
-This is an ordinary 2nd degree inhomogeneous differential equation with constant coefficients.
-For the standard ansatz $\tilde{u}(r,s) = \exp(\lambda(s) r)$ for the homogeneous solution we get the following characteristic polynomial:
+with transformed boundary conditions:
+\begin{align}
+    \tilde{u}(r=R_s,s) &= 0, \nonumber \\
+    \lim\limits_{r\rightarrow \infty} \tilde{u}(r,s) &= \frac{r}{s}\rho_o.
+    \label{transformed_BC}
+\end{align}
+According to the standard procedure one first solves the homogeneous equation. The use of the ansatz
 \begin{equation}
-    \lambda(s) ^2 - \frac{s}{D} = 0
+    \tilde{u}_{h}(r,s) = e^{\lambda(s) \cdot r}
+\end{equation}
+results in the following characteristic polynomial:
+\begin{equation}
+    \lambda(s) ^2 - \frac{s}{D} = 0.
     \label{characteristic_polynomial}
 \end{equation}
-resulting in the following homogeneous solution:
+Calculation of the eigenvalues and linear combination of the independent solutions then lead to the following homogeneous solution:
 \begin{equation}
-    \tilde{u}_h(r,s) = C_1 e^{ - \sqrt{\frac{s}{D}} \cdot r } + C_2 e^{ \sqrt{\frac{s}{D}} \cdot r }
+    \tilde{u}_h(r,s) = C_1 e^{ - \sqrt{\frac{s}{D}} \cdot r } + C_2 e^{ \sqrt{\frac{s}{D}} \cdot r }.
     \label{u_h}
 \end{equation}
-We find the inhomogeneous solution using a polynomial ansatz of the form $\tilde{u}_i = C_3 r + C_4$ leading to the following relation:
+The inhomogeneous solution is found using a polynomial ansatz of the form $\tilde{u}_i = C_3 r + C_4$:
 \begin{align}
-    s(C_3 r + C_4)  &= -u(r,0)\\
-                    &= - r \rho_o \\
-    \Rightarrow C_3 &= \frac{r}{s}\rho_o \\
+    s(C_3 r + C_4)  &= u(r,0)\nonumber\\
+                    &= r \rho_o \nonumber\\
+    \Rightarrow C_3 &= \frac{\rho_o}{s}, \nonumber\\
                 C_4 &= 0
 \end{align}
-Now the entire solution has to be fitted to the boundary conditions as in (\ref{BC}). The solution in Laplace space then reads:
+such that the entire solution reads:
+\begin{align}
+    \tilde{u}(r,t)&=\tilde{u}_{i}(r,t)+\tilde{u}_{h}(r,t) \nonumber \\
+    &= \tilde{u}_h(r,s) = C_1 e^{ - \sqrt{\frac{s}{D}} \cdot r } + C_2 e^{ \sqrt{\frac{s}{D}} \cdot r } + \rho_o\frac{r}{s} .
+\end{align}
+This solution has to be fitted to the boundary conditions \eqref{transformed_BC} such that it reduces to:
 \begin{equation}
-\tilde{u}(r,s) = \rho_o \left( \frac{r}{s} + \frac{R_s}{s} e^{ \sqrt{\frac{s}{D}}(R_s - r) } \right) 
+    \tilde{u}(r,s) = \rho_o \left( \frac{r}{s} - \frac{R_s}{s} e^{ \sqrt{\frac{s}{D}}(R_s - r) } \right) .
 \end{equation}
 The inverse Laplace transform
 \begin{align}
@@ -354,254 +367,404 @@ and the following identity for the second:
     \mathcal{L}\left[ {\rm erfc\left( \frac{a}{2\sqrt{t}} \right)} \right] = \frac{1}{s}e^{a\sqrt{s}}
     \label{L(erfc)}
 \end{equation}
-resulting in the following time dependent solution for $u(r,t)$ resp. the particle density $\rho(r,t)$:
+resulting in the following time dependent solution for $u(r,t)$ respectively the particle density $\rho(r,t)$:
 \begin{align}
-    u(r,t) &= \rho_o \left\{ r - R_s {\rm erfc} \left( \frac{r - R_s}{\sqrt{4 D t}} \right) \right\} \\
+    u(r,t) &= \rho_o \left\{ r - R_s {\rm erfc} \left( \frac{r - R_s}{\sqrt{4 D t}} \right) \right\}, \\
     \rho(r,t) &= \rho_o \left\{ 1 - \frac{R_s}{r} + {\rm erf} \left( \frac{r - R_s}{\sqrt{4Dt}} \right) \right\}.
     \label{u(r,t)}
 \end{align}
 In the limit $t \rightarrow \infty$ this results in the steady state density profile:
 \begin{equation}
-    \rho(r) =  \rho_o \left( 1 - \frac{R_s}{r} \right)
+    \rho(r) =  \rho_o \left( 1 - \frac{R_s}{r} \right).
     \label{steady_state_density}
 \end{equation}
 The reaction rate can be defined as the total flux of particles through the boundary $\Omega$ of the sink:
 \begin{equation}
-    K = \int_\Omega \vec{J} {\rm d}\vec{A} 
+    K = \int_\Omega \vec{J} {\rm d}\vec{A} .
     \label{reaction rate}
 \end{equation}
 Using the differential continuity equation:
 \begin{align}
-    \frac{\partial \rho(\vec{r},t)}{\partial t}&= \vec{\nabla} \vec{J}(\vec{r},t) \\
+    \frac{\partial \rho(\vec{r},t)}{\partial t}&= \vec{\nabla} \vec{j}(\vec{r},t) \nonumber \\
     &= \vec{\nabla} \left\{ \rho(\vec{r},t) \nabla \vec{U}(\vec{r}) + D \vec{\nabla} \rho(\vec{r},t) \right\}
-    \label{contiuity equation}
+    \label{contiuity_equation}
 \end{align}
-and the spherical symmetry of the solution one can derive the time dependent reaction rate of the Brownian particles with the spherical sink of radius $R_s$ as follows:
+and the spherical symmetry of the solution one can derive the time dependent reaction rate of the Brownian particles as the flux through the surface $\Omega$ of the spherical sink of radius $R_s$ as follows:
 \begin{align}
-    K(t) &= \int_\Omega D  \vec{\nabla} \rho(\vec{r},t) \\
-    &= 4 \pi D R_s^2 \left. \vec{\nabla} \rho(\vec{r},t) \right|_{r = R_s}\\
-    &= 4 \pi D R_s \rho_o \left( 1 + \frac{R_s}{\sqrt{4Dt}} \right)
+    K(t) &= \int_\Omega \vec j(r,t) {\rm d} \vec A \nonumber \\
+    &= \int_\Omega D  \vec{\nabla} \rho(\vec{r},t) {\rm d} \vec{A} \nonumber \\
+    &= 4 \pi D R_s^2 \left. \vec{\nabla} \rho(\vec{r},t) \right|_{r = R_s} \nonumber \\
+    &= 4 \pi D R_s \rho_o \left( 1 + \frac{R_s}{\sqrt{4Dt}} \right).
     \label{ideal reaction rate}
 \end{align}
 Again in the limit of $t \rightarrow \infty$ this results in the steady state absorption rate:
 \begin{equation}
-    K = 4 \pi D R_s \rho_o
+    K = 4 \pi D R_s \rho_o.
     \label{steady state ideal rate}
 \end{equation}
-
-\section{The Debye Reaction Rate}
+Intuitively, one might have expected that the rate would scale with the surface of the sink. However, it goes only linearly with its radius.
+\subsection{The Debye Reaction Rate}
 \label{The_Debye_Reaction_Rate}
-The problem of diffusion controlled reaction rates as outlined in the previous chapter was extended to interaction between the substrate and the absorbing particles. For the resulting Fokker-Planck Equation of the substrate particles
+The problem of diffusion controlled reaction rates as outlined in the previous chapter was extended to interaction between the substrate and the absorbing particles by Peter Debye in 1942 \cite{Debye1942}. He longed to describe reaction rates between charged particles in ionic solutions. \\
+In his paper he assumed two species of Brownian particles with different diffusion constants $D_{1}$ and $D_{2}$ in solution, with one of them only present in very dilute concentration. Also, different particles are pairwise independent amongst their own species but interact with particles from the other species. Therefore the particles of the dilute species can be regarded as fixed targets and their diffusive behaviour is taken into account by taking the effective diffusion constant of the ``moving'' species to be the sum of the diffusion constants of both species. 
 \begin{equation}
-    \frac{\partial \rho(r,t)}{\partial t} = \vec \nabla \left[ \frac{\rho(r,t)\vec \nabla U(r)}{\gamma} + D \nabla \rho(r,t) \right]
+    D_{eff} = D_{1} + D_{2}.
+\end{equation}
+Again, one assumes spherical symmetry and consequently the problem can be described by a Fokker-Planck equation in terms of the density of the ``moving'' particles $\rho(r,t)$:
+\begin{equation}
+    \frac{\partial \rho(r,t)}{\partial t} = \vec \nabla \left[ \frac{\rho(r,t)\vec \nabla U(r)}{\gamma} + D_{eff} \nabla \rho(r,t) \right].
     \label{fpe_debye}
 \end{equation}
-it is possible to obtain a steady state solution for the particle flux through the surface of the sink of radius $R_s$. Therefore one omits the lhs. and integrates the rhs. from $R_s$ to an arbitrary $r$. With $J$ being the particle flux
-\begin{equation}
-    \vec J(r,t) =  \frac{\rho(r,t)\vec \nabla U(r)}{\gamma} + D \nabla \rho(r,t)
-    \label{flux}
-\end{equation}
-This results in
+From this expression it is possible to obtain a steady state solution for the particle flux through the surface of the sink of radius $R_s$. \\
+Therefore one omits the left hand side of the equation and integrates the right hand side from $R_s$ to an arbitrary $r$:
 \begin{align}
-    0 &= \int_{R_s}^{r} \vec \nabla \vec J(r) \nonumber \\
-    \vec J(R_s) &=  \rho(r)\frac{\vec \nabla U(r)}{\gamma} + D \vec \nabla \rho(r).
+    0 &= \int_{R_s}^{r} \vec \nabla \vec j(r) \nonumber \\
+    \vec j(R_s) &=  \rho(r)\frac{\vec \nabla U(r)}{\gamma} + D \vec \nabla \rho(r),
 \end{align}
-Now since the absorption rate is given by the flux through the sink surface i.e. the flux $\vec J (R_s)$ integrated over the surface of the sink the rate $K$ is determined by the following equation:
+where $\vec{j}$ is again the local particle flux (comp. equation \eqref{contiuity_equation}).\\ Now since the absorption rate is given by the flux through the sink surface, i.e. the flux $\vec j (R_s)$ integrated over the surface of the sink the rate $K$ is determined by the following equation:
 \begin{equation}
-    \frac{K}{4\pi D r^{2}} = \rho(r)\frac{\rm d}{\rm d r} \frac{U(r)}{K_B T} + \frac{\rm d}{\rm d r} \rho(r).
+    \frac{K}{4\pi D r^{2}} = \rho(r)\frac{\rm d}{ {\rm d}r} \frac{U(r)}{K_B T} + \frac{\rm d}{ {\rm d}r} \rho(r).
     \label{K}
 \end{equation}
-Equation \eqref{K} can be solved in terms of a general solution of the homogeneous differential equation
+This is again an inhomogeneous ordinary differential that can be solved in terms of a homogeneous and an inhomogeneous solution. The homogeneous equation:
 \begin{equation}
-    \frac{\rm d}{\rm d r} \rho(r) = -\rho(r) \frac{\rm d}{\rm d r} \frac{U(r)}{K_B T}
+    \frac{\rm d}{{\rm d} r} \rho(r) = -\rho(r) \frac{\rm d}{ {\rm d} r} \frac{U(r)}{K_B T}
     \label{homogeneous_equation}
 \end{equation}
-that has the form
+obviously has a solution of the form:
 \begin{equation}
-    \rho(r) = C \exp \left[ - \frac{U(r)}{K_B T} \right].
+    \rho_h(r) = C \exp \left[ - \frac{U(r)}{K_B T} \right].
     \label{homogeneous_solution}
 \end{equation}
-Using this the solution the inhomogeneous equation can be obtained by the method of variation of the constant. Therefore we take the constant $C$ in \eqref{homogeneous_solution} to be $r$ dependant and substitute $\rho(r)$ in eq. \eqref{K}:
+This expression is then used to find the solution of the inhomogeneous equation by the method of variation of the constant. Therefore one takes the constant $C$ in \eqref{homogeneous_solution} to be $r$ dependent and substitute $\rho_h(r)$ in equation \eqref{K}:
 \begin{align}
-    \frac{K}{4 \pi D r^2} &= C(r) \exp \left[ - \frac{U(r)}{K_B T} \right] \frac{\rm d}{\rm d r} \frac{U(r)}{K_B T} + \frac{\rm d}{\rm d r} C(r) \exp \left[ - \frac{U(r)}{K_B T} \right] \nonumber\\
-    \frac{K}{ 4 \pi D r^2} &= \exp \left[ -\frac{U(r)}{K_B T} \right] \frac{\rm d }{\rm d r} C(r)
+    \frac{K}{4 \pi D r^2} &= C(r) \exp \left[ - \frac{U(r)}{K_B T} \right] \frac{\rm d}{ {\rm d} r} \frac{U(r)}{K_B T} + \frac{\rm d}{ {\rm d} r} \left( C(r) \exp \left[ - \frac{U(r)}{K_B T} \right] \right) \nonumber\\
+    \frac{K}{ 4 \pi D r^2} &= \exp \left[ -\frac{U(r)}{K_B T} \right] \frac{\rm d }{ {\rm d} r} C(r).
     \label{equation_C(r)}
 \end{align}
-Now integrating this equation from $R_s$ to an arbitrary $r>R_s$ yields:
+Then one integrates this equation from $R_s$ to an arbitrary $r>R_s$:
 \begin{equation}
-    C(r) = C(R_s) + \frac{K}{4 \pi D}\int_{R_s}^{r} \frac{\exp \left[ \frac{U(r')}{K_B T}\right]}{r'^2} \rm d r'
+    C(r) = C(R_s) + \frac{K}{4 \pi D}\int_{R_s}^{r} \frac{\exp \left[ \frac{U(r')}{K_B T}\right]}{r'^2} {\rm d} r'.
     \label{solution_C(r)}
 \end{equation}
-Using the boundary condition that $\rho(R_s)=0$  we can set the integration constant $C(R_s) = 0$ to obtain the result for the density profile of the substrate particles in the potential of the absorbing particle:
+Using the boundary condition $\rho(R_s)=0$ one can set the integration constant $C(R_s) = 0$. The resulting expression for $C(r)$ is then plugged into equation \eqref{homogeneous_solution}):
 \begin{equation}
-    \rho(r) = \frac{K}{4 \pi D}\exp \left[ -\frac{U(r)}{K_B T} \right] \int_{R_s}^{r} \frac{\exp \left[ \frac{U(r')}{K_B T}\right]}{r'^2} \rm d r'.
+    \rho(r) = \frac{K}{4 \pi D}\exp \left[ -\frac{U(r)}{K_B T} \right] \int_{R_s}^{r} \frac{\exp \left[ \frac{U(r')}{K_B T}\right]}{r'^2} {\rm d} r'.
     \label{rho_debye}
 \end{equation}
-The rate $K$ can then be calculated by the use of the boundary condition that for $r \rightarrow \infty$ $\rho(r) \rightarrow \rho_o$ together with the assumption, that the interaction $U(r)$ only has a finite range, i.e. that it vanishes for $r \rightarrow \infty$:
+This is the spacial dependent density profile of the ``moving'' particles in the potential of the fixed target particles. \\
+The rate $K$ can then be calculated using the boundary condition $r \rightarrow \infty$, $\rho(r) \rightarrow \rho_o$ together with the assumption, that the interaction $U(r)$ only has a finite range, i.e. that it vanishes for $r \rightarrow \infty$:
 \begin{equation}
     \rho_o = \lim_{r\rightarrow \infty} \rho(r) = \frac{K}{4 \pi D}\int_{R_s}^{\infty} \frac{\exp \left[ \frac{U(r')}{K_B T}\right]}{r'^2} \rm d r'
     \label{lim_rho_debye_infty}
 \end{equation}
 which is equivalent to 
 \begin{equation}
-    K = 4 \pi D \rho_o \left\{\int_{R_s}^{\infty} \frac{\exp \left[ \frac{U(r')}{K_B T}\right]}{r'^2} \rm d r' \right\}^{-1}
+    K = 4 \pi D \rho_o \left\{\int_{R_s}^{\infty} \frac{\exp \left[ \frac{U(r')}{K_B T}\right]}{r'^2} \rm d r' \right\}^{-1}.
     \label{K_Debye}
 \end{equation}
-In the case of $U(r) \equiv 0$ this simplifies to the result obtained by Smoluchowski (comp. eq. \eqref{steady state ideal rate}.
+In the case of $U(r) \equiv 0$ this simplifies to the result obtained by Smoluchowski (compare equation \eqref{steady state ideal rate}. \par
+\subsection{Summary}
+The previous section gave a brief introduction on Markov processes and Brownian motion as well as two example applications for diffusion controlled reaction rates with either no or constant interaction between reactants. \\
+In the following section these concepts will be extended to interactions that are fluctuating in time. Therefore we will consider the combined process of the Brownian motion of the particles on the one hand and the fluctuations of the interaction of the particles on the other hand as one composite Markov process as outlined in \ref{Multivariate_Markov_Processes}.
 
 \newpage
 \section{Reaction Rates over Fluctuating Barriers}
 \label{Reaction_Rates_over_Fluctuating_Barriers}
+
 \subsection{Model Description}
 \label{Model_Description}
-The system under consideration consists of a spherical sink of radius $R_s$ that is surrounded by a potential barrier. The barrier is assumed to be of boxcar shape with limiting radius $a,b>R_s$. It fluctuates between states $n$ with different hight $U_n \in [U_0, \cdots U_N]$ subject to a transition rate matrix $\mathbb{W}$. The system is embedded in a reservoir of Brownian particles. It is desired to find the rate at which the particles are absorbed by the sink, given that the transition rate matrix of the potential fluctuations satisfies the detailed balance property.\\
-The appropriate boundary conditions are, that the probability density function of the Brownian particles is zero at $R_s$ and takes a constant finite value for $|\vec{r}| \rightarrow \infty$. Due to the fact that the system is not spatially bounded it is not possible to normalize the joint pdf $\vect{p}(\vec{r},n,t)$ of the position of the Brownian particles and the state of the potential barrier in the sense that 
+The system under consideration consists of a spherical sink of radius $R_s$ that is surrounded by a potential barrier. The barrier is assumed to be of boxcar shape with limiting radius $a,b>R_s$ as illustrated in figure \ref{skizze}. It fluctuates between $M$ states with different hight $U_m \in [U_0, \cdots U_M]$. The transition rates between potential states are given by a transition rate matrix $\mathbb{W}$ which is assumed to satisfy the detailed balance property \eqref{detailed_balance}. This system is embedded in a reservoir of Brownian particles.
+\begin{figure}[H]\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,top},capbesidewidth=0.45 \textwidth}}]{figure}[\FBwidth]
+    {\caption{Illustrative sketch of the system. The spherical sink of radius $R_s$ is surrounded by a step potential with boundaries at $r=a$ and $r=b$. The potential fluctuates between different heights subject to a transition rate matrix with entries $\mathbb{W}_{mm'}$ (to keep things clear only two states are depicted here). This setup is embedded in a bath of Brownian particles with fixed density at $r \rightarrow \infty$. The particles move under the influence of the potential in its current state. The reaction rate $K$ is given by the number of particles per unit time that cross the barrier and hit the sink.}\label{skizze}}
+    {\input{plots/abSkizze.pdf_tex}}
+\end{figure}
+It is desired to find the steady state rate $K$ at which the particles cross the barrier and hit the sink.\\
+Therefore the state of the system is described as a composite Markov process as outlined in section \ref{Multivariate_Markov_Processes} in one spacial variable $\vec{r}$ and one discrete variable $m$ for the state of the barrier.
+The appropriate boundary conditions in this case are for the probability density function (PDF) of the Brownian particles to vanishes at the sink boundary and to take a constant finite value for $|\vec{r}| \rightarrow \infty$. \\
+Due to the fact that the system is not spatially bounded it is not possible to normalize the joint PDF $p_m(\vec{r},t)$ of the position of the Brownian particles and the state of the potential barrier in the sense that 
 \begin{equation}
-    \sum_n \int_{\mathbb{R}^{3}} p_n(\vec{r},t) {\rm d}V = 1.
+    \sum_{m=0} \int_{\mathbb{R}^{3}} p_m(\vec{r},t) {\rm d}V = 1.
     \label{pdfNormalization}
 \end{equation}
-Instead it is appropriate to normalize the distribution to the particle density $\vect{\rho}(\vec{r},t)$ as commonly done in statistical physics
+Instead it is appropriate to normalize the distribution to the particle density $\rho_m(\vec{r},t)$ as commonly done in statistical physics
 \begin{equation}
-    \sum_n \int_V \rho_n(\vec{r},t) {\rm d}V = N
-    \label{densNormalisation}
+    \sum\limits_{m=0}^{M} \int_V \rho_m(\vec{r},t) {\rm d}V = N
+    \label{densNormalization}
 \end{equation}
-where $N$ is the total number of particles enclosed in the volume $V$. The time evolution of the joint pdf can be described by eq. \eqref{fpmeq2} derived in the previous section
+where $N$ is the total number of particles enclosed in the volume $V$. The time evolution of the joint PDF can be described by equation \eqref{fpmeq2} derived in the previous section
 \begin{equation}
-    \frac{\partial}{\partial t}\vect{\rho}(\vec{r},n,t) = \left\{ \mathbb{F} + \mathbb{W} \right\} \vect{\rho}(\vec{r},n,t).
+    \frac{\partial}{\partial t}\vect{\rho}(\vec{r},t) = \left\{ \mathbb{F} + \mathbb{W} \right\} \vect{\rho}(\vec{r},t).
     \label{fpmeq3}
 \end{equation}
+where $\vect{\rho}(\vec{r},t)$ denotes the vector of $\rho_m(\vec{r},t)$ for all $m \in [0,N]$. \\
 Using the spherical symmetry of the system, the Fokker-Planck operator can be written as
 \begin{equation}
-    \mathbb{F} = {\rm diag}\left[ \vec{\nabla}\frac{1}{\gamma}\left( \vec{\nabla} U_n(r) \right)+ D \vec{\nabla}^{2} \right].
+    \mathbb{F} = {\rm diag}\left[ \vec{\nabla}\frac{1}{\gamma}\left( \vec{\nabla} U_m(r) \right)+ D \vec{\nabla}^{2} \right].
     \label{fpo2}
 \end{equation}
-It becomes obvious from this equation, that the state of the potential might as well be seen as a property of the Brownian particles. One could for instance imagine the barrier as a constant electric potential. Then the particles are fluctuating between differently charged states. For the assumption of noninteracting particles to be still valid, the solution has to be dilute and the Debye screening length has to be small. \\
-\subsection{Fit Conditions}
+It becomes obvious from this equation, that the state of the potential might as well be seen as a property of the Brownian particles. Therefore the index $m$ will further be denoted as the state of the particles. One could for instance imagine the barrier as a constant electric potential as it is done in the derivation of the Debye reaction rate \cite{Debye1942}. Then the particles are fluctuating between differently charged states. For the assumption of noninteracting particles to be still valid, the solution has to be dilute and the Debye screening length has to be small. \\
+\subsection{Boundary and Fit Conditions}
 \label{Fit_Conditions}
-For the boundary at $|\vec{r}| \rightarrow \infty$ far away from the influence of the potential and the sink it is reasonable to assume that the particle density distribution is a stationary solution $\vect{\rho}^{(eq)}$ the sole Master equation. From the assumption of detailed balance it follows that it has to satisfy
+Since the boundary of the sink is absorbing the density there vanishes:
+\begin{equation}
+    \vect{\rho}(R_s) = 0.
+    \label{bcrs}
+\end{equation}
+For the boundary at $|\vec{r}| \rightarrow \infty$ far away from the influence of the potential and the sink it is reasonable to assume that the particle density distribution is a stationary solution $\vect{\rho}^{(eq)}$ the sole Master equation that remains when the diffusive influence is neglected. From the assumption of detailed balance it follows that it has to satisfy
 \begin{align}
     &\mathbb{W} \vect{\rho}^{(eq)} = 0 \nonumber \\
-    &\mathbb{W}_{n'n} \rho_n^{(eq)} = \mathbb{W}_{nn'}\rho_{n'}^{(eq)}.
+    &\mathbb{W}_{m'm} \rho_m^{(eq)} = \mathbb{W}_{mm'}\rho_{m'}^{(eq)}.
     \label{detailed_balance2}
 \end{align}
-It can be shown that this $\vect{\rho}^{(eq)}$ is not degenerate and that all its entries are positive. \\
-The next issue to investigate is the behaviour of the steady state solution for the particle density distribution at the jump discontinuities of the potential 
+It can be shown that this $\vect{\rho}^{(eq)}$ is not degenerate and that all its entries are positive. For a thorough proof see for instance \cite{VanKampen1992} or \cite{Oppenheim1977}. \\
+The next issue to investigate is the behavior of the steady state solution for the particle density distribution at the jump discontinuities of the potential 
 \begin{equation}
-  U_n(r) = \left\{ \begin{array}{l l} 
+  U_m(r) = \left\{ \begin{array}{l l} 
         0 &: R_s < r \le a \\
-        U_n &: a<r \le b \\
-        0 &: b < r \le R_d
+        U_m &: a<r \le b \\
+        0 &: b < r \le R_d.
     \end{array} \right.
     \label{step_potential}
 \end{equation}
-Therefore we first integrate from the boundary of the sink to some arbitrary $r > R_s$
+Therefore one first integrates equation \eqref{fpmeq3} over a closed volume bounded by the surfaces of the sink and a sphere of radius $r>R_s$:
 \begin{equation*}
-    \int_{R_s}^{r}\mathbb{F}\vect{\rho}(r'){\rm d} r' = - \mathbb{W} \int_{R_s}^{r} \vect{\rho}(r') {\rm d} r' .
+    \frac{\partial \vect{\rho}(r,t)}{\partial t} =  \int_{R_s}^{r}\mathbb{F}\vect{\rho}(r',t){\rm d} V + \int_{R_s}^{r} \mathbb{W}\vect{\rho}(r',t) {\rm d} V .
 \end{equation*}
-Note that the lower boundary of the Integral on the lhs is proportional to the particle flux through the sink boundary whereas the upper bound is proportional to the particle flux through the surface of a sphere with radius $r$ at a certain state of the potential. The Integral on the rhs is proportional to the particle flux from and to the this state of the potential in the observed volume due to transitions from and to other states of the potential.\\
-    \begin{equation}
-        \frac{1}{\gamma}\rho_n(r) \vec{\nabla} U_n(r) + D \vec{\nabla} \rho_n(r) = J_n(R_s) - \left\{ \mathbb{W} \int_{R_s}^{r} \vect{\rho}(r') {\rm d} r' \right\}_{n}
-    \end{equation}
-Now we integrate over a small vicinity of the jump discontinuity with width $\varepsilon$ and take the limit of $\varepsilon \rightarrow 0$
-    \begin{equation}
-        \int_{a-\varepsilon}^{a + \varepsilon} \frac{U_n}{\gamma D}\delta(a-r) + \int_{a-\varepsilon}^{a + \varepsilon} \frac{1}{\rho_n(r)}\nabla \rho_n(r) = \underbrace{\int_{a - \varepsilon}^{a + \varepsilon}\frac{J_n(r)}{\rho_n(r) D} - \int_{a - \varepsilon} ^{a+ \varepsilon} \left\{ \mathbb{W} \vect{\rho}(r)\right\}_{n}}_\text{$O(\varepsilon)$}
-    \end{equation}
-Since the terms on the rhs. of the equation scale only with $\varepsilon$ we end up with a result previously known for systems in thermal equilibrium:
+The integrand of the first term in the right hand side can be written in terms of the particle flux in each state $\vect{j}(r,t) = (\vec{j}_{0}(r), \cdots , \vec{j}_{M}(r))$. Also, one can use Gauss' integral theorem to transform the volume into a surface integral. For the second term on the right hand side one can use the linearity of the integral to obtain the following expression:
 \begin{equation}
-    \vect{\rho}^{(I)}(a) = \underbrace{ {\rm diag}\left[\exp\left\{\frac{U_n}{K_B T} \right\}\right]}_\text{\large$\mathbb{U}$} \vect{\rho}^{(II)}(a)
+    \int_{R_s}^{r} \frac{\partial \vect{\rho}(r',t)}{\partial t} {\rm d} V = \int_{R_s}^{r} \vect{j}(r') {\rm d} \vec{A} + \mathbb{W} \int_{R_s}^{r} \vect{\rho}(r') {\rm d} V.
+    \label{ce0}
+\end{equation}
+Next, the integrals on the left hand side and in the second term on the right hand side can be evaluated. According to the normalization \eqref{densNormalization} one thereby obtains a vector $\vect{N}(r,t)$ whose entries $N_m(r,t)$ are given by the number of particles in state $m$ that are enclosed in the volume bounded by the radii $R_s$ and $r$:
+\begin{equation}
+    \frac{\partial}{\partial t} \vect{N}(r,t) = \int_{R_s}^{r} \vect{j}(r',t) {\rm d} \vec{A} + \mathbb{W} \vect{N}(r,t).
+    \label{integral_ce}
+\end{equation}
+This is an integral form of the continuity equation. The change in the particle numbers in each state inside the volume under consideration is equal to the spatial flux through its boundaries and the reaction flux from and to other states. \\
+In steady state this particle number has to be constant like every other macroscopic variable of the system. Therefore the left hand side of equation \eqref{ce0} vanishes. One can further use the spherical symmetry of the problem to write the expression for each state separately as
+\begin{equation}
+    \frac{1}{\gamma} \rho_m(r) \frac{\partial}{\partial r} U_m(r) + D\frac{\partial}{\partial r} \rho_m(r) =\frac{1}{4 \pi r^2} \left\{ 4 \pi R_s^2 |\vec{j}_m(R_s)| - \sum_{m'=0}^{M} \mathbb{W}_{mm'} N_{m'}(r) \right\}.
+    \label{ce1}
+\end{equation}
+Without loss of generality one now considers the inner boundary of the potential such that the derivative of the potential $\frac{\partial}{\partial r}U_m(r)$ is equal to a delta function $\frac{\partial}{\partial r}U_m(r) = U_m \delta (r-a)$. In addition, the particle number $N_m$ can be written in its integral representation again and the particle flux through the sink surface can be expressed as the reaction rate of this particle species $4 \pi R_s^{2} |\vec{j}_m(R_s)| = K_m$ such that the former expression is equivalent to
+\begin{equation}
+    \frac{U_m}{\gamma D} \delta (r-a) + \frac{1}{\rho_m(r)}\frac{\partial}{\partial r} \rho_m(r) = \frac{K_m}{4 \pi D r^2 \rho_m(r)} - \sum_{m'=0}^{M} \frac{\mathbb{W}_{mm'}}{D r^{2} \rho_{m}(r)}\int_{R_s}^{r} \rho_{m'}(r')r'^2{\rm d} r'.
+    \label{ce2}
+\end{equation}
+Now one integrates over a small vicinity of the jump discontinuity with width $2 \varepsilon$ and uses the Einstein Smoluchowski relation to write the product of friction and diffusion constant as $\gamma D = K_B T$
+\begin{align}
+    \int_{a-\varepsilon}^{a + \varepsilon} \frac{U_m}{K_B T}\delta(r-a) {\rm d}r &+ \int_{a-\varepsilon}^{a + \varepsilon} \frac{1}{\rho_m(r)}\frac{\partial}{\partial r} \rho_m(r){\rm d} r = \nonumber \\
+    & \underbrace{\int_{a-\varepsilon}^{a+\varepsilon}\frac{K_m}{r^2 \rho_m(r)}{\rm d}r}_{\textit{\normalsize I}_1} - \underbrace{\int_{a-\varepsilon}^{a+\varepsilon}\sum_{m'=0}^{M} \frac{\mathbb{W}_{mm'}}{Dr^2 \rho_m(r)}\int_{R_s}^{r}\rho_{m'}(r')r'^2{\rm d}r'{\rm d}r}_{\textit{\normalsize I}_2}.
+    \label{ce3}
+    \end{align}
+    The aim is now to evaluate this expression on the limit of $\varepsilon \rightarrow 0$ to obtain a relation for the behavior of the particle density at the jump discontinuity. Since the particle density is not necessarily a steady function at that point it is useful to denote it with $\rho^{(I)}_m(r)$ for $r<a$ and with $\rho^{(II)}_m(r)$ for $r>a$. \\
+While the left hand side of this expression can be easily evaluated as
+\begin{equation}
+    \frac{U_m}{K_B T} + \ln \left\{\frac{\rho^{(II)}_m(a+\varepsilon)}{\rho^{(I)}_m(r-\varepsilon)}\right\}
+    \label{ce4}
+\end{equation}
+the right hand side needs a closer examination. First consider the integral $I_1$. The integration domain can be split into two parts
+\begin{equation}
+    I_1 = \int_{a-\varepsilon}^{a}\frac{K_m}{r^2 \rho_m(r)}{\rm d}r + \int_{a}^{a+\varepsilon}\frac{K_m}{r^2 \rho_m(r)}{\rm d}r
+    \label{ce5}
+\end{equation}
+such that it is possible to use the mean value theorem of integration to express the integrals in terms of $\rho^{(I)}$ and $\rho^{(II)}$. 
+One finds a $\xi \in [a-\varepsilon,a]$ and a $\xi' \in [a, a+\varepsilon]$ such that \eqref{ce5} is equal to
+\begin{equation}
+    I_1 = K_m \varepsilon \left\{ \frac{1}{\xi^{2} \rho^{(I)}_{m}(\xi)} + \frac{1}{\xi'^{2}\rho^{(II)}_m(\xi')} \right\}
+    \label{ce6}
+\end{equation}
+Since the particle density is positive everywhere except at the absorbing boundary of the sink (due to the assumed ergodicity of the system) this expression evaluates to zero in the limit of $\varepsilon \rightarrow 0$. \\
+The integral $I_2$ can be written as
+\begin{equation}
+    I_2 = \sum_{m'}^M\frac{\mathbb{W}_{mm'}}{D} \int_{a-\varepsilon}^{a+\varepsilon} {\rm d} r \int_{R_s}^{r} {\rm d} r' \frac{r'^2 \rho_{m'}(r')}{r^2\rho_m(r)}
+    \label{ce7}
+\end{equation}
+and like before the integration domain can be split such that the integrands can be expressed in ether $\rho^{(I)}$ or $\rho^{(II)}$:
+\begin{align}
+    I_2 = \sum_{m'}^M\frac{\mathbb{W}_{mm'}}{D} & \left\{ \int_{a-\varepsilon}^{a} {\rm d} r \int_{R_s}^{r} {\rm d} r' \frac{r'^2 \rho^{(I)}_{m'}(r')}{r^2\rho^{(I)}_m(r)} \right. \nonumber \\ 
+    &\left. + \int_{a}^{a+\varepsilon} {\rm d} r \int_{R_s}^{a} {\rm d} r' \frac{r'^2 \rho^{(I)}_{m'}(r')}{r^2\rho^{(II)}_m(r)} + \int_{a}^{a+\varepsilon} {\rm d} r \int_{a}^{r} {\rm d} r' \frac{r'^2 \rho^{(II)}_{m'}(r')}{r^2\rho^{(II)}_m(r)} \right\}
+    \label{ce8}
+\end{align}
+Note that $r$ and $r'$ are positive and the particle density only vanishes for $r=R_s$. Therefore it is obvious from this representation of $I_2$ that the integrands are well behaved such that the expression scales with the size of the integration domain which is essentially linear in $\varepsilon$. Consequently, in the limit of $\varepsilon \rightarrow 0$ the integral $I_2$ evaluates to zero.
+\par
+To sum up: this calculation showed that in the limit of an infinitely small integration domain only the left hand side of equation \eqref{ce3} remains. This remaining expression as evaluated in equation \eqref{ce4} can finally be combined for all particle species:
+\begin{equation}
+    \vect{\rho}^{(I)}(a) = \underbrace{ {\rm diag}\left[\exp\left\{\frac{U_n}{K_B T} \right\}\right]}_\text{\large$\mathbb{U}_a$} \vect{\rho}^{(II)}(a).
     \label{dens_fit}
 \end{equation}
-Here $\vect{\rho}^{(I)}$ and $\vect{\rho}^{(II)}$ refers to the particle density at different side of the jump discontinuity.
-Analogously we find relations for the derivatives of the particle density at the jump discontinuity:
+Analogous considerations lead to an expression for the boundary of the barrier at $r=b$:
 \begin{equation}
-    \vec{\nabla}\vect{\rho}^{(I)}(a) = \vec{\nabla}\vect{\rho}^{(II)}(a)
+     \vect{\rho}^{(II)}(b) = \underbrace{ {\rm diag}\left[\exp\left\{-\frac{U_n}{K_B T} \right\}\right]}_\text{\large$\mathbb{U}_b$} \vect{\rho}^{(III)}(b).
+    \label{dens_fit_b}
+\end{equation}
+A similar result is well known for exclusively diffusive systems in thermal equilibrium but in the case under consideration it also holds for a reaction diffusion system in a steady state. \\
+Fit condition for the first derivative of the particle densities can easily be deduced from equation \eqref{ce0}. Therefore the integration domain is again set to be of width $2 \varepsilon$ and symmetric around the jump discontinuity of the potential:
+\begin{equation}
+    0 = \int_{a-\varepsilon}^{a+\varepsilon} \vect{j}(r') {\rm d} \vec{A} + \mathbb{W} \int_{a-\varepsilon}^{a+\varepsilon} \vect{\rho}(r') {\rm d} V.
+    \label{ce9}
+\end{equation}
+This can be evaluated for each state $m$ separately by splitting the integration domain and using the mean value theorem of integration for the second integral. The second integral can be evaluated trivially due to the spherical symmetry of the integrand to obtain:
+\begin{equation}
+    (a+\varepsilon)^2 |\vec{j}^{(II)}_m(a+\varepsilon)| - (a+\varepsilon)^2 |\vec{j}^{(I)}_m(a+\varepsilon)| = - \varepsilon \sum_{m'}^{M} \mathbb{W}_{mm'} \left( \rho^{(II)}_{m'}(\xi') + \rho^{(I)}_{m'}(\xi) \right)
+    \label{ce10}
+\end{equation}
+with $\xi \in [a-\varepsilon,a]$ and $\xi' \in [a,a+\varepsilon]$. In the limit of $\varepsilon \rightarrow 0$ the right hand side vanishes and one ends up with 
+\begin{equation}
+    |\vec{j}^{(I)}_m(a)| =  |\vec{j}^{(II)}_m(a)|
+    \label{ce11}
+\end{equation}
+which can again be written for all particle species as
+\begin{equation}
+    \vec{\nabla}\vect{\rho}^{(I)}(a) = \vec{\nabla}\vect{\rho}^{(II)}(a).
     \label{ddens_fit}
+\end{equation}
+As before, the same reasoning leads to an expression for the outer boundary of the potential barrier at $r=b$:
+\begin{equation}
+    \vec{\nabla}\vect{\rho}^{(II)}(b) = \vec{\nabla}\vect{\rho}^{(III)}(b).
+    \label{ddens_fit_b}
+\end{equation}
+The previous calculations have shown that in steady state the density of Brownian particles at a jump discontinuity of their driving potential shows the same behavior as it would in thermal equilibrium. \\
+There is one more thing to add concerning boundary conditions in this system. In many applications the sink as it is called here is not perfect. This means that the substrate particles have to overcome a certain activation energy $U_r$ to react with it. This means that particles at the sink surface have certian probability to react with the sink that is given by an Arhenius factor:
+\begin{equation}
+    P_r = \exp\left[- \frac{U_r}{K_B T} \right]
+    \label{reaction_arrhenius_factor}
+\end{equation}
+In the case under study this activation energy is taken to be equal for all particles, but it is common to take it as a fluctuating property of the particles to describe cating functionalities of the sink. \cite{Szabo1982} \\
+As a result the substrate reacts not imediately with the sink but with a certain rate, that is relative to the concentration of particle at the sink surface.
+\begin{equation}
+    K_m = P_r \cdot \rho_m(R_s)
+    \label{sink_reaction_rate}
+\end{equation}
+It is obvious from this equation that the particle density at the sink boundary is not zero anymore as in equation \eqref{bcrs} but takes a finite value. Therefore the boundary condition at $r=R_s$ has to be modified.
+Taking into account that the reaction rate $K_r$ is equal to the total flux of particles through the sink surface it can be written as
+\begin{align}
+    P_r \cdot \rho_m(R_s) &= \int \vec{j}_m(R_s) {\rm d} \vec{A} \nonumber \\
+    &= 4 \pi D \left.\frac{\partial}{\partial r} \rho_m(r)\right|_{R_s}
+    \label{nbcrs}
+\end{align}
+Or again in the compact form for all particle states:
+\begin{equation}
+    P_r \vect{\rho}(R_s) = 4 \pi D |\vec{\nabla} \vect{\rho}(R_s)|
+    \label{nbcrsall}
 \end{equation}
 \subsection{Expansion in Eigenfunctions of $\mathbb{W}$}
 \label{Expansion_in_Eigenfunctions}
-The assumption of the detailed balance property that implies the existence of an equilibrium distribution $\vect{\rho}^{(eq)}$ allows for the definition of an operator $\mathbb{T}$
+Now that the behavior of the system due to the influence of the potential is known (see eq. \eqref{dens_fit} and \eqref{ddens_fit}), it remains to find the solution to the density profile in between these singular points. Therefore one has to further investigate the possibilities that arise from the properties of the transition matrix $\mathbb{W}$. This will be done in the following. The goal is here to find an orthogonal representation of $\mathbb{W}$ and thereby also of equation \eqref{fpmeq3} such that it can be integrated independently for each component.\\
+
+The assumption of the detailed balance property \eqref{detailed_balance} implies the existence of an equilibrium distribution $\vect{\rho}^{(eq)}$. This allows for the definition of the following orthogonal operator $\mathbb{T}$:
 \begin{equation}
-    \mathbb{T} = \delta_{n,n'} [\rho_n^{(eq)}]^{\frac{1}{2}}.
+    \mathbb{T} = \delta_{m,m'} [\rho_m^{(eq)}]^{\frac{1}{2}}.
     \label{symmetrisation_transform}
 \end{equation}
-This is a similarity transform that symmetrises $\mathbb{W}$
+This operator happens to be a similarity transform that symmetrizes $\mathbb{W}$. The symmetric form of $\mathbb{W}$ will be denoted by $\mathbb{S}$ in the following and is defined as:
 \begin{equation}
     \mathbb{T}^{-1}\mathbb{W}\mathbb{T} = \mathbb{S}.
     \label{symm_rate_matrix}
 \end{equation}
-Using property \eqref{detailed_balance2} it follows that
+The element wise calculation of $\mathbb{S}$ using property \eqref{detailed_balance2} also makes clear why it is symmetric:
 \begin{align}
     \mathbb{S}_{il} &= \mathbb{T}^{-1}_{ij} \mathbb{W}_{jk} \mathbb{T}_{kl} = \sum_j \delta_{ij} [\rho^{(eq)}_i]^{-\frac{1}{2}} \mathbb{W}_{jk} \mathbb{T}_{kl} \\ \nonumber
     &= [\rho^{(eq)}_{i}]^{\frac{1}{2}} \sum_{k} \mathbb{W}_{ik} \delta_{kl} [\rho^{(eq)}_l]^{-\frac{1}{2}} = \mathbb{W}_{il}^{\frac{1}{2}} \left( \mathbb{W}_{il} \frac{\rho^{(eq)}_i}{\rho^{(eq)}_l} \right)^{\frac{1}{2}} \\ \nonumber
     &= \left(\mathbb{W}_{il} \mathbb{W}_{li}\right)^{\frac{1}{2}} \\ \nonumber
-    S_{ii} &= W_{ii}.
+    \mathbb{S}_{ii} &= \mathbb{W}_{ii}.
 \end{align}
-The resulting matrix can then be diagonalized by an orthogonal matrix $\mathbb{D}$
+The resulting symmetric matrix can then be diagonalized by an orthogonal transformation $\mathbb{D}$:
 \begin{equation}
     \mathbb{D}^{\dagger} \mathbb{S} \mathbb{D} = -{\rm diag}\left[ \lambda_i \right].
     \label{orthogonal_transform}
 \end{equation}
 It can be shown that $\lambda_i > 0$ for $i>1$ and $\lambda_1 = 0$ with the corresponding eigenvector
 \begin{equation}
-    D_{i1} = \rho^{(eq)}(i)^{\frac{1}{2}}.
+    \mathbb{D}_{i1} = \rho^{(eq)\frac{1}{2}}_{i}.
 \end{equation}
-We now write equation \eqref{fpmeq3} in terms of eigenfunctions of $\mathbb{W}$
+For a thorough proof see \cite{Oppenheim1977}.\\
+The combined transformation of \eqref{symm_rate_matrix} and \eqref{orthogonal_transform} that orthogonalizes $\mathbb{W}$ will be referred to as $\mathbb{A}$:
 \begin{equation}
-    \tilde{\vect{\rho}}(\vec{r},t) = \mathbb{A}^{-1} \vect{\rho}(\vec{r},t)
-    \label{eigenfunctions}
+    \mathbb{A}^{-1}\mathbb{W}\mathbb{A} = -{\rm diag} \left[ \lambda_i \right].
+    \label{diag_transform}
 \end{equation}
-where $\mathbb{A}$ denotes the transformation $\mathbb{T}\mathbb{D}$ and use the fact that the potential term vanishes everywhere but at the jump discontinuities. Therefore equation \eqref{fpmeq3} reads
+With this the original particle density $\vect{\rho}$ can be written as a superposition of eigenvectors of $\mathbb{W}$, i.e. as a superposition of column vectors of $\mathbb{A}$. Since like the densities themselves the coefficients of their decomposition are not necessarily steady at the jump discontinuities of the potential it is useful to equally mark them with an upper index:
 \begin{equation}
-    \frac{\partial }{\partial t} \tilde{\vect{\rho}}^{(j)}(\vec{r},t) = {\rm diag} \left[D \vec{\nabla}^{2} - \lambda_i  \right] \tilde{\vect{\rho}}^{(j)}(\vec{r},t)
+    \vect{\rho}^{(k)}(r) = \sum_i \mathbb{A}_{ij}\tilde{\rho}_{i}^{(k)}(r)
+    \label{decomposition}
+\end{equation}
+where the summands of the decomposition can be called \emph{eigenfunctions} of $\mathbb{W}$. \\
+Since the Fokker-Planck operator of the system \eqref{fpo2} can be written as 
+\begin{equation}
+    \mathbb{F} = \unity \cdot D \vec{\nabla}^{2}
+    \label{fpunity}
+\end{equation}
+for $r \ne a, b$ it obviously commutes with $\mathbb{A}$. Consequently, it is straight forward to deduce equations for the coefficients $\tilde{\vect{\rho}}^{(k)}(r)$ of the decomposition in \eqref{decomposition} from \eqref{fpmeq3}:
+\begin{equation}
+    \frac{\partial }{\partial t} \tilde{\vect{\rho}}^{(k)}(r,t) = {\rm diag} \left[D \vec{\nabla}^{2} - \lambda_i  \right] \tilde{\vect{\rho}}^{(k)}(r,t).
     \label{fpmeq4}
 \end{equation}
-For the steady state case where the lhs. vanishes it it straight forward to write down the solution to this equation
+This is the desired orthogonal representation of the reaction diffusion problem under study. From this one can calculate steady state solution for the coefficients vector $\tilde{\vect{\rho}}^{(k)}$. Given this solution the density profiles can be obtained by plugging these coefficients into the decomposition \eqref{decomposition}.
+\par
+It is easy to check that for the steady state case the desired solution reads:
 \begin{align}
-    \tilde{\rho}_{1}^{(j)}(r) &= c_{1,1}^{(j)} + c_{1,2}^{(j)} \frac{1}{r} \nonumber \\
-    \tilde{\rho}_{i \ne 1}^{(j)}(r) &= c_{i,1}^{j}\frac{1}{r} \exp\left[-r\sqrt{\frac{\lambda_i}{D}}\right] + c_{i,2}^{j}\frac{1}{r} \exp\left[r\sqrt{\frac{\lambda_i}{D}}\right] 
+    \tilde{\rho}_{1}^{(k)}(r) &= c_{1,1}^{(k)} + c_{1,2}^{(k)} \frac{1}{r} \nonumber \\
+    \tilde{\rho}_{i \ne 1}^{(k)}(r) &= c_{i,1}^{(k)}\frac{1}{r} \exp\left[-r\sqrt{\frac{\lambda_i}{D}}\right] + c_{i,2}^{(k)}\frac{1}{r} \exp\left[r\sqrt{\frac{\lambda_i}{D}}\right] 
     \label{fp_ind_sol}
 \end{align}
-Note that the solution corresponding to the first eigenvalue $\lambda_1 = 0$ equals the one derived in \eqref{steady_state_density} for the ungated problem. Together with the fitting conditions obtained in \eqref{dens_fit} they would result in the solution for a constant boxcar shaped potential barrier. \\
-The other solutions corresponding to the nonzero eigenvalues of the transition rate matrix $\lambda_i<0$ describe deviations from this solution due to the metastability of the potential barrier. Note that they exponentially decay in space with a \textit{decay length}
+where it is important do distinguish between the case of $i=1$ where $\lambda_i = 0$ and $i>1$ where the eigenvalues are positive.\\
+
+Note that the solution corresponding to the first eigenvalue $\lambda_1 = 0$ equals the one derived in \eqref{steady_state_density} for the ungated problem. Together with the fitting conditions obtained in \eqref{dens_fit} this would result in the steady state solution for a constant boxcar shaped potential barrier that could also be computed from \eqref{rho_debye}. So far the calculations are consistent with preexisting results. \\
+The other solutions that correspond to the nonzero eigenvalues of the transition rate matrix $\lambda_i>0$ describe deviations from this solution due to the metastability of the potential barrier. Note that they exponentially decay in space with a \textit{decay length}
 \begin{equation}
-    r_d^{(i)} = \sqrt{\frac{\lambda_i}{D}}
+    r_d^{(i)} = \sqrt{\frac{D}{\lambda_i}}
     \label{decay_length}
 \end{equation}
-that is unique for each state of the potential and which is closely related to its decay rate in time.
+that is unique for each state of the potential. \\
+It is clear that the coefficients $c^{(k)}_{i,j}$ can be calculated from the boundary and fit conditions obtained earlier. It is now necessary to find a systematic way to do this.
 \subsection{Treatment of Boundary and Fit Conditions}
 \label{Treatment_of_Boundary_and_Fit_Conditions}
-Now we have to find an expression, that allows for the calculation of the coefficients $c_{i,k}^{(j)}$ from the transformed boundary and fit conditions
+To make use of the boundary and fit conditions from section \ref{Fit_Conditions} they have to be brought to the same basis in that the density profiles were calculated previously. \\
+For the boundary conditions at $r=R_s$ and $r \rightarrow \infty$ given in equations \eqref{bcrs} and \eqref{detailed_balance2} the transformation reads:
 \begin{align}
-    \mathbb{A}^{-1}\vect{\rho}^{(I)}(R_s) &= \vect{\tilde{\rho}}^{(I)}(R_s) = 0 \nonumber \\
-    \vect{\tilde{\rho}}(r \rightarrow \infty) &= \mathbb{A}^{-1} \vect{\rho}^{(eq)} = (1,0,\cdots,0)^{T}
+    \mathbb{A}^{-1}\vect{\rho}^{(I)}(R_s) &= \vect{\tilde{\rho}}^{(I)}(R_s) = 0, \nonumber \\
+    \vect{\tilde{\rho}}(r \rightarrow \infty) &= \mathbb{A}^{-1} \vect{\rho}^{(eq)} = (1,0,\cdots,0)^{T}.
 \end{align}
-and
+Note that for $r\rightarrow \infty$ only the first coefficient $\tilde{\rho}_1$ is nonzero since it corresponds to the eigenvalue $\lambda_1=0$ which has the equilibrium particle density as associated eigenvector.\\
+For the fit conditions at $r=a,b$ the transformation reads:
 \begin{align}
-    \vect{\tilde{\rho}}^{(I)}(a) &= \mathbb{A}^{-1}\mathbb{U}\mathbb{A} \vect{\tilde{\rho}}^{(II)}(a), \\ \nonumber
+    \vect{\tilde{\rho}}^{(I)}(a) &= \mathbb{A}^{-1}\mathbb{U}_a\mathbb{A} \vect{\tilde{\rho}}^{(II)}(a), \\ \nonumber
     \vect{\tilde{\rho} '}^{(I)}(a) &= \vect{\tilde{\rho} '}^{(II)}(a), \\ \nonumber
-    \vect{\tilde{\rho}}^{(III)}(b) &= \mathbb{A}^{-1}\mathbb{U}\mathbb{A} \vect{\tilde{\rho}}^{(II)}(b), \\ \nonumber
+    \vect{\tilde{\rho}}^{(II)}(b) &= \mathbb{A}^{-1}\mathbb{U}_b\mathbb{A} \vect{\tilde{\rho}}^{(III)}(b), \\ \nonumber
     \vect{\tilde{\rho} '}^{(III)}(b) &= \vect{\tilde{\rho} '}^{(II)}(b).
 \end{align}
-Therefore it is useful to write the solution of equation \eqref{fpmeq4} as
+Now we have to find an expression, that allows for the calculation of the coefficients $c_{i,k}^{(j)}$ from these transformed boundary and fit conditions.\\
+Therefore it is useful to write the solution of equation \eqref{fpmeq4} as the product of an $r$ depending part and a vector of the corresponding coefficients:
 \begin{equation}
-    \tilde{\vect{\rho}}^{(j)} = \underbrace{ \left( \begin{array}{cllllllll}
+    \tilde{\vect{\rho}}^{(k)} = \underbrace{ \left( \begin{array}{cllllllll}
        1   & \frac{1}{r}   & 0                 & 0                 & 0              & 0             & 0 & \cdots &\\
-       0   & 0             &\frac{1}{r} e^{-r \alpha_2}   &\frac{1}{r} e^{r \alpha_2 }   & 0              & 0             & 0 & \cdots &\\
-       0   & 0             & 0                 & 0                 &\frac{1}{r} e^{-r\alpha_3} &\frac{1}{r} e^{r\alpha_3} & 0 & \cdots &\\
+       0   & 0             &\frac{1}{r} e^{-r / r_d^{(2)}}   &\frac{1}{r} e^{r / r_d^{(2)} }   & 0              & 0             & 0 & \cdots &\\
+       0   & 0             & 0                 & 0                 &\frac{1}{r} e^{-r / r_d^{(3)}} &\frac{1}{r} e^{r/r_d^{(3)}} & 0 & \cdots &\\
        \vdots  &&&&&&&\ddots &\\
        \vdots  &&&&&&&&\ddots
    \end{array} \right)}_\text{\large$\hat{\rho}(r)$}
    \underbrace{\left(\begin{array}{c}  
-       c_{1,1}^{(j)} \\ 
-       c_{1,2}^{(j)} \\ 
-       c_{2,1}^{(j)} \\ 
-       c_{2,2}^{(j)}  \\ 
+       c_{1,1}^{(k)} \\ 
+       c_{1,2}^{(k)} \\ 
+       c_{2,1}^{(k)} \\ 
+       c_{2,2}^{(k)}  \\ 
        \vdots 
-   \end{array} \right)}_\text{\large$\mathbb{C}$}.
+   \end{array} \right)}_\text{\large$\vect{c}^{(k)}$}.
 \end{equation}
-Here $\alpha_i = (\lambda_i / D)^{1/2}$. Using this notation, the boundary and fit conditions can be but in one $6 N$ dimensional system of linear equations
+Using this notation, the boundary and fit conditions read:
+\begin{align}
+    \hat{\rho}(R_s) \cdot \vect{c}^{(I)} &= 0, \nonumber \\
+    \hat{\rho}(a)\left( \vect{c}^{(I)} - \mathbb{A}^{-1} \mathbb{U}_a \mathbb{A} \vect{c}^{(II)} \right) &= 0, \nonumber \\
+    \hat{\rho}'(a)\left( \vect{c}^{(I)} - \vect{c}^{(II)} \right) &= 0, \nonumber \\
+    \hat{\rho}(b)\left( \vect{c}^{(II)} - \mathbb{A}^{-1} \mathbb{U}_b \mathbb{A} \vect{c}^{(III)} \right) &= 0, \nonumber \\
+    \hat{\rho}'(b)\left( \vect{c}^{(II)} - \vect{c}^{(III)} \right) &= 0, \nonumber \\
+    \hat{\rho}(\infty) \cdot \vect{c}^{(III)} &=(1,0, \cdots ,0)^{T}. \nonumber 
+\end{align}
+These conditions can be put in one $6 N$ dimensional system of linear equations:
 \begin{equation}
-    \left( \begin{array}{lll}
+    \left( \begin{array}{ccc}
         \hat{\rho}(R_s) & 0 & 0 \\
         \hat{\rho}(a)   & -\tilde{\mathbb{U}}\hat{\rho}(a) & 0 \\
         \hat{\rho}'(a) & -\hat{\rho}'(a) & 0 \\
@@ -612,23 +775,26 @@ Here $\alpha_i = (\lambda_i / D)^{1/2}$. Using this notation, the boundary and f
     \left( \begin{array}{c} 0 \\ \vdots \\ 0 \\ 1 \\ 0 \\ \vdots \end{array} \right) \begin{array}{c} \vdots \\ \vdots \\ \vdots \\ i = 5N+1 \\ \vdots \\ \vdots \end{array}
     \label{lgs}
 \end{equation}
-where dashes denote derivatives with respect to $r$. Solving this system of linear equations yields the somehow lengthy expressions for the coefficients $c_{i,k}^{(j)}$. \\ We obtain the actual density profile by applying the transformation $\mathbb{A}$ to return to the actual particle densities for the different states of the potential barrier.
+where dashes denote derivatives with respect to $r$. In some cases it is possible to solve this system of linear equations analytically to derive expressions for $c_{i,k}^{(j)}$. \\ 
+This will be done in the following sections for several examples. As stated before, the actual density profiles can then be calculated by plugging in these expressions into the decomposition \eqref{decomposition}. The last step is then to calculate the total rate of Brownian particles interacting with the sink from their density at the sink boundary.
 \subsection{Calculation of Rates}
 \label{Calculation_of_Rates}
-The rate of the particles absorbed by the sink is calculated by taking the surface integral over the flux through the surface of the sphere with radius $R_s$
+The rate of the particles absorbed by the sink is calculated via integration over the flux through the surface of the sphere with radius $R_s$:
 \begin{align}
     K   &= \int_{\partial \Omega_{R_s}} \vec{J} {\rm d} \vec{A}\nonumber\\
     &= \int_{\partial \Omega_{R_s}} D \vec{\nabla} \sum_{n=1}^{N} \rho_n^{(1)}(r)\nonumber \\
     &= 4 \pi D R_s^{2} \sum_{n=1}^{N} \left\{ \mathbb{A} \left. \frac{\partial}{ \partial r}\right|_{R_s} \tilde{\vect{\rho}} \right\}_n
     \label{Rate}
 \end{align}
+
+\subsection{Summary}
         So in the previous section 
 \begin{itemize}
-    \item We found fitting conditions for steady state density profiles at jump discontinuities of potential barriers,
-    \item we propose a treatment for the fluctuations of the potential barrier in terms of eigenfunctions of its transition rate matrix assuming it satisfies a detailed balance property,
-    \item we introduced a persistence length of the influence of the potential fluctuations on the particle density profile,
-    \item and we provide a scheme for the calculation of the integration constants of the particle density functions.
+    \item fitting conditions for steady state density profiles at jump discontinuities of potential barriers were calculated,
+    \item a treatment for the fluctuations of the potential barrier in terms of eigenfunctions of its transition rate matrix were proposed assuming it satisfies a detailed balance property,
+    \item  the persistence length of the influence of the potential fluctuations on the particle density profile was introduced,
+    \item and a scheme for the calculation of the integration constants of the particle density functions was provided.
 \end{itemize}
-Now that we have found a general way do derive an analytic solution we will investigate a simple example to reveal the qualitative implications of the previous work. 
+Now that there is a general way do derive an analytic solution for a boxcar shaped barrier the next section will give some simple numeric methods to obtain results for different barrier shapes.
 \newpage
 

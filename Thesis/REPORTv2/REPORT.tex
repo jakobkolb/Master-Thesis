@@ -13,6 +13,7 @@
 %\usepackage[sort&compress]{natbib}
 \usepackage{
     textcomp,
+    floatrow,
 	amsmath,
 	amssymb,
 %    libertine,
@@ -29,6 +30,7 @@
 	caption,
 	hhline,
 	wrapfig,
+        bbm,
     listings,
     bm
 	}
@@ -76,6 +78,8 @@
 %Def von der Einheit
 \newcommand{\ein}{\ensuremath{\,\mathrm}}
 
+\newcommand\unity{\ensuremath{\mathbbm{1}}}
+
 %nice dirac brackets
 \newcommand{\ket}[1]{\left| #1 \right>} % for Dirac bras
 \newcommand{\bra}[1]{\left< #1 \right|} % for Dirac kets
@@ -86,7 +90,7 @@
 
 
 %adjust nested math sizes
-%\DeclareMathSizes{12}{12}{8}{8}
+%\DeclareMathSizes{12}{12}{10}{8}
 
 %Papiergeometrie
 \setlength{\headheight}{40pt}
@@ -109,10 +113,10 @@
 %Einbinden von externen Dateien
 %\input{0Cover}
 %\input{1Preface}
-\input{2Motivation}
+%\input{2Motivation}
 \input{3Analytic_Model}
 \input{4Numeric_Model}
-%\input{5Results}
+\input{5Results}
 %\input{6Conclusion}
 %\input{7Appendix}
 \input{8Bib}

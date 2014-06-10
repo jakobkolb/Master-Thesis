@@ -1,6 +1,6 @@
 strict digraph  {
 	graph [fontsize=25,
-		label="C)",
+		label="F)",
 		labeljust=left,
 		labelloc=top,
 		margin="0.1",
@@ -14,61 +14,67 @@ strict digraph  {
 	{
 		graph [rank=same];
 		BIi1		 [color=blue,
-			label=in,
+			label="",
 			shape=circle,
 			width="0.5"];
 		BIi0		 [color=red,
-			label=in,
+			label="",
 			shape=circle,
 			width="0.5"];
 	}
 	{
 		graph [rank=same];
 		BIo1		 [color=blue,
-			label=out,
+			label="",
 			shape=circle,
 			width="0.5"];
 		BIo0		 [color=red,
-			label=out,
+			label="",
 			shape=circle,
 			width="0.5"];
 	}
 	{
 		graph [rank=same];
 		BIIi1		 [color=blue,
-			label=in,
+			label="",
 			shape=circle,
 			width="0.5"];
 		BIIi0		 [color=red,
-			label=in,
+			label="",
 			shape=circle,
 			width="0.5"];
 	}
 	{
 		graph [rank=same];
 		BIIo1		 [color=blue,
-			label=out,
+			label="",
 			shape=circle,
 			width="0.5"];
 		BIIo0		 [color=red,
-			label=out,
+			label="",
 			shape=circle,
 			width="0.5"];
 	}
 	{
 		graph [rank=same];
-		"I on"		 [color=blue];
-		"I off"		 [color=red];
+		"I on"		 [color=blue,
+			label=""];
+		"I off"		 [color=red,
+			label=""];
 	}
 	{
 		graph [rank=same];
-		"II on"		 [color=blue];
-		"II off"		 [color=red];
+		"II on"		 [color=blue,
+			label=""];
+		"II off"		 [color=red,
+			label=""];
 	}
 	{
 		graph [rank=same];
-		"III on"		 [color=blue];
-		"III off"		 [color=red];
+		"III on"		 [color=blue,
+			label=""];
+		"III off"		 [color=red,
+			label=""];
 	}
 	subgraph cluster_BI {
 		graph [color=grey,
@@ -77,14 +83,14 @@ strict digraph  {
 		];
 		BIi1;
 		BIi0;
-		BIi0 -> BIi1		 [dir=back,
-			penwidth="3.39368426301"];
+		BIi0 -> BIi1		 [penwidth="3.90770132496"];
 		BIo1;
-		BIo1 -> BIi1		 [penwidth="3.53092260963"];
+		BIo1 -> BIi1		 [dir=back,
+			penwidth="3.88738340951"];
 		BIo0;
-		BIo0 -> BIi0		 [dir=back,
-			penwidth="3.36071858676"];
-		BIo0 -> BIo1		 [penwidth="3.37261119045"];
+		BIo0 -> BIi0		 [penwidth="3.96944970354"];
+		BIo0 -> BIo1		 [dir=back,
+			penwidth="3.89665598186"];
 	}
 	subgraph cluster_BII {
 		graph [color=grey,
@@ -93,32 +99,33 @@ strict digraph  {
 		];
 		BIIi1;
 		BIIi0;
-		BIIi0 -> BIIi1		 [penwidth="13.6837463075"];
+		BIIi0 -> BIIi1		 [dir=back,
+			penwidth="13.875850599"];
 		BIIo1;
-		BIIo1 -> BIIi1		 [dir=back,
-			penwidth="13.8297959771"];
+		BIIo1 -> BIIi1		 [penwidth="14.0"];
 		BIIo0;
-		BIIo0 -> BIIi0		 [penwidth="14.0"];
-		BIIo0 -> BIIo1		 [dir=back,
-			penwidth="13.6373834977"];
+		BIIo0 -> BIIi0		 [dir=back,
+			penwidth="13.917933706"];
+		BIIo0 -> BIIo1		 [penwidth="13.8544615432"];
 	}
-	"III on" -> BIIo1	 [dir=back,
-		penwidth="0.192412479454"];
-	"II on" -> BIo1	 [penwidth="0.158311419181"];
-	"I on" -> Sink	 [penwidth="0.0851020139027"];
-	"III off" -> "III on"	 [dir=back,
-		penwidth="0.277514507282"];
-	"III off" -> BIIo0	 [penwidth="0.362616502318"];
-	"II off" -> "II on"	 [penwidth="0.304361088812"];
-	"II off" -> BIo0	 [penwidth="0.0118926036834"];
-	"I off" -> "I on"	 [dir=back,
-		penwidth="0.0521363327161"];
-	"I off" -> Sink	 [penwidth="0.0851020089619"];
-	Bath -> "III on"	 [penwidth="0.0851020114323"];
-	Bath -> "III off"	 [penwidth="0.0851020114323"];
-	BIi1 -> "I on"	 [penwidth="0.137238346619"];
-	BIi0 -> "I off"	 [penwidth="0.0329656762459"];
-	BIIi1 -> "II on"	 [dir=back,
-		penwidth="0.146049669631"];
-	BIIi0 -> "II off"	 [penwidth="0.316253692496"];
+	"III on" -> BIIo1	 [penwidth="0.14553845681"];
+	"II on" -> BIo1	 [penwidth="0.00927257234835"];
+	Sink	 [label=""];
+	"I on" -> Sink	 [penwidth="0.0410331441968"];
+	"III off" -> "III on"	 [penwidth="0.104505315018"];
+	"III off" -> BIIo0	 [dir=back,
+		penwidth="0.063472162784"];
+	"II off" -> "II on"	 [dir=back,
+		penwidth="0.114876828646"];
+	"II off" -> BIo0	 [penwidth="0.072793721678"];
+	"I off" -> "I on"	 [penwidth="0.0207152287431"];
+	"I off" -> Sink	 [penwidth="0.0410331498295"];
+	Bath	 [label=""];
+	Bath -> "III on"	 [penwidth="0.0410331470132"];
+	Bath -> "III off"	 [penwidth="0.0410331470132"];
+	BIi1 -> "I on"	 [penwidth="0.0203179154537"];
+	BIi0 -> "I off"	 [penwidth="0.0617483785726"];
+	BIIi1 -> "II on"	 [penwidth="0.124149400991"];
+	BIIi0 -> "II off"	 [dir=back,
+		penwidth="0.0420831069642"];
 }
