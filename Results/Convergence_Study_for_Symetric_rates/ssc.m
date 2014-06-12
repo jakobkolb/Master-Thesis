@@ -438,10 +438,10 @@ E^((1 + a) Sqrt[\[Alpha]]) (E^u1 -
                Sqrt[\[Alpha]] (1 + 4 \[Beta] + \[Beta]^2))))))
 
 d = 1;
-U01 = 4;
+U01 = 3;
 U02 = 0;
-a = 7;
-b = 2;
+a = 8.5;
+b = 2.5;
 at = a - b;
 bt = a + b;
 nmin = 4;
