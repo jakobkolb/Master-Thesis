@@ -444,15 +444,15 @@ a = 8.5;
 b = 2.5;
 at = a - b;
 bt = a + b;
-nmin = 4;
-nmax = 7;
+nmin = 2;
+nmax = 4;
 npoints = nmax - nmin + 1
 Rsink = 1;
-Rmax = 30;
+Rmax = 100;
 t0 = 0;
 t1 = 1000;
-rdmin = -4;
-rdmax = 2;
+rdmin = -3;
+rdmax = 3;
 datapoints = 24;
 u1[r_] := U01 Exp[-((r - a)/b)^n];
 u2[r_] := U02 Exp[-((r - a)/b)^n];
@@ -485,7 +485,7 @@ ReactionRate =
   Table[0, {k, 1, 2}, {i, 1, datapoints + 1}, {j, 1, npoints + 1}];
 
 For[j = 0, j <= npoints, j++,
- n = 2^(nmin + j);
+ n = 4^(nmin + j);
  For[i = 0, i <= datapoints, i++,
   rd = 10^(rdmin + i*(rdmax - rdmin)/datapoints);
   w21 = d/(2*rd^2);
@@ -512,7 +512,7 @@ For[j = 0, j <= npoints, j++,
 b = Table[0, {i, 1, npoints + 1}];
 b[[1]] = N[ReactionRate[[1, All, 1]]];
 For[j = 1, j <= npoints, j++,
- b[[j + 1]] = N[0.94382*Flatten[ReactionRate[[2, All, j]]]];
+ b[[j + 1]] = N[Flatten[ReactionRate[[2, All, j]]]];
  ]
 Export["numeric_rates.csv", Transpose[b]];
 
