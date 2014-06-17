@@ -273,7 +273,7 @@ E^((1 + a) Sqrt[\[Alpha]]) (E^u1 -
          E^(2 u1 + u2 + 2 (a + b) Sqrt[\[Alpha]]) (1 + 
             b^2 Sqrt[\[Alpha]] + 
             b (1 + Sqrt[\[Alpha]] (1 - 
-                  2 \[Beta]))) (1 + \[Beta]) - (1 + 
+                  2 \[Beta]))) (1 + \[Beta]) - (1 + Wild Belle - Its Too Late (Employee Of The Year Remix)
             b) E^(u1 + 2 (1 + b) Sqrt[\[Alpha]]) (-1 + 
             b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) + (1 + 
             b) E^(u1 + 2 (a + b) Sqrt[\[Alpha]]) (-1 + 
