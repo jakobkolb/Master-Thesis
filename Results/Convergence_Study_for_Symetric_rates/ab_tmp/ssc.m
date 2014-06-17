@@ -128,10 +128,10 @@ fk[a_, b_, rd_, rmax_,
           E^((2 a + b + 2 rmax)/rd) (rd + 4 rmax - rd rmax))))
 
 nmin = 1;
-nmax = 8;
+nmax = 4;
 rdmin = -3;
 rdmax = 3;
-datapoints = 24;
+datapoints = 12;
 d = 1;
 U01 = -3;
 U02 = 0;
@@ -205,7 +205,7 @@ For[j = 1, j <= npoints, j++,
  b[[j + 1]] = N[Flatten[ReactionRate[[2, All, j]]]];]
 Export["numeric_rates.csv", Transpose[b]]
 
-resolution = 500;
+resolution = 100;
 c = Table[{N[10^rd], fk[at, bt, 10^rd, Rmax, U01]}, {rd, rdmin, 
     rdmax, (rdmax - rdmin)/resolution}];
 Export["analytic_rates.csv", N[c]]
