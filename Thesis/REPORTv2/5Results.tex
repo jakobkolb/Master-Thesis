@@ -227,7 +227,7 @@ Even the underlying processes that have been studied in the previous section sec
 Referring to a first review paper on the topic published by Peter Reimann and Peter H\"anggi in 1997 \cite{Reimann1997} the case of a repulsive barrier can be identified with what they call ``Type I'' potentials, where particles enter the barrier region when it is in a low state and then get lifted up when the barrier switches to be subsequently able to escape. The case of an attractive barrier can be identified with what they call ``Type II'' or breathing barrier. In this case the part of the barrier that actually fluctuates is located right before the actual boundary that has to be overcome. The particle can enter the fluctuating area while it is in a low state, be then lifted when it changes to a high state and be subsequently able to cross the actual boundary. \par
 
 Now, the next step in studying the vast expression that was derived for the reaction rate \eqref{two_state_rate} is evaluating some limits and trying to make sense of them in a physical way.
-
+\newpage
 \subsection{Slow Fluctuation Limit}
 For slow fluctuations of the potential barrier the decay length $r_d$ and therefore the spatial influence of the potential barrier becomes large compared to the length scale of the system. \\ 
 To evaluate this limit, we use equation \eqref{two_state_fpe} with symmetric rates take the limit of $W \rightarrow 0$ and consider the steady state case.
@@ -285,7 +285,7 @@ The evaluation of the integrals, substitution of $U_2/K_B T$ with $u$ and the no
 \begin{equation}
     \lim_{\alpha \rightarrow \infty} \frac{K}{K_S} = \frac{ab}{ab - (b-a)(1-e^{u/2})}.
     \label{K_fast_limit_1}
-\end{equation}
+\end{equation}zugang zu einem thema englisch
 Now a useful examination of the fast switching limit of equation \eqref{two_state_rate} requires a bit more work.
 To find the behavior in the limit of $r_d \ll 1 $, i.e. $\alpha \gg 1$ one takes a closer look at the different exponents that occur in the numerator and denominator of equation \eqref{two_state_rate}. Namely:
 \begin{align}
@@ -326,50 +326,43 @@ Therefore it is crucial to realize that it is in fact \emph{two} limits that wer
 \vspace{-.8 cm} \\
 \begin{minipage}[t]{0.372 \textwidth}
     \begin{figure}[H]
-        \caption{Simple sketch to point out the order of limits taken for the derivation of equation \eqref{K_fast_limit_1} and \eqref{K_fast_limit_2}. Both derivations uncouple the original equations to derive an expression for the fast switching limit of the reaction rate but the order of limits differs}
+        \caption{Simple sketch to point out the order of limits taken for the derivation of equation \eqref{K_fast_limit_1} and \eqref{K_fast_limit_2}. Both derivations uncouple the original equations to derive an expression for the fast switching limit of the reaction rate but the order of limits differs. \label{sketch_of_limits}}
     \end{figure}
 \end{minipage}\hspace{0.01 \textwidth} \begin{minipage}[t]{.608 \textwidth}
 \begin{figure}[H]
     \centering
     \includegraphics[width = 1 \textwidth]{plots/limits.pdf}
 \end{figure}
-\end{minipage}
-\vspace{.5 cm}\par
-For the derivation of \eqref{K_fast_limit_1} the \emph{first} limit was that of $r_d \rightarrow 0$ and the \emph{second} limit was that of $r_F \rightarrow 0$. For the derivation of \eqref{K_fast_limit_2} in contrast to the previous case the \emph{first} limit was that of $r_F \rightarrow 0$ and the \emph{second} was that of $r_d \rightarrow 0$. Since in general it is not equivalent to take limits in exchanged order it is not unexpected that the resulting expressions differ. \\
-The question is now: What does this mean in physical terms?
-
+\end{minipage}\par
+Like it is illustrated in figure \ref{sketch_of_limits} the difference is the following: For the derivation of \eqref{K_fast_limit_1} the \emph{first} limit was that of $r_d \rightarrow 0$ and the \emph{second} limit was that of $r_F \rightarrow 0$ whereas for the derivation of \eqref{K_fast_limit_2} the \emph{first} limit was that of $r_F \rightarrow 0$ and the \emph{second} was that of $r_d \rightarrow 0$. \\
+Since in general it is not equivalent to take limits in exchanged order it is not unexpected that the resulting expressions differ. The question is now: What does this mean in physical terms? \\
 
 \newpage
-Now since $\kappa$ as given above is only equal to $1$ for $u=0$ this solution deviates from the one in \eqref{K_fast_limit_1}. Now to explain this, it is necessary to review the assumptions that were made to decouple the equations to obtain \eqref{fast_limit_fpe}. It was assumed, that the diffusion term can be neglected relative to the reaction term. Therefore we
-implicitly made the assumption, that the density profiles $\rho^{(i)}(r)$ are independent of the transition rates of the potential. This is false. On the contrary, the solution (comp. \eqref{fp_ind_sol}) is crucially depending on the transition rates and in the fast switching limit, the dominating terms will be relative to
+\subsection{Numeric study of smooth potential barriers}
+
+The easiest way to get an insight into the final question posed in the last section is to take a closer look at what actually happens, if the potential barrier does not vary in sharp jumps but does so on a finite length scale.
+Therefore one examines how the reaction rate depends on the decay length of the particle density given a fixed but finite area on which the barrier changes. The natural way to do this is the application of a potential barrier that resembles a step function in shape and has a parameter to tweak this similarity. A generalized Gaussian:
 \begin{equation}
-    \rho^{(i)}_{j}(r) \approx \exp\left[\sqrt{\frac{W_{12}+W_{21}}{D}}r\right]
-    \label{rate_dependence_of_ind_sol}
+    U_2(r) = U_2 \cdot \exp \left[ - \left( \frac{r_0 - r}{d} \right)^{2n} \right]
+    \label{generalized_gaussian}
 \end{equation}
-such that the diffusive term in the Fokker-Planck equation is proportional to
-\begin{equation}
-D\vec{\nabla}^{2}\rho^{(i)}_{j}(r) \approx (W_{12}+W_{21})\exp\left[\sqrt{\frac{W_{12}+W_{21}}{D}r}\right].
-    \label{rate_dependence_of_dif_term}
-\end{equation}
-From this it is obvious that the reactive and the diffusive term in eq. \eqref{two_state_fpe} will always have a finite ratio and can thus not be decoupled in the fast switching limit.
-It will therefore be necessary to explore this further and to check, if effects can be at least qualitatively be reproduced with potentials of other shape. \par
-The following plots show the full solution for the reaction rate and the approximations derived in eq. \eqref{ksa} and \eqref{kla} for a repulsive potential. Y axis is the reaction rate and X axis is the decay length. Parameters for the potential are as given in \eqref{Parameters}. \par
-\begin{minipage}[t]{0.5 \textwidth}
+with $r_0-d=a$ and $r_0+d=b$ serves this purpose well. The parameter $n$ can be used to control the width $r_F$ of the are of changes in the potential. It decreases as $n$ increases. The reaction rate can then be calculated using the tools described in section \ref{numeric_model}. The results of this procedure are presented in the following figure: \vspace{-0.5 cm}\\
+
+\begin{minipage}[t]{.5 \textwidth}
     \begin{figure}[H]
-        \includegraphics[width = 1 \textwidth]{plots/largelimit.pdf}
-    \caption{Limit of $\alpha >>1$}
+        \includegraphics[width = 1 \textwidth]{plots/conv_symmetric.pdf}
     \end{figure}
-\end{minipage}\begin{minipage}[t]{0.49 \textwidth}
+\end{minipage}\begin{minipage}[t]{.5 \textwidth}
     \begin{figure}[H]
-        \includegraphics[width = 1 \textwidth]{plots/smalllimit.pdf}
-    \caption{Limit of $\alpha <<1$}
+        \includegraphics[width = 1 \textwidth]{plots/conv_symmetric.pdf}
     \end{figure}
 \end{minipage}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width = 1 \textwidth]{plots/bothlimits.pdf}
-    \caption{Limiting behaviour of Reaction Rate}
-    \label{fig:rrlimit}
-\end{figure}
-It is obvious, that the reaction rate does not smoothly interpolate between the two limiting values but instead it has a local maximum. The obtained approximations for the limiting values can be used as a reasonable approximation.
+
+\begin{minipage}[t]{1 \textwidth}
+    \begin{figure}[H]
+        \caption{Comparison of numeric and analytic results. }
+    \end{figure}
+\end{minipage}
+
+
 
