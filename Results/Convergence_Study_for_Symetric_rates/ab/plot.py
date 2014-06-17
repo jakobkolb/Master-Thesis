@@ -18,26 +18,17 @@ mp.rcParams.update(params)
 fig = mp.figure()
 ax1 = fig.add_subplot(111)
 
-a=6
-b=11
-u=-3
 
-kd = a*b/(a*b - (b-a)*(1-np.exp(u/2)))
-kappa = 2*(1+np.exp(u/2))/(np.exp(u)+3)
-kf =  a*b/(a*b - kappa*(b-a)*(1-np.exp(u/2)))
-kd_array=np.zeros((np.shape(analytic_rates)[0],1))
 kf_array=np.zeros((np.shape(analytic_rates)[0],1))
-kd_array[:,0]=kd
-kf_array[:,0]=kf
+kf_array[:,0]=1.11
 
-print kd_array[1,0]
 
-mp.plot(analytic_rates[:,0], analytic_rates[:,1],label='analytic rate',color = '0.55')
-mp.plot(analytic_rates[:,0], kd_array, 'b--')
+mp.plot(analytic_rates[:,0], analytic_rates[:,1],label='analytic \n rate',color = '0.55')
 mp.plot(analytic_rates[:,0], kf_array, 'b-.')
-for i in range(1,5):
-    mp.plot(numeric_rates[:,0], numeric_rates[:,i]/(1-1./32.), 'ro', markersize=4, label='n='+`np.power(2,i+3)`, alpha = i/4.)
-#ax1.set_ylim([1,2])
+print np.shape(numeric_rates)[1]
+for i in range(1,np.shape(numeric_rates)[1]):
+    mp.plot(numeric_rates[:,0], numeric_rates[:,i], 'ro', markersize=4, label='n='+`np.power(2,i+3)`, alpha = i/4.)
+#ax1.set_ylim([0.7,1.2])
 ax1.legend(loc='upper left')
 ax1.set_ylabel(r'$K/K_{S}$')
 ax1.set_xlabel(r'$r_{d}$')

@@ -1,442 +1,137 @@
-Clear["Global`*"]
+ 
+fk[a_, b_, rd_, rmax_, 
+  u_] := ((a (b (-3 E^((2 (1 + a + b))/rd) + 3 E^((2 (2 a + b))/rd) - 
+            E^((2 (a + 2 b))/rd) + E^((2 + 4 b)/rd) + 
+            E^((2 (1 + a + rmax))/rd) - E^((2 (2 a + rmax))/rd) - 
+            3 E^((2 (1 + b + rmax))/rd) + 
+            3 E^((2 (a + b + rmax))/rd) - 
+            3 E^((2 (1 + a + b + rd u))/rd) - 
+            E^((2 (2 a + b + rd u))/rd) + 
+            3 E^((2 (a + 2 b + rd u))/rd) - 
+            10 E^((2 + 2 a + 2 b + rd u)/rd) - 
+            2 E^((4 a + 2 b + rd u)/rd) - 2 E^((2 + 4 b + rd u)/rd) - 
+            2 E^((2 a + 4 b + rd u)/rd) - 
+            3 E^((2 (1 + a + rmax + rd u))/rd) - 
+            E^((2 (2 a + rmax + rd u))/rd) + 
+            E^((2 (1 + b + rmax + rd u))/rd) + 
+            3 E^((2 (a + b + rmax + rd u))/rd) + 
+            2 E^((2 + 2 a + 2 rmax + rd u)/rd) + 
+            2 E^((4 a + 2 rmax + rd u)/rd) + 
+            2 E^((2 + 2 b + 2 rmax + rd u)/rd) + 
+            10 E^((2 a + 2 b + 2 rmax + rd u)/rd) + 
+            E^((2 + 4 b + 2 rd u)/rd)) - (E^((2 b)/rd) - 
+            E^((2 rmax)/rd)) (-1 + E^u) (E^((4 a)/rd) - 
+            E^((2 (1 + a))/rd) - E^((2 (1 + b))/rd) + 
+            E^((2 (a + b))/rd) - E^((4 a)/rd + u) - 
+            3 E^((2 + 2 a + rd u)/rd) + E^((2 + 2 b + rd u)/rd) + 
+            3 E^((2 a + 2 b + rd u)/rd)) rd) + (-E^(2/rd) + 
+         E^((2 a)/rd)) (-1 + 
+         E^u) (-2 b^2 E^((a + b)/rd) (E^((2 b)/rd) + 
+            E^((2 rmax)/rd)) (-1 + E^u) + 
+         b (E^((4 b)/rd) + 3 E^((2 (a + b))/rd) - 2 E^((a + 3 b)/rd) -
+             E^((2 (a + rmax))/rd) - 3 E^((2 (b + rmax))/rd) + 
+            2 E^((a + b + 2 rmax)/rd) - E^((4 b)/rd + u) + 
+            E^((2 a + 2 b + rd u)/rd) + 2 E^((a + 3 b + rd u)/rd) + 
+            E^((2 a + 2 rmax + rd u)/rd) - 
+            2 E^((a + b + 2 rmax + rd u)/rd) - 
+            E^((2 b + 2 rmax + rd u)/rd)) rd + (-E^(((2 a)/rd)) + 
+            E^((2 b)/rd)) (E^((2 b)/rd) - E^((2 rmax)/rd)) (-1 + 
+            E^u) rd^2)) rmax)/(2 a^2 E^((a + b)/rd) (E^(2/rd) + 
+       E^((2 a)/rd)) (E^((2 b)/rd) - 
+       E^((2 rmax)/rd)) (-1 + E^u)^2 rmax + 
+    a (b (E^((2 (a + 2 b))/rd) (1 - 3 rmax) + 
+          E^((2 (2 a + b + rd u))/rd) (1 - 3 rmax) + 
+          3 E^((2 (1 + a + b))/rd) (1 - rmax) + 
+          E^((2 (2 a + rmax))/rd) (1 - rmax) + 
+          3 E^((2 (1 + a + b + rd u))/rd) (1 - rmax) + 
+          10 E^((2 + 2 a + 2 b + rd u)/rd) (1 - rmax) + 
+          2 E^((2 + 4 b + rd u)/rd) (1 - rmax) + 
+          E^((2 (2 a + rmax + rd u))/rd) (1 - rmax) + 
+          E^((2 (2 a + b))/rd) (-3 + rmax) - 
+          E^((2 (1 + b + rmax))/rd) (-3 + rmax) + 
+          E^((2 (a + 2 b + rd u))/rd) (-3 + rmax) - 
+          E^((2 (1 + a + rmax + rd u))/rd) (-3 + rmax) + 
+          E^((2 + 4 b)/rd) (-1 + rmax) + 
+          3 E^((2 (a + b + rmax))/rd) (-1 + rmax) + 
+          3 E^((2 (a + b + rmax + rd u))/rd) (-1 + rmax) + 
+          2 E^((4 a + 2 rmax + rd u)/rd) (-1 + rmax) + 
+          10 E^((2 a + 2 b + 2 rmax + rd u)/rd) (-1 + rmax) + 
+          E^((2 + 4 b + 2 rd u)/rd) (-1 + rmax) + 
+          2 E^((4 a + 2 b + rd u)/rd) (1 + rmax) + 
+          2 E^((2 a + 4 b + rd u)/rd) (1 + rmax) - 
+          2 E^((2 + 2 a + 2 rmax + rd u)/rd) (1 + rmax) - 
+          2 E^((2 + 2 b + 2 rmax + rd u)/rd) (1 + rmax) + 
+          E^((2 (1 + a + rmax))/rd) (-1 + 3 rmax) + 
+          E^((2 (1 + b + rmax + rd u))/rd) (-1 + 3 rmax)) - (-1 + 
+          E^u) (E^((2 + 2 a + 2 b + rd u)/rd) (-rd (-3 + rmax) - 
+             6 rmax) + 
+          E^((2 (1 + b + rmax))/rd) (rd (-1 + rmax) - 2 rmax) + 
+          E^((2 + 4 b)/rd) rd (1 - rmax) + 
+          E^((2 a + 4 b + rd u)/rd) rd (-3 + rmax) + 
+          E^((2 + 2 a + 2 rmax + rd u)/rd) rd (-3 + rmax) - 
+          E^((2 (2 a + rmax))/rd) rd (-1 + rmax) + 
+          E^((2 + 4 b + rd u)/rd) rd (-1 + rmax) + 
+          E^((4 a + 2 rmax + rd u)/rd) rd (-1 + rmax) + 
+          2 E^((2 + a + 3 b)/rd) (-1 + rd) rmax - 
+          2 E^((2 + a + b + 2 rmax)/rd) (-1 + rd) rmax - 
+          2 E^((2 + a + 3 b + rd u)/rd) (-1 + rd) rmax + 
+          2 E^((2 + a + b + 2 rmax + rd u)/rd) (-1 + rd) rmax - 
+          2 E^((3 (a + b))/rd) (1 + rd) rmax + 
+          2 E^((3 a + b + 2 rmax)/rd) (1 + rd) rmax + 
+          2 E^((3 a + 3 b + rd u)/rd) (1 + rd) rmax - 
+          2 E^((3 a + b + 2 rmax + rd u)/rd) (1 + rd) rmax + 
+          E^((2 (2 a + b))/rd) (rd (-1 + rmax) + 2 rmax) + 
+          E^((2 (a + 2 b))/rd) rd (-1 + 3 rmax) + 
+          E^((2 (1 + a + rmax))/rd) rd (-1 + 3 rmax) + 
+          E^((2 a + 2 b + 2 rmax + rd u)/rd) (-rd (-3 + rmax) + 
+             6 rmax) + 
+          E^((2 (1 + a + b))/rd) (rd - 2 rmax - 3 rd rmax) + 
+          E^((2 (a + b + rmax))/rd) (rd + 2 rmax - 3 rd rmax) + 
+          E^((4 a + 2 b + rd u)/rd) (rd - 2 rmax - rd rmax) + 
+          E^((2 + 2 b + 2 rmax + rd u)/rd) (rd + 2 rmax - 
+             rd rmax))) + (-1 + 
+       E^u) (2 b^2 E^((a + b)/rd) (-E^(2/rd) + 
+          E^((2 a)/rd)) (E^((2 b)/rd) + E^((2 rmax)/rd)) (-1 + E^u) + 
+       b (E^((2 (1 + a + b))/rd) (-rd (-3 + rmax) - 2 rmax) + 
+          E^((2 (a + 2 b))/rd) (rd (-1 + rmax) - 2 rmax) + 
+          E^((2 + 4 b)/rd) rd (1 - rmax) + 
+          2 E^((2 + a + b + 2 rmax)/rd) (rd - rmax) - 
+          2 E^((3 a + b + 2 rmax)/rd) (rd - rmax) - 
+          2 E^((2 + a + b + 2 rmax + rd u)/rd) (rd - rmax) + 
+          2 E^((3 a + b + 2 rmax + rd u)/rd) (rd - rmax) + 
+          E^((2 (2 a + b))/rd) rd (-3 + rmax) + 
+          E^((2 (1 + b + rmax))/rd) rd (-3 + rmax) - 
+          E^((2 (2 a + rmax))/rd) rd (-1 + rmax) + 
+          E^((2 + 4 b + rd u)/rd) rd (-1 + rmax) + 
+          E^((4 a + 2 rmax + rd u)/rd) rd (-1 + rmax) + 
+          2 E^((3 (a + b))/rd) (rd + rmax) - 
+          2 E^((2 + a + 3 b)/rd) (rd + rmax) + 
+          2 E^((2 + a + 3 b + rd u)/rd) (rd + rmax) - 
+          2 E^((3 a + 3 b + rd u)/rd) (rd + rmax) + 
+          E^((2 (a + b + rmax))/rd) (-rd (-3 + rmax) + 2 rmax) + 
+          E^((2 (1 + a + rmax))/rd) (rd (-1 + rmax) + 2 rmax) + 
+          E^((4 a + 2 b + rd u)/rd) rd (-1 + 3 rmax) + 
+          E^((2 + 2 b + 2 rmax + rd u)/rd) rd (-1 + 3 rmax) + 
+          E^((2 + 2 a + 2 b + rd u)/rd) (rd - 6 rmax - 3 rd rmax) + 
+          E^((2 a + 2 b + 2 rmax + rd u)/rd) (rd + 6 rmax - 
+             3 rd rmax) + 
+          E^((2 + 2 a + 2 rmax + rd u)/rd) (rd - 2 rmax - rd rmax) + 
+          E^((2 a + 4 b + rd u)/rd) (rd + 2 rmax - 
+             rd rmax)) + (-E^(a/rd) + E^(b/rd)) (-1 + 
+          E^u) rd (E^((2 a + 3 b)/rd) (rd (-1 + rmax) - 2 rmax) + 
+          E^((2 + b + 2 rmax)/rd) (rd (-1 + rmax) - 2 rmax) + 
+          E^((2 + 3 b)/rd) rd (1 - rmax) - 
+          E^((3 a + 2 rmax)/rd) rd (-1 + rmax) + 
+          E^((3 a + 2 b)/rd) (rd (-1 + rmax) + 2 rmax) + 
+          E^((2 + a + 2 rmax)/rd) (rd (-1 + rmax) + 2 rmax) + 
+          E^((2 + a + 2 b)/rd) (rd - 4 rmax - rd rmax) + 
+          E^((2 a + b + 2 rmax)/rd) (rd + 4 rmax - rd rmax))))
 
-fk[a_, b_, u1_, 
-  u2_, \[Alpha]_, \[Beta]_] := (a b Sqrt[
-     1 + Abs[\[Beta]]^2] (-2 E^((1 + a) Sqrt[\[Alpha]]) (E^u1 - 
-         E^u2) \[Beta] ((-1 + a) E^(u1 + 2 a Sqrt[\[Alpha]]) (-1 + 
-            a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) + (-1 + 
-            a) E^(u1 + 2 b Sqrt[\[Alpha]]) (1 + a Sqrt[\[Alpha]]) (1 +
-             b Sqrt[\[Alpha]]) - 
-         2 (-1 + a) b E^(u1 + (a + b) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] + (-1 + 
-            a) E^(u2 + 2 a Sqrt[\[Alpha]]) (-1 + 
-            a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] + (-1 + 
-            a) E^(u2 + 2 b Sqrt[\[Alpha]]) (1 + a Sqrt[\[Alpha]]) (1 +
-             b Sqrt[\[Alpha]]) \[Beta] - 
-         2 (-1 + a) b E^(u2 + (a + b) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] + (-1 + 
-            a) E^(2 b Sqrt[\[Alpha]]) (1 + a Sqrt[\[Alpha]]) (-1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) - (-1 + 
-            a) E^(2 a Sqrt[\[Alpha]]) (-1 + a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) + 
-         2 (a - b) E^(u1 + u2 + (a + b) Sqrt[\[Alpha]]) (1 + 
-            
-            b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] (1 + \[Beta])) Sqrt[\
-\[Alpha]/(1 + Abs[\[Beta]]^2)] + 
-      1/(Sqrt[1 + 
-           Abs[\[Beta]]^2]) (E^(2 u1 + 4 a Sqrt[\[Alpha]]) (-1 + 
-            a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] + 
-         E^(2 u2 + 4 a Sqrt[\[Alpha]]) (-1 + a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) \[Beta] - 
-         E^(2 (u1 + (1 + a) Sqrt[\[Alpha]])) (-1 + 
-            a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] - 
-         E^(2 (u2 + (1 + a) Sqrt[\[Alpha]])) (-1 + 
-            a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] - 
-         E^(2 (u1 + (1 + b) Sqrt[\[Alpha]])) (1 + 
-            a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] - 
-         E^(2 (u2 + (1 + b) Sqrt[\[Alpha]])) (1 + 
-            a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] + 
-         E^(2 (u1 + (a + b) Sqrt[\[Alpha]])) (1 + 
-            a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] + 
-         E^(2 (u2 + (a + b) Sqrt[\[Alpha]])) (1 + 
-            a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] + 
-         2 b E^(2 u1 + (2 + a + b) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] - 
-         4 b E^(u1 + u2 + (2 + a + b) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] + 
-         2 b E^(2 u2 + (2 + a + b) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] - 
-         2 b E^(2 u1 + (3 a + b) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] + 
-         4 b E^(u1 + u2 + (3 a + b) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] - 
-         2 b E^(2 u2 + (3 a + b) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] - 
-         E^(u2 + 2 (1 + b) Sqrt[\[Alpha]]) (1 + 
-            a Sqrt[\[Alpha]]) (-1 + b Sqrt[\[Alpha]]) (1 + \[Beta]) + 
-         E^(u2 + 2 (a + b) Sqrt[\[Alpha]]) (1 + 
-            a Sqrt[\[Alpha]]) (-1 + b Sqrt[\[Alpha]]) (1 + \[Beta]) - 
-         E^(u2 + 4 a Sqrt[\[Alpha]]) (-1 + a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) - 
-         E^(2 u1 + u2 + 4 a Sqrt[\[Alpha]]) (-1 + 
-            a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) (1 + \[Beta]) + 
-         E^(u2 + 2 (1 + a) Sqrt[\[Alpha]]) (-1 + 
-            a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) (1 + \[Beta]) + 
-         E^(2 u1 + u2 + 2 (a + b) Sqrt[\[Alpha]]) (-1 + 
-            a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) (1 + \[Beta]) - 
-         E^(2 u1 + u2 + 2 (1 + a) Sqrt[\[Alpha]]) (1 + 
-            a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) (1 + \[Beta]) + 
-         E^(2 u1 + u2 + 2 (1 + b) Sqrt[\[Alpha]]) (1 + 
-            a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) (1 + \[Beta]) - 
-         E^(u1 + 2 (1 + b) Sqrt[\[Alpha]]) (1 + 
-            a Sqrt[\[Alpha]]) (-1 + 
-            b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) + 
-         E^(u1 + 2 (a + b) Sqrt[\[Alpha]]) (1 + 
-            a Sqrt[\[Alpha]]) (-1 + 
-            b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) + 
-         E^(u1 + 2 (u2 + (a + b) Sqrt[\[Alpha]])) (-1 + 
-            a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) - 
-         E^(u1 + 4 a Sqrt[\[Alpha]]) (-1 + a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) - 
-         E^(u1 + 2 u2 + 4 a Sqrt[\[Alpha]]) (-1 + 
-            a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) + 
-         E^(u1 + 2 (1 + a) Sqrt[\[Alpha]]) (-1 + 
-            a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) - 
-         E^(u1 + 2 (u2 + (1 + a) Sqrt[\[Alpha]])) (1 + 
-            a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) + 
-         E^(u1 + 2 (u2 + (1 + b) Sqrt[\[Alpha]])) (1 + 
-            a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) + 
-         2 E^(u1 + u2 + 2 (1 + b) Sqrt[\[Alpha]]) (1 + 
-            a Sqrt[\[Alpha]]) (-1 + (-1 + 
-               b Sqrt[\[Alpha]]) \[Beta] - \[Beta]^2) + 
-         2 E^(u1 + u2 + 4 a Sqrt[\[Alpha]]) (-1 + 
-            a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta] + \[Beta]^2) + 
-         2 E^(u1 + u2 + 2 (1 + a) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta] + 
-            a Sqrt[\[Alpha]] \[Beta] + \[Beta]^2) + 
-         2 E^(u1 + u2 + 2 (a + b) Sqrt[\[Alpha]]) (1 + \[Beta] - 
-            b Sqrt[\[Alpha]] \[Beta] + \[Beta]^2 + 
-            a (-Sqrt[\[Alpha]] \[Beta] + 
-               b \[Alpha] (1 + \[Beta] + \[Beta]^2)))) + \[Beta] (2 \
-E^((1 + a) Sqrt[\[Alpha]]) (E^u1 - 
-            E^u2) ((-1 + a) E^(u1 + 2 a Sqrt[\[Alpha]]) (-1 + 
-               a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) + (-1 + 
-               a) E^(u1 + 2 b Sqrt[\[Alpha]]) (1 + 
-               a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) - 
-            2 (-1 + a) b E^(u1 + (a + b) Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] + (-1 + 
-               a) E^(u2 + 2 a Sqrt[\[Alpha]]) (-1 + 
-               a Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) \[Beta] + (-1 + 
-               a) E^(u2 + 2 b Sqrt[\[Alpha]]) (1 + 
-               a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] - 
-            2 (-1 + a) b E^(u2 + (a + b) Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] + (-1 + 
-               a) E^(2 b Sqrt[\[Alpha]]) (1 + a Sqrt[\[Alpha]]) (-1 + 
-               b Sqrt[\[Alpha]]) (1 + \[Beta]) - (-1 + 
-               a) E^(2 a Sqrt[\[Alpha]]) (-1 + a Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) (1 + \[Beta]) + 
-            2 (a - b) E^(u1 + u2 + (a + b) Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] (1 + \[Beta])) Sqrt[\
-\[Alpha]/(1 + Abs[\[Beta]]^2)] + 
-         1/(Sqrt[1 + 
-              Abs[\[Beta]]^2]) (E^(2 u1 + 4 a Sqrt[\[Alpha]]) (-1 + 
-               a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] + 
-            E^(2 u2 + 4 a Sqrt[\[Alpha]]) (-1 + a Sqrt[\[Alpha]]) (1 +
-                b Sqrt[\[Alpha]]) \[Beta] - 
-            E^(2 (u1 + (1 + a) Sqrt[\[Alpha]])) (-1 + 
-               a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] - 
-            E^(2 (u2 + (1 + a) Sqrt[\[Alpha]])) (-1 + 
-               a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] - 
-            E^(2 (u1 + (1 + b) Sqrt[\[Alpha]])) (1 + 
-               a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] - 
-            E^(2 (u2 + (1 + b) Sqrt[\[Alpha]])) (1 + 
-               a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] + 
-            E^(2 (u1 + (a + b) Sqrt[\[Alpha]])) (1 + 
-               a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] + 
-            E^(2 (u2 + (a + b) Sqrt[\[Alpha]])) (1 + 
-               a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] + 
-            2 b E^(2 u1 + (2 + a + b) Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] - 
-            4 b E^(u1 + u2 + (2 + a + b) Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] + 
-            2 b E^(2 u2 + (2 + a + b) Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] - 
-            2 b E^(2 u1 + (3 a + b) Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] + 
-            4 b E^(u1 + u2 + (3 a + b) Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] - 
-            2 b E^(2 u2 + (3 a + b) Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] - 
-            E^(u2 + 2 (1 + b) Sqrt[\[Alpha]]) (1 + 
-               a Sqrt[\[Alpha]]) (-1 + 
-               b Sqrt[\[Alpha]]) (1 + \[Beta]) + 
-            E^(u2 + 2 (a + b) Sqrt[\[Alpha]]) (1 + 
-               a Sqrt[\[Alpha]]) (-1 + 
-               b Sqrt[\[Alpha]]) (1 + \[Beta]) - 
-            E^(u2 + 4 a Sqrt[\[Alpha]]) (-1 + a Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) (1 + \[Beta]) - 
-            E^(2 u1 + u2 + 4 a Sqrt[\[Alpha]]) (-1 + 
-               a Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) (1 + \[Beta]) + 
-            E^(u2 + 2 (1 + a) Sqrt[\[Alpha]]) (-1 + 
-               a Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) (1 + \[Beta]) + 
-            E^(2 u1 + u2 + 2 (a + b) Sqrt[\[Alpha]]) (-1 + 
-               a Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) (1 + \[Beta]) - 
-            E^(2 u1 + u2 + 2 (1 + a) Sqrt[\[Alpha]]) (1 + 
-               a Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) (1 + \[Beta]) + 
-            
-            E^(2 u1 + u2 + 2 (1 + b) Sqrt[\[Alpha]]) (1 + 
-               a Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) (1 + \[Beta]) - 
-            E^(u1 + 2 (1 + b) Sqrt[\[Alpha]]) (1 + 
-               a Sqrt[\[Alpha]]) (-1 + 
-               b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) + 
-            E^(u1 + 2 (a + b) Sqrt[\[Alpha]]) (1 + 
-               a Sqrt[\[Alpha]]) (-1 + 
-               b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) + 
-            E^(u1 + 2 (u2 + (a + b) Sqrt[\[Alpha]])) (-1 + 
-               a Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) - 
-            E^(u1 + 4 a Sqrt[\[Alpha]]) (-1 + a Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) - 
-            E^(u1 + 2 u2 + 4 a Sqrt[\[Alpha]]) (-1 + 
-               a Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) + 
-            E^(u1 + 2 (1 + a) Sqrt[\[Alpha]]) (-1 + 
-               a Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) - 
-            E^(u1 + 2 (u2 + (1 + a) Sqrt[\[Alpha]])) (1 + 
-               a Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) + 
-            E^(u1 + 2 (u2 + (1 + b) Sqrt[\[Alpha]])) (1 + 
-               a Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) + 
-            2 E^(u1 + u2 + 2 (1 + b) Sqrt[\[Alpha]]) (1 + 
-               a Sqrt[\[Alpha]]) (-1 + (-1 + 
-                  b Sqrt[\[Alpha]]) \[Beta] - \[Beta]^2) + 
-            2 E^(u1 + u2 + 4 a Sqrt[\[Alpha]]) (-1 + 
-               a Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) (1 + \[Beta] + \[Beta]^2) + 
-            2 E^(u1 + u2 + 2 (1 + a) Sqrt[\[Alpha]]) (1 + 
-               b Sqrt[\[Alpha]]) (1 + \[Beta] + 
-               a Sqrt[\[Alpha]] \[Beta] + \[Beta]^2) + 
-            2 E^(u1 + u2 + 2 (a + b) Sqrt[\[Alpha]]) (1 + \[Beta] - 
-               b Sqrt[\[Alpha]] \[Beta] + \[Beta]^2 + 
-               a (-Sqrt[\[Alpha]] \[Beta] + 
-                  b \[Alpha] (1 + \[Beta] + \[Beta]^2)))))))/((1 + \
-\[Beta]) (-2 a^3 b (E^u1 - E^u2)^2 (E^((2 + a + b) Sqrt[\[Alpha]]) + 
-         E^((3 a + b) Sqrt[\[Alpha]])) \[Alpha] \[Beta] + 
-      b (-1 + E^u1) (-1 + 
-         E^u2) (1 + \[Beta]) (E^(u2 + 2 (a + b) Sqrt[\[Alpha]]) (1 - 
-            b Sqrt[\[Alpha]]) + 
-         E^(u2 + 2 (1 + b) Sqrt[\[Alpha]]) (-1 + b Sqrt[\[Alpha]]) - 
-         E^(u2 + 4 a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) + 
-         E^(u2 + 2 (1 + a) Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) + 
-         E^(u1 + 2 (1 + b) Sqrt[\[Alpha]]) (-1 + 
-            b Sqrt[\[Alpha]]) \[Beta] - 
-         E^(u1 + 4 a Sqrt[\[Alpha]]) (1 + b Sqrt[\[Alpha]]) \[Beta] + 
-         E^(u1 + 2 (1 + a) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) \[Beta] + 
-         E^(u1 + u2 + 4 a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) - 
-         E^(u1 + u2 + 2 (1 + a) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) + 
-         E^(u1 + u2 + 2 (1 + b) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) - 
-         E^(u1 + u2 + 2 (a + b) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) + 
-         E^(u1 + 2 (a + b) Sqrt[\[Alpha]]) (\[Beta] - 
-            b Sqrt[\[Alpha]] \[Beta])) + 
-      a^2 Sqrt[\[Alpha]] (2 b E^(2 u1 + (2 + a + 
-                b) Sqrt[\[Alpha]]) (-1 + Sqrt[\[Alpha]]) \[Beta] - 
-         4 b E^(u1 + u2 + (2 + a + b) Sqrt[\[Alpha]]) (-1 + 
-            Sqrt[\[Alpha]]) \[Beta] + 
-         2 b E^(2 u2 + (2 + a + b) Sqrt[\[Alpha]]) (-1 + 
-            Sqrt[\[Alpha]]) \[Beta] + 
-         2 b E^(2 u1 + (3 a + b) Sqrt[\[Alpha]]) (1 + 
-            Sqrt[\[Alpha]]) \[Beta] - 
-         4 b E^(u1 + u2 + (3 a + b) Sqrt[\[Alpha]]) (1 + 
-            Sqrt[\[Alpha]]) \[Beta] + 
-         2 b E^(2 u2 + (3 a + b) Sqrt[\[Alpha]]) (1 + 
-            Sqrt[\[Alpha]]) \[Beta] - 
-         2 b E^(u1 + u2 + 2 (1 + a) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) \[Beta] + 
-         E^(2 (u1 + (1 + a) Sqrt[\[Alpha]])) (1 + 
-            b Sqrt[\[Alpha]]) (-1 + b - \[Beta]) \[Beta] + 
-         E^(2 (u1 + (1 + b) Sqrt[\[Alpha]])) (-1 + 
-            b^2 Sqrt[\[Alpha]] + 
-            b (-1 + 
-               Sqrt[\[Alpha]] (-1 + \[Beta])) - \[Beta]) \[Beta] - 
-         E^(2 (u1 + (a + b) Sqrt[\[Alpha]])) (-1 - 
-            b^2 Sqrt[\[Alpha]] + 
-            b (1 + Sqrt[\[Alpha]] (-1 + \[Beta])) - \[Beta]) \[Beta] \
-- (1 + b) E^(u2 + 2 (1 + b) Sqrt[\[Alpha]]) (-1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) + (1 + 
-            b) E^(u2 + 2 (a + b) Sqrt[\[Alpha]]) (-1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) - (1 + 
-            b) E^(u2 + 4 a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) + (1 + 
-            b) E^(u2 + 2 (1 + a) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) - (1 + 
-            b) E^(2 u1 + u2 + 2 (1 + a) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) + 
-         E^(2 u1 + u2 + 2 (a + b) Sqrt[\[Alpha]]) (1 + 
-            b^2 Sqrt[\[Alpha]] + 
-            b (1 + Sqrt[\[Alpha]] (1 - 
-                  2 \[Beta]))) (1 + \[Beta]) - (1 + Wild Belle - Its Too Late (Employee Of The Year Remix)
-            b) E^(u1 + 2 (1 + b) Sqrt[\[Alpha]]) (-1 + 
-            b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) + (1 + 
-            b) E^(u1 + 2 (a + b) Sqrt[\[Alpha]]) (-1 + 
-            b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) - (1 + 
-            b) E^(u1 + 2 (u2 + (1 + a) Sqrt[\[Alpha]])) (1 + 
-            b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) - (1 + 
-            b) E^(u1 + 4 a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) + (1 + 
-            b) E^(u1 + 2 (1 + a) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta]) + 
-         E^(2 (u1 + u2 + 2 a Sqrt[\[Alpha]])) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta])^2 + 
-         E^(2 (u1 + u2 + (1 + a) Sqrt[\[Alpha]])) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta])^2 - 
-         E^(2 (u1 + u2 + (1 + b) Sqrt[\[Alpha]])) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta])^2 - 
-         E^(2 (u1 + u2 + (a + b) Sqrt[\[Alpha]])) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta])^2 + 
-         E^(2 u1 + 4 a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) \[Beta] (1 + b + \[Beta]) - 
-         E^(2 u1 + u2 + 4 a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) (1 + b + 2 \[Beta]) + 
-         E^(2 u1 + u2 + 2 (1 + b) Sqrt[\[Alpha]]) (1 + \[Beta]) (1 + 
-            b + b Sqrt[\[Alpha]] + b^2 Sqrt[\[Alpha]] + 2 \[Beta]) + 
-         E^(2 (u2 + (1 + a) Sqrt[\[Alpha]])) (1 + 
-            b Sqrt[\[Alpha]]) (-1 + (-1 + b) \[Beta]) + 
-         E^(2 u2 + 4 a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta] + b \[Beta]) - 
-         E^(u1 + 2 u2 + 4 a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) (2 + \[Beta] + 
-            b \[Beta]) + 
-         E^(u1 + 2 (u2 + (1 + 
-                   b) Sqrt[\[Alpha]])) (1 + \[Beta]) (2 + (1 + b) (1 +
-                b Sqrt[\[Alpha]]) \[Beta]) + 
-         E^(2 (u2 + (a + b) Sqrt[\[Alpha]])) (1 + 
-            b (Sqrt[\[Alpha]] (-1 + \[Beta]) - \[Beta]) + \[Beta] + 
-            b^2 Sqrt[\[Alpha]] \[Beta]) + 
-         E^(u1 + 2 (u2 + (a + 
-                   b) Sqrt[\[Alpha]])) (1 + \[Beta]) (\[Beta] + 
-            b^2 Sqrt[\[Alpha]] \[Beta] + 
-            b (Sqrt[\[Alpha]] (-2 + \[Beta]) + \[Beta])) + 
-         E^(2 (u2 + (1 + b) Sqrt[\[Alpha]])) (-1 - \[Beta] + 
-            b^2 Sqrt[\[Alpha]] \[Beta] - 
-            b (Sqrt[\[Alpha]] (-1 + \[Beta]) + \[Beta])) + 
-         2 E^(u1 + u2 + 4 a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) ((1 + \[Beta])^2 + 
-            b (1 + \[Beta] + \[Beta]^2)) - 
-         2 E^(u1 + u2 + 
-             2 (1 + b) Sqrt[\[Alpha]]) (b^2 Sqrt[\[Alpha]] \[Beta] + \
-(1 + \[Beta])^2 + 
-            b (1 + \[Beta] - 2 Sqrt[\[Alpha]] \[Beta] + \[Beta]^2)) + 
-         2 b E^(u1 + u2 + 2 (a + b) Sqrt[\[Alpha]]) (\[Beta] + 
-            Sqrt[\[Alpha]] (1 + \[Beta]^2 + 
-               b (1 + \[Beta] + \[Beta]^2)))) - 
-      a (E^(2 (u2 + (1 + a) Sqrt[\[Alpha]])) (1 + 
-            b Sqrt[\[Alpha]]) (-1 + 
-            b (Sqrt[\[Alpha]] (-1 + \[Beta]) - \[Beta]) - \[Beta]) - 
-         2 b E^(2 u1 + (2 + a + b) Sqrt[\[Alpha]]) (2 + 
-            b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] + 
-         4 b E^(u1 + u2 + (2 + a + b) Sqrt[\[Alpha]]) (2 + 
-            b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] - 
-         2 b E^(2 u2 + (2 + a + b) Sqrt[\[Alpha]]) (2 + 
-            b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] + 
-         2 b E^(2 u1 + (3 a + b) Sqrt[\[Alpha]]) (2 + 
-            b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] - 
-         4 b E^(u1 + u2 + (3 a + b) Sqrt[\[Alpha]]) (2 + 
-            b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] + 
-         2 b E^(2 u2 + (3 a + b) Sqrt[\[Alpha]]) (2 + 
-            b Sqrt[\[Alpha]]) Sqrt[\[Alpha]] \[Beta] - 
-         E^(u2 + 2 (1 + b) Sqrt[\[Alpha]]) (1 + b - 
-            2 b Sqrt[\[Alpha]] + 
-            b^2 (-Sqrt[\[Alpha]] + \[Alpha])) (1 + \[Beta]) + 
-         E^(u2 + 2 (a + b) Sqrt[\[Alpha]]) (1 + b - 
-            2 b Sqrt[\[Alpha]] + 
-            b^2 (-Sqrt[\[Alpha]] + \[Alpha])) (1 + \[Beta]) - 
-         E^(u2 + 4 a Sqrt[\[Alpha]]) (1 + b + 2 b Sqrt[\[Alpha]] + 
-            b^2 (Sqrt[\[Alpha]] + \[Alpha])) (1 + \[Beta]) + 
-         E^(u2 + 2 (1 + a) Sqrt[\[Alpha]]) (1 + b + 
-            2 b Sqrt[\[Alpha]] + 
-            b^2 (Sqrt[\[Alpha]] + \[Alpha])) (1 + \[Beta]) - 
-         E^(u1 + 2 (1 + b) Sqrt[\[Alpha]]) (1 + b - 
-            2 b Sqrt[\[Alpha]] + 
-            b^2 (-Sqrt[\[Alpha]] + \[Alpha])) \[Beta] (1 + \[Beta]) + 
-         E^(u1 + 2 (a + b) Sqrt[\[Alpha]]) (1 + b - 
-            2 b Sqrt[\[Alpha]] + 
-            b^2 (-Sqrt[\[Alpha]] + \[Alpha])) \[Beta] (1 + \[Beta]) - 
-         E^(u1 + 4 a Sqrt[\[Alpha]]) (1 + b + 2 b Sqrt[\[Alpha]] + 
-            b^2 (Sqrt[\[Alpha]] + \[Alpha])) \[Beta] (1 + \[Beta]) + 
-         E^(u1 + 2 (1 + a) Sqrt[\[Alpha]]) (1 + b + 
-            2 b Sqrt[\[Alpha]] + 
-            b^2 (Sqrt[\[Alpha]] + \[Alpha])) \[Beta] (1 + \[Beta]) + 
-         E^(2 (u1 + u2 + 2 a Sqrt[\[Alpha]])) (1 + 
-             b Sqrt[\[Alpha]])^2 (1 + \[Beta])^2 - 
-         E^(2 (u1 + u2 + (a + b) Sqrt[\[Alpha]])) (1 + 
-             b Sqrt[\[Alpha]])^2 (1 + \[Beta])^2 + 
-         E^(2 (u1 + u2 + (1 + a) Sqrt[\[Alpha]])) (-1 + 
-            b^2 \[Alpha]) (1 + \[Beta])^2 - 
-         E^(2 (u1 + u2 + (1 + b) Sqrt[\[Alpha]])) (-1 + 
-            b^2 \[Alpha]) (1 + \[Beta])^2 - 
-         E^(2 (u1 + (1 + a) Sqrt[\[Alpha]])) (1 + 
-            b Sqrt[\[Alpha]]) \[Beta] (1 + 
-            b (1 + Sqrt[\[Alpha]] (-1 + \[Beta])) + \[Beta]) - 
-         E^(2 (u1 + (a + b) Sqrt[\[Alpha]])) \[Beta] (1 + 
-            b (1 - 2 Sqrt[\[Alpha]] (-1 + \[Beta])) + 
-            b^2 (-Sqrt[\[Alpha]] + \[Alpha] (-1 + \[Beta])) + \
-\[Beta]) + 
-         E^(2 u1 + u2 + 2 (1 + a) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) (1 + b - 
-            b Sqrt[\[Alpha]] + 2 \[Beta]) - 
-         E^(u1 + 2 (u2 + (1 + a) Sqrt[\[Alpha]])) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) (-2 + (-1 + 
-               b (-1 + Sqrt[\[Alpha]])) \[Beta]) + 
-         E^(u1 + 2 (u2 + (1 + b) Sqrt[\[Alpha]])) (1 + \[Beta]) (-2 + 
-            b (2 Sqrt[\[Alpha]] - \[Beta]) - \[Beta] + 
-            b^2 (-Sqrt[\[Alpha]] + \[Alpha]) \[Beta]) + 
-         E^(u1 + 2 (u2 + (a + b) Sqrt[\[Alpha]])) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) (2 + \[Beta] + 
-            b (Sqrt[\[Alpha]] (-2 + \[Beta]) + \[Beta])) + 
-         E^(2 (u2 + (a + b) Sqrt[\[Alpha]])) (-1 - \[Beta] - 
-            b (2 Sqrt[\[Alpha]] (-1 + \[Beta]) + \[Beta]) + 
-            b^2 (\[Alpha] (-1 + \[Beta]) + Sqrt[\[Alpha]] \[Beta])) + 
-         E^(2 u1 + u2 + 2 (1 + b) Sqrt[\[Alpha]]) (1 + \[Beta]) (-1 + 
-            b^2 (-Sqrt[\[Alpha]] + \[Alpha]) - 2 \[Beta] + 
-            b (-1 + 2 Sqrt[\[Alpha]] \[Beta])) + 
-         E^(2 (u1 + (1 + b) Sqrt[\[Alpha]])) \[Beta] (1 + 
-            b + \[Beta] - 2 b Sqrt[\[Alpha]] \[Beta] + 
-            b^2 (-Sqrt[\[Alpha]] + \[Alpha] + \[Alpha] \[Beta])) + 
-         E^(2 (u2 + (1 + b) Sqrt[\[Alpha]])) (1 + \[Beta] + 
-            b (-2 Sqrt[\[Alpha]] + \[Beta]) + 
-            b^2 (\[Alpha] - 
-               Sqrt[\[Alpha]] \[Beta] + \[Alpha] \[Beta])) - 
-         2 E^(u1 + u2 + 2 (1 + a) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) ((1 + \[Beta])^2 + 
-            b (1 + \[Beta] + 2 Sqrt[\[Alpha]] \[Beta] + \[Beta]^2)) + 
-         2 E^(u1 + u2 + 2 (a + b) Sqrt[\[Alpha]]) (-(1 + \[Beta])^2 - 
-            b (1 + \[Beta] - 4 Sqrt[\[Alpha]] \[Beta] + \[Beta]^2) + 
-            b^2 (\[Alpha] - 
-               Sqrt[\[Alpha]] \[Beta] + \[Alpha] \[Beta]^2)) + 
-         E^(2 u1 + 4 a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) \[Beta] (1 + \[Beta] + 
-            b (1 + Sqrt[\[Alpha]] (1 + \[Beta]))) + 
-         E^(2 u2 + 4 a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta] + 
-            b (\[Beta] + Sqrt[\[Alpha]] (1 + \[Beta]))) + 
-         2 E^(u1 + u2 + 4 a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) ((1 + \[Beta])^2 + 
-            b (1 + \[Beta] + \[Beta]^2 + 
-               Sqrt[\[Alpha]] (1 + \[Beta])^2)) - 
-         E^(u1 + 2 u2 + 4 a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) (2 + \[Beta] + 
-            b (\[Beta] + Sqrt[\[Alpha]] (2 + \[Beta]))) - 
-         E^(2 u1 + u2 + 2 (a + b) Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) (-1 - 2 \[Beta] + 
-            b (-1 + Sqrt[\[Alpha]] (-1 + 2 \[Beta]))) - 
-         E^(2 u1 + u2 + 4 a Sqrt[\[Alpha]]) (1 + 
-            b Sqrt[\[Alpha]]) (1 + \[Beta]) (1 + 2 \[Beta] + 
-            b (1 + Sqrt[\[Alpha]] (1 + 2 \[Beta]))) + 
-         2 E^(u1 + u2 + 
-             2 (1 + b) Sqrt[\[Alpha]]) (b^2 Sqrt[\[Alpha]] \[Beta] + \
-(1 + \[Beta])^2 + 
-            b (1 + \[Beta] + \[Beta]^2 - 
-               Sqrt[\[Alpha]] (1 + 4 \[Beta] + \[Beta]^2))))))
-
+nmin = 1;
+nmax = 4;
+rdmin = -3;
+rdmax = 3;
+datapoints = 12;
 d = 1;
 U01 = 3;
 U02 = 0;
@@ -444,48 +139,34 @@ a = 8.5;
 b = 2.5;
 at = a - b;
 bt = a + b;
-nmin = 2;
-nmax = 4;
-npoints = nmax - nmin + 1
+npoints = nmax - nmin;
 Rsink = 1;
-Rmax = 100;
+Rmax = 25;
 t0 = 0;
-t1 = 1000;
-rdmin = -3;
-rdmax = 3;
-datapoints = 24;
+t1 = 5000;
 u1[r_] := U01 Exp[-((r - a)/b)^n];
 u2[r_] := U02 Exp[-((r - a)/b)^n];
 pde = {D[\[Rho]1[r, t], t] == 
     2/r \[Rho]1[r, t] u1'[r] + 
      D[\[Rho]1[r, t], r] u1'[r] + \[Rho]1[r, t] u1''[r] + 
      d 2/r D[\[Rho]1[r, t], r] + d D[\[Rho]1[r, t], r, r] - 
-     w12 \[Rho]1[r, t] + w21 \[Rho]2[r, t],
+     w12 \[Rho]1[r, t] + w21 \[Rho]2[r, t], 
    D[\[Rho]2[r, t], t] == 
     2/r \[Rho]2[r, t] u2'[r] + 
      D[\[Rho]2[r, t], r] u2'[r] + \[Rho]2[r, t] u2''[r] + 
      d 2/r D[\[Rho]2[r, t], r] + d D[\[Rho]2[r, t], r, r] - 
-     w21 \[Rho]2[r, t] + w12 \[Rho]1[r, t]
-   };
-bc = {
-   \[Rho]1[Rsink, t] == 0,
-   \[Rho]2[Rsink, t] == 0,
-   \[Rho]1[Rmax, t] == w21/(w12 + w21),
-   \[Rho]2[Rmax, t] == w12/(w12 + w21)
-   };
-ic = {
-   \[Rho]1[r, t0] == w21/(w12 + w21)*(1 - 1/r),
-   \[Rho]2[r, t0] == w12/(w12 + w21)*(1 - 1/r)
-   };
-
-
-Densities = 
-  Table[0, {k, 1, 3}, {i, 1, datapoints + 1}, {j, 1, npoints + 1}];
+     w21 \[Rho]2[r, t] + w12 \[Rho]1[r, t]};
+bc = {\[Rho]1[Rsink, t] == 0, \[Rho]2[Rsink, t] == 
+    0, \[Rho]1[Rmax, t] == w21/(w12 + w21), \[Rho]2[Rmax, t] == 
+    w12/(w12 + w21)};
+ic = {\[Rho]1[r, t0] == w21/(w12 + w21)*(1 - 1/r), \[Rho]2[r, t0] == 
+    w12/(w12 + w21)*(1 - 1/r)};
 ReactionRate = 
   Table[0, {k, 1, 2}, {i, 1, datapoints + 1}, {j, 1, npoints + 1}];
 
 For[j = 0, j <= npoints, j++,
  n = 4^(nmin + j);
+ Print[Plot[{u1[r], u2[r]}, {r, Rsink, Rmax}, PlotRange -> All]];
  For[i = 0, i <= datapoints, i++,
   rd = 10^(rdmin + i*(rdmax - rdmin)/datapoints);
   w21 = d/(2*rd^2);
@@ -501,23 +182,30 @@ For[j = 0, j <= npoints, j++,
   \[Rho]1eq[r_] = \[Rho]1[r, t1] /. sol;
   \[Rho]2eq[r_] = \[Rho]2[r, t1] /. sol;
   \[Rho]tot[r_] = (\[Rho]1[r, t1] + \[Rho]2[r, t1]) /. sol;
-  
-  Densities[[1, i + 1, j + 1]] = \[Rho]1eq[r];
-  Densities[[2, i + 1, j + 1]] = \[Rho]2eq[r];
-  Densities[[3, i + 1, j + 1]] = \[Rho]tot[r];
   ReactionRate[[1, i + 1, j + 1]] = rd;
   ReactionRate[[2, i + 1, j + 1]] = D[\[Rho]tot[r], r] /. r -> 1;
+  Print[N[D[\[Rho]tot[r], r] /. r -> 1]];
   ]]
+
+c1 = Transpose[{ReactionRate[[1, All, 1]], 
+    Flatten[ReactionRate[[2, All, 1]]]}];
+c2 = Transpose[{ReactionRate[[1, All, 1]], 
+    Flatten[ReactionRate[[2, All, 2]]]}];
+c3 = Transpose[{ReactionRate[[1, All, 1]], 
+    Flatten[ReactionRate[[2, All, 3]]]}];
+p1 = ListLogLinearPlot[{c1, c2, c3}];
+p2 = LogLinearPlot[
+   fk[at, bt, rd, Rmax, U01], {rd, (10^rdmin), (10^rdmax)}];
+Show[p1, p2, PlotRange -> All]
+
 
 b = Table[0, {i, 1, npoints + 1}];
 b[[1]] = N[ReactionRate[[1, All, 1]]];
 For[j = 1, j <= npoints, j++,
- b[[j + 1]] = N[Flatten[ReactionRate[[2, All, j]]]];
- ]
-Export["numeric_rates.csv", Transpose[b]];
+ b[[j + 1]] = N[Flatten[ReactionRate[[2, All, j]]]];]
+Export["numeric_rates.csv", Transpose[b]]
 
-resolution = 100
-c = Table[{N[10^rd], 
-    fk[at, bt, U01, U02, d/(10^rd)^2, 1]}, {rd, rdmin, 
+resolution = 100;
+c = Table[{N[10^rd], fk[at, bt, 10^rd, Rmax, U01]}, {rd, rdmin, 
     rdmax, (rdmax - rdmin)/resolution}];
 Export["analytic_rates.csv", N[c]]
