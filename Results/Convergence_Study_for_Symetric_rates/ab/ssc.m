@@ -131,7 +131,7 @@ nmin = 1;
 nmax = 8;
 rdmin = -3;
 rdmax = 3;
-datapoints = 24;
+datapoints = 19;
 d = 1;
 U01 = -3;
 U02 = 0;
@@ -165,8 +165,7 @@ ReactionRate =
   Table[0, {k, 1, 2}, {i, 1, datapoints + 1}, {j, 1, npoints + 1}];
 
 For[j = 0, j <= npoints, j++,
- n = 4^(nmin + j);
- Print[Plot[{u1[r], u2[r]}, {r, Rsink, Rmax}, PlotRange -> All]];
+ n = 2^(nmin + j);
  For[i = 0, i <= datapoints, i++,
   rd = 10^(rdmin + i*(rdmax - rdmin)/datapoints);
   w21 = d/(2*rd^2);
