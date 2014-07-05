@@ -140,10 +140,10 @@ For[i = 1, i <= 3, i++,
  Print[t];
  a = 1 + t;
  b = 1 + (g + 1) t;
- u = -10;
+ u = -3;
  dr = 0.02;
  rmin = -2;
- rmax = 4;
+ rmax = 3;
  tab1[[i, All, All]] = 
   Table[N[{10^r, fk[a, b, u, 10^-r]}], {r, rmin, 
     rmax, (rmax - rmin)/resolution}];
@@ -175,10 +175,10 @@ For[i = 1, i <= 3, i++,
  Print[t];
  a = 1 + t;
  b = 1 + (g + 1) t;
- u = 10;
+ u = 3;
  dr = 0.02;
  rmin = -2;
- rmax = 4;
+ rmax = 3;
  tab1[[i, All, All]] = 
   Table[N[{10^r, fk[a, b, u, 10^-r]}], {r, rmin, 
     rmax, (rmax - rmin)/resolution}];

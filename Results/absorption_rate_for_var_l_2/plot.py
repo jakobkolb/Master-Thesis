@@ -8,11 +8,11 @@ save = 1
 g_values = [2,5,10]
 resolution = 100
 
-asrate_max = [1.25,1.3,1.35]
-alrate_max = [1.2,1.15,1.1]
+asrate_max = [1.25,1.25,1.27]
+alrate_max = [1.15,1.13,1.1]
 
-rsrate_max = [1.14,1.17,1.22]
-rlrate_max = [0.6,0.8,0.9]
+rsrate_max = [0.97,1.1,1.2]
+rlrate_max = [0.8,1,1.1]
 
 arate = {}
 asrate = {}
@@ -73,23 +73,23 @@ ax1 = fig1.add_subplot(111)
 ln1a = mp.plot(arate[`g_values[0]`][:,0],   arate[`g_values[0]`][:,1], color = '0.55', label = 'analytic solution')
 ln1b = mp.plot(arate[`g_values[1]`][:,0],   arate[`g_values[1]`][:,1], color = '0.55')
 ln1c = mp.plot(arate[`g_values[2]`][:,0],   arate[`g_values[2]`][:,1], color = '0.55')
-ln2a = mp.plot(asrate[`g_values[0]`][:,0],  asrate[`g_values[0]`][:,1], 'r--')
-ln2b = mp.plot(asrate[`g_values[1]`][:,0],  asrate[`g_values[1]`][:,1], 'r--')
-ln2c = mp.plot(asrate[`g_values[2]`][:,0],  asrate[`g_values[2]`][:,1], 'r--')
-ln3a = mp.plot(alrate[`g_values[0]`][:,0],  alrate[`g_values[0]`][:,1], 'b-.')
-ln3b = mp.plot(alrate[`g_values[1]`][:,0],  alrate[`g_values[1]`][:,1], 'b-.')
-ln3c = mp.plot(alrate[`g_values[2]`][:,0],  alrate[`g_values[2]`][:,1], 'b-.')
+#ln2a = mp.plot(asrate[`g_values[0]`][:,0],  asrate[`g_values[0]`][:,1], 'r--')
+#ln2b = mp.plot(asrate[`g_values[1]`][:,0],  asrate[`g_values[1]`][:,1], 'r--')
+#ln2c = mp.plot(asrate[`g_values[2]`][:,0],  asrate[`g_values[2]`][:,1], 'r--')
+#ln3a = mp.plot(alrate[`g_values[0]`][:,0],  alrate[`g_values[0]`][:,1], 'b-.')
+#ln3b = mp.plot(alrate[`g_values[1]`][:,0],  alrate[`g_values[1]`][:,1], 'b-.')
+#ln3c = mp.plot(alrate[`g_values[2]`][:,0],  alrate[`g_values[2]`][:,1], 'b-.')
 ax1.set_xscale('log')
-ax1.set_ylim([1,1.4])
-ax1.set_yticks(np.arange(1,1.41,0.1))
+ax1.set_ylim([1,1.3])
+ax1.set_yticks(np.arange(1,1.31,0.1))
 ax1.set_ylabel(r'$ K/K_{S}$')
 ax1.set_xlabel(r'$r_d$')
 ax1.annotate('increasing $l$', xy=(10**0.5, 1.1),  xycoords='data',
-                xytext=(40, 60), textcoords='offset points',
+                xytext=(40, 40), textcoords='offset points',
                 arrowprops=dict(arrowstyle="<-")
                 )
 if save == 1:
-    mp.savefig("ab_rates.pdf",
+    mp.savefig("l2_ab_rates.pdf",
             #This is simple recomendation for publication plots
             dpi=1000,
             # Plot will be occupy a maximum of available space
@@ -104,25 +104,25 @@ ax2 = fig2.add_subplot(111)
 ln1a = mp.plot(rrate[`g_values[0]`][:,0],   rrate[`g_values[0]`][:,1], color = '0.55', label = 'analytic solution')
 ln1b = mp.plot(rrate[`g_values[1]`][:,0],   rrate[`g_values[1]`][:,1], color = '0.55')
 ln1c = mp.plot(rrate[`g_values[2]`][:,0],   rrate[`g_values[2]`][:,1], color = '0.55')
-ln2a = mp.plot(rsrate[`g_values[0]`][:,0],  rsrate[`g_values[0]`][:,1], 'r--')
-ln2b = mp.plot(rsrate[`g_values[1]`][:,0],  rsrate[`g_values[1]`][:,1], 'r--')
-ln2c = mp.plot(rsrate[`g_values[2]`][:,0],  rsrate[`g_values[2]`][:,1], 'r--')
-ln3a = mp.plot(rlrate[`g_values[0]`][:,0],  rlrate[`g_values[0]`][:,1], 'b-.')
-ln3b = mp.plot(rlrate[`g_values[1]`][:,0],  rlrate[`g_values[1]`][:,1], 'b-.')
-ln3c = mp.plot(rlrate[`g_values[2]`][:,0],  rlrate[`g_values[2]`][:,1], 'b-.')
+#ln2a = mp.plot(rsrate[`g_values[0]`][:,0],  rsrate[`g_values[0]`][:,1], 'r--')
+#ln2b = mp.plot(rsrate[`g_values[1]`][:,0],  rsrate[`g_values[1]`][:,1], 'r--')
+#ln2c = mp.plot(rsrate[`g_values[2]`][:,0],  rsrate[`g_values[2]`][:,1], 'r--')
+#ln3a = mp.plot(rlrate[`g_values[0]`][:,0],  rlrate[`g_values[0]`][:,1], 'b-.')
+#ln3b = mp.plot(rlrate[`g_values[1]`][:,0],  rlrate[`g_values[1]`][:,1], 'b-.')
+#ln3c = mp.plot(rlrate[`g_values[2]`][:,0],  rlrate[`g_values[2]`][:,1], 'b-.')
 ax2.set_xscale('log')
-ax2.set_ylim([0.4,1.5])
+ax2.set_ylim([0.6,1.3])
 ax2.legend(loc = 'upper left')
 ax2.set_ylabel(r'$ K/K_{S}$')
 ax2.set_xlabel(r'$r_d$')
-ax2.annotate('increasing $l$', xy=(10**0, 0.6),  xycoords='data',
+ax2.annotate('increasing $l$', xy=(10**0, 0.8),  xycoords='data',
                 xytext=(60, 60), textcoords='offset points',
                 arrowprops=dict(arrowstyle="<-")
                 )
 
 
 if save==1:
-    mp.savefig("rb_rates.pdf",
+    mp.savefig("l2_rb_rates.pdf",
             #This is simple recomendation for publication plots
             dpi=1000,
             # Plot will be occupy a maximum of available space

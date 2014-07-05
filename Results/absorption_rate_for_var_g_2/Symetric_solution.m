@@ -134,16 +134,16 @@ resolution = 100
 tab1 = Table[0, {k, 1, 4}, {i, 1, resolution + 1}, {l, 1, 2}];
 tab2 = Table[0, {k, 1, 4}, {i, 1, resolution + 1}, {l, 1, 2}];
 tab3 = Table[0, {k, 1, 4}, {i, 1, resolution + 1}, {l, 1, 2}];
-For[i = 1, i <= 4, i++,
+For[i = 1, i <= 3, i++,
  t = 5;
  g = gvalues[[i]];
  Print[g];
  a = 1 + t;
  b = 1 + (g + 1) t;
- u = -10;
+ u = -3;
  dr = 0.02;
- rmin = -2;
- rmax = 5;
+ rmin = -1;
+ rmax = 3;
  tab1[[i, All, All]] = 
   Table[N[{10^r, fk[a, b, u, 10^-r]}], {r, rmin, 
     rmax, (rmax - rmin)/resolution}];
@@ -155,7 +155,7 @@ For[i = 1, i <= 4, i++,
     rmax, (rmax - rmin)/resolution}];
  ]
 Clear[a, b, u, dr, rmin, rmax, r1, r2, g, t];
-For[i = 1, i <= 4, i++,
+For[i = 1, i <= 3, i++,
  g = gvalues[[i]];
  nfile1 = "arate" <> ToString[g] <> ".tsv";
  nfile2 = "alrate" <> ToString[g] <> ".tsv";
@@ -172,13 +172,13 @@ resolution = 100
 tab1 = Table[0, {k, 1, 4}, {i, 1, resolution + 1}, {l, 1, 2}];
 tab2 = Table[0, {k, 1, 4}, {i, 1, resolution + 1}, {l, 1, 2}];
 tab3 = Table[0, {k, 1, 4}, {i, 1, resolution + 1}, {l, 1, 2}];
-For[i = 1, i <= 4, i++,
+For[i = 1, i <= 3, i++,
  t = 5;
  g = gvalues[[i]];
  Print[g];
  a = 1 + t;
  b = 1 + (g + 1) t;
- u = 10;
+ u = 3;
  dr = 0.02;
  rmin = -1;
  rmax = 3;
@@ -193,7 +193,7 @@ For[i = 1, i <= 4, i++,
     rmax, (rmax - rmin)/resolution}];
  ]
 Clear[a, b, u, dr, rmin, rmax, r1, r2, g, t];
-For[i = 1, i <= 4, i++,
+For[i = 1, i <= 3, i++,
  g = gvalues[[i]];
  nfile1 = "rrate" <> ToString[g] <> ".tsv";
  nfile2 = "rlrate" <> ToString[g] <> ".tsv";

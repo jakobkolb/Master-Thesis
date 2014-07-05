@@ -26,9 +26,9 @@ kf_array[:,0]=1.11
 mp.plot(analytic_rates[:,0], analytic_rates[:,1],label='analytic \n rate',color = '0.55')
 mp.plot(analytic_rates[:,0], kf_array, 'b-.')
 print np.shape(numeric_rates)[1]
-for i in range(1,np.shape(numeric_rates)[1]):
-    mp.plot(numeric_rates[:,0], numeric_rates[:,i], 'ro', markersize=4, label='n='+`np.power(2,i+3)`, alpha = i/4.)
-#ax1.set_ylim([0.7,1.2])
+for i in range(2,np.shape(numeric_rates)[1]):
+    mp.plot(numeric_rates[:,0], numeric_rates[:,i], 'ro', markersize=4, label='n='+`np.power(2,i)`, alpha = i/8.)
+ax1.set_ylim([1.05,1.4])
 ax1.legend(loc='upper left')
 ax1.set_ylabel(r'$K/K_{S}$')
 ax1.set_xlabel(r'$r_{d}$')
@@ -37,7 +37,7 @@ ax1.set_xscale('log')
 
 #You must select the correct size of the plot in advance
 #fig.set_size_inches(3.54,2.*3.84)
-fig.set_size_inches(3.54,2.64)
+fig.set_size_inches(3.54,3.54)
 
 mp.savefig("conv_symmetric.pdf",
             #This is simple recomendation for publication plots

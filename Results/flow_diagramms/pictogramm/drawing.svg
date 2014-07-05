@@ -22,9 +22,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4"
-     inkscape:cx="433.60288"
-     inkscape:cy="899.72683"
+     inkscape:zoom="1"
+     inkscape:cx="431.19743"
+     inkscape:cy="868.907"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -47,6 +47,87 @@
   <defs
      id="defs4">
     <marker
+       style="overflow:visible"
+       inkscape:stockid="InfiniteLineStart"
+       id="InfiniteLineStart"
+       refX="0"
+       refY="0"
+       orient="auto">
+      <g
+         id="g4176"
+         style="fill:#000000"
+         transform="translate(-13,0)">
+        <circle
+           d="M 3.8,0 C 3.8,0.44182781 3.4418278,0.80000001 3,0.80000001 2.5581722,0.80000001 2.2,0.44182781 2.2,0 c 0,-0.44182781 0.3581722,-0.80000001 0.8,-0.80000001 0.4418278,0 0.8,0.3581722 0.8,0.80000001 z"
+           id="circle4178"
+           r="0.8"
+           cy="0"
+           cx="3" />
+        <circle
+           d="M 7.3,0 C 7.3,0.44182781 6.9418278,0.80000001 6.5,0.80000001 6.0581722,0.80000001 5.7,0.44182781 5.7,0 c 0,-0.44182781 0.3581722,-0.80000001 0.8,-0.80000001 0.4418278,0 0.8,0.3581722 0.8,0.80000001 z"
+           id="circle4180"
+           r="0.8"
+           cy="0"
+           cx="6.5" />
+        <circle
+           d="M 10.8,0 C 10.8,0.44182781 10.441828,0.80000001 10,0.80000001 9.5581722,0.80000001 9.2,0.44182781 9.2,0 c 0,-0.44182781 0.3581722,-0.80000001 0.8,-0.80000001 0.441828,0 0.8,0.3581722 0.8,0.80000001 z"
+           id="circle4182"
+           r="0.8"
+           cy="0"
+           cx="10" />
+      </g>
+    </marker>
+    <marker
+       style="overflow:visible"
+       inkscape:stockid="InfiniteLineEnd"
+       id="InfiniteLineEnd"
+       refX="0"
+       refY="0"
+       orient="auto">
+      <g
+         id="g4167"
+         style="fill:#000000">
+        <circle
+           id="circle4169"
+           r="0.8"
+           cy="0"
+           cx="3" />
+        <circle
+           id="circle4171"
+           r="0.8"
+           cy="0"
+           cx="6.5" />
+        <circle
+           id="circle4173"
+           r="0.8"
+           cy="0"
+           cx="10" />
+      </g>
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="DistanceStart"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="DistanceStart">
+      <g
+         id="g2300">
+        <path
+           style="fill:none;stroke:#ffffff;stroke-width:1.15;stroke-linecap:square"
+           d="M 0,0 L 2,0"
+           id="path2306" />
+        <path
+           style="fill:#000000;fill-rule:evenodd;stroke:none"
+           d="M 0,0 L 13,4 L 9,0 13,-4 L 0,0 z "
+           id="path2302" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:square"
+           d="M 0,-4 L 0,40"
+           id="path2304" />
+      </g>
+    </marker>
+    <marker
        inkscape:stockid="Arrow1Lend"
        orient="auto"
        refY="0.0"
@@ -66,6 +147,34 @@
          id="path3003"
          d="m 7.199,186.801 731,0 0,-181 -731,0 0,181 z" />
     </clipPath>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-4"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4411-0"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-3"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4411-1"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
   </defs>
   <metadata
      id="metadata7">
@@ -139,14 +248,15 @@
        id="path3179" />
     <path
        inkscape:connector-curvature="0"
-       d="m 549.44877,156.20841 36.10266,0 0,36.10266 -36.10266,0 0,-36.10266 z"
+       d="m 569.95487,156.91552 36.10266,0 0,36.10266 -36.10266,0 0,-36.10266 z"
        style="fill:none;stroke:#000000;stroke-width:0.62245965;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none"
        id="path3197" />
     <path
        inkscape:connector-curvature="0"
        id="path3532"
-       d="m 125,203.31151 490,0"
-       style="fill:none;stroke:#000000;stroke-width:0.71799999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#Arrow1Lend)" />
+       d="m 125.00112,203.31039 339.81541,-0.35216 73.03235,0"
+       style="fill:none;stroke:#000000;stroke-width:0.72023231;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#InfiniteLineEnd)"
+       sodipodi:nodetypes="ccc" />
     <g
        id="g4910"
        transform="matrix(0.26930307,0,0,0.26930307,56.48608,83.977312)">
@@ -313,7 +423,7 @@
            style="fill:#000000;stroke-width:0" /></g>    </g>
     <g
        id="g5713"
-       transform="matrix(0.26930307,0,0,0.26930307,470.66317,83.498819)">
+       transform="matrix(0.26930307,0,0,0.26930307,491.16927,84.205926)">
       <g
          word-spacing="normal"
          letter-spacing="normal"
@@ -673,5 +783,11 @@
            d="m 544.87,417.51 0.15,-0.06 0.15,-0.06 0.15,-0.06 0.15,-0.05 0.15,-0.05 0.15,-0.04 0.14,-0.05 0.15,-0.03 0.14,-0.04 0.14,-0.03 0.29,-0.06 0.27,-0.05 0.27,-0.03 0.27,-0.03 0.26,-0.02 0.25,-0.02 0.25,-0.01 0.25,-0.01 0.24,0 0.23,0 0.23,0 v 1.09 c -1.1,0 -1.7,0 -2.64,0.25 h 0 c 1.14,0.41 2.19,0.46 3.03,0.46 1.25,0 1.45,-0.05 2.34,-0.3 -0.75,-0.35 -0.84,-0.41 -2.73,-0.41 v -1.09 c 1.3,0 4.03,0 4.03,1.55 0,1.2 -1.75,1.34 -3.64,1.34 -1.05,0 -2.78,-0.09 -4.63,-0.94 -1.15,0.6 -2,1.53 -2,2.88 0,3.04 4.89,4.84 9.38,4.84 0.8,0 2.58,0 4.58,-1.41 0.54,-0.39 0.64,-0.48 1,-0.48 0.64,0 1.34,0.64 1.34,1.34 0,0.94 -3.05,2.83 -6.42,2.83 -5.74,0 -11.11,-3.33 -11.11,-7.12 0,-2.14 1.78,-3.38 1.98,-3.53 -2.93,-1.65 -4.53,-4.44 -4.53,-6.72 0,-3.25 2.85,-6.28 8.13,-6.28 6.58,0 9.36,4.37 9.36,5.12 0,0.3 -0.25,0.5 -0.55,0.5 -0.25,0 -0.39,-0.2 -0.5,-0.34 -0.7,-1.14 -1.89,-2.99 -7.87,-2.99 -3.04,0 -7.27,0.74 -7.27,4.28 0,1.69 1.39,4.33 4.44,5.83 z"
            inkscape:connector-curvature="0"
            style="fill:#000000;stroke-width:0" /></g>    </g>
+    <path
+       inkscape:connector-curvature="0"
+       id="path3532-5"
+       d="m 567.79523,203.11929 43.70667,-0.0302"
+       style="fill:none;stroke:#000000;stroke-width:0.74216402;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#InfiniteLineStart);marker-end:url(#Arrow1Lend)"
+       sodipodi:nodetypes="cc" />
   </g>
 </svg>
