@@ -5,10 +5,11 @@ import matplotlib.pyplot as mp
 import math
 from scipy.optimize import curve_fit
 import sympy
+import pickle
 
 kt = 1.
 d = 1.
-u = -3.
+u = 3.
 
 def calc_rate(u,rd,g,t,kt,d):
 
@@ -49,12 +50,11 @@ def powerlaw(x,a,b):
     return a*x**b
 
 
-rdvalues = 10**np.arange(-4,5,0.05)
-tvalues = 10**np.arange(-3,5,0.2)
-#tvalues = [1]
-print tvalues
-#gvalues = 10**np.arange(1,4,0.1)
-gvalues = [0.1,1,10]
+rdvalues = 10**np.arange(-4,5,0.01)
+tvalues = 10**np.arange(-2,2,1)
+gvalues = 10**np.arange(-2,2,1)
+print gvalues
+#gvalues = [1]
 arates = np.zeros((np.shape(rdvalues)[0],2))
 kmax = np.zeros((np.shape(tvalues)[0],np.shape(gvalues)[0],4))
 fit_parameters = np.zeros((np.shape(gvalues)[0],3))
@@ -75,61 +75,12 @@ for g in gvalues:
                 break
             arates[i,1] = rate
             arates[i,0] = rdvalues[i]
-        #fig = mp.figure()
-        #axn = fig.add_subplot(111)
-        #axn.plot(arates[:,0], arates[:,1])
-        #axn.set_xscale('log')
-        #mp.show()
         indices = np.argmax(arates[:,1])
         kmax[t_index,g_index,:] = [t, g, arates[indices,0], arates[indices,1]]
-        istop = min(indices + 30,np.shape(rdvalues)[0])
-        istart = max(0,indices-10)
-        print t, istart, istop, np.shape(rdvalues)[0]
-#    popt, cov = curve_fit(powerlaw, kmax[:,g_index,2], kmax[:,g_index,0])
-#    print cov, popt, g, t
-#    fit_parameters[g_index,:] = g, popt[0], popt[1]
+        istop = min(indices + 50,np.shape(rdvalues)[0])
+        istart = max(0,indices-50)
 
-#Direct input
-mp.rcParams['text.latex.preamble']=[r"\usepackage{lmodern}"]
-#Options
-params = {'text.usetex' : True,
-          'font.size' : 11,
-          'font.family' : 'lmodern',
-          'text.latex.unicode': True,
-          }
-mp.rcParams.update(params)
-
-
-fig2 = mp.figure()
-ax2 = fig2.add_subplot(111)
-for i in range(np.shape(gvalues)[0]):
-    mp.plot(kmax[:,i,0], kmax[:,i,3], color = '#666666')
-
-ax2.set_xscale('log')
-ax2.set_xlabel('$l$')
-ax2.set_ylabel('$K^{(res)}/K_S$')
-
-ax1 = mp.axes([0.5,0.22,.37,.3])
-for i in range(np.shape(gvalues)[0]):
-    mp.plot(kmax[:,i,0], kmax[:,i,2], label=('g = %1.1f' %kmax[1,i,1]), color = '#aa0000')
-
-ax1.set_xlabel(r'$l$')
-ax1.set_ylabel(r'$r_d^{(res)}$')
-ax1.set_yscale('log')
-ax1.set_xscale('log')
-ax1.set_xticks([0.01, 1, 100])
-ax1.set_yticks([0.0001,0.01,1,100])
-ax1.get_xaxis().get_major_formatter().labelOnlyBase = False
-ax1.get_yaxis().get_major_formatter().labelOnlyBase = False
-#You must select the correct size of the plot in advance
-fig2.set_size_inches(3.54,3.54)
-
-
-mp.savefig("l_rep_power.pdf",
-            #This is simple recomendation for publication plots
-            dpi=1000,
-            # Plot will be occupy a maximum of available space
-            bbox_inches='tight',
-            )
+with open('resonance_data.p', 'w') as fo:
+    pickle.dump(kmax,fo)
 
 

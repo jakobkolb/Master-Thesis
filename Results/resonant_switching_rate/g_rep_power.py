@@ -134,4 +134,3 @@ mp.savefig("g_rep_power.pdf",
             )
 
 
-mp.show()

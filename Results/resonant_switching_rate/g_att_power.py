@@ -5,6 +5,7 @@ import matplotlib.pyplot as mp
 import math
 from scipy.optimize import curve_fit
 import sympy
+import pickle
 
 kt = 1.
 d = 1.
@@ -49,10 +50,10 @@ def powerlaw(x,a,b):
     return a*x**b
 
 
-rdvalues = 10**np.arange(-4,5,0.05)
+rdvalues = 10**np.arange(-4,5,0.01)
 #tvalues = 10**np.arange(-3,5,0.2)
-tvalues = [0.01,0.1,1,10,100]
-gvalues = 10**np.arange(-3,4,0.2)
+tvalues = 10**np.arange(-3,4,0.1)
+gvalues = 10**np.arange(-3,4,0.1)
 print gvalues
 #gvalues = [1]
 arates = np.zeros((np.shape(rdvalues)[0],2))
@@ -82,8 +83,8 @@ for g in gvalues:
         #mp.show()
         indices = np.argmax(arates[:,1])
         kmax[t_index,g_index,:] = [t, g, arates[indices,0], arates[indices,1]]
-        istop = min(indices + 30,np.shape(rdvalues)[0])
-        istart = max(0,indices-30)
+        istop = min(indices + 50,np.shape(rdvalues)[0])
+        istart = max(0,indices-50)
         print g, arates[indices,1]
         print istart, indices, istop, np.shape(rdvalues)[0]
 #    popt, cov = curve_fit(powerlaw, kmax[:,g_index,2], kmax[:,g_index,0])
@@ -102,17 +103,17 @@ mp.rcParams.update(params)
 
 
 fig2 = mp.figure()
-ax2 = fig2.add_subplot(111)
+ax2 = fig2.add_subplot(121)
 for i in range(np.shape(tvalues)[0]):
-    mp.plot(kmax[i,:,1], kmax[i,:,3], color = '#666666')
+    mp.plot(kmax[i,:,1], kmax[i,:,3])
 
 ax2.set_xscale('log')
 ax2.set_xlabel('$l$')
 ax2.set_ylabel('$K^{(res)}/K_S$')
 
-ax1 = mp.axes([0.5,0.22,.37,.3])
+ax1 = fig2.add_subplot(122)
 for i in range(np.shape(tvalues)[0]):
-    mp.plot(kmax[i,:,1], kmax[i,:,2], label=('g = %1.1f' %kmax[i,1,0]), color = '#aa0000')
+    mp.plot(kmax[i,:,1], kmax[i,:,2], label=('g = %1.1f' %kmax[i,1,0]))
 
 ax1.set_xlabel(r'$l$')
 ax1.set_ylabel(r'$r_d^{(res)}$')
@@ -132,6 +133,3 @@ mp.savefig("g_att_power.pdf",
             # Plot will be occupy a maximum of available space
             bbox_inches='tight',
             )
-
-
-mp.show()

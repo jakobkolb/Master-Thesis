@@ -133,4 +133,3 @@ mp.savefig("l_att_power.pdf",
             )
 
 
-mp.show()
