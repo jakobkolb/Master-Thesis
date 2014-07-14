@@ -8,7 +8,7 @@ import sympy
 
 kt = 1.
 d = 1.
-u = 3.
+u = -3.
 
 def calc_rate(u,rd,g,t,kt,d):
 
@@ -35,26 +35,15 @@ def calc_rate(u,rd,g,t,kt,d):
             -2*sympy.exp(u+2*(a+b)*x)*(1+(-4+a+b)*x+(-2*b+a*(2+5*b))*x*x)
             +2*sympy.exp((3*a+b)*x)*x*(2+a*a*x+b*x-a*(1+x))-4*sympy.exp(u+3*a*x+b*x)*x*(2+a*a*x+b*x-a*(1+x))
             +2*sympy.exp(2*u+3*a*x+b*x)*x*(2+a*a*x+b*x-a*(1+x)))
-
-#    x = np.sqrt(2*rate/d)**(-1)
-#    a = spacing[1]
-#    b = spacing[2]
-
     tmp = k.subs(x,1./rd).subs(a,1+t).subs(b,1+(1+g)*t)
     out = tmp.evalf()
     return out
 
-
-def powerlaw(x,a,b):
-    return a*x**b
-
-
 rdvalues = 10**np.arange(-4,5,0.05)
-tvalues = 10**np.arange(-3,5,0.2)
-#tvalues = [1]
+tvalues = 10**np.arange(-3,4,0.5)
 print tvalues
-#gvalues = 10**np.arange(1,4,0.1)
-gvalues = [0.1,1,10]
+#gvalues = [0.1,1,10]
+gvalues = [1]
 arates = np.zeros((np.shape(rdvalues)[0],2))
 kmax = np.zeros((np.shape(tvalues)[0],np.shape(gvalues)[0],4))
 fit_parameters = np.zeros((np.shape(gvalues)[0],3))

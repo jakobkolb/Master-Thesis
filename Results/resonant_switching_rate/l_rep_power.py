@@ -8,7 +8,7 @@ import sympy
 
 kt = 1.
 d = 1.
-u = -3.
+u = 3.
 
 def calc_rate(u,rd,g,t,kt,d):
 
@@ -50,11 +50,12 @@ def powerlaw(x,a,b):
 
 
 rdvalues = 10**np.arange(-4,5,0.05)
-tvalues = 10**np.arange(-3,5,0.2)
+tvalues = 10**np.arange(-3,5,0.5)
 #tvalues = [1]
 print tvalues
 #gvalues = 10**np.arange(1,4,0.1)
-gvalues = [0.1,1,10]
+#gvalues = [0.1,1,10]
+gvalues = [1]
 arates = np.zeros((np.shape(rdvalues)[0],2))
 kmax = np.zeros((np.shape(tvalues)[0],np.shape(gvalues)[0],4))
 fit_parameters = np.zeros((np.shape(gvalues)[0],3))
