@@ -70,5 +70,28 @@ To calculate the radial density profile of the substrate particles we bin their 
 To calculate the absorption rate, we simply count the number of particles that crosses the sink surface and is set to the simulation boundary. This number is then normalized to the time per time step and averaged over each time step after a certain equilibration time of the simulation.
 \section{Method of Lines}
 \label{method_of_lines}
+The method of lines \cite{pregla1989, saucez2001} is a technique for solving partial differential equations that are well posed as an initial value problem in at least one dimension. It uses spatial discretization of the derivatives in all but other dimensions and then treats the resulting semi discrete problem as a system of coupled ordinary differential equations. This has the advantage, that it is possible to use highly optimized methods that have been developed for numeric integration of ordinary differential equations for the treatment of partial differential equations.\\
+Since the time dependent description of the system: 
+\begin{align}
+    \frac{\partial}{\partial t } \rho_n(r,t) =   &- \vec{ \nabla } \left[\frac{1}{\gamma}\vec{f}(\vec{x},n,t)\rho_n(r,t) \right] +\vec{\nabla}^{2}\left[ D\rho_n(r,t) \right] \nonumber \\
+    &+ \sum_{n'} \left\{ W_{nn'}\rho_{n'}(r,t) - W_{n'n}\rho_n(r,t)\right\}.
+    \label{fpmeqmol}
+\end{align}
+together with arbitrarily chosen initial conditions:
+\begin{equation}
+    \rho_n(r,t_0) = \rho_n^{(0)}(r)
+    \label{rho0mol}
+\end{equation}
+and the boundary conditions \eqref{bcrs} and \eqref{bcinf} does fulfill the requirement of being a initial value problem in one dimension (the time dimension in this case) it is possible to treat it using the method of lines to obtain a solution for the density profiles.\\
+The resulting reaction rates can then be calculated using equation \eqref{Rate}.\\
+Since the solution of this type of Fokker-Planck system is unique \cite{soize1994} and a global attractor \cite{Efendiev2000} the choice of the initial condition does only influence the time that the system needs to converge to the steady state.\\
+For technical details of the implementation of the method please refer to the documentation of {\tt Mathematica} 9\textsuperscript{\textregistered}. The options used with {\tt NDsolve} to obtain the results presented in this thesis are the following:\par
+{\tt    MaxSteps $\rightarrow$ Infinity,  \\
+        MaxStepFraction $\rightarrow$ 0.002, \\
+        AccuracyGoal $\rightarrow$ 15,  \\
+        StartingStepSize $\rightarrow$ 0.001, \\
+        WorkingPrecision $\rightarrow$ MachinePrecision, \\
+        Method $\rightarrow$ \{``MethodOfLines'', ``SpatialDiscretization'' $\rightarrow$ \{``TensorProductGrid'', ``MinPoints'' $\rightarrow$ 10000\}\}}
+
 
 

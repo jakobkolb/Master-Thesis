@@ -368,7 +368,7 @@ As it can be seen especially for the case of the repulsive barrier, the transiti
 One possible explanation for this can be given in terms of particle fluxes: In the case of the FSP one has $r_F=0$ and therefore the total reactive flux in the region of potential change vanishes. In the case of the PMF it is assumed that the reactive fluxes are strong enough to make both particle species have the same spatial distribution. In other words: In the case of a FSP the area of potential change is dominated by spatial fluxes whereas in the case of a PMF it is dominated by reactive fluxes.\\
 Another possible explanation can be given in terms of times: In the case of the FSP the decay time $\tau_R = W/2$ of the state of a particle is much larger than the time $\tau_S$ that it takes for a particle to cross the area of potential change (since the area is actually of zero spatial extent). In the case of the PMF it is the other way around (since the inverse of the switching rate goes to zero). For a derivation of the decay time $\tau$ please refer to Appendix A.\\
 The neat thing about these two ways of explaining the situation is that they are essentially the same and that they both give  an estimate for the parameter range in which eater the FSP or the PMF description is valid, and consequently where the transition from one to the other takes place.
-For the FSP [PMF] the reactive flux and the spatial flux driven by the potential $J^{(R)}$ and $J^{(F)}$ in the region of potential change fulfill the following relation:
+For the PMF [FSP] the reactive flux and the spatial flux driven by the potential $J^{(R)}$ and $J^{(F)}$ in the region of potential change fulfill the following relation:
 \begin{equation}
     J^{(F)} \ll[\gg] J^{(R)}.
 \end{equation}
@@ -502,10 +502,59 @@ Second, it bridges the gap to the problem of a gated sphere, since for infinitel
 \end{minipage}
 \vspace{0.5 cm} \\
 The limit is taken for three different situations. For an infinitely attractive barrier, for an infinitely repulsive barrier and for a barrier of finite hight. Therefore the appropriate expressions for the reaction rate \eqref{two_state_rate}, \eqref{attractive_limit} and \eqref{repulsive_limit} are used as a starting point. For each of these expressions one does a Taylor expansion around $l=0$ to obtain the following results:
+\begin{itemize}
+    \item for a barrier of finite hight:
+\end{itemize}
 \begin{equation}
-    
-    \label{llimit_finite}
+    \frac{K}{K_S} \approx 1 + \frac{1}{2}\left(1- \exp\left[\frac{U_1}{K_B T}\right]\right)gl + \mathcal{O}(l^{2}),
+    \label{llim_finite}
 \end{equation}
+\newpage
+\begin{itemize}
+    \item for an infinitely attractive barrier:
+\end{itemize}
+\begin{equation}
+    \frac{K}{K_S} \approx 1 + \frac{gl}{4} + \mathcal{O}(l^{2}),
+    \label{llim_att}
+\end{equation}
+\begin{itemize}
+    \item and for an infinitely repulsive barrier:
+\end{itemize}
+\begin{equation}
+    \frac{K}{K_S} \approx \frac{1+r_d}{1 + 2 r_d} - \frac{(g+1)l}{(2r_d+1)^{2}} + \mathcal{O}(l^{2}).
+    \label{llim_rep}
+\end{equation}
+
+What is striking is that for the finite and the infinitely attractive barrier the leading order of the reaction rate is simply one. It does nether depend on the barrier hight, nor on the barrier gap to width ratio $g$. And even the fist correction does not depend on the barrier fluctuations. This means, that in the one dimensional limit the fluctuations of the barrier do not have any effect. Consequently, the curvature of the barrier must be crucial for any resonance effects to arise.\\
+Concerning the gated sphere one could suspect, that a barrier of finite hight and infinitely small spacing would result in a non ideal sink, i.e. one that does not absorb every particle that comes in contact with its surface since it would have to overcome the barrier first, in which it would succeed only with a probability proportionate to an Arrhenius factor $\exp\left[U_1/K_B T \right]$. As it turns out, this is not the case. To show this, one uses the expression for the Debye reaction rate \eqref{K_Debye} and calculated is for a step shaped potential of hight $U_1$ with boundaries at $1+l$ and $1+l+lg$.
+\begin{align}
+    K_D   &= 4 \pi D \rho_0 \left\{ \int_{1}^{\infty} \frac{\exp \left[U(r)/K_B T \right]}{r^2} {\rm d} r \right\}^{-1} \nonumber \\
+    &=4 \pi D \rho_0 \left\{ \int_{1}^{1+l} \frac{1}{r^2}{\rm d}r + \int_{1+l}^{1+l+lg} \frac{\exp \left[U_1/K_B T \right]}{r^2} {\rm d} r + \int_{1+l+lg}^{\infty}\frac{1}{r^2}{\rm d}r \right\}^{-1} \nonumber \\
+    &= 4 \pi D \rho_0 \left\{ \frac{1}{1+l} + \frac{1}{1+l+lg} + \frac{g l}{ (1+l)(1+l+lg)} \right\}^{-1}
+    \label{Debye_llimit}
+\end{align}
+This expression is normalized to the Smoluchowski rate $K_S$ \eqref{steady state ideal rate} and Taylor expanded around $l=0$:
+\begin{equation}
+    K_D \approx 1+\left(1-\exp\left[\frac{U_1}{K_B T}\right] \right)gl + \mathcal{O}(l^2).
+    \label{Debye_taylor}
+\end{equation}
+It is obvious, that up to linear order in $l$ the small spacing limit of the reaction rate over the fluctuating barrier \eqref{llim_finite} is equal to the average of the Debye rate over the step shaped barrier and the Smoluchowski rate for an ideal barrier. \\
+Again, the leading term is equal to one, i.e. for vanishing barrier spacing the barrier has no influence on the adsorption rate. Consequently, the connection to gating can only be made for an infinitely hight fluctuating barrier i.e. in the case when the barrier is assumed to be infinitely hight first before the expansion in $l$ is done (the order of the limit matters, as already noted in section \ref{lim_short_rd}). \\
+Indeed, the case of the ideal repulsive barrier \eqref{llim_rep} is the only one, where the reaction rate depends on the barrier fluctuations in the leading order term. The reaction rate interpolated monotonously between $K/K_S = 1$ for $r_d = 0$ and $K/K_S = 0.5$ for $r_d \rightarrow \infty$. These limits are in agreement to what has previously been found for the problem of a gated sphere by Szabo et al. \cite{Szabo1982}. 
+They studied the problem of a gated sphere that switches between a first state where its surface reflects incoming particles and a second state where it absorbed incoming particles with a certain surface reaction rate. The called this process opening and closing of the gate.
+They found that 
+\begin{itemize}
+    \item given diffusive relaxation is slow compared to the opening and closing of the gate, the reaction rate is equal to the adsorption rate that would be observed without gating times the probability that the gate is open and
+    \item given that the diffusive relaxation is fast compared to the opening and closing of the gate, the spherical sink behaved as if its gate was always open.
+\end{itemize}
+Since in the case under study the Sink is taken to be ideal, the surface reaction rate of the sink is infinite and the adsorption rate without a barrier is equal to the ideal Smoluchowski rate \eqref{steady state ideal rate}. Also the barrier fluctuations are taken to be symmetric, such that the probability for the barrier to be in one of its two states is equal to one half.
+Consequently the findings of Szabo et al. translate to:
+\begin{itemize}
+    \item slow diffusion relaxation compared to the barrier switching (gating) is equivalent to large $r_d$ where the adsorption rate for the infinitely repulsive barrier of infinitely small spacing is equal to half of the ideal Smoluchowski rate, that would be observed without the barrier,
+    \item fast diffusive relaxation and compared to the barrier switching is equivalent to small $r_d$ where the adsorption rate for the infinitely repulsive barrier of infinitely small spacing is equal to the Smoluchowski rate, i.e. it behaves as if the barrier was not there.
+\end{itemize}
+
+
 \newpage
 \section{Mapping on a Non-Markovian Description}
 This section should bridge the gap from theory to experiments where measurements usually do not give any information of the detailed kinetics of the system but only show fluctuations as a potential of mean force and a spatially depending diffusivity profile.
