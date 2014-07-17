@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[    128567,       2900]
-NotebookOptionsPosition[    126157,       2822]
-NotebookOutlinePosition[    126493,       2837]
-CellTagsIndexPosition[    126450,       2834]
+NotebookDataLength[    124146,       2762]
+NotebookOptionsPosition[    121737,       2684]
+NotebookOutlinePosition[    122073,       2699]
+CellTagsIndexPosition[    122030,       2696]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -2610,176 +2610,37 @@ Cell[BoxData[{
         RowBox[{"g", "+", "1"}], ")"}], "t"}]}]}], ";", "\[IndentingNewLine]", 
     RowBox[{"rs", " ", "=", " ", "1.0"}], ";", "\[IndentingNewLine]", 
     RowBox[{"rd", " ", "=", " ", "20"}], ";", "\[IndentingNewLine]", 
-    RowBox[{"dr", " ", "=", "0.2"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"dr", " ", "=", "0.02"}], ";", "\[IndentingNewLine]", 
     RowBox[{"u", " ", "=", " ", "3.0"}], ";", "\[IndentingNewLine]", 
     RowBox[{"x", "=", 
      RowBox[{"xvals", "[", 
       RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
     RowBox[{"filename", " ", "=", " ", 
-     RowBox[{"\"\<table\>\"", "<>", 
-      RowBox[{"ToString", "[", "i", "]"}], "<>", "\"\<.tsv\>\""}]}], ";", 
-    "\[IndentingNewLine]", 
-    RowBox[{"file", " ", "=", " ", 
-     RowBox[{"OpenAppend", "[", "filename", "]"}]}], ";", 
-    "\[IndentingNewLine]", 
-    RowBox[{"tab1", " ", "=", " ", 
-     RowBox[{"Table", "[", 
-      RowBox[{
-       RowBox[{"Flatten", "[", 
-        RowBox[{"{", 
-         RowBox[{
-          RowBox[{"{", "r", "}"}], ",", 
-          RowBox[{"rho1", "[", "r", "]"}], ",", 
-          RowBox[{"rhom1", "[", "r", "]"}]}], "}"}], "]"}], ",", " ", 
-       RowBox[{"{", 
-        RowBox[{"r", ",", "rs", ",", "a", ",", "dr"}], "}"}]}], "]"}]}], ";", 
-    "\[IndentingNewLine]", 
-    RowBox[{"tab2", " ", "=", " ", 
-     RowBox[{"Table", "[", 
-      RowBox[{
-       RowBox[{"Flatten", "[", 
-        RowBox[{"{", 
-         RowBox[{
-          RowBox[{"{", "r", "}"}], ",", 
-          RowBox[{"rho2", "[", "r", "]"}], ",", 
-          RowBox[{"rhom2", "[", "r", "]"}]}], "}"}], "]"}], ",", " ", 
-       RowBox[{"{", 
-        RowBox[{"r", ",", "a", ",", "b", ",", "dr"}], "}"}]}], "]"}]}], ";", 
-    "\[IndentingNewLine]", 
-    RowBox[{"tab3", " ", "=", " ", 
-     RowBox[{"Table", "[", 
-      RowBox[{
-       RowBox[{"Flatten", "[", 
-        RowBox[{"{", 
-         RowBox[{
-          RowBox[{"{", "r", "}"}], ",", 
-          RowBox[{"rho3", "[", "r", "]"}], ",", 
-          RowBox[{"rhom3", "[", "r", "]"}]}], "}"}], "]"}], ",", " ", 
-       RowBox[{"{", 
-        RowBox[{"r", ",", "b", ",", "rd", ",", "dr"}], "}"}]}], "]"}]}], ";", 
-    "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"tab1", "[", 
-      RowBox[{"[", 
-       RowBox[{"All", ",", "2"}], "]"}], "]"}], " ", "=", " ", 
-     RowBox[{
-      RowBox[{"tab1", "[", 
-       RowBox[{"[", 
-        RowBox[{"All", ",", "2"}], "]"}], "]"}], "/", 
-      RowBox[{
-       RowBox[{"Last", "[", "tab3", "]"}], "[", 
-       RowBox[{"[", "2", "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"tab1", "[", 
-      RowBox[{"[", 
-       RowBox[{"All", ",", "3"}], "]"}], "]"}], " ", "=", " ", 
-     RowBox[{
-      RowBox[{"tab1", "[", 
-       RowBox[{"[", 
-        RowBox[{"All", ",", "3"}], "]"}], "]"}], "/", 
-      RowBox[{
-       RowBox[{"Last", "[", "tab3", "]"}], "[", 
-       RowBox[{"[", "3", "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"tab1", "[", 
-      RowBox[{"[", 
-       RowBox[{"All", ",", "4"}], "]"}], "]"}], " ", "=", " ", 
-     RowBox[{
-      RowBox[{"tab1", "[", 
-       RowBox[{"[", 
-        RowBox[{"All", ",", "4"}], "]"}], "]"}], "/", 
-      RowBox[{
-       RowBox[{"Last", "[", "tab3", "]"}], "[", 
-       RowBox[{"[", "4", "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"tab2", "[", 
-      RowBox[{"[", 
-       RowBox[{"All", ",", "2"}], "]"}], "]"}], " ", "=", " ", 
-     RowBox[{
-      RowBox[{"tab2", "[", 
-       RowBox[{"[", 
-        RowBox[{"All", ",", "2"}], "]"}], "]"}], "/", 
-      RowBox[{
-       RowBox[{"Last", "[", "tab3", "]"}], "[", 
-       RowBox[{"[", "2", "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"tab2", "[", 
-      RowBox[{"[", 
-       RowBox[{"All", ",", "3"}], "]"}], "]"}], " ", "=", " ", 
-     RowBox[{
-      RowBox[{"tab2", "[", 
-       RowBox[{"[", 
-        RowBox[{"All", ",", "3"}], "]"}], "]"}], "/", 
-      RowBox[{
-       RowBox[{"Last", "[", "tab3", "]"}], "[", 
-       RowBox[{"[", "3", "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"tab2", "[", 
-      RowBox[{"[", 
-       RowBox[{"All", ",", "4"}], "]"}], "]"}], " ", "=", " ", 
-     RowBox[{
-      RowBox[{"tab2", "[", 
-       RowBox[{"[", 
-        RowBox[{"All", ",", "4"}], "]"}], "]"}], "/", 
-      RowBox[{
-       RowBox[{"Last", "[", "tab3", "]"}], "[", 
-       RowBox[{"[", "4", "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"tab3", "[", 
-      RowBox[{"[", 
-       RowBox[{"All", ",", "2"}], "]"}], "]"}], " ", "=", " ", 
-     RowBox[{
-      RowBox[{"tab3", "[", 
-       RowBox[{"[", 
-        RowBox[{"All", ",", "2"}], "]"}], "]"}], "/", 
-      RowBox[{
-       RowBox[{"Last", "[", "tab3", "]"}], "[", 
-       RowBox[{"[", "2", "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"tab3", "[", 
-      RowBox[{"[", 
-       RowBox[{"All", ",", "3"}], "]"}], "]"}], " ", "=", " ", 
-     RowBox[{
-      RowBox[{"tab3", "[", 
-       RowBox[{"[", 
-        RowBox[{"All", ",", "3"}], "]"}], "]"}], "/", 
-      RowBox[{
-       RowBox[{"Last", "[", "tab3", "]"}], "[", 
-       RowBox[{"[", "3", "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"tab3", "[", 
-      RowBox[{"[", 
-       RowBox[{"All", ",", "4"}], "]"}], "]"}], " ", "=", " ", 
-     RowBox[{
-      RowBox[{"tab3", "[", 
-       RowBox[{"[", 
-        RowBox[{"All", ",", "4"}], "]"}], "]"}], "/", 
-      RowBox[{
-       RowBox[{"Last", "[", "tab3", "]"}], "[", 
-       RowBox[{"[", "4", "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"Last", "[", "tab3", "]"}], "[", 
-     RowBox[{"[", "2", "]"}], "]"}], ";", "\[IndentingNewLine]", 
-    RowBox[{"Export", "[", 
-     RowBox[{"file", ",", "tab1", ",", "\"\<TSV\>\""}], "]"}], ";", 
-    "\[IndentingNewLine]", 
-    RowBox[{"Export", "[", 
-     RowBox[{"file", ",", " ", "\"\<\\n\>\"", ",", " ", "\"\<TSV\>\""}], 
-     "]"}], ";", "\[IndentingNewLine]", 
-    RowBox[{"Export", "[", 
-     RowBox[{"file", ",", "tab2", ",", "\"\<TSV\>\""}], "]"}], ";", 
-    "\[IndentingNewLine]", 
-    RowBox[{"Export", "[", 
-     RowBox[{"file", ",", " ", "\"\<\\n\>\"", ",", " ", "\"\<TSV\>\""}], 
-     "]"}], ";", "\[IndentingNewLine]", 
-    RowBox[{"Export", "[", 
-     RowBox[{"file", ",", "tab3", ",", "\"\<TSV\>\""}], "]"}], ";", 
-    "\[IndentingNewLine]", 
-    RowBox[{"Export", "[", 
-     RowBox[{"file", ",", " ", "\"\<\\n\>\"", ",", " ", "\"\<TSV\>\""}], 
-     "]"}], ";", "\[IndentingNewLine]", 
-    RowBox[{"Close", "[", "filename", "]"}], ";"}]}], "\[IndentingNewLine]", 
-  "]"}], "\[IndentingNewLine]"}], "Input",
+     RowBox[{"\"", "table", 
+      RowBox[{"\"\<<>ToString[i]<>\>\"", ".", "tsv"}], 
+      "\"\<;\[IndentingNewLine]file = \
+OpenAppend[filename];\[IndentingNewLine]tab1 = \
+Table[Flatten[{{r},rho1[r],rhom1[r]}], {r,rs,a,dr}];\[IndentingNewLine]tab2 = \
+Table[Flatten[{{r},rho2[r],rhom2[r]}], {r,a,b,dr}];\[IndentingNewLine]tab3 = \
+Table[Flatten[{{r},rho3[r],rhom3[r]}], \
+{r,b,rd,dr}];\[IndentingNewLine]tab1[[All,2]] = \
+tab1[[All,2]]/Last[tab3][[2]];\[IndentingNewLine]tab1[[All,3]] = \
+tab1[[All,3]]/Last[tab3][[3]];\[IndentingNewLine]tab1[[All,4]] = \
+tab1[[All,4]]/Last[tab3][[4]];\[IndentingNewLine]tab2[[All,2]] = \
+tab2[[All,2]]/Last[tab3][[2]];\[IndentingNewLine]tab2[[All,3]] = \
+tab2[[All,3]]/Last[tab3][[3]];\[IndentingNewLine]tab2[[All,4]] = \
+tab2[[All,4]]/Last[tab3][[4]];\[IndentingNewLine]tab3[[All,2]] = \
+tab3[[All,2]]/Last[tab3][[2]];\[IndentingNewLine]tab3[[All,3]] = \
+tab3[[All,3]]/Last[tab3][[3]];\[IndentingNewLine]tab3[[All,4]] = \
+tab3[[All,4]]/Last[tab3][[4]];\[IndentingNewLine]Last[tab3][[2]];\
+\[IndentingNewLine]Export[file,tab1,\>\"", "TSV", 
+      "\"\<];\[IndentingNewLine]Export[file, \>\"", "\\n", "\"\<, \>\"", 
+      "TSV", "\"\<];\[IndentingNewLine]Export[file,tab2,\>\"", "TSV", 
+      "\"\<];\[IndentingNewLine]Export[file, \>\"", "\\n", "\"\<, \>\"", 
+      "TSV", "\"\<];\[IndentingNewLine]Export[file,tab3,\>\"", "TSV", 
+      "\"\<];\[IndentingNewLine]Export[file, \>\"", "\\n", "\"\<, \>\"", 
+      "TSV", "\"\<];\[IndentingNewLine]Close[filename];\[IndentingNewLine]]\
+\[IndentingNewLine]\>"}]}]}]}]}]}], "Input",
  CellChangeTimes->{{3.595761177453919*^9, 3.5957611962894897`*^9}, {
    3.5957612282898817`*^9, 3.595761255331472*^9}, {3.595761300916155*^9, 
    3.595761375382019*^9}, {3.602583033734084*^9, 3.602583294382412*^9}, {
@@ -2808,7 +2669,8 @@ Cell[BoxData[{
    3.610940082832095*^9, 3.610940118354473*^9}, {3.610941089489124*^9, 
    3.610941092140666*^9}, {3.610946351725289*^9, 3.610946355230786*^9}, 
    3.610946500432587*^9, 3.611283860843494*^9, 3.611284464604216*^9, 
-   3.611284515354936*^9, {3.611294662566697*^9, 3.611294667639265*^9}}],
+   3.611284515354936*^9, {3.611294662566697*^9, 3.611294667639265*^9}, {
+   3.614578791239943*^9, 3.614578794954374*^9}}],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -2899,8 +2761,8 @@ Cell[116138, 2580, 125, 2, 32, "Input"],
 Cell[116266, 2584, 157, 2, 32, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[116460, 2591, 9308, 219, 781, "Input"],
-Cell[125771, 2812, 370, 7, 32, "Output"]
+Cell[116460, 2591, 4888, 81, 781, "Input"],
+Cell[121351, 2674, 370, 7, 32, "Output"]
 }, Open  ]]
 }
 ]
