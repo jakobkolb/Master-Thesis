@@ -58,6 +58,7 @@ Ur = 3.
 Uma = -1.5
 Umr = 1.5
 rd = [250,2.5,0.25]
+rdfolder = ['025','25','250']
 l = a-1.
 g = (b-a)/l
 pi = np.pi
@@ -68,26 +69,21 @@ att_dens = {}
 rep_dens = {}
 
 #load spacing
-tmp = np.loadtxt('rep_data/table1.tsv')
+tmp = np.loadtxt('attractive/attractive_rd_025/rhovals.tsv')
 r_n = tmp[:,0]
 resolution = np.shape(r_n)[0]
-
-#load repulsive data
+print r_n
+#load repulsive data and potential
 for i in range(3):
-    tmp = np.loadtxt('rep_data/table'+`i+1`+'.tsv')
-    rep_dens[`i`] = tmp[:,3]
+    tmp = np.loadtxt('repulsive/repulsive_rd_'+rdfolder[i]+'/rhovals.tsv')
+    rep_dens[`i`] = tmp[:,1]
+    u_rep = tmp[:,2]
 
-#load attractive data
+#load attractive data and potential
 for i in range(3):
-    tmp = np.loadtxt('att_data/table'+`i+1`+'.tsv')
-    att_dens[`i`] = tmp[:,3]
-
-#calculate potentials
-u_att = np.zeros((resolution))
-u_rep = np.zeros((resolution))
-for i in range(resolution):
-    u_att[i] = Uma*(theta(r_n[i]-a)-theta(r_n[i]-b))
-    u_rep[i] = Umr*(theta(r_n[i]-a)-theta(r_n[i]-b))
+    tmp = np.loadtxt('attractive/attractive_rd_'+rdfolder[i]+'/rhovals.tsv')
+    att_dens[`i`] = tmp[:,1]
+    u_att = tmp[:,2]
 
 print 'now the hart part starts'
 for mod in modi:
