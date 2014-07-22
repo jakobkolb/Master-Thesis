@@ -163,7 +163,7 @@ CONTAINS
     WRITE(rate_final, *) "this file contains simulation parameters and measured absorption rate"
     WRITE(rate_final, *)
     WRITE(rate_final, "(E10.5, 1x, E10.5, 1x, E10.5, 1x, E10.5, 1x, E10.5, 1x, E10.5, 1x, E10.5, 1x, E10.5, 1x, E10.5, 1x, E10.5, 1x, E10.5, 1x, E10.5, 1x, E10.5, 1x, E10.5)")&
-    REAL(npar), D, Rs, Rd, t0, t1, t, U0, U1, l, g, decay_length, aver5(4*bins+1), sigma5(4*bins+1)
+    REAL(npar), D, Rd, dt, t0, t1, t, U0, U1, l, g, decay_length, aver5(4*bins+1), sigma5(4*bins+1)
     
     WRITE(*,*) 'relative error in rate is ', sigma5(4*bins+1)/aver5(4*bins+1)*100, '%'
 
