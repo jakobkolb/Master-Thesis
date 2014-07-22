@@ -7,7 +7,7 @@ IMPLICIT NONE
     REAL(8), DIMENSION(:,:), ALLOCATABLE    :: parold
     INTEGER                                 :: npar, nbins
     REAL(8)                                 :: D, KT, dt, Rs=1, Rd, msqd, md
-    REAL(8)                                 :: t0, t1, U0, U1, l, g, Un, a, b, K01, K10, fmode
+    REAL(8)                                 :: t0, t1, U0, U1, l, g, Un, a, b, K01, K10, fmode, decay_length
     CHARACTER(3)                            :: potential_shape    
 
     INTEGER :: dens_final, rate_final
