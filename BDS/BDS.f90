@@ -30,15 +30,15 @@ IMPLICIT NONE
     !start iteration for particles
 i = 0
     DO WHILE(t<=t1)
-
         i = i+1
-        parold = par
+
         !Call statistic routines for density profile and absorption rate
 
         IF(t >= t0) THEN
             CALL dens_statistics_accum(nbins)
         ENDIF
 
+        parold = par
         !Fluctuations of Potential/Substrate particles
         CALL update_state_of_potential
 
