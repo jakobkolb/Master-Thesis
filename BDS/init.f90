@@ -86,20 +86,19 @@ SUBROUTINE init_particles
     !more ore less quantified.
   
     DO i = 1,npar
-        Rr = 0
-        DO WHILE((Rr <= Rs) .OR. (Rr >= Rd))
-            CALL RANDOM_NUMBER(rand)
-            rand = Rd*rand
-            Rr = SQRT(DOT_PRODUCT(rand,rand))
-        ENDDO
-        IF (Rr .GE. Rs) THEN
-            print*, Rr
-        ENDIF
-        par(1,i) = rand(1)
-        par(2,i) = rand(2)
-        par(3,i) = rand(3)
+    !    Rr = 0
+    !    DO WHILE((Rr <= Rs) .OR. (Rr >= Rd))
+    !        CALL RANDOM_NUMBER(rand)
+    !        rand = Rd*rand
+    !        Rr = SQRT(DOT_PRODUCT(rand,rand))
+    !    ENDDO
+    !    par(1,i) = rand(1)
+    !    par(2,i) = rand(2)
+    !    par(3,i) = rand(3)
+        par(1,i) = 0
+        par(2,i) = 0
+        par(3,i) = Rd
     ENDDO
-
 !Initialize particle state according to detailled equilibrium
 
     IF(fmode == 0) THEN

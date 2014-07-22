@@ -10,9 +10,9 @@ SUBROUTINE move_particles
 
     REAL(8), DIMENSION(3,npar)  :: erand, force
     REAL(8), DIMENSION(3,npar)  :: nrand1, nrand2
-    REAL(8), DIMENSION(npar)  :: r1, r2
+    REAL(8), DIMENSION(npar)  :: r1, r2, brand
     INTEGER                     :: i, j
-    REAL(8)                     :: Ua, Ub, a, b
+    REAL(8)                     :: Ua, Ub, a, b, penter, pexit
 
     force = 0
     parold = par
@@ -101,15 +101,34 @@ SUBROUTINE move_particles
 
     !Check if particles crossed boundaries of potential
     IF(potential_shape .EQ. 'box') THEN
+    IF(U1 < 0) THEN
+        penter = 1.0
+        pexit = EXP(U1)
+    ENDIF 
+    IF(U1 > 0) THEN
+        penter = EXP(-U1)
+        pexit = 1.0
+    ENDIF
+    CALL RANDOM_NUMBER(brand)
     !$OMP PARALLEL DO
     DO i = 1,npar
-        !Did it cross from outside, did it see the barrier?
-        IF(r1(i)>Ub .AND. r2(i)<Ub .AND. par(4,i)==1) THEN
+        !Did it cross the OUTER border from INSIDE, did it see the barrier?
+        IF(r1(i)>Ub .AND. r2(i)<Ub .AND. par(4,i)==1 .AND. brand(i)<pexit) THEN
             !Then throw it out again!
             par(1:3,i) =  par(1:3,i)/SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))&
                         *(2*Ub-r2(i))
-        !Did it cross from inside, did it see the barrier?
-        ELSEIF(r1(i)<Ua .AND. r2(i)>Ua .AND. par(4,i)==1) THEN
+        !Did it cross the OUTER border from OUTSIDE, did it see the barrier
+        ELSEIF(r1(i)<Ub .AND. r2(i)>Ub .AND. par(4,i)==1 .AND. brand(i)<penter) THEN
+            !Then throw it out again!
+            par(1:3,i) =  par(1:3,i)/SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))&
+                        *(2*Ub-r2(i))
+        !Did it cross the INNER border from INSIDE, did it see the barrier?
+        ELSEIF(r1(i)<Ua .AND. r2(i)>Ua .AND. par(4,i)==1 .AND. brand(i)<pexit) THEN
+            !Then keep it in!
+            par(1:3,i) =  par(1:3,i)/SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))&
+                        *(2*Ua-r2(i))
+        !Did it cross the INNER border from OUTSIDE, did it see the barrier?
+        ELSEIF(r1(i)>Ua .AND. r2(i)<Ua .AND. par(4,i)==1 .AND. brand(i)<penter) THEN
             !Then keep it in!
             par(1:3,i) =  par(1:3,i)/SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))&
                         *(2*Ua-r2(i))
@@ -169,7 +188,7 @@ SUBROUTINE maintain_boundary_conditions(counter)
             dr(1) = COS(phi)*SIN(theta)
             dr(2) = SIN(phi)*SIN(theta)
             dr(3) = COS(theta) 
-            par(1:3,i) = (Rs + Rd - Rr)*dr
+            par(1:3,i) = (Rd -(Rs - Rr))*dr
         ELSEIF( Rr > Rd )THEN
 
         !Reset particles to some random place at the boundary if they exceed the
@@ -181,7 +200,7 @@ SUBROUTINE maintain_boundary_conditions(counter)
             dr(1) = COS(phi)*SIN(theta)
             dr(2) = SIN(phi)*SIN(theta)
             dr(3) = COS(theta) 
-            par(1:3,i) = (2*Rd - Rr)*dr
+            par(1:3,i) = (2.0*Rd - Rr)*dr
         ENDIF
     ENDDO
     !$OMP END DO
