@@ -45,6 +45,8 @@ i = 0
         !Move particles according to overdamped Langewin eq.
         CALL move_particles
         CALL maintain_boundary_conditions(counter)
+        acc_counter = acc_counter+counter
+        Deltat = Deltat + dt
 
         IF(t >= t0) THEN 
             CALL rate_statistics_accum(counter, nbins)

@@ -27,6 +27,7 @@ istart = 0
 
 for g_index, g in enumerate(gvalues):
     for t_index, t in enumerate(tvalues):
+        print g_index, t_index
         arates[:,:] = 0.
         for i in range(istart,istop,1):
             rate = calc_rate(u,rdvalues[i],g,t,kt,d)

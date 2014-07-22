@@ -12,9 +12,20 @@ SUBROUTINE move_particles
     REAL(8), DIMENSION(3,npar)  :: nrand1, nrand2
     REAL(8), DIMENSION(npar)  :: r1, r2
     INTEGER                     :: i, j
-    REAL(8)                     :: Ua, Ub
+    REAL(8)                     :: Ua, Ub, a, b
+
+    force = 0
+    parold = par
+
+    !Calculate parameters for ideal barrier
+
     Ua = 1+l 
     Ub = 1+(1+g)*l
+
+    !Calculate parameters for gaussian barrier
+
+    a = (Ua+Ub)/2.0
+    b = (Ub-Ua)/2.0
 
     !Calculate particle distance from origin before step
 
@@ -45,20 +56,30 @@ SUBROUTINE move_particles
 
     IF(potential_shape .EQ. 'lin') THEN
     !$OMP PARALLEL DO
-    DO i = 1,npar
-        !Did it cross from outside, did it see the barrier?
-        IF(r1(i)<Ub .AND. r1(i)>Ua+g*l*0.5.AND. par(4,i)==1) THEN
-            !Then force points out
-            force(:,i) = par(:,i)/r1(i)*2.0*Ua/g/l*dt
-        !Did it cross from inside, did it see the barrier?
-        ELSEIF(r1(i)>Ua .AND. r1(i)>Ua+g*l*0.5 .AND. par(4,i)==1) THEN
-            !Then force points in
-            force(:,i) = par(:,i)/r1(i)*2.0*Ua/g/l*dt
-        ENDIF
-    ENDDO
+        DO i = 1,npar
+            !Did it cross from outside, did it see the barrier?
+            IF(r1(i)<Ub .AND. r1(i)>Ua+g*l*0.5.AND. par(4,i)==1) THEN
+                !Then force points out
+                force(:,i) = par(:,i)/r1(i)*2.0*Ua/g/l*dt
+            !Did it cross from inside, did it see the barrier?
+            ELSEIF(r1(i)>Ua .AND. r1(i)>Ua+g*l*0.5 .AND. par(4,i)==1) THEN
+                !Then force points in
+                force(:,i) = par(:,i)/r1(i)*2.0*Ua/g/l*dt
+            ENDIF
+        ENDDO
     !$OMP END PARALLEL DO
-        
-    ENDIF 
+    ENDIF
+    !Calculated force on particles in case of gaussian potential as f = -grad(U)
+
+    IF(potential_shape .EQ. 'gau') THEN
+        !$OMP PARALLEL DO
+        DO i = 1,npar
+            IF(par(4,i)==1)THEN
+                force(:,i) = -par(:,i)/r1(i)*(EXP(-((-a+r1(i))/b)**Un)*Un*((-a+r1(i))/b)**Un*U1)/(a-r1(i)) 
+            ENDIF
+        ENDDO
+        !$OMP END PARALLEL DO
+    ENDIF
 
     !Apply random force to Particles (do step)
 
