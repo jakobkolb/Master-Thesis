@@ -8,8 +8,8 @@ USE statistics
 IMPLICIT NONE
 
     INTEGER     :: i, j
-    INTEGER     :: counter=0
-    REAL(8)     :: t=0, ct1, ct2, wt1, wt2
+    INTEGER     :: counter=0, acc_counter=0
+    REAL(8)     :: t=0, Deltat=0, ct1, ct2, wt1, wt2
     REAL(8)     :: omp_get_wtime
 
 
@@ -46,12 +46,18 @@ i = 0
         !Move particles according to overdamped Langewin eq.
         CALL move_particles
         CALL maintain_boundary_conditions(counter)
+        acc_counter = acc_counter+counter
+        Deltat = Deltat + dt
 
         IF(t >= t0) THEN 
             CALL rate_statistics_accum(counter, nbins)
         ENDIF
         t = t + dt
-        IF(MOD(i,100) == 0) print*, i, t 
+        IF(MOD(i,50000) == 0) THEN
+            print*, t/t1*100, acc_counter/Deltat/(4.0*pi*D)
+            acc_counter = 0
+            Deltat = 0
+        ENDIF
     ENDDO
 
     !Output statistics to file

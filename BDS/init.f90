@@ -36,7 +36,6 @@ SUBROUTINE init_parameters
 
     IF(trig .EQ. 't0') t0 = REAL(tmp)
     IF(trig .EQ. 't1') t1 = REAL(tmp)
-    IF(trig .EQ. 'D' ) D  = REAL(tmp)/1000.
 
     IF(trig .EQ. 'U0' ) U0  = REAL(tmp)/10.0
     IF(trig .EQ. 'U1' ) U1  = REAL(tmp)/10.0
@@ -83,47 +82,22 @@ SUBROUTINE init_particles
     ALLOCATE(par(1:4,1:npar))
     ALLOCATE(parold(1:4,1:npar))
 
-    !Initialize Particle Possitions - use inverse sampling to mime the original
-    !debye solution for the density profile
-    Ub = Rs+(1+g)*l
-    Ua = Rs+l
-    Cumm = 0
-    Rr = Rs
-    dr = (Rd-Rs)/(nbins)
-    r = 0
-
-    a1 = 1
-    a2 = (1-Rs/(Rs+Ua))*exp(-U0/KT) + Rs/(Rs + Ua)
-    a3 = Rs*(exp(U0/KT) - 1)*(1/(Rs+Ua) - 1/(Rs+Ua+Ub)) + 1
-
-
-    DO i = 1,nbins
-        r(i) = Rr
-        IF(Rr > Rs .AND. Rr <= (Rs + Ua)) THEN
-            Cumm(i) = Cumm(i-1) + (a1/3.*(r(i)+dr)**3 - Rs/2.*(r(i)+dr)**2 - a1/3.*r(i)**3 + Rs/2.*r(i)**2)
-        ELSEIF(Rr > (Rs + Ua) .AND. Rr <= (Rs + Ua + Ub)) THEN
-            Cumm(i) = Cumm(i-1) + (a2/3.*(r(i) + dr)**3 - Rs/2.*(r(i) + dr)**2 - a2/3.*r(i)**3 + Rs/2.*r(i)**2)
-        ELSEIF(Rr > (Rs + Ua + Ub) .AND. Rr <= Rd) THEN
-            Cumm(i) = Cumm(i-1) + (a3/3.*(r(i) + dr)**3 - Rs/2.*(r(i) + dr)**2 - a3/3.*r(i)**3 + Rs/2.*r(i)**2)
-        ENDIF
-        IF(Cumm(i) .LE. Cumm(i-1)) print*, 'error!!', i, Rr, Cumm(i), Cumm(i-1), Cumm(i-2)
-        Rr = Rr + dr
-    ENDDO
-    Cumm = Cumm/Cumm(nbins)
-   
+    !use uniform distribution for initial condition. This way transsients can be
+    !more ore less quantified.
+  
     DO i = 1,npar
-        CALL RANDOM_NUMBER(rand)
-        DO j = 1,nbins
-            IF(rand(1) < Cumm(j)) THEN
-                Rr = r(j) + dr*(rand(2)-0.5)
-                EXIT
-            ENDIF
+        Rr = 0
+        DO WHILE((Rr <= Rs) .OR. (Rr >= Rd))
+            CALL RANDOM_NUMBER(rand)
+            rand = Rd*rand
+            Rr = SQRT(DOT_PRODUCT(rand,rand))
         ENDDO
-        theta = 2*pi*rand(2)
-        phi   = ACOS(2*rand(3) - 1)
-        par(1,i) = Rr*COS(phi)*SIN(theta)
-        par(2,i) = Rr*SIN(phi)*SIN(theta)
-        par(3,i) = Rr*COS(theta) 
+        IF (Rr .GE. Rs) THEN
+            print*, Rr
+        ENDIF
+        par(1,i) = rand(1)
+        par(2,i) = rand(2)
+        par(3,i) = rand(3)
     ENDDO
 
 !Initialize particle state according to detailled equilibrium

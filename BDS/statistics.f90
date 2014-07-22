@@ -45,7 +45,7 @@ CONTAINS
         r = SQRT(DOT_PRODUCT(X(1:3,i),X(1:3,i)))
         binnumber = INT(r/Rd*bins)
         IF(binnumber .LE. bins) THEN
-            if(binnumber .LE. 0)print*, i, binnumber, r, Rd, X(:,i)
+            IF(binnumber .LE. 0)print*, i, binnumber, r, Rd, X(:,i)
             IF(X(4,i) == 0) THEN
                 Xhist(1,binnumber) = Xhist(1,binnumber) + 1
             ELSEIF(X(4,i) == 1) THEN
@@ -93,7 +93,7 @@ CONTAINS
     1x, E10.5, 1x, E10.5, 1x, E10.5, 1x, E10.5, 1x, &
     E10.5, 1x, E10.5)")&
     REAL(npar), D, Rs, Rd, t0, t1, U0, U1, l, g, K01, K10, aver5(2*bins+1), sigma5(2*bins+1)
-
+    WRITE(*,*) aver5(2*bins+1)/(4.0*pi*D), sigma5(2*bins+1)/(4.0*pi*D)
     END SUBROUTINE statistics_output
 
 END MODULE statistics
