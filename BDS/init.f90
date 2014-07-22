@@ -45,7 +45,7 @@ SUBROUTINE init_parameters
 
     IF(trig .EQ. 'rd') decay_length = 10**(REAL(tmp)-6)
 
-    K01 = decay_length**2*D*0.5
+    K01 = D*0.5/decay_length**2
     K10 = K01
 
     print*, 'npar = ', npar
