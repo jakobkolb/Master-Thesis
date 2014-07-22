@@ -7,7 +7,7 @@
     t1      = 2D5   !end of sampling
     Rd      = 20.   !simulation domain
     U0      = 0.
-    U1      = 3.
+    U1      = -3.
     l      = 5      !distance from sink to potential
     g      = 1      !width of potential
     Un      = 16    !steepness of potential

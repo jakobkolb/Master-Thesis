@@ -7,11 +7,11 @@
     t1      = 2D5   !end of sampling
     Rd      = 20.   !simulation domain
     U0      = 0.
-    U1      = 3.
+    U1      = -3.
     l      = 5      !distance from sink to potential
     g      = 1      !width of potential
     Un      = 16    !steepness of potential
-    decay_length = 2.5
+    decay_length = 0.25
     fmode   = 1     !mode for potential switching ( 0:all particles or 1:individual particle)
     nbins   = 100
     potential_shape = 'box' ! one of gau:gaussian lin:linear box:stepshaped
