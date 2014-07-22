@@ -7,15 +7,13 @@ USE statistics
 
 IMPLICIT NONE
 
-    INTEGER     :: i, j
-    INTEGER     :: counter=0, acc_counter=0
-    REAL(8)     :: t=0, Deltat=0, ct1, ct2, wt1, wt2
+    INTEGER     :: i, j, n=0
+    INTEGER     :: counter=0
+    REAL(8)     :: t=0, ct1, ct2, wt1, wt2
     REAL(8)     :: omp_get_wtime
 
 
     CALL RANDOM_SEED
-
-    CALL open_output_files
 
     !read simulation parameters
 
@@ -32,6 +30,7 @@ IMPLICIT NONE
     !start iteration for particles
 i = 0
     DO WHILE(t<=t1)
+
         i = i+1
         parold = par
         !Call statistic routines for density profile and absorption rate
@@ -53,17 +52,11 @@ i = 0
             CALL rate_statistics_accum(counter, nbins)
         ENDIF
         t = t + dt
-        IF(MOD(i,50000) == 0) THEN
-            print*, t/t1*100, acc_counter/Deltat/(4.0*pi*D)
-            acc_counter = 0
-            Deltat = 0
-        ENDIF
+        IF(MOD(i,INT((t1/dt)/5)) == 0) THEN
+            print*, i, t, t/t1*100, INT(t/t1*100)
+            n = n+1
+            CALL statistics_output(nbins, n)
+        ENDIF 
     ENDDO
-
-    !Output statistics to file
-
-    CALL statistics_output(nbins)
-    
-    CALL close_output_files
 
 END PROGRAM BDS
