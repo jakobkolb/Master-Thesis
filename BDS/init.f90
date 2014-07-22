@@ -162,23 +162,5 @@ SUBROUTINE init_statistics(bins)
 
 END SUBROUTINE init_statistics
 
-SUBROUTINE open_output_files
-
-    dens_final  = 20
-    rate_final  = 21
-
-    OPEN(unit=dens_final, file="dens_data.out", action="write")
-    OPEN(unit=rate_final, file="rate_data.out", action="write")
-
-
-END SUBROUTINE open_output_files
-
-SUBROUTINE close_output_files
-
-    CLOSE(dens_final)
-    CLOSE(rate_final)
-
-END SUBROUTINE close_output_files
-
 END MODULE init
 

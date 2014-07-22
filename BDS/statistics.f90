@@ -45,10 +45,10 @@ CONTAINS
         r = SQRT(DOT_PRODUCT(X(1:3,i),X(1:3,i)))
         binnumber = INT(r/Rd*bins)
         IF(binnumber .LE. bins) THEN
-            if(binnumber .LE. 0)print*, i, binnumber, r, Rd, X(:,i)
-            IF(X(4,i) == 0) THEN
+            IF(binnumber .LE. 0)print*, i, r, X(:,i)
+            IF(X(4,i) == 0 .AND. binnumber .GE. 0) THEN
                 Xhist(1,binnumber) = Xhist(1,binnumber) + 1
-            ELSEIF(X(4,i) == 1) THEN
+            ELSEIF(X(4,i) == 1 .AND. binnumber .GE. 0) THEN
                 Xhist(2,binnumber) = Xhist(2,binnumber) + 1
             ENDIF
         ENDIF
@@ -72,11 +72,28 @@ CONTAINS
 
     END SUBROUTINE rate_statistics_accum
 
-    SUBROUTINE statistics_output(bins)
+    SUBROUTINE statistics_output(bins,n)
     
     INTEGER, INTENT(in) :: bins
-    INTEGER             :: i
+    INTEGER             :: i, n
     REAL(8)             :: aver5, sigma5, a, b, Rr
+    CHARACTER(len=128)  :: dens_file, rate_file
+
+    !Create names for output files
+
+    WRITE(dens_file, "(A9,I0.2)") "dens_data", n
+    WRITE(rate_file, "(A9,I0.2)") "rate_data", n
+
+    PRINT *, TRIM(dens_file)
+    PRINT *, TRIM(rate_file)
+
+    !Open files for output
+
+    dens_final  = 20
+    rate_final  = 21
+
+    OPEN(unit=dens_final, file=dens_file, action="write")
+    OPEN(unit=rate_final, file=rate_file, action="write")
 
     !Write statistics output to file
     
@@ -93,6 +110,15 @@ CONTAINS
     1x, E10.5, 1x, E10.5, 1x, E10.5, 1x, E10.5, 1x, &
     E10.5, 1x, E10.5)")&
     REAL(npar), D, Rs, Rd, t0, t1, U0, U1, l, g, K01, K10, aver5(2*bins+1), sigma5(2*bins+1)
+
+    !Close files for output
+
+    CLOSE(dens_final)
+    CLOSE(rate_final)
+
+    !And reset stat5
+
+    CALL clear5(2*bins+1,500)
 
     END SUBROUTINE statistics_output
 
