@@ -6,9 +6,10 @@
 # * Create.
  
 #PBS -N ssc_run
-#PBS -l nodes=1:ppn=4,walltime=720:00:00
+#PBS -l nodes=1:ppn=6,walltime=720:00:00
 #PBS -m ae
- 
+
+
 cd $PBS_O_WORKDIR
  
 echo "Information about the job:"

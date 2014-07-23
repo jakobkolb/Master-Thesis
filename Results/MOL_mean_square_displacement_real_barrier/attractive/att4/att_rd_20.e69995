@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "2_Eff.py", line 10, in <module>
+    data = np.loadtxt('rhovals.tsv')
+  File "/usr/lib/pymodules/python2.7/numpy/lib/npyio.py", line 805, in loadtxt
+    items = [conv(val) for (conv, val) in zip(converters, vals)]
+ValueError: could not convert string to float: Table[]
