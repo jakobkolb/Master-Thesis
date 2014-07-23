@@ -8,6 +8,6 @@ Rsink = 1;
 Rmax = 20;
 t0 = 0;
 t1 = 500;
-rd = 0.01;
+rd = 0.001;
 resolution = 1000
 

@@ -2,6 +2,7 @@
 \label{numeric_model}
 The analytic methods that were derived so far only hold for step shaped potentials. Since step potentials are only an approximation to what typically appears in nature it is necessary do be able to deal with more realistic smooth potentials. This can be done conveniently using numeric simulations. Therefore this section will introduce two possible approaches to the composite Markov process of Brownian particles in the vicinity of a fluctuating external potential.
 \section{Brownian Dynamics}
+\label{BDsim}
 The term \textit{Brownian Dynamics Simulation} refers to the integration of the overdamped Langewin equation \eqref{BD1} i.e. the motion of particles with respect to a Gaussian random force. Therefore the equation for the diffusive coordinate $r_n$ of the Brownian particles is discretized in time, such that the actual discrete equation of Motion has the Form
 \begin{equation}
     \vec r_m(t + \Delta t) = \vec r_m(t) - \frac{\vec \nabla U_m(\vec r)}{\gamma}\Delta t + \sqrt{2 D \Delta t} R(t)
@@ -93,5 +94,7 @@ For technical details of the implementation of the method please refer to the do
         WorkingPrecision $\rightarrow$ MachinePrecision, \\
         Method $\rightarrow$ \{``MethodOfLines'', ``SpatialDiscretization'' $\rightarrow$ \{``TensorProductGrid'', ``MinPoints'' $\rightarrow$ 10000\}\}}
 
-
+\section{Comparison of Models}
+The two computational models described in this chapter both target the same problem but with a fundamentally different approach. Brownian Dynamics simulations integrate the underlying stochastic differential equations whereas the Method of Lines solves the equivalent partial differential equations. Therefore the Brownian Dynamics approach allows for the calculation of microscopic quantities such as locally resolved mean square displacement of particles whilst the Method of Lines approach only gives access to macroscopic quantities such as fluxes and density profiles. The advantage of the Method of Lines lies in its efficiency. With Brownian dynamics Simulations the errors in all calculated quantities scale with $N^{-1/2}$ with $N$ being the number of simulated particles. If the particles do not interact, the time $T$ for the simulation scales linear with $N$ and therefore the precision of the results will also go with $T^{-1/2}$. Although the documentation of Mathematica does not tell much about the actual routines in use for the implementation of the Method of lines they are obviously a lot more efficient that this when it comes to derive solutions up to a required precision of accuracy. \\
+For this reason the method of lines will be used to calculate numeric results for macroscopic quantities and Brownian Dynamic simulations will only be used if it is necessary to explicitly calculate microscopic quantities.
 

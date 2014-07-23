@@ -328,7 +328,7 @@ Since in general it is not equivalent to take limits in exchanged order it is no
 
 \newpage
 \section{Numeric Study of Smooth Potential Barriers}
-
+\label{Numeric_Study}
 The easiest way to get an insight into the final question posed in the last section is to take a closer look at what actually happens, if the potential barrier does not vary in sharp jumps but does so on a finite length scale.
 Therefore one examines how the reaction rate depends on the decay length of the particle density given a fixed but finite area on which the barrier changes. The natural way to do this is the application of a potential barrier that resembles a step function in shape and has a parameter to tweak this similarity. A generalized Gaussian:
 \begin{equation}
@@ -557,17 +557,49 @@ Consequently the findings of Szabo et al. translate to:
 
 \newpage
 \section{Mapping on a Non-Markovian Description}
-This section should bridge the gap from theory to experiments where measurements usually do not give any information of the detailed kinetics of the system but only show fluctuations as a potential of mean force and a spatially depending diffusivity profile.
-
-\newpage
-\section{A non ideal Sink}
-This section should basically proof that the relation
+\subsection{Common Assumptions}
+When an experimentalist would investigate on a realization of the system under study in this thesis he would probably proceed as Shuan Wu et al. \cite{Wu2012a} and do the following: \\ 
+He would \emph{first} assume a potential of mean force $U_m(r)$ for the barrier and then calculate the reaction rate using Debye rate theory with a spatially depending diffusivity profile $D(r)$:
 \begin{equation}
-    \frac{1}{K_{eff}} = \frac{1}{K_{surface}}+\frac{1}{K_{diffusion}}
-    \label{addition_of_rates}
+    K_D^{-1} = \int_{R_s}^{\infty}\frac{\exp[U_m(r)/K_B T]}{4 \pi r^{2} D(r)} {\rm d} r.
+    \label{YSDebye}
 \end{equation}
-does not hold when the timescales of the barrier fluctuations and the diffusive transport of particles can not be separated.
+and \emph{second}, if the adsorption to the sink in the system would not be ideal but subject to some surface reaction rate $K_S$ he would assume the diffusion controlled and the surface reaction part to independent and calculate the effective reaction rate as:
+\begin{equation}
+    K_{eff}^{-1} = K_D^{-1} + K_S^{-1}.
+    \label{Keff}
+\end{equation}
+There is a list of problems with these two assumptions that will be outlined in the following discussion. \\
+\subsection{First Assumption}
+As was shown in section \ref{Numeric_Study} the description of the rate by Debye theory is only valid for smooth potentials and for these only if the switching of the potential is much faster that the diffusion of the Brownian particles. Otherwise both processes couple and the assumption is violated. Moreover, if one sticks to Debye theory and uses the particle density which might be measured and the potential of mean force to calculate an effective spatial diffusivity profile $D_{eff}(r)$ from: 
+\begin{equation}
+    \rho_D = C \exp\left[\frac{-U_m(r)}{K_B T}\right] \int_{R_s}^{r} \frac{\exp\left[\frac{U_m(r')}{K_B T}\right]}{4 \pi r'^{2} D_{eff}(r)}{\rm d} r'
+    \label{Deff}
+\end{equation}
+this will lead to artificial results. To picture this, one uses two different methods to calculate an effective diffusivity profile. First one uses the Method of Lines as outlined in section \ref{method_of_lines} to derive density profiles for different decay lengths for a smooth potential as given by equation \eqref{generalized_gaussian} and calculates the associated effective diffusivity profile through numeric inversion of equation \eqref{Deff} and second, one sets up Brownian Dynamics simulations as described in section \ref{BDsim}for the same parameters and explicitly tracks the mean square displacement of particles to access the actual diffusivity profile of the system via
+\begin{equation}
+    \left<\Delta \vec{x}(r)^{2}\right> = 6 D(r) \Delta t
+    \label{msqd}
+\end{equation}
+where $\Delta \vec{x}$ is the actual particle displacement and $r$ is its radial position in space.
 
+\begin{minipage}[t]{.5 \textwidth}
+    \begin{figure}[H]
+ %       \includegraphics[width = 1 \textwidth]{plots/rb_cs.pdf}
+    \end{figure}
+\end{minipage}\begin{minipage}[t]{.5 \textwidth}
+    \begin{figure}[H]
+ %       \includegraphics[width = 1 \textwidth]{plots/ab_cs.pdf}
+    \end{figure}
+\end{minipage}
 
-\newpage
+\begin{minipage}[t]{1 \textwidth}
+    \begin{figure}[H]
+        \caption{Comparison of effective diffusivity profiles $D_{eff}(r)$ for attractive (blue) and repulsive (red) fluctuating barrier for different decay lengths $r_d$ resulting from different numeric approaches. A) gives results for density profiles calculated by numerical inversion of equation \eqref{Deff}. Necessary density profiles were obtained by the numerical Method of Lines for a smooth potential as given in \eqref{generalized_gaussian} with $U_2$, $a$, and $b$ as given in \eqref{Parameters}. B) gives results obtained from Brownian Dynamics simulations. Spatially resolved mean square displacement was calculated by radial binning of particles positions $\vec{x}$ for each time step, then integrating over $\Delta t$ and separately averaging over the particle square displacement $\Delta \vec{x}^{2}$ for each bin. The effective diffusivity was then calculated by \label{Deff_numeric}}
+    \end{figure}
+\end{minipage} \vspace{0.5 cm} \\
+
+\subsection{Second Assumption}
+%This section should bridge the gap from theory to experiments where measurements usually do not give any information of the detailed kinetics of the system but only show fluctuations as a potential of mean force and a spatially depending diffusivity profile.
+
 \section{Summary}

@@ -14,5 +14,5 @@
     decay_length = 10D2
     fmode   = 1     !mode for potential switching ( 0:all particles or 1:individual particle)
     nbins   = 100
-    potential_shape = 'box' ! one of gau:gaussian lin:linear box:stepshaped
+    potential_shape = 'gau' ! one of gau:gaussian lin:linear box:stepshaped
 /
