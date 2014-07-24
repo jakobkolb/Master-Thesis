@@ -74,20 +74,20 @@ r_n = tmp[:,0]
 resolution = np.shape(r_n)[0]
 print r_n
 #load repulsive data and potential
-for i in range(3):
+for i in range(4):
     tmp = np.loadtxt('repulsive/rep'+rdfolder[i]+'/rhovals.tsv')
     rep_dens[`i`] = tmp[:,1]
     u_rep = tmp[:,2]
 
 #load attractive data and potential
-for i in range(3):
+for i in range(4):
     tmp = np.loadtxt('attractive/att'+rdfolder[i]+'/rhovals.tsv')
     att_dens[`i`] = tmp[:,1]
     u_att = tmp[:,2]
 
 print 'now the hart part starts'
 for mod in modi:
-    for i in range(3):
+    for i in range(4):
         print mod, i, 'start mapping'
         if mod == 'repulsive':
             rho_n = rep_dens[`i`][:]
