@@ -8,7 +8,7 @@ CONTAINS
 
 SUBROUTINE move_particles
 
-    REAL(8), DIMENSION(3,npar)  :: erand, force
+    REAL(8), DIMENSION(3,npar)  :: erand
     REAL(8), DIMENSION(3,npar)  :: nrand1, nrand2
     REAL(8), DIMENSION(npar)  :: r1, r2, brand
     INTEGER                     :: i, j

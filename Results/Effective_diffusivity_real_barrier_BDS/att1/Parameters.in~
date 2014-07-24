@@ -10,8 +10,8 @@
     U1      = -3.
     l      = 5      !distance from sink to potential
     g      = 1      !width of potential
-    Un      = 32    !steepness of potential
-    decay_length = 10D-2
+    Un      = 64    !steepness of potential
+    decay_length = 10D-3
     fmode   = 1     !mode for potential switching ( 0:all particles or 1:individual particle)
     nbins   = 100
     potential_shape = 'gau' ! one of gau:gaussian lin:linear box:stepshaped

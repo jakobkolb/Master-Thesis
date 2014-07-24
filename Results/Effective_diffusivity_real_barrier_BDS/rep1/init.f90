@@ -81,6 +81,7 @@ SUBROUTINE init_particles
 
     ALLOCATE(par(1:4,1:npar))
     ALLOCATE(parold(1:4,1:npar))
+    ALLOCATE(force(1:3,1:npar))
 
     !use uniform distribution for initial condition. This way transsients can be
     !more ore less quantified.

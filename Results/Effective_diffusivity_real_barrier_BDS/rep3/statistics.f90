@@ -81,7 +81,7 @@ CONTAINS
     !$OMP PARALLEL DO REDUCTION(+:hist,pcount) PRIVATE(binnumber, r, rsq)
     DO i = 1,imax
         r = SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))
-        rsq = DOT_PRODUCT(par(1:3,i)-parold(1:3,i),par(1:3,i)-parold(1:3,i))
+        rsq = DOT_PRODUCT(par(1:3,i)-parold(1:3,i),par(1:3,i)-parold(1:3,i)) - DOT_PRODUCT(force(:,i),force(:,i))*dt**2
         binnumber = INT(r/Rd*bins)
         IF(binnumber .LE. bins) THEN
             IF(binnumber .LE. 0)print*, i, r, par(:,i)
@@ -153,11 +153,12 @@ CONTAINS
         WRITE(dens_final, "(7f15.4)")   (REAL(i)+1)/REAL(bins)*Rd, aver5(i), sigma5(i), &
                                         aver5(i + bins), sigma5(i + bins)
     ENDDO
-    
+
+
     DO i = 1,bins-1
         Rr = real(i)*Rd/real(bins)
         WRITE(msqd_final, "(7f15.4)")   (REAL(i)+1)/REAL(bins)*Rd, aver5(i+2*bins), sigma5(i+2*bins), &
-                                        aver5(i + 3*bins), sigma5(i + 3*bins)
+                                        aver5(i + 3*bins), sigma5(i + 3*bins), SQRT(DOT_PRODUCT(force(:,i),force(:,i)))
     ENDDO
 
     WRITE(rate_final, *) "this file contains simulation parameters and measured absorption rate"
