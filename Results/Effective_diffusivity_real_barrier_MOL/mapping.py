@@ -58,7 +58,7 @@ Ur = 3.
 Uma = -1.5
 Umr = 1.5
 rd = [250,2.5,0.25]
-rdfolder = ['025','25','250']
+rdfolder = ['1','2','3','4']
 l = a-1.
 g = (b-a)/l
 pi = np.pi
@@ -69,19 +69,19 @@ att_dens = {}
 rep_dens = {}
 
 #load spacing
-tmp = np.loadtxt('attractive/attractive_rd_025/rhovals.tsv')
+tmp = np.loadtxt('attractive/att1/rhovals.tsv')
 r_n = tmp[:,0]
 resolution = np.shape(r_n)[0]
 print r_n
 #load repulsive data and potential
 for i in range(3):
-    tmp = np.loadtxt('repulsive/repulsive_rd_'+rdfolder[i]+'/rhovals.tsv')
+    tmp = np.loadtxt('repulsive/rep'+rdfolder[i]+'/rhovals.tsv')
     rep_dens[`i`] = tmp[:,1]
     u_rep = tmp[:,2]
 
 #load attractive data and potential
 for i in range(3):
-    tmp = np.loadtxt('attractive/attractive_rd_'+rdfolder[i]+'/rhovals.tsv')
+    tmp = np.loadtxt('attractive/att'+rdfolder[i]+'/rhovals.tsv')
     att_dens[`i`] = tmp[:,1]
     u_att = tmp[:,2]
 
