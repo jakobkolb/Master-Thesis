@@ -1,0 +1,11 @@
+/var/spool/pbs/mom_priv/jobs/69998.irz14.SC: line 12: export: `=': not a valid identifier
+/var/spool/pbs/mom_priv/jobs/69998.irz14.SC: line 12: export: `8': not a valid identifier
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+BDS                000000000042B794  Unknown               Unknown  Unknown
+BDS                00000000004633B1  Unknown               Unknown  Unknown
+BDS                0000000000405A75  Unknown               Unknown  Unknown
+BDS                0000000000403A63  Unknown               Unknown  Unknown
+BDS                000000000040389C  Unknown               Unknown  Unknown
+libc.so.6          00002B074509EEED  Unknown               Unknown  Unknown
+BDS                0000000000403779  Unknown               Unknown  Unknown
