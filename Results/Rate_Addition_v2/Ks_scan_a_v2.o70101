@@ -1,0 +1,152 @@
+Information about the job:
+Job Id: 70101.irz14
+    Job_Name = Ks_scan_a_v2
+    Job_Owner = jkolb@pool24.physik.hu-berlin.de
+    job_state = R
+    queue = defq
+    server = irz14.physik.hu-berlin.de
+    Checkpoint = u
+    ctime = Fri Jul 25 14:11:38 2014
+    Error_Path = pool24.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen/
+	MA/Results/Rate_Addition_v2/Ks_scan_a_v2.e70101
+    exec_host = pool36/3+pool36/2+pool36/1+pool36/0
+    Hold_Types = n
+    Join_Path = n
+    Keep_Files = n
+    Mail_Points = ae
+    mtime = Fri Jul 25 14:11:39 2014
+    Output_Path = pool24.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen
+	/MA/Results/Rate_Addition_v2/Ks_scan_a_v2.o70101
+    Priority = 0
+    qtime = Fri Jul 25 14:11:38 2014
+    Rerunable = True
+    Resource_List.nice = 15
+    Resource_List.nodect = 1
+    Resource_List.nodes = 1:ppn=4
+    Resource_List.walltime = 720:00:00
+    session_id = 30957
+    Variable_List = PBS_O_QUEUE=defq,PBS_O_HOST=pool24.physik.hu-berlin.de,
+	PBS_O_HOME=/users/stud/jkolb,PBS_O_LANG=C,PBS_O_LOGNAME=jkolb,
+	PBS_O_PATH=/usr/global/root/bin:/usr/local/cuda/bin:/usr/global/mpi/b
+	in:/usr/global/open64/bin:/usr/global/pgi/bin:/usr/global/intel/bin:/u
+	sr/global/maple/bin:/usr/global/math/bin:/usr/global/matlab/bin:/usr/g
+	lobal/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:.,
+	PBS_O_SHELL=/bin/bash,PBS_SERVER=irz14,
+	PBS_O_WORKDIR=/users/stud/jkolb/Veranstaltungen/MA/Results/Rate_Addit
+	ion_v2
+    etime = Fri Jul 25 14:11:38 2014
+    submit_args = att_job.sh
+    start_time = Fri Jul 25 14:11:39 2014
+    Walltime.Remaining = 2592000
+    start_count = 1
+    fault_tolerant = False
+    submit_host = pool24.physik.hu-berlin.de
+    init_work_dir = /users/stud/jkolb/Veranstaltungen/MA/Results/Rate_Addition
+	_v2
+
+
+
+
+Started batch processing at Fri Jul 25 14:11:39 CEST 2014.
+
+General::unfl: Underflow occurred in computation.
+
+General::unfl: Underflow occurred in computation.
+
+General::unfl: Underflow occurred in computation.
+
+General::stop: Further output of General::unfl will be suppressed during this calculation.
+
+NDSolve::stpmax: The starting number of points determined by StartingStepSize -> 0.001 and StartingPoints -> Automatic is 29000, which is greater than the maximum number of 24000 grid points. 24000 will be used instead.
+
+NDSolve::ibcinc: Warning: boundary and initial conditions are inconsistent.
+
+General::ovfl: Overflow occurred in computation.
+
+General::ovfl: Overflow occurred in computation.
+
+General::ovfl: Overflow occurred in computation.
+
+General::stop: Further output of General::ovfl will be suppressed during this calculation.
+
+NDSolve::ndnum: Encountered non-numerical value for a derivative at t == 0..
+
+NDSolve::stpmax: The starting number of points determined by StartingStepSize -> 0.001 and StartingPoints -> Automatic is 29000, which is greater than the maximum number of 24000 grid points. 24000 will be used instead.
+
+NDSolve::ibcinc: Warning: boundary and initial conditions are inconsistent.
+
+NDSolve::ndnum: Encountered non-numerical value for a derivative at t == 0..
+"Done""n="3232323232323232323232323232323232323232323232323232323232323232"i="0"w12="500000.
+
+NDSolve::stpmax: The starting number of points determined by StartingStepSize -> 0.001 and StartingPoints -> Automatic is 29000, which is greater than the maximum number of 24000 grid points. 24000 will be used instead.
+
+General::stop: Further output of NDSolve::stpmax will be suppressed during this calculation.
+
+NDSolve::ibcinc: Warning: boundary and initial conditions are inconsistent.
+
+General::stop: Further output of NDSolve::ibcinc will be suppressed during this calculation.
+
+NDSolve::ndnum: Encountered non-numerical value for a derivative at t == 0..
+
+General::stop: Further output of NDSolve::ndnum will be suppressed during this calculation.
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                3232323232323232323232323232323232323232323232323232323232323232                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      1                       1
+                                                                                                               3232323232323232323232323232323232323232323232323232323232323232                                                                                                                 3232323232323232323232323232323232323232323232323232323232323232                                                                                                          Underflow[] (-8.5 + r)                                                                           3232323232323232323232323232323232323232323232323232323232323231                                                                           3232323232323232323232323232323232323232323232323232323232323232                                                                                                          (1,0)                                                                                                          (1,0)                                                                                                                                                                              1 - -                   1 - -
+                                    (0,1)                                                Underflow[] (-8.5 + r)                                                                           3232323232323232323232323232323232323232323232323232323232323230                Underflow[] (-8.5 + r)                                                                           6464646464646464646464646464646464646464646464646464646464646462                  Underflow[] E                                                                                       (-8.5 + r)                                                                 \[Rho]1[r, t]                                       Underflow[] (-8.5 + r)                                                                           3232323232323232323232323232323232323232323232323232323232323231        (1,0)         2 \[Rho]1     [r, t]          (2,0)               (0,1)                                                        2 \[Rho]2     [r, t]          (2,0)                                      (1,0)                                    (1,0)                          1                    1                         r                       r
+ReplaceAll::reps: {NDSolve[{{\[Rho]1     [r, t] == -500000 \[Rho]1[r, t] + (Underflow[] E                                                                                       (-8.5 + r)                                                                 + Underflow[] E                                                                                       (-8.5 + r)                                                                ) \[Rho]1[r, t] + -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- + 500000 \[Rho]2[r, t] + Underflow[] E                                                                                       (-8.5 + r)                                                                 \[Rho]1     [r, t] + -------------------- + \[Rho]1     [r, t], \[Rho]2     [r, t] == 500000 \[Rho]1[r, t] - 500000 \[Rho]2[r, t] + -------------------- + \[Rho]2     [r, t]}, {0.1 \[Rho]1[1, t] == \[Rho]1     [1, t], 0.1 \[Rho]2[1, t] == \[Rho]2     [1, t], \[Rho]1[30, t] == -, \[Rho]2[30, t] == -}, {\[Rho]1[r, 0] == -----, \[Rho]2[r, 0] == -----}}, {\[Rho]1, \[Rho]2}, {t, 1000, 1000}, {r, 1, 30}, MaxSteps -> Infinity, MaxStepFraction -> 0.002, AccuracyGoal -> 15, StartingStepSize -> 0.001, WorkingPrecision -> MachinePrecision, Method -> {MethodOfLines, SpatialDiscretization -> {TensorProductGrid, MinPoints -> 24000}}]} is neither a list of replacement rules nor a valid dispatch table, and so cannot be used for replacing.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          r                                                                                                                                                                                                                                                                                                                                     r                                                                                                              r                                                                                                                                       2                    2                       2                       2
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                3232323232323232323232323232323232323232323232323232323232323232                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      1                       1
+                                                                                                               3232323232323232323232323232323232323232323232323232323232323232                                                                                                                 3232323232323232323232323232323232323232323232323232323232323232                                                                                                          Underflow[] (-8.5 + r)                                                                           3232323232323232323232323232323232323232323232323232323232323231                                                                           3232323232323232323232323232323232323232323232323232323232323232                                                                                                          (1,0)                                                                                                          (1,0)                                                                                                                                                                              1 - -                   1 - -
+                                    (0,1)                                                Underflow[] (-8.5 + r)                                                                           3232323232323232323232323232323232323232323232323232323232323230                Underflow[] (-8.5 + r)                                                                           6464646464646464646464646464646464646464646464646464646464646462                  Underflow[] E                                                                                       (-8.5 + r)                                                                 \[Rho]1[r, t]                                       Underflow[] (-8.5 + r)                                                                           3232323232323232323232323232323232323232323232323232323232323231        (1,0)         2 \[Rho]1     [r, t]          (2,0)               (0,1)                                                        2 \[Rho]2     [r, t]          (2,0)                                      (1,0)                                    (1,0)                          1                    1                         r                       r
+ReplaceAll::reps: {NDSolve[{{\[Rho]1     [r, t] == -500000 \[Rho]1[r, t] + (Underflow[] E                                                                                       (-8.5 + r)                                                                 + Underflow[] E                                                                                       (-8.5 + r)                                                                ) \[Rho]1[r, t] + -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- + 500000 \[Rho]2[r, t] + Underflow[] E                                                                                       (-8.5 + r)                                                                 \[Rho]1     [r, t] + -------------------- + \[Rho]1     [r, t], \[Rho]2     [r, t] == 500000 \[Rho]1[r, t] - 500000 \[Rho]2[r, t] + -------------------- + \[Rho]2     [r, t]}, {0.1 \[Rho]1[1, t] == \[Rho]1     [1, t], 0.1 \[Rho]2[1, t] == \[Rho]2     [1, t], \[Rho]1[30, t] == -, \[Rho]2[30, t] == -}, {\[Rho]1[r, 0] == -----, \[Rho]2[r, 0] == -----}}, {\[Rho]1, \[Rho]2}, {t, 1000, 1000}, {r, 1, 30}, MaxSteps -> Infinity, MaxStepFraction -> 0.002, AccuracyGoal -> 15, StartingStepSize -> 0.001, WorkingPrecision -> MachinePrecision, Method -> {MethodOfLines, SpatialDiscretization -> {TensorProductGrid, MinPoints -> 24000}}]} is neither a list of replacement rules nor a valid dispatch table, and so cannot be used for replacing.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          r                                                                                                                                                                                                                                                                                                                                     r                                                                                                              r                                                                                                                                       2                    2                       2                       2
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                3232323232323232323232323232323232323232323232323232323232323232                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      1                       1
+                                                                                                               3232323232323232323232323232323232323232323232323232323232323232                                                                                                                 3232323232323232323232323232323232323232323232323232323232323232                                                                                                          Underflow[] (-8.5 + r)                                                                           3232323232323232323232323232323232323232323232323232323232323231                                                                           3232323232323232323232323232323232323232323232323232323232323232                                                                                                          (1,0)                                                                                                          (1,0)                                                                                                                                                                              1 - -                   1 - -
+                                    (0,1)                                                Underflow[] (-8.5 + r)                                                                           3232323232323232323232323232323232323232323232323232323232323230                Underflow[] (-8.5 + r)                                                                           6464646464646464646464646464646464646464646464646464646464646462                  Underflow[] E                                                                                       (-8.5 + r)                                                                 \[Rho]1[r, t]                                       Underflow[] (-8.5 + r)                                                                           3232323232323232323232323232323232323232323232323232323232323231        (1,0)         2 \[Rho]1     [r, t]          (2,0)               (0,1)                                                        2 \[Rho]2     [r, t]          (2,0)                                      (1,0)                                    (1,0)                          1                    1                         r                       r
+ReplaceAll::reps: {NDSolve[{{\[Rho]1     [r, t] == -500000 \[Rho]1[r, t] + (Underflow[] E                                                                                       (-8.5 + r)                                                                 + Underflow[] E                                                                                       (-8.5 + r)                                                                ) \[Rho]1[r, t] + -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- + 500000 \[Rho]2[r, t] + Underflow[] E                                                                                       (-8.5 + r)                                                                 \[Rho]1     [r, t] + -------------------- + \[Rho]1     [r, t], \[Rho]2     [r, t] == 500000 \[Rho]1[r, t] - 500000 \[Rho]2[r, t] + -------------------- + \[Rho]2     [r, t]}, {0.1 \[Rho]1[1, t] == \[Rho]1     [1, t], 0.1 \[Rho]2[1, t] == \[Rho]2     [1, t], \[Rho]1[30, t] == -, \[Rho]2[30, t] == -}, {\[Rho]1[r, 0] == -----, \[Rho]2[r, 0] == -----}}, {\[Rho]1, \[Rho]2}, {t, 1000, 1000}, {r, 1, 30}, MaxSteps -> Infinity, MaxStepFraction -> 0.002, AccuracyGoal -> 15, StartingStepSize -> 0.001, WorkingPrecision -> MachinePrecision, Method -> {MethodOfLines, SpatialDiscretization -> {TensorProductGrid, MinPoints -> 24000}}]} is neither a list of replacement rules nor a valid dispatch table, and so cannot be used for replacing.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          r                                                                                                                                                                                                                                                                                                                                     r                                                                                                              r                                                                                                                                       2                    2                       2                       2
+
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+
+NDSolve::dsvar: 1 cannot be used as a variable.
+
+General::ivar: 1 is not a valid variable.
+"Done""n="3232323232323232323232323232323232323232323232323232323232323232"i="1"w12="500.
+
+NDSolve::dsvar: 1 cannot be used as a variable.
+
+General::ivar: 1 is not a valid variable.
+"Done""n="3232323232323232323232323232323232323232323232323232323232323232"i="2"w12="0.5
+
+NDSolve::dsvar: 1 cannot be used as a variable.
+
+General::stop: Further output of NDSolve::dsvar will be suppressed during this calculation.
+
+General::ivar: 1 is not a valid variable.
+
+General::stop: Further output of General::ivar will be suppressed during this calculation.
+"Done""n="3232323232323232323232323232323232323232323232323232323232323232"i="3"w12="0.0005
+"Done""n="3232323232323232323232323232323232323232323232323232323232323232"i="4"w12="5.*^-7
+"Done""n="3232323232323232323232323232323232323232323232323232323232323232"i="0"w12="500000.
+"Done""n="3232323232323232323232323232323232323232323232323232323232323232"i="1"w12="500.
+"Done""n="3232323232323232323232323232323232323232323232323232323232323232"i="2"w12="0.5
+"Done""n="3232323232323232323232323232323232323232323232323232323232323232"i="3"w12="0.0005
+"Done""n="3232323232323232323232323232323232323232323232323232323232323232"i="4"w12="5.*^-7
+"Done""n="3232323232323232323232323232323232323232323232323232323232323232"i="0"w12="500000.
+"Done""n="3232323232323232323232323232323232323232323232323232323232323232"i="1"w12="500.
+"Done""n="3232323232323232323232323232323232323232323232323232323232323232"i="2"w12="0.5
+"Done""n="3232323232323232323232323232323232323232323232323232323232323232"i="3"w12="0.0005
+"Done""n="3232323232323232323232323232323232323232323232323232323232323232"i="4"w12="5.*^-7
+
+Table::iterb: Iterator {i, 1, 1 + npoints} does not have appropriate bounds.
+
+Table::iterb: Iterator {i, 1, 1 + npoints} does not have appropriate bounds.
+
+Table::iterb: Iterator {i, 1, 1 + npoints} does not have appropriate bounds.
+
+General::stop: Further output of Table::iterb will be suppressed during this calculation.
+Ended batch processing at Fri Jul 25 14:14:19 CEST 2014.
+logout
+logout

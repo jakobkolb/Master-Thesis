@@ -8,8 +8,8 @@ N = 5
 nbins = 1000
 pi = 3.14159265359
 frames  = 4
-last_frame = 5
-fstep = 1
+last_frame = 1
+fstep = 0
 
 attdensdata = {}
 attmsqddata = {}
@@ -57,6 +57,16 @@ for i in range(frames):
     msqd = np.loadtxt('rep' + `i+1` + ('/msqd_data%02d' %last_frame), skiprows=2)
     repmsqddata[i] = msqd/(attratedata[i][1]*attratedata[i][3]*6.0)
 
+for j in range(frames):
+    for i in range(np.shape(attdensdata[j])[0]):
+        attmsqddata[j][i,1] = attmsqddata[j][i,1]/attdensdata[j][i,1]
+        attmsqddata[j][i,3] = attmsqddata[j][i,3]/attdensdata[j][i,3]
+
+for j in range(frames):
+    for i in range(np.shape(repdensdata[j])[0]):
+        repmsqddata[j][i,1] = repmsqddata[j][i,1]/repdensdata[j][i,1]
+        repmsqddata[j][i,3] = repmsqddata[j][i,3]/repdensdata[j][i,3]
+
 
 print 'normalize density data'
 fig1 = mp.figure()
@@ -98,19 +108,20 @@ drs = 0
 
 #PLOT DATA FOR ATTRACTIVE BARRIER
 
+#density profiles
 fig1 = mp.figure()
 ax1 = fig1.add_subplot(111)
 for i in range(frames):
-#    ax1.plot(attdensdata[i][:,0],attdensdata[i][:,1])
-#    ax1.plot(attdensdata[i][:,0],attdensdata[i][:,3])
     ax1.plot(attdensdata[i][:,0],(attdensdata[i][:,1]+attdensdata[i][:,3])/2.)
 
+#mean square displacement
 fig3 = mp.figure()
 ax3 = fig3.add_subplot(111)
 for i in range(frames):
     ax3.plot(attdensdata[i][0:-1,0],attmsqddata[i][0:-1,1])
     ax3.plot(attdensdata[i][0:-1,0],attmsqddata[i][0:-1,3])
 
+#force
 fig31 = mp.figure()
 ax31 = fig31.add_subplot(111)
 for i in range(frames):
@@ -118,29 +129,24 @@ for i in range(frames):
 
 #PLOT DATA FOR REPULSIVE BARRIER
 
+#density profiles
 fig5 = mp.figure()
 ax5 = fig5.add_subplot(111)
 for i in range(frames):
-#    ax5.plot(repdensdata[i][:,0],repdensdata[i][:,1])
-#    ax5.plot(repdensdata[i][:,0],repdensdata[i][:,3])
     ax5.plot(repdensdata[i][:,0],(repdensdata[i][:,1]+repdensdata[i][:,3])/2.)
 
-fig7 = mp.figure()
-ax7 = fig7.add_subplot(111)
-for i in range(frames):
-    ax7.plot(repdensdata[i][0:-1,0],repmsqddata[i][0:-1,1])
-    ax7.plot(repdensdata[i][0:-1,0],repmsqddata[i][0:-1,3])
-
+#mean square displacement
 fig71 = mp.figure()
 ax71 = fig71.add_subplot(111)
 for i in range(frames):
     ax71.plot(repdensdata[i][0:-1,0],(repmsqddata[i][0:-1,1]+repmsqddata[i][0:-1,3])/2.)
-#ax7.set_yscale('log')
-#ax7.set_yscale('log')
 
+#force
 fig8 = mp.figure()
 ax8 = fig8.add_subplot(111)
 for i in range(frames):
     ax8.plot(repdensdata[i][0:-1,0],repmsqddata[i][0:-1,5]+1)
 ax8.set_yscale('log')
 mp.show()
+#   mp.fill_between(densdata[:,0,i]/mrate[i,2],densdata[:,1,i]-densdata[:,2,i],densdata[:,1,i]+densdata[:,2,i],color='grey', alpha=0.3)
+

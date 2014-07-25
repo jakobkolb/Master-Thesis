@@ -84,6 +84,7 @@ CONTAINS
 
     INTEGER, INTENT(in) :: bins
     INTEGER             :: imax, binnumber, i
+    REAL(8), DIMENSION(3) :: dr
     REAL(8)             :: r, rsq
     REAL(8), DIMENSION(2,bins), INTENT(out)  :: hist
     REAL(8), DIMENSION(2,bins)  :: pcount
@@ -94,7 +95,8 @@ CONTAINS
     !$OMP PARALLEL DO REDUCTION(+:hist,pcount) PRIVATE(binnumber, r, rsq)
     DO i = 1,imax
         r = SQRT(DOT_PRODUCT(parold(1:3,i),parold(1:3,i)))
-        rsq = DOT_PRODUCT(par(1:3,i)-parold(1:3,i),par(1:3,i)-parold(1:3,i)) - DOT_PRODUCT(force(:,i),force(:,i))
+        dr = par(1:3,i) - parold(1:3,i)
+        rsq = DOT_PRODUCT(dr,dr) - DOT_PRODUCT(force(:,i),force(:,i))
         IF(rsq > 1. .AND. r < 2) THEN
             WRITE(*,*) r, SQRT(DOT_PRODUCT(par(:,i),par(:,i))), rsq
             WRITE(*,*) par(:,i) - parold(:,i)
@@ -104,21 +106,21 @@ CONTAINS
             !IF(binnumber .LE. 0)print*, i, r, par(:,i)
             IF(par(4,i) == 0 .AND. binnumber .GE. 0) THEN
                 hist(1,binnumber) = hist(1,binnumber) + rsq
-                pcount(1,binnumber) = pcount(1,binnumber) + 1
+                pcount(1,binnumber) = pcount(1,binnumber) + 1.0
             ELSEIF(par(4,i) == 1 .AND. binnumber .GE. 0) THEN
                 hist(2,binnumber) = hist(2,binnumber) + rsq
-                pcount(2,binnumber) = pcount(2,binnumber) + 1
+                pcount(2,binnumber) = pcount(2,binnumber) + 1.0
             ENDIF
         ENDIF
     ENDDO
     !$OMP END PARALLEL DO
 
-    !$OMP PARALLEL DO
-    DO i = 1,bins
-        IF(pcount(1,i)>0) hist(1,i) = hist(1,i)/pcount(1,i)
-        IF(pcount(2,i)>0) hist(2,i) = hist(2,i)/pcount(2,i)
-    ENDDO
-    !$OMP END PARALLEL DO
+    !!$OMP PARALLEL DO
+    !DO i = 1,bins
+    !    IF(pcount(1,i)>0) hist(1,i) = hist(1,i)/pcount(1,i)
+    !    IF(pcount(2,i)>0) hist(2,i) = hist(2,i)/pcount(2,i)
+    !ENDDO
+    !!$OMP END PARALLEL DO
     END SUBROUTINE msd
 
     SUBROUTINE forcehist(hist, bins)
@@ -225,7 +227,7 @@ CONTAINS
 
     DO i = 1,bins-1
         Rr = real(i)*Rd/real(bins)
-        WRITE(msqd_final, "(7f15.4)")   (REAL(i)+1)/REAL(bins)*Rd, aver5(i+2*bins), sigma5(i+2*bins), &
+        WRITE(msqd_final, '(6ES17.7E3)')   (REAL(i)+1)/REAL(bins)*Rd, aver5(i+2*bins), sigma5(i+2*bins), &
                                         aver5(i + 3*bins), sigma5(i + 3*bins), (EXP(-((-a+Rr)/b)**Un)*Un*((-a+Rr)/b)**Un*U1)/(a-Rr)
     ENDDO
 
@@ -233,7 +235,7 @@ CONTAINS
 
     DO i = 1,bins-1
         Rr = real(i)*Rd/real(bins)
-        WRITE(force_final, "(7f15.4)")   (REAL(i)+1)/REAL(bins)*Rd, aver5(i+4*bins), sigma5(i+4*bins), &
+        WRITE(force_final, '(6ES17.7E3)')   (REAL(i)+1)/REAL(bins)*Rd, aver5(i+4*bins), sigma5(i+4*bins), &
                                         aver5(i + 5*bins), sigma5(i + 5*bins), (EXP(-((-a+Rr)/b)**Un)*Un*((-a+Rr)/b)**Un*U1)/(a-Rr)
     ENDDO
 

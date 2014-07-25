@@ -1,0 +1,636 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     24186,        626]
+NotebookOptionsPosition[     23422,        599]
+NotebookOutlinePosition[     23759,        614]
+CellTagsIndexPosition[     23716,        611]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{" ", "\n", 
+  RowBox[{
+   RowBox[{"Clear", "[", "\"\<Global`*\>\"", "]"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"d", " ", "=", " ", "1"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"U01", " ", "=", " ", "3"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"U02", " ", "=", " ", "0"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"a", " ", "=", " ", "8.5"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"b", " ", "=", " ", "2.5"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"at", " ", "=", " ", 
+     RowBox[{"a", " ", "-", " ", "b"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"bt", " ", "=", " ", 
+     RowBox[{"a", " ", "+", " ", "b"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"n", " ", "=", " ", "4"}], ";"}], "\n", 
+   RowBox[{"Ksvalues", "=", 
+    RowBox[{"{", 
+     RowBox[{"0", ",", "0", ",", "0"}], "}"}]}], "\n", 
+   RowBox[{
+    RowBox[{"Rsink", " ", "=", " ", "1"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Rmax", " ", "=", " ", "30"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"t0", " ", "=", " ", "0"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"t1", " ", "=", " ", "200"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"rdmin", " ", "=", " ", 
+     RowBox[{"-", "3"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"rdmax", " ", "=", " ", "3"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"datapoints", " ", "=", " ", "3"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"u1", "[", "r_", "]"}], " ", ":=", " ", 
+     RowBox[{"U01", " ", 
+      RowBox[{"Exp", "[", 
+       RowBox[{"-", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"r", " ", "-", " ", "a"}], ")"}], "/", "b"}], ")"}], "^", 
+         "n"}]}], "]"}]}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"u2", "[", "r_", "]"}], " ", ":=", " ", 
+     RowBox[{"U02", " ", 
+      RowBox[{"Exp", "[", 
+       RowBox[{"-", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{"r", " ", "-", " ", "a"}], ")"}], "/", "b"}], ")"}], "^", 
+         "n"}]}], "]"}]}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"pde", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"\[Rho]1", "[", 
+           RowBox[{"r", ",", " ", "t"}], "]"}], ",", " ", "t"}], "]"}], " ", "==",
+         " ", "\n", "    ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"2", "/", "r"}], " ", 
+          RowBox[{"\[Rho]1", "[", 
+           RowBox[{"r", ",", " ", "t"}], "]"}], " ", 
+          RowBox[{
+           RowBox[{"u1", "'"}], "[", "r", "]"}]}], " ", "+", " ", "\n", 
+         "     ", 
+         RowBox[{
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"\[Rho]1", "[", 
+             RowBox[{"r", ",", " ", "t"}], "]"}], ",", " ", "r"}], "]"}], " ", 
+          RowBox[{
+           RowBox[{"u1", "'"}], "[", "r", "]"}]}], " ", "+", " ", 
+         RowBox[{
+          RowBox[{"\[Rho]1", "[", 
+           RowBox[{"r", ",", " ", "t"}], "]"}], " ", 
+          RowBox[{
+           RowBox[{"u1", "''"}], "[", "r", "]"}]}], " ", "+", " ", "\n", 
+         "     ", 
+         RowBox[{"d", " ", 
+          RowBox[{"2", "/", "r"}], " ", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"\[Rho]1", "[", 
+             RowBox[{"r", ",", " ", "t"}], "]"}], ",", " ", "r"}], "]"}]}], 
+         " ", "+", " ", 
+         RowBox[{"d", " ", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"\[Rho]1", "[", 
+             RowBox[{"r", ",", " ", "t"}], "]"}], ",", " ", "r", ",", " ", 
+            "r"}], "]"}]}], " ", "-", " ", "\n", "     ", 
+         RowBox[{"w12", " ", 
+          RowBox[{"\[Rho]1", "[", 
+           RowBox[{"r", ",", " ", "t"}], "]"}]}], " ", "+", " ", 
+         RowBox[{"w21", " ", 
+          RowBox[{"\[Rho]2", "[", 
+           RowBox[{"r", ",", " ", "t"}], "]"}]}]}]}], ",", "\n", "   ", 
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"\[Rho]2", "[", 
+           RowBox[{"r", ",", " ", "t"}], "]"}], ",", " ", "t"}], "]"}], " ", "==",
+         " ", "\n", "    ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"2", "/", "r"}], " ", 
+          RowBox[{"\[Rho]2", "[", 
+           RowBox[{"r", ",", " ", "t"}], "]"}], " ", 
+          RowBox[{
+           RowBox[{"u2", "'"}], "[", "r", "]"}]}], " ", "+", " ", "\n", 
+         "     ", 
+         RowBox[{
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"\[Rho]2", "[", 
+             RowBox[{"r", ",", " ", "t"}], "]"}], ",", " ", "r"}], "]"}], " ", 
+          RowBox[{
+           RowBox[{"u2", "'"}], "[", "r", "]"}]}], " ", "+", " ", 
+         RowBox[{
+          RowBox[{"\[Rho]2", "[", 
+           RowBox[{"r", ",", " ", "t"}], "]"}], " ", 
+          RowBox[{
+           RowBox[{"u2", "''"}], "[", "r", "]"}]}], " ", "+", " ", "\n", 
+         "     ", 
+         RowBox[{"d", " ", 
+          RowBox[{"2", "/", "r"}], " ", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"\[Rho]2", "[", 
+             RowBox[{"r", ",", " ", "t"}], "]"}], ",", " ", "r"}], "]"}]}], 
+         " ", "+", " ", 
+         RowBox[{"d", " ", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"\[Rho]2", "[", 
+             RowBox[{"r", ",", " ", "t"}], "]"}], ",", " ", "r", ",", " ", 
+            "r"}], "]"}]}], " ", "-", " ", "\n", "     ", 
+         RowBox[{"w21", " ", 
+          RowBox[{"\[Rho]2", "[", 
+           RowBox[{"r", ",", " ", "t"}], "]"}]}], " ", "+", " ", 
+         RowBox[{"w12", " ", 
+          RowBox[{"\[Rho]1", "[", 
+           RowBox[{"r", ",", " ", "t"}], "]"}]}]}]}]}], "\n", "   ", "}"}]}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"bc", " ", "=", " ", 
+     RowBox[{"{", "\n", "   ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"\[Rho]1", "[", 
+          RowBox[{"Rsink", ",", " ", "t"}], "]"}], "*", "Ks"}], " ", "==", 
+        " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Derivative", "[", 
+           RowBox[{"1", ",", "0"}], "]"}], "[", "\[Rho]1", "]"}], "[", 
+         RowBox[{"Rsink", ",", "t"}], "]"}]}], ",", "\n", "   ", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"\[Rho]2", "[", 
+          RowBox[{"Rsink", ",", " ", "t"}], "]"}], "*", "Ks"}], " ", "==", 
+        " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Derivative", "[", 
+           RowBox[{"1", ",", "0"}], "]"}], "[", "\[Rho]2", "]"}], "[", 
+         RowBox[{"Rsink", ",", "t"}], "]"}]}], ",", "\n", "   ", 
+       RowBox[{
+        RowBox[{"\[Rho]1", "[", 
+         RowBox[{"Rmax", ",", " ", "t"}], "]"}], " ", "==", " ", 
+        RowBox[{"w21", "/", 
+         RowBox[{"(", 
+          RowBox[{"w12", " ", "+", " ", "w21"}], ")"}]}]}], ",", "\n", "   ", 
+       
+       RowBox[{
+        RowBox[{"\[Rho]2", "[", 
+         RowBox[{"Rmax", ",", " ", "t"}], "]"}], " ", "==", " ", 
+        RowBox[{"w12", "/", 
+         RowBox[{"(", 
+          RowBox[{"w12", " ", "+", " ", "w21"}], ")"}]}]}]}], "\n", "   ", 
+      "}"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ic", " ", "=", " ", 
+     RowBox[{"{", "\n", "   ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"\[Rho]1", "[", 
+         RowBox[{"r", ",", " ", "t0"}], "]"}], " ", "==", " ", 
+        RowBox[{
+         RowBox[{"w21", "/", 
+          RowBox[{"(", 
+           RowBox[{"w12", " ", "+", " ", "w21"}], ")"}]}], "*", 
+         RowBox[{"(", 
+          RowBox[{"1", " ", "-", " ", 
+           RowBox[{"1", "/", "r"}]}], ")"}]}]}], ",", "\n", "   ", 
+       RowBox[{
+        RowBox[{"\[Rho]2", "[", 
+         RowBox[{"r", ",", " ", "t0"}], "]"}], " ", "==", " ", 
+        RowBox[{
+         RowBox[{"w12", "/", 
+          RowBox[{"(", 
+           RowBox[{"w12", " ", "+", " ", "w21"}], ")"}]}], "*", 
+         RowBox[{"(", 
+          RowBox[{"1", " ", "-", " ", 
+           RowBox[{"1", "/", "r"}]}], ")"}]}]}]}], "\n", "   ", "}"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"Densities", " ", "=", " ", "\n", "  ", 
+     RowBox[{"Table", "[", 
+      RowBox[{"0", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"k", ",", " ", "1", ",", " ", "3"}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", " ", "1", ",", " ", 
+         RowBox[{"datapoints", " ", "+", " ", "1"}]}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"j", ",", " ", "1", ",", " ", 
+         RowBox[{"3", " ", "+", " ", "1"}]}], "}"}]}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"ReactionRate", " ", "=", " ", "\n", "  ", 
+     RowBox[{"Table", "[", 
+      RowBox[{"0", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"k", ",", " ", "1", ",", " ", "2"}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", " ", "1", ",", " ", 
+         RowBox[{"datapoints", " ", "+", " ", "1"}]}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"j", ",", " ", "1", ",", " ", 
+         RowBox[{"3", " ", "+", " ", "1"}]}], "}"}]}], "]"}]}], ";"}], "\n", 
+   "\n", 
+   RowBox[{"For", "[", 
+    RowBox[{
+     RowBox[{"j", " ", "=", " ", "1"}], ",", " ", 
+     RowBox[{"j", " ", "<=", " ", "3"}], ",", " ", 
+     RowBox[{"j", "++"}], ",", "\n", " ", 
+     RowBox[{
+      RowBox[{"Ks", " ", "=", " ", 
+       RowBox[{"Ksvalues", "[", 
+        RowBox[{"[", "j", "]"}], "]"}]}], ";", "\n", " ", 
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"i", " ", "=", " ", "0"}], ",", " ", 
+        RowBox[{"i", " ", "<=", " ", "datapoints"}], ",", " ", 
+        RowBox[{"i", "++"}], ",", "\n", "  ", 
+        RowBox[{
+         RowBox[{"rd", " ", "=", " ", 
+          RowBox[{"10", "^", 
+           RowBox[{"(", 
+            RowBox[{"rdmin", " ", "+", " ", 
+             RowBox[{"i", "*", 
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"rdmax", " ", "-", " ", "rdmin"}], ")"}], "/", 
+               "datapoints"}]}]}], ")"}]}]}], ";", "\n", "  ", 
+         RowBox[{"w21", " ", "=", " ", 
+          RowBox[{"d", "/", 
+           RowBox[{"(", 
+            RowBox[{"2", "*", 
+             RowBox[{"rd", "^", "2"}]}], ")"}]}]}], ";", "\n", "  ", 
+         RowBox[{"w12", " ", "=", " ", "w21"}], ";", "\n", "  ", 
+         RowBox[{"sol", " ", "=", " ", 
+          RowBox[{"NDSolve", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"pde", ",", " ", "bc", ",", " ", "ic"}], "}"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"\[Rho]1", ",", " ", "\[Rho]2"}], "}"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"t", ",", " ", "t1", ",", " ", "t1"}], "}"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{
+             "r", ",", " ", "\n", "     ", "Rsink", ",", " ", "Rmax"}], "}"}],
+             ",", " ", 
+            RowBox[{"MaxSteps", " ", "->", " ", "Infinity"}], ",", " ", 
+            RowBox[{"MaxStepFraction", " ", "->", " ", "0.002"}], ",", " ", 
+            "\n", "    ", 
+            RowBox[{"AccuracyGoal", " ", "->", " ", "15"}], ",", " ", 
+            RowBox[{"StartingStepSize", " ", "->", " ", "0.001"}], ",", " ", 
+            "\n", "    ", 
+            RowBox[{"WorkingPrecision", " ", "->", " ", "MachinePrecision"}], 
+            ",", " ", "\n", "    ", 
+            RowBox[{"Method", " ", "->", " ", 
+             RowBox[{"{", 
+              RowBox[{"\"\<MethodOfLines\>\"", ",", " ", "\n", "      ", 
+               RowBox[{"\"\<SpatialDiscretization\>\"", " ", "->", " ", 
+                RowBox[{"{", 
+                 RowBox[{
+                 "\"\<TensorProductGrid\>\"", ",", " ", "\n", "        ", 
+                  RowBox[{"\"\<MinPoints\>\"", " ", "->", " ", "24000"}]}], 
+                 "}"}]}]}], "}"}]}]}], "]"}]}], ";", "\n", "  ", 
+         RowBox[{"Print", "[", 
+          RowBox[{
+          "\"\<Done\>\"", ",", " ", "\"\<n=\>\"", ",", " ", "n", ",", " ", 
+           "\"\<i=\>\"", ",", " ", "i", ",", " ", "\"\<w12=\>\"", ",", " ", 
+           RowBox[{"N", "[", "w12", "]"}]}], "]"}], ";", "\n", "  ", 
+         RowBox[{
+          RowBox[{"\[Rho]1eq", "[", "r_", "]"}], " ", "=", " ", 
+          RowBox[{
+           RowBox[{"\[Rho]1", "[", 
+            RowBox[{"r", ",", " ", "t1"}], "]"}], " ", "/.", " ", "sol"}]}], 
+         ";", "\n", "  ", 
+         RowBox[{
+          RowBox[{"\[Rho]2eq", "[", "r_", "]"}], " ", "=", " ", 
+          RowBox[{
+           RowBox[{"\[Rho]2", "[", 
+            RowBox[{"r", ",", " ", "t1"}], "]"}], " ", "/.", " ", "sol"}]}], 
+         ";", "\n", "  ", 
+         RowBox[{
+          RowBox[{"\[Rho]tot", "[", "r_", "]"}], " ", "=", " ", 
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"\[Rho]1", "[", 
+              RowBox[{"r", ",", " ", "t1"}], "]"}], " ", "+", " ", 
+             RowBox[{"\[Rho]2", "[", 
+              RowBox[{"r", ",", " ", "t1"}], "]"}]}], ")"}], " ", "/.", " ", 
+           "sol"}]}], ";", "\n", "  ", "\n", "  ", 
+         RowBox[{
+          RowBox[{"Densities", "[", 
+           RowBox[{"[", 
+            RowBox[{"1", ",", " ", 
+             RowBox[{"i", " ", "+", " ", "1"}], ",", " ", "j"}], " ", "]"}], 
+           "]"}], " ", "=", " ", 
+          RowBox[{"\[Rho]1eq", "[", "r", "]"}]}], ";", "\n", "  ", 
+         RowBox[{
+          RowBox[{"Densities", "[", 
+           RowBox[{"[", 
+            RowBox[{"2", ",", " ", 
+             RowBox[{"i", " ", "+", " ", "1"}], ",", " ", "j"}], " ", "]"}], 
+           "]"}], " ", "=", " ", 
+          RowBox[{"\[Rho]2eq", "[", "r", "]"}]}], ";", "\n", "  ", 
+         RowBox[{
+          RowBox[{"Densities", "[", 
+           RowBox[{"[", 
+            RowBox[{"3", ",", " ", 
+             RowBox[{"i", " ", "+", " ", "1"}], ",", " ", "j"}], " ", "]"}], 
+           "]"}], " ", "=", " ", 
+          RowBox[{"\[Rho]tot", "[", "r", "]"}]}], ";", "\n", "  ", 
+         RowBox[{
+          RowBox[{"ReactionRate", "[", 
+           RowBox[{"[", 
+            RowBox[{"1", ",", " ", 
+             RowBox[{"i", " ", "+", " ", "1"}], ",", " ", "j"}], " ", "]"}], 
+           "]"}], " ", "=", " ", "rd"}], ";", "\n", "  ", 
+         RowBox[{
+          RowBox[{"ReactionRate", "[", 
+           RowBox[{"[", 
+            RowBox[{"2", ",", " ", 
+             RowBox[{"i", " ", "+", " ", "1"}], ",", " ", "j"}], " ", "]"}], 
+           "]"}], " ", "=", " ", 
+          RowBox[{
+           RowBox[{"D", "[", 
+            RowBox[{
+             RowBox[{"\[Rho]tot", "[", "r", "]"}], ",", " ", "r"}], "]"}], 
+           " ", "/.", " ", 
+           RowBox[{"r", " ", "->", " ", "Rsink"}]}]}], ";"}]}], "\n", "  ", 
+       "]"}]}]}], "]"}], "\n", "\n", 
+   RowBox[{
+    RowBox[{"b", " ", "=", " ", 
+     RowBox[{"Table", "[", 
+      RowBox[{"0", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"i", ",", " ", "1", ",", " ", 
+         RowBox[{"npoints", " ", "+", " ", "1"}]}], "}"}]}], "]"}]}], ";"}], 
+   "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"b", "[", 
+      RowBox[{"[", "1", "]"}], "]"}], " ", "=", " ", 
+     RowBox[{"N", "[", 
+      RowBox[{"ReactionRate", "[", 
+       RowBox[{"[", 
+        RowBox[{"1", ",", " ", "All", ",", " ", "1"}], "]"}], "]"}], "]"}]}], 
+    ";"}], "\n", 
+   RowBox[{"For", "[", 
+    RowBox[{
+     RowBox[{"j", " ", "=", " ", "1"}], ",", " ", 
+     RowBox[{"j", " ", "<=", " ", "npoints"}], ",", " ", 
+     RowBox[{"j", "++"}], ",", "\n", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"b", "[", 
+        RowBox[{"[", 
+         RowBox[{"j", " ", "+", " ", "1"}], "]"}], "]"}], " ", "=", " ", 
+       RowBox[{"N", "[", 
+        RowBox[{"Flatten", "[", 
+         RowBox[{"ReactionRate", "[", 
+          RowBox[{"[", 
+           RowBox[{"2", ",", " ", "All", ",", " ", "j"}], "]"}], "]"}], "]"}],
+         "]"}]}], ";"}]}], "\n", " ", "]"}], "\n", 
+   RowBox[{
+    RowBox[{"Export", "[", 
+     RowBox[{"\"\<rep_numeric_rates.csv\>\"", ",", " ", 
+      RowBox[{"Transpose", "[", "b", "]"}]}], "]"}], ";"}]}]}]], "Code",
+ CellChangeTimes->{{3.615272998541834*^9, 3.615272999414894*^9}, {
+  3.615273096654243*^9, 3.6152731607154408`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0", ",", "0", ",", "0"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.6152723988789167`*^9, 3.615273038485096*^9, 3.615273105928886*^9, {
+   3.615273136346964*^9, 3.615273164545587*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"NDSolve", "::", "stpmax"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"The starting number of points determined by \
+StartingStepSize -> \[NoBreak]\\!\\(0.001`\\)\[NoBreak] and StartingPoints -> \
+\[NoBreak]\\!\\(Automatic\\)\[NoBreak] is \[NoBreak]\\!\\(29000\\)\[NoBreak], \
+which is greater than the maximum number of \
+\[NoBreak]\\!\\(24000\\)\[NoBreak] grid points. \[NoBreak]\\!\\(24000\\)\
+\[NoBreak] will be used instead. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/NDSolve/stpmax\\\", ButtonNote -> \
+\\\"NDSolve::stpmax\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{
+  3.615272398952194*^9, 3.615273038500914*^9, 3.615273105944742*^9, {
+   3.615273136358748*^9, 3.615273164567752*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"NDSolve", "::", "ibcinc"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Warning: boundary and initial conditions are inconsistent. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/NDSolve/ibcinc\\\", \
+ButtonNote -> \\\"NDSolve::ibcinc\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{
+  3.615272398952194*^9, 3.615273038500914*^9, 3.615273105944742*^9, {
+   3.615273136358748*^9, 3.6152731646167583`*^9}}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Done\"\>", "\[InvisibleSpace]", "\<\"n=\"\>", 
+   "\[InvisibleSpace]", "4", "\[InvisibleSpace]", "\<\"i=\"\>", 
+   "\[InvisibleSpace]", "0", "\[InvisibleSpace]", "\<\"w12=\"\>", 
+   "\[InvisibleSpace]", "500000.`"}],
+  SequenceForm["Done", "n=", 4, "i=", 0, "w12=", 500000.],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.615273324481069*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"NDSolve", "::", "stpmax"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"The starting number of points determined by \
+StartingStepSize -> \[NoBreak]\\!\\(0.001`\\)\[NoBreak] and StartingPoints -> \
+\[NoBreak]\\!\\(Automatic\\)\[NoBreak] is \[NoBreak]\\!\\(29000\\)\[NoBreak], \
+which is greater than the maximum number of \
+\[NoBreak]\\!\\(24000\\)\[NoBreak] grid points. \[NoBreak]\\!\\(24000\\)\
+\[NoBreak] will be used instead. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/NDSolve/stpmax\\\", ButtonNote -> \
+\\\"NDSolve::stpmax\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{
+  3.615272398952194*^9, 3.615273038500914*^9, 3.615273105944742*^9, {
+   3.615273136358748*^9, 3.615273153614069*^9}, 3.6152733245072107`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"NDSolve", "::", "ibcinc"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Warning: boundary and initial conditions are inconsistent. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/NDSolve/ibcinc\\\", \
+ButtonNote -> \\\"NDSolve::ibcinc\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{
+  3.615272398952194*^9, 3.615273038500914*^9, 3.615273105944742*^9, {
+   3.615273136358748*^9, 3.615273153614069*^9}, 3.615273324556759*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Done\"\>", "\[InvisibleSpace]", "\<\"n=\"\>", 
+   "\[InvisibleSpace]", "4", "\[InvisibleSpace]", "\<\"i=\"\>", 
+   "\[InvisibleSpace]", "1", "\[InvisibleSpace]", "\<\"w12=\"\>", 
+   "\[InvisibleSpace]", "50.`"}],
+  SequenceForm["Done", "n=", 4, "i=", 1, "w12=", 50.],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.615273894870779*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"NDSolve", "::", "stpmax"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"The starting number of points determined by \
+StartingStepSize -> \[NoBreak]\\!\\(0.001`\\)\[NoBreak] and StartingPoints -> \
+\[NoBreak]\\!\\(Automatic\\)\[NoBreak] is \[NoBreak]\\!\\(29000\\)\[NoBreak], \
+which is greater than the maximum number of \
+\[NoBreak]\\!\\(24000\\)\[NoBreak] grid points. \[NoBreak]\\!\\(24000\\)\
+\[NoBreak] will be used instead. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/NDSolve/stpmax\\\", ButtonNote -> \
+\\\"NDSolve::stpmax\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{
+  3.615272398952194*^9, 3.615273038500914*^9, 3.615273105944742*^9, {
+   3.615273136358748*^9, 3.615273153614069*^9}, 3.6152738949188223`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "stop"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Further output of \[NoBreak]\\!\\(\\*StyleBox[\\(NDSolve \
+:: stpmax\\), \\\"MessageName\\\"]\\)\[NoBreak] will be suppressed during \
+this calculation. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/stop\\\", ButtonNote -> \
+\\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{
+  3.615272398952194*^9, 3.615273038500914*^9, 3.615273105944742*^9, {
+   3.615273136358748*^9, 3.615273153614069*^9}, 3.615273894958193*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"NDSolve", "::", "ibcinc"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Warning: boundary and initial conditions are inconsistent. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/NDSolve/ibcinc\\\", \
+ButtonNote -> \\\"NDSolve::ibcinc\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{
+  3.615272398952194*^9, 3.615273038500914*^9, 3.615273105944742*^9, {
+   3.615273136358748*^9, 3.615273153614069*^9}, 3.615273895007554*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "stop"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Further output of \[NoBreak]\\!\\(\\*StyleBox[\\(NDSolve \
+:: ibcinc\\), \\\"MessageName\\\"]\\)\[NoBreak] will be suppressed during \
+this calculation. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/General/stop\\\", ButtonNote -> \
+\\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{
+  3.615272398952194*^9, 3.615273038500914*^9, 3.615273105944742*^9, {
+   3.615273136358748*^9, 3.615273153614069*^9}, 3.615273895029572*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Done\"\>", "\[InvisibleSpace]", "\<\"n=\"\>", 
+   "\[InvisibleSpace]", "4", "\[InvisibleSpace]", "\<\"i=\"\>", 
+   "\[InvisibleSpace]", "2", "\[InvisibleSpace]", "\<\"w12=\"\>", 
+   "\[InvisibleSpace]", "0.005`"}],
+  SequenceForm["Done", "n=", 4, "i=", 2, "w12=", 0.005],
+  Editable->False]], "Print",
+ CellChangeTimes->{3.6152754820601797`*^9}]
+}, Open  ]]
+},
+WindowSize->{740, 867},
+WindowMargins->{{377, Automatic}, {43, Automatic}},
+FrontEndVersion->"9.0 for Linux x86 (64-bit) (February 7, 2013)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 15847, 414, 1534, "Code"],
+Cell[16429, 438, 224, 5, 32, "Output"],
+Cell[16656, 445, 841, 16, 77, "Message"],
+Cell[17500, 463, 543, 11, 23, "Message"],
+Cell[18046, 476, 396, 8, 23, "Print"],
+Cell[18445, 486, 865, 16, 77, "Message"],
+Cell[19313, 504, 563, 11, 23, "Message"],
+Cell[19879, 517, 388, 8, 23, "Print"],
+Cell[20270, 527, 865, 16, 77, "Message"],
+Cell[21138, 545, 651, 13, 23, "Message"],
+Cell[21792, 560, 563, 11, 23, "Message"],
+Cell[22358, 573, 651, 13, 23, "Message"],
+Cell[23012, 588, 394, 8, 23, "Print"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
