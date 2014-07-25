@@ -1,0 +1,66 @@
+Information about the job:
+Job Id: 70040.irz14
+    Job_Name = att_rd_05
+    Job_Owner = jkolb@pool24.physik.hu-berlin.de
+    job_state = R
+    queue = defq
+    server = irz14.physik.hu-berlin.de
+    Checkpoint = u
+    ctime = Thu Jul 24 12:23:58 2014
+    Error_Path = pool24.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen/
+	MA/Results/Effective_diffusivity_real_barrier_MOL/attractive/att1/att_
+	rd_05.e70040
+    exec_host = pool37/3+pool37/2+pool37/1+pool37/0
+    Hold_Types = n
+    Join_Path = n
+    Keep_Files = n
+    Mail_Points = ae
+    mtime = Thu Jul 24 12:23:59 2014
+    Output_Path = pool24.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen
+	/MA/Results/Effective_diffusivity_real_barrier_MOL/attractive/att1/att
+	_rd_05.o70040
+    Priority = 0
+    qtime = Thu Jul 24 12:23:58 2014
+    Rerunable = True
+    Resource_List.nice = 15
+    Resource_List.nodect = 1
+    Resource_List.nodes = 1:ppn=4
+    Resource_List.walltime = 720:00:00
+    session_id = 20478
+    Variable_List = PBS_O_QUEUE=defq,PBS_O_HOST=pool24.physik.hu-berlin.de,
+	PBS_O_HOME=/users/stud/jkolb,PBS_O_LANG=C,PBS_O_LOGNAME=jkolb,
+	PBS_O_PATH=/usr/global/root/bin:/usr/local/cuda/bin:/usr/global/mpi/b
+	in:/usr/global/open64/bin:/usr/global/pgi/bin:/usr/global/intel/bin:/u
+	sr/global/maple/bin:/usr/global/math/bin:/usr/global/matlab/bin:/usr/g
+	lobal/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:.,
+	PBS_O_SHELL=/bin/bash,PBS_SERVER=irz14,
+	PBS_O_WORKDIR=/users/stud/jkolb/Veranstaltungen/MA/Results/Effective_
+	diffusivity_real_barrier_MOL/attractive/att1
+    etime = Thu Jul 24 12:23:58 2014
+    submit_args = job.sh
+    start_time = Thu Jul 24 12:23:59 2014
+    Walltime.Remaining = 2592000
+    start_count = 1
+    fault_tolerant = False
+    submit_host = pool24.physik.hu-berlin.de
+    init_work_dir = /users/stud/jkolb/Veranstaltungen/MA/Results/Effective_dif
+	fusivity_real_barrier_MOL/attractive/att1
+
+
+
+
+Started batch processing at Thu Jul 24 12:23:59 CEST 2014.
+-30ab321200.001
+6
+11
+17/2
+5/2
+
+NDSolve::stpmin: The starting number of points determined by StartingStepSize -> 0.001 and StartingPoints -> Automatic is 19000, which is less than the minimum number of 24000 grid points. 24000 will be used instead.
+
+NDSolve::ibcinc: Warning: boundary and initial conditions are inconsistent.
+mathematica finished at Thu Jul 24 12:24:28 CEST 2014.
+1001
+Ended batch processing at Thu Jul 24 12:25:01 CEST 2014.
+logout
+logout

@@ -32,8 +32,6 @@ i = 0
     DO WHILE(t<=t1)
         i = i+1
 
-
-
         parold = par
         !Fluctuations of Potential/Substrate particles
         CALL update_state_of_potential

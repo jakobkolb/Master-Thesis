@@ -1,6 +1,5 @@
 (* ::Package:: *)
 
- 
 Clear["Global`*"]
 
 d = 1;
@@ -11,14 +10,15 @@ b = 2.5;
 at = a - b;
 bt = a + b;
 n = 32;
-Ksvalues={0,0,0}
+Ksvalues={0.1,1,10}
+kpoints=3;
 Rsink = 1;
-Rmax = 30;
+Rmax = 2;
 t0 = 0;
-t1 = 200;
+t1 = 1000;
 rdmin = -3;
 rdmax = 3;
-datapoints = 3;
+datapoints = 12;
 u1[r_] := U01 Exp[-((r - a)/b)^n];
 u2[r_] := U02 Exp[-((r - a)/b)^n];
 pde = {D[\[Rho]1[r, t], t] == 
@@ -48,7 +48,7 @@ Densities =
 ReactionRate = 
   Table[0, {k, 1, 2}, {i, 1, datapoints + 1}, {j, 1, 3 + 1}];
 
-For[j = 1, j <= 3, j++,
+For[j = 1, j <= kpoints, j++,
  Ks = Ksvalues[[j]];
  For[i = 0, i <= datapoints, i++,
   rd = 10^(rdmin + i*(rdmax - rdmin)/datapoints);
@@ -56,7 +56,7 @@ For[j = 1, j <= 3, j++,
   w12 = w21;
   sol = NDSolve[{pde, bc, ic}, {\[Rho]1, \[Rho]2}, {t, t1, t1}, {r, 
      Rsink, Rmax}, MaxSteps -> Infinity, MaxStepFraction -> 0.002, 
-    AccuracyGoal -> 15, StartingStepSize -> 0.001, 
+    AccuracyGoal -> 8, StartingStepSize -> 0.001, 
     WorkingPrecision -> MachinePrecision, 
     Method -> {"MethodOfLines", 
       "SpatialDiscretization" -> {"TensorProductGrid", 
@@ -96,10 +96,12 @@ Export["onrhovals_Ks_"<>ToString[Ks]<>"_rd_"<>ToString[rd]".tsv", N[rhovals], "T
 
   ]]
 
-b = Table[0, {i, 1, npoints + 1}];
+b = Table[0, {i, 1, kpoints + 1}];
 b[[1]] = N[ReactionRate[[1, All, 1]]];
-For[j = 1, j <= npoints, j++,
+Print[b[[1]]]
+For[j = 1, j <= kpoints, j++,
  b[[j + 1]] = N[Flatten[ReactionRate[[2, All, j]]]];
+ Print[b[[j+1]]]
  ]
 Export["rep_numeric_rates.csv", Transpose[b]];
 

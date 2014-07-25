@@ -1,0 +1,217 @@
+*** glibc detected *** python: double free or corruption (!prev): 0x0000000001a896a0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x76e46)[0x2b6883ce4e46]
+/lib/x86_64-linux-gnu/libc.so.6(cfree+0x6c)[0x2b6883ce9bec]
+/usr/lib/pymodules/python2.7/numpy/core/multiarray.so(+0x9009a)[0x2b688429f09a]
+python[0x4674f6]
+python(PyDict_SetItem+0x98)[0x480958]
+python(_PyModule_Clear+0x146)[0x480ea6]
+python(PyImport_Cleanup+0x442)[0x4f86b2]
+python(Py_Finalize+0x10e)[0x42fdeb]
+python(Py_Main+0xbb4)[0x44ddd0]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xfd)[0x2b6883c8ceed]
+python[0x4c78b9]
+======= Memory map: ========
+00400000-00657000 r-xp 00000000 08:02 47812                              /usr/bin/python2.7
+00856000-00857000 r--p 00256000 08:02 47812                              /usr/bin/python2.7
+00857000-008c0000 rw-p 00257000 08:02 47812                              /usr/bin/python2.7
+008c0000-01e3f000 rw-p 00000000 00:00 0                                  [heap]
+2b6882f90000-2b6882fb0000 r-xp 00000000 08:02 33559                      /lib/x86_64-linux-gnu/ld-2.13.so
+2b6882fb0000-2b6882fb2000 rw-p 00000000 00:00 0 
+2b6882fb2000-2b6882fb3000 rwxp 00000000 00:00 0 
+2b6882fb3000-2b6882fb4000 rw-p 00000000 00:00 0 
+2b6882fd5000-2b688305b000 rw-p 00000000 00:00 0 
+2b688308c000-2b6883190000 rw-p 00000000 00:00 0 
+2b68831af000-2b68831b0000 r--p 0001f000 08:02 33559                      /lib/x86_64-linux-gnu/ld-2.13.so
+2b68831b0000-2b68831b1000 rw-p 00020000 08:02 33559                      /lib/x86_64-linux-gnu/ld-2.13.so
+2b68831b1000-2b68831b2000 rw-p 00000000 00:00 0 
+2b68831b2000-2b68831c9000 r-xp 00000000 08:02 33583                      /lib/x86_64-linux-gnu/libpthread-2.13.so
+2b68831c9000-2b68833c8000 ---p 00017000 08:02 33583                      /lib/x86_64-linux-gnu/libpthread-2.13.so
+2b68833c8000-2b68833c9000 r--p 00016000 08:02 33583                      /lib/x86_64-linux-gnu/libpthread-2.13.so
+2b68833c9000-2b68833ca000 rw-p 00017000 08:02 33583                      /lib/x86_64-linux-gnu/libpthread-2.13.so
+2b68833ca000-2b68833ce000 rw-p 00000000 00:00 0 
+2b68833ce000-2b68833d0000 r-xp 00000000 08:02 33572                      /lib/x86_64-linux-gnu/libdl-2.13.so
+2b68833d0000-2b68835d0000 ---p 00002000 08:02 33572                      /lib/x86_64-linux-gnu/libdl-2.13.so
+2b68835d0000-2b68835d1000 r--p 00002000 08:02 33572                      /lib/x86_64-linux-gnu/libdl-2.13.so
+2b68835d1000-2b68835d2000 rw-p 00003000 08:02 33572                      /lib/x86_64-linux-gnu/libdl-2.13.so
+2b68835d2000-2b68835d4000 r-xp 00000000 08:02 33588                      /lib/x86_64-linux-gnu/libutil-2.13.so
+2b68835d4000-2b68837d3000 ---p 00002000 08:02 33588                      /lib/x86_64-linux-gnu/libutil-2.13.so
+2b68837d3000-2b68837d4000 r--p 00001000 08:02 33588                      /lib/x86_64-linux-gnu/libutil-2.13.so
+2b68837d4000-2b68837d5000 rw-p 00002000 08:02 33588                      /lib/x86_64-linux-gnu/libutil-2.13.so
+2b68837d5000-2b68837eb000 r-xp 00000000 08:02 7152                       /lib/x86_64-linux-gnu/libz.so.1.2.7
+2b68837eb000-2b68839ea000 ---p 00016000 08:02 7152                       /lib/x86_64-linux-gnu/libz.so.1.2.7
+2b68839ea000-2b68839eb000 r--p 00015000 08:02 7152                       /lib/x86_64-linux-gnu/libz.so.1.2.7
+2b68839eb000-2b68839ec000 rw-p 00016000 08:02 7152                       /lib/x86_64-linux-gnu/libz.so.1.2.7
+2b68839ec000-2b6883a6d000 r-xp 00000000 08:02 33573                      /lib/x86_64-linux-gnu/libm-2.13.so
+2b6883a6d000-2b6883c6c000 ---p 00081000 08:02 33573                      /lib/x86_64-linux-gnu/libm-2.13.so
+2b6883c6c000-2b6883c6d000 r--p 00080000 08:02 33573                      /lib/x86_64-linux-gnu/libm-2.13.so
+2b6883c6d000-2b6883c6e000 rw-p 00081000 08:02 33573                      /lib/x86_64-linux-gnu/libm-2.13.so
+2b6883c6e000-2b6883df0000 r-xp 00000000 08:02 33562                      /lib/x86_64-linux-gnu/libc-2.13.so
+2b6883df0000-2b6883fef000 ---p 00182000 08:02 33562                      /lib/x86_64-linux-gnu/libc-2.13.so
+2b6883fef000-2b6883ff3000 r--p 00181000 08:02 33562                      /lib/x86_64-linux-gnu/libc-2.13.so
+2b6883ff3000-2b6883ff4000 rw-p 00185000 08:02 33562                      /lib/x86_64-linux-gnu/libc-2.13.so
+2b6883ff4000-2b6883ff9000 rw-p 00000000 00:00 0 
+2b6883ff9000-2b688400e000 r-xp 00000000 08:02 7044                       /lib/x86_64-linux-gnu/libgcc_s.so.1
+2b688400e000-2b688420e000 ---p 00015000 08:02 7044                       /lib/x86_64-linux-gnu/libgcc_s.so.1
+2b688420e000-2b688420f000 rw-p 00015000 08:02 7044                       /lib/x86_64-linux-gnu/libgcc_s.so.1
+2b688420f000-2b6884305000 r-xp 00000000 08:02 58781                      /usr/lib/pyshared/python2.7/numpy/core/multiarray.so
+2b6884305000-2b6884505000 ---p 000f6000 08:02 58781                      /usr/lib/pyshared/python2.7/numpy/core/multiarray.so
+2b6884505000-2b6884507000 r--p 000f6000 08:02 58781                      /usr/lib/pyshared/python2.7/numpy/core/multiarray.so
+2b6884507000-2b6884514000 rw-p 000f8000 08:02 58781                      /usr/lib/pyshared/python2.7/numpy/core/multiarray.so
+2b6884514000-2b6884515000 rw-p 00000000 00:00 0 
+2b6884515000-2b6884568000 r-xp 00000000 08:02 58786                      /usr/lib/pyshared/python2.7/numpy/core/umath.so
+2b6884568000-2b6884767000 ---p 00053000 08:02 58786                      /usr/lib/pyshared/python2.7/numpy/core/umath.so
+2b6884767000-2b6884768000 r--p 00052000 08:02 58786                      /usr/lib/pyshared/python2.7/numpy/core/umath.so
+2b6884768000-2b688476c000 rw-p 00053000 08:02 58786                      /usr/lib/pyshared/python2.7/numpy/core/umath.so
+2b688476c000-2b688476e000 rw-p 00000000 00:00 0 
+2b688476e000-2b6884787000 r-xp 00000000 08:02 58784                      /usr/lib/pyshared/python2.7/numpy/core/_sort.so
+2b6884787000-2b6884986000 ---p 00019000 08:02 58784                      /usr/lib/pyshared/python2.7/numpy/core/_sort.so
+2b6884986000-2b6884987000 r--p 00018000 08:02 58784                      /usr/lib/pyshared/python2.7/numpy/core/_sort.so
+2b6884987000-2b6884988000 rw-p 00019000 08:02 58784                      /usr/lib/pyshared/python2.7/numpy/core/_sort.so
+2b6884988000-2b688498d000 r-xp 00000000 08:02 58782                      /usr/lib/pyshared/python2.7/numpy/core/_dotblas.so
+2b688498d000-2b6884b8c000 ---p 00005000 08:02 58782                      /usr/lib/pyshared/python2.7/numpy/core/_dotblas.so
+2b6884b8c000-2b6884b8d000 rw-p 00004000 08:02 58782                      /usr/lib/pyshared/python2.7/numpy/core/_dotblas.so
+2b6884b8d000-2b6884fb4000 r-xp 00000000 08:02 28383                      /usr/lib/atlas-base/atlas/libblas.so.3.0
+2b6884fb4000-2b68851b3000 ---p 00427000 08:02 28383                      /usr/lib/atlas-base/atlas/libblas.so.3.0
+2b68851b3000-2b68851bc000 rw-p 00426000 08:02 28383                      /usr/lib/atlas-base/atlas/libblas.so.3.0
+2b68851bc000-2b68852d0000 r-xp 00000000 08:02 39212                      /usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0
+2b68852d0000-2b68854d0000 ---p 00114000 08:02 39212                      /usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0
+2b68854d0000-2b68854d2000 rw-p 00114000 08:02 39212                      /usr/lib/x86_64-linux-gnu/libgfortran.so.3.0.0
+2b68854d2000-2b6885507000 r-xp 00000000 08:02 40564                      /usr/lib/x86_64-linux-gnu/libquadmath.so.0.0.0
+2b6885507000-2b6885706000 ---p 00035000 08:02 40564                      /usr/lib/x86_64-linux-gnu/libquadmath.so.0.0.0
+2b6885706000-2b6885707000 rw-p 00034000 08:02 40564                      /usr/lib/x86_64-linux-gnu/libquadmath.so.0.0.0
+2b6885707000-2b6885732000 r-xp 00000000 08:02 58785                      /usr/lib/pyshared/python2.7/numpy/core/scalarmath.so
+2b6885732000-2b6885931000 ---p 0002b000 08:02 58785                      /usr/lib/pyshared/python2.7/numpy/core/scalarmath.so
+2b6885931000-2b6885932000 r--p 0002a000 08:02 58785                      /usr/lib/pyshared/python2.7/numpy/core/scalarmath.so
+2b6885932000-2b6885934000 rw-p 0002b000 08:02 58785                      /usr/lib/pyshared/python2.7/numpy/core/scalarmath.so
+2b6885934000-2b68859b6000 rw-p 00000000 00:00 0 
+2b6885a77000-2b6885ab8000 rw-p 00000000 00:00 0 
+2b6885ab8000-2b6885abe000 r-xp 00000000 08:02 58776                      /usr/lib/pyshared/python2.7/numpy/lib/_compiled_base.so
+2b6885abe000-2b6885cbd000 ---p 00006000 08:02 58776                      /usr/lib/pyshared/python2.7/numpy/lib/_compiled_base.so
+2b6885cbd000-2b6885cbe000 r--p 00005000 08:02 58776                      /usr/lib/pyshared/python2.7/numpy/lib/_compiled_base.so
+2b6885cbe000-2b6885cbf000 rw-p 00006000 08:02 58776                      /usr/lib/pyshared/python2.7/numpy/lib/_compiled_base.so
+2b6885cbf000-2b6885cc4000 r-xp 00000000 08:02 58788                      /usr/lib/pyshared/python2.7/numpy/linalg/lapack_lite.so
+2b6885cc4000-2b6885ec4000 ---p 00005000 08:02 58788                      /usr/lib/pyshared/python2.7/numpy/linalg/lapack_lite.so
+2b6885ec4000-2b6885ec5000 rw-p 00005000 08:02 58788                      /usr/lib/pyshared/python2.7/numpy/linalg/lapack_lite.so
+2b6885ec5000-2b6886893000 r-xp 00000000 08:02 37212                      /usr/lib/lapack/liblapack.so.3.0
+2b6886893000-2b6886a92000 ---p 009ce000 08:02 37212                      /usr/lib/lapack/liblapack.so.3.0
+2b6886a92000-2b6886a96000 rw-p 009cd000 08:02 37212                      /usr/lib/lapack/liblapack.so.3.0
+2b6886a96000-2b6886ad7000 rw-p 00000000 00:00 0 
+2b6886ad7000-2b6886ae0000 r-xp 00000000 08:02 58774                      /usr/lib/pyshared/python2.7/numpy/fft/fftpack_lite.so
+2b6886ae0000-2b6886cdf000 ---p 00009000 08:02 58774                      /usr/lib/pyshared/python2.7/numpy/fft/fftpack_lite.so
+2b6886cdf000-2b6886ce0000 r--p 00008000 08:02 58774                      /usr/lib/pyshared/python2.7/numpy/fft/fftpack_lite.so
+2b6886ce0000-2b6886ce1000 rw-p 00009000 08:02 58774                      /usr/lib/pyshared/python2.7/numpy/fft/fftpack_lite.so
+2b6886ce1000-2b6886d22000 rw-p 00000000 00:00 0 
+2b6886d63000-2b6886da4000 rw-p 00000000 00:00 0 
+2b6886da4000-2b6886ddc000 r-xp 00000000 08:02 58790                      /usr/lib/pyshared/python2.7/numpy/random/mtrand.so
+2b6886ddc000-2b6886fdb000 ---p 00038000 08:02 58790                      /usr/lib/pyshared/python2.7/numpy/random/mtrand.so
+2b6886fdb000-2b6886fdc000 r--p 00037000 08:02 58790                      /usr/lib/pyshared/python2.7/numpy/random/mtrand.so
+2b6886fdc000-2b6887010000 rw-p 00038000 08:02 58790                      /usr/lib/pyshared/python2.7/numpy/random/mtrand.so
+2b6887010000-2b6887011000 rw-p 00000000 00:00 0 
+2b6887011000-2b6887037000 r-xp 00000000 08:02 295890                     /usr/lib/python2.7/lib-dynload/_ctypes.so
+2b6887037000-2b6887236000 ---p 00026000 08:02 295890                     /usr/lib/python2.7/lib-dynload/_ctypes.so
+2b6887236000-2b6887237000 r--p 00025000 08:02 295890                     /usr/lib/python2.7/lib-dynload/_ctypes.so
+2b6887237000-2b688723b000 rw-p 00026000 08:02 295890                     /usr/lib/python2.7/lib-dynload/_ctypes.so
+2b688723b000-2b688723c000 rw-p 00000000 00:00 0 
+2b688723c000-2b688723f000 r-xp 00000000 08:02 47735                      /usr/lib/python2.7/lib-dynload/_hashlib.so
+2b688723f000-2b688743f000 ---p 00003000 08:02 47735                      /usr/lib/python2.7/lib-dynload/_hashlib.so
+2b688743f000-2b6887440000 r--p 00003000 08:02 47735                      /usr/lib/python2.7/lib-dynload/_hashlib.so
+2b6887440000-2b6887441000 rw-p 00004000 08:02 47735                      /usr/lib/python2.7/lib-dynload/_hashlib.so
+2b6887441000-2b6887497000 r-xp 00000000 08:02 19824                      /usr/lib/x86_64-linux-gnu/libssl.so.1.0.0
+2b6887497000-2b6887697000 ---p 00056000 08:02 19824                      /usr/lib/x86_64-linux-gnu/libssl.so.1.0.0
+2b6887697000-2b688769a000 r--p 00056000 08:02 19824                      /usr/lib/x86_64-linux-gnu/libssl.so.1.0.0
+2b688769a000-2b68876a1000 rw-p 00059000 08:02 19824                      /usr/lib/x86_64-linux-gnu/libssl.so.1.0.0
+2b68876a1000-2b688786b000 r-xp 00000000 08:02 19801                      /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.0
+2b688786b000-2b6887a6b000 ---p 001ca000 08:02 19801                      /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.0
+2b6887a6b000-2b6887a86000 r--p 001ca000 08:02 19801                      /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.0
+2b6887a86000-2b6887a95000 rw-p 001e5000 08:02 19801                      /usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.0
+2b6887a95000-2b6887a99000 rw-p 00000000 00:00 0 
+2b6887a99000-2b6887aa1000 r-xp 00000000 08:02 47733                      /usr/lib/python2.7/lib-dynload/_ssl.so
+2b6887aa1000-2b6887ca0000 ---p 00008000 08:02 47733                      /usr/lib/python2.7/lib-dynload/_ssl.so
+2b6887ca0000-2b6887ca1000 r--p 00007000 08:02 47733                      /usr/lib/python2.7/lib-dynload/_ssl.so
+2b6887ca1000-2b6887ca2000 rw-p 00008000 08:02 47733                      /usr/lib/python2.7/lib-dynload/_ssl.so
+2b6887ca2000-2b6887cb6000 r-xp 00000000 08:02 295893                     /usr/lib/python2.7/lib-dynload/datetime.so
+2b6887cb6000-2b6887eb6000 ---p 00014000 08:02 295893                     /usr/lib/python2.7/lib-dynload/datetime.so
+2b6887eb6000-2b6887eb7000 r--p 00014000 08:02 295893                     /usr/lib/python2.7/lib-dynload/datetime.so
+2b6887eb7000-2b6887ebb000 rw-p 00015000 08:02 295893                     /usr/lib/python2.7/lib-dynload/datetime.so
+2b6887ebb000-2b6887f02000 r-xp 00000000 08:02 58896                      /usr/lib/pyshared/python2.7/matplotlib/_path.so
+2b6887f02000-2b6888101000 ---p 00047000 08:02 58896                      /usr/lib/pyshared/python2.7/matplotlib/_path.so
+2b6888101000-2b6888103000 r--p 00046000 08:02 58896                      /usr/lib/pyshared/python2.7/matplotlib/_path.so
+2b6888103000-2b6888104000 rw-p 00048000 08:02 58896                      /usr/lib/pyshared/python2.7/matplotlib/_path.so
+2b6888104000-2b68881ec000 r-xp 00000000 08:02 39611                      /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.17
+2b68881ec000-2b68883ec000 ---p 000e8000 08:02 39611                      /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.17
+2b68883ec000-2b68883f4000 r--p 000e8000 08:02 39611                      /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.17
+2b68883f4000-2b68883f6000 rw-p 000f0000 08:02 39611                      /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.17
+2b68883f6000-2b688840b000 rw-p 00000000 00:00 0 
+2b688840b000-2b6888451000 r-xp 00000000 08:02 58884                      /usr/lib/pyshared/python2.7/matplotlib/ft2font.so
+2b6888451000-2b6888650000 ---p 00046000 08:02 58884                      /usr/lib/pyshared/python2.7/matplotlib/ft2font.so
+2b6888650000-2b6888653000 r--p 00045000 08:02 58884                      /usr/lib/pyshared/python2.7/matplotlib/ft2font.so
+2b6888653000-2b6888655000 rw-p 00048000 08:02 58884                      /usr/lib/pyshared/python2.7/matplotlib/ft2font.so
+2b6888655000-2b6888656000 rw-p 00000000 00:00 0 
+2b6888656000-2b68886ef000 r-xp 00000000 08:02 40382                      /usr/lib/x86_64-linux-gnu/libfreetype.so.6.8.1
+2b68886ef000-2b68888ee000 ---p 00099000 08:02 40382                      /usr/lib/x86_64-linux-gnu/libfreetype.so.6.8.1
+2b68888ee000-2b68888f4000 r--p 00098000 08:02 40382                      /usr/lib/x86_64-linux-gnu/libfreetype.so.6.8.1
+2b68888f4000-2b68888f5000 rw-p 0009e000 08:02 40382                      /usr/lib/x86_64-linux-gnu/libfreetype.so.6.8.1
+2b68888f5000-2b68888f7000 r-xp 00000000 08:02 58890                      /usr/lib/pyshared/python2.7/matplotlib/nxutils.so
+2b68888f7000-2b6888af6000 ---p 00002000 08:02 58890                      /usr/lib/pyshared/python2.7/matplotlib/nxutils.so
+2b6888af6000-2b6888af7000 r--p 00001000 08:02 58890                      /usr/lib/pyshared/python2.7/matplotlib/nxutils.so
+2b6888af7000-2b6888af8000 rw-p 00002000 08:02 58890                      /usr/lib/pyshared/python2.7/matplotlib/nxutils.so
+2b6888af8000-2b6888afe000 r-xp 00000000 08:02 295870                     /usr/lib/python2.7/lib-dynload/_csv.so
+2b6888afe000-2b6888cfd000 ---p 00006000 08:02 295870                     /usr/lib/python2.7/lib-dynload/_csv.so
+2b6888cfd000-2b6888cfe000 r--p 00005000 08:02 295870                     /usr/lib/python2.7/lib-dynload/_csv.so
+2b6888cfe000-2b6888d00000 rw-p 00006000 08:02 295870                     /usr/lib/python2.7/lib-dynload/_csv.so
+2b6888d00000-2b6888d27000 r-xp 00000000 08:02 58886                      /usr/lib/pyshared/python2.7/matplotlib/_png.so
+2b6888d27000-2b6888f26000 ---p 00027000 08:02 58886                      /usr/lib/pyshared/python2.7/matplotlib/_png.so
+2b6888f26000-2b6888f28000 r--p 00026000 08:02 58886                      /usr/lib/pyshared/python2.7/matplotlib/_png.so
+2b6888f28000-2b6888f29000 rw-p 00028000 08:02 58886                      /usr/lib/pyshared/python2.7/matplotlib/_png.so
+2b6888f29000-2b6888f4f000 r-xp 00000000 08:02 7033                       /lib/x86_64-linux-gnu/libpng12.so.0.49.0
+2b6888f4f000-2b688914e000 ---p 00026000 08:02 7033                       /lib/x86_64-linux-gnu/libpng12.so.0.49.0
+2b688914e000-2b688914f000 r--p 00025000 08:02 7033                       /lib/x86_64-linux-gnu/libpng12.so.0.49.0
+2b688914f000-2b6889150000 rw-p 00026000 08:02 7033                       /lib/x86_64-linux-gnu/libpng12.so.0.49.0
+2b6889150000-2b6889156000 r-xp 00000000 08:02 58885                      /usr/lib/pyshared/python2.7/matplotlib/_cntr.so
+2b6889156000-2b6889355000 ---p 00006000 08:02 58885                      /usr/lib/pyshared/python2.7/matplotlib/_cntr.so
+2b6889355000-2b6889356000 r--p 00005000 08:02 58885                      /usr/lib/pyshared/python2.7/matplotlib/_cntr.so
+2b6889356000-2b6889357000 rw-p 00006000 08:02 58885                      /usr/lib/pyshared/python2.7/matplotlib/_cntr.so
+2b6889357000-2b688939d000 r-xp 00000000 08:02 58883                      /usr/lib/pyshared/python2.7/matplotlib/_image.so
+2b688939d000-2b688959d000 ---p 00046000 08:02 58883                      /usr/lib/pyshared/python2.7/matplotlib/_image.so
+2b688959d000-2b688959f000 r--p 00046000 08:02 58883                      /usr/lib/pyshared/python2.7/matplotlib/_image.so
+2b688959f000-2b68895a1000 rw-p 00048000 08:02 58883                      /usr/lib/pyshared/python2.7/matplotlib/_image.so
+2b68895a1000-2b68895b0000 r-xp 00000000 08:02 58889                      /usr/lib/pyshared/python2.7/matplotlib/_delaunay.so
+2b68895b0000-2b68897af000 ---p 0000f000 08:02 58889                      /usr/lib/pyshared/python2.7/matplotlib/_delaunay.so
+2b68897af000-2b68897b0000 r--p 0000e000 08:02 58889                      /usr/lib/pyshared/python2.7/matplotlib/_delaunay.so
+2b68897b0000-2b68897b1000 rw-p 0000f000 08:02 58889                      /usr/lib/pyshared/python2.7/matplotlib/_delaunay.so
+2b68897b1000-2b68897eb000 r-xp 00000000 08:02 58887                      /usr/lib/pyshared/python2.7/matplotlib/_tri.so
+2b68897eb000-2b68899eb000 ---p 0003a000 08:02 58887                      /usr/lib/pyshared/python2.7/matplotlib/_tri.so
+2b68899eb000-2b68899ed000 r--p 0003a000 08:02 58887                      /usr/lib/pyshared/python2.7/matplotlib/_tri.so
+2b68899ed000-2b68899ee000 rw-p 0003c000 08:02 58887                      /usr/lib/pyshared/python2.7/matplotlib/_tri.so
+2b68899ee000-2b6889a5b000 r-xp 00000000 08:02 58893                      /usr/lib/pyshared/python2.7/matplotlib/backends/_backend_agg.so
+2b6889a5b000-2b6889c5a000 ---p 0006d000 08:02 58893                      /usr/lib/pyshared/python2.7/matplotlib/backends/_backend_agg.so
+2b6889c5a000-2b6889c5d000 r--p 0006c000 08:02 58893                      /usr/lib/pyshared/python2.7/matplotlib/backends/_backend_agg.so
+2b6889c5d000-2b6889c5e000 rw-p 0006f000 08:02 58893                      /usr/lib/pyshared/python2.7/matplotlib/backends/_backend_agg.so
+2b6889c5e000-2b6889c70000 r-xp 00000000 08:02 295895                     /usr/lib/python2.7/lib-dynload/parser.so
+2b6889c70000-2b6889e6f000 ---p 00012000 08:02 295895                     /usr/lib/python2.7/lib-dynload/parser.so
+2b6889e6f000-2b6889e70000 r--p 00011000 08:02 295895                     /usr/lib/python2.7/lib-dynload/parser.so
+2b6889e70000-2b6889e71000 rw-p 00012000 08:02 295895                     /usr/lib/python2.7/lib-dynload/parser.so
+2b6889e71000-2b6889e9d000 r-xp 00000000 08:02 295883                     /usr/lib/python2.7/lib-dynload/_bsddb.so
+2b6889e9d000-2b688a09c000 ---p 0002c000 08:02 295883                     /usr/lib/python2.7/lib-dynload/_bsddb.so
+2b688a09c000-2b688a09d000 r--p 0002b000 08:02 295883                     /usr/lib/python2.7/lib-dynload/_bsddb.so
+2b688a09d000-2b688a0a1000 rw-p 0002c000 08:02 295883                     /usr/lib/python2.7/lib-dynload/_bsddb.so
+2b688a0a1000-2b688a21b000 r-xp 00000000 08:02 39199                      /usr/lib/x86_64-linux-gnu/libdb-5.1.so
+2b688a21b000-2b688a41b000 ---p 0017a000 08:02 39199                      /usr/lib/x86_64-linux-gnu/libdb-5.1.so
+2b688a41b000-2b688a421000 r--p 0017a000 08:02 39199                      /usr/lib/x86_64-linux-gnu/libdb-5.1.so
+2b688a421000-2b688a424000 rw-p 00180000 08:02 39199                      /usr/lib/x86_64-linux-gnu/libdb-5.1.so
+2b688a424000-2b688a725000 rw-p 00000000 00:00 0 
+2b688a725000-2b688a728000 r-xp 00000000 08:02 295886                     /usr/lib/python2.7/lib-dynload/dbm.so
+2b688a728000-2b688a927000 ---p 00003000 08:02 295886                     /usr/lib/python2.7/lib-dynload/dbm.so
+2b688a927000-2b688a928000 r--p 00002000 08:02 295886                     /usr/lib/python2.7/lib-dynload/dbm.so
+2b688a928000-2b688a929000 rw-p 00003000 08:02 295886                     /usr/lib/python2.7/lib-dynload/dbm.so
+2b688a929000-2b688a932000 r-xp 00000000 00:17 18644672                   /users/stud/jkolb/.python27_compiled/sc_2def42e7ce38e7328fc692f55c69ee120.so
+2b688a932000-2b688ab31000 ---p 00009000 00:17 18644672                   /users/stud/jkolb/.python27_compiled/sc_2def42e7ce38e7328fc692f55c69ee120.so
+2b688ab31000-2b688ab32000 r--p 00008000 00:17 18644672                   /users/stud/jkolb/.python27_compiled/sc_2def42e7ce38e7328fc692f55c69ee120.so
+2b688ab32000-2b688ab33000 rw-p 00009000 00:17 18644672                   /users/stud/jkolb/.python27_compiled/sc_2def42e7ce38e7328fc692f55c69ee120.so
+2b688c000000-2b688c021000 rw-p 00000000 00:00 0 
+2b688c021000-2b6890000000 ---p 00000000 00:00 0 
+7fffdfba5000-7fffdfbc6000 rw-p 00000000 00:00 0                          [stack]
+7fffdfbe4000-7fffdfbe5000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+/var/spool/pbs/mom_priv/jobs/70056.irz14.SC: line 16: 28472 Aborted                 python 2_Eff.py

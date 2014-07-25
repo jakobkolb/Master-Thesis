@@ -1,4 +1,5 @@
- 
+(* ::Package:: *)
+
 Clear["Global`*"]
 
 d = 1;
@@ -8,15 +9,16 @@ a = 8.5;
 b = 2.5;
 at = a - b;
 bt = a + b;
-n = 3232323232323232323232323232323232323232323232323232323232323232;
+n = 32;
 Ksvalues={0.1,1,10}
+kpoints=3;
 Rsink = 1;
-Rmax = 30;
+Rmax = 2;
 t0 = 0;
 t1 = 1000;
 rdmin = -3;
 rdmax = 3;
-datapoints = 4;
+datapoints = 12;
 u1[r_] := U01 Exp[-((r - a)/b)^n];
 u2[r_] := U02 Exp[-((r - a)/b)^n];
 pde = {D[\[Rho]1[r, t], t] == 
@@ -31,8 +33,8 @@ pde = {D[\[Rho]1[r, t], t] ==
      w21 \[Rho]2[r, t] + w12 \[Rho]1[r, t]
    };
 bc = {
-   \[Rho]1[Rsink, t]*Ks == D[\[Rho]1[r,t],r]/.r->Rsink,
-   \[Rho]2[Rsink, t]*Ks == D[\[Rho]2[r,t],r]/.r->Rsink,
+   \[Rho]1[Rsink, t]*Ks == Derivative[1,0][\[Rho]1][Rsink,t],
+   \[Rho]2[Rsink, t]*Ks == Derivative[1,0][\[Rho]2][Rsink,t],
    \[Rho]1[Rmax, t] == w21/(w12 + w21),
    \[Rho]2[Rmax, t] == w12/(w12 + w21)
    };
@@ -46,7 +48,7 @@ Densities =
 ReactionRate = 
   Table[0, {k, 1, 2}, {i, 1, datapoints + 1}, {j, 1, 3 + 1}];
 
-For[j = 1, j <= 3, j++,
+For[j = 1, j <= kpoints, j++,
  Ks = Ksvalues[[j]];
  For[i = 0, i <= datapoints, i++,
   rd = 10^(rdmin + i*(rdmax - rdmin)/datapoints);
@@ -54,7 +56,7 @@ For[j = 1, j <= 3, j++,
   w12 = w21;
   sol = NDSolve[{pde, bc, ic}, {\[Rho]1, \[Rho]2}, {t, t1, t1}, {r, 
      Rsink, Rmax}, MaxSteps -> Infinity, MaxStepFraction -> 0.002, 
-    AccuracyGoal -> 15, StartingStepSize -> 0.001, 
+    AccuracyGoal -> 8, StartingStepSize -> 0.001, 
     WorkingPrecision -> MachinePrecision, 
     Method -> {"MethodOfLines", 
       "SpatialDiscretization" -> {"TensorProductGrid", 
@@ -71,9 +73,14 @@ For[j = 1, j <= 3, j++,
   ReactionRate[[2, i + 1, j ]] = D[\[Rho]tot[r], r] /. r -> Rsink;
   ]]
 
-b = Table[0, {i, 1, npoints + 1}];
+b = Table[0, {i, 1, kpoints + 1}];
 b[[1]] = N[ReactionRate[[1, All, 1]]];
-For[j = 1, j <= npoints, j++,
+Print[b[[1]]]
+For[j = 1, j <= kpoints, j++,
  b[[j + 1]] = N[Flatten[ReactionRate[[2, All, j]]]];
+ Print[b[[j+1]]]
  ]
 Export["att_numeric_rates.csv", Transpose[b]];
+
+
+

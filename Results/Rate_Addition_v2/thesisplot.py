@@ -27,24 +27,24 @@ for i, k in enumerate(Ksvals):
     Kbc_rep[i] = Kbc_tmp_rep
     
 
-#Knum_tmp_att = np.loadtxt('att_numeric_rates.csv', delimiter=',')
+Knum_tmp_att = np.loadtxt('att_numeric_rates.csv', delimiter=',')
 Knum_tmp_rep = np.loadtxt('rep_numeric_rates.csv', delimiter=',')
 
-#print np.shape(Knum_tmp_att)
+print np.shape(Knum_tmp_att)
 
-#N_tmp_att = np.zeros((np.shape(Knum_tmp_att)[0],2))
+N_tmp_att = np.zeros((np.shape(Knum_tmp_att)[0],2))
 N_tmp_rep = np.zeros((np.shape(Knum_tmp_rep)[0],2))
-#print np.shape(N_tmp_att)
+print np.shape(N_tmp_att)
 
 fig1 = mp.figure()
 ax1 = fig1.add_subplot(111)
 
 for i, k in enumerate(Ksvals):
-#    N_tmp_att[:,0] = Knum_tmp_att[:,0]
-#    N_tmp_att[:,1] = Knum_tmp_att[:,i+1]
+    N_tmp_att[:,0] = Knum_tmp_att[:,0]
+    N_tmp_att[:,1] = Knum_tmp_att[:,i+1]
     N_tmp_rep[:,0] = Knum_tmp_rep[:,0]
     N_tmp_rep[:,1] = Knum_tmp_rep[:,i+1]
-#    Knum_att[i] = N_tmp_att
+    Knum_att[i] = N_tmp_att
     Knum_rep[i] = N_tmp_rep
     ax1.plot(Knum_rep[i][:,0],Knum_rep[i][:,1], 'o', label = r'$K_s = $'+k)
 
