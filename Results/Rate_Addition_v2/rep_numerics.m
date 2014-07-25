@@ -1,3 +1,5 @@
+(* ::Package:: *)
+
  
 Clear["Global`*"]
 
@@ -8,15 +10,15 @@ a = 8.5;
 b = 2.5;
 at = a - b;
 bt = a + b;
-n = 64;
-Ksvalues={0.1,1,10}
+n = 32;
+Ksvalues={0,0,0}
 Rsink = 1;
 Rmax = 30;
 t0 = 0;
-t1 = 1000;
+t1 = 200;
 rdmin = -3;
 rdmax = 3;
-datapoints = 24;
+datapoints = 3;
 u1[r_] := U01 Exp[-((r - a)/b)^n];
 u2[r_] := U02 Exp[-((r - a)/b)^n];
 pde = {D[\[Rho]1[r, t], t] == 
@@ -77,3 +79,6 @@ For[j = 1, j <= npoints, j++,
  b[[j + 1]] = N[Flatten[ReactionRate[[2, All, j]]]];
  ]
 Export["rep_numeric_rates.csv", Transpose[b]];
+
+
+

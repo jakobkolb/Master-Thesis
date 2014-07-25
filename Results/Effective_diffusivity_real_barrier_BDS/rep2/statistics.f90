@@ -104,10 +104,10 @@ CONTAINS
             !IF(binnumber .LE. 0)print*, i, r, par(:,i)
             IF(par(4,i) == 0 .AND. binnumber .GE. 0) THEN
                 hist(1,binnumber) = hist(1,binnumber) + rsq
-                pcount(1,binnumber) = pcount(1,binnumber) + 1
+                pcount(1,binnumber) = pcount(1,binnumber) + 1.0
             ELSEIF(par(4,i) == 1 .AND. binnumber .GE. 0) THEN
                 hist(2,binnumber) = hist(2,binnumber) + rsq
-                pcount(2,binnumber) = pcount(2,binnumber) + 1
+                pcount(2,binnumber) = pcount(2,binnumber) + 1.0
             ENDIF
         ENDIF
     ENDDO

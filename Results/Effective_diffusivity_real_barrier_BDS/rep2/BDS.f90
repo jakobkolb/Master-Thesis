@@ -51,7 +51,6 @@ i = 0
         !call boundary condition routine and cound absorbed particles
 
         CALL maintain_boundary_conditions(counter)
-        acc_count = acc_count + counter
 
         !call statistics routine for absorption rate
 
@@ -61,8 +60,6 @@ i = 0
 
         t = t + dt
         IF(MOD(i,INT((t1/dt)/10)) == 0) THEN
-print *, acc_count
-            acc_count = 0
 print*, i, t, t/t1*100, INT(t/t1*100)
             n = n+1
             CALL statistics_output(nbins, n, t)

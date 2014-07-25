@@ -110,7 +110,12 @@ ax3 = fig3.add_subplot(111)
 for i in range(frames):
     ax3.plot(attdensdata[i][0:-1,0],attmsqddata[i][0:-1,1])
     ax3.plot(attdensdata[i][0:-1,0],attmsqddata[i][0:-1,3])
-ax3.set_yscale('log')
+
+fig31 = mp.figure()
+ax31 = fig31.add_subplot(111)
+for i in range(frames):
+    ax31.plot(attdensdata[i][0:-1,0],(attmsqddata[i][0:-1,1]+attmsqddata[i][0:-1,3])/2.)
+
 #PLOT DATA FOR REPULSIVE BARRIER
 
 fig5 = mp.figure()
@@ -125,11 +130,17 @@ ax7 = fig7.add_subplot(111)
 for i in range(frames):
     ax7.plot(repdensdata[i][0:-1,0],repmsqddata[i][0:-1,1])
     ax7.plot(repdensdata[i][0:-1,0],repmsqddata[i][0:-1,3])
-ax7.set_yscale('log')
+
+fig71 = mp.figure()
+ax71 = fig71.add_subplot(111)
+for i in range(frames):
+    ax71.plot(repdensdata[i][0:-1,0],(repmsqddata[i][0:-1,1]+repmsqddata[i][0:-1,3])/2.)
+#ax7.set_yscale('log')
+#ax7.set_yscale('log')
 
 fig8 = mp.figure()
 ax8 = fig8.add_subplot(111)
 for i in range(frames):
-    ax8.plot(repdensdata[i][0:-1,0],repmsqddata[i][0:-1,5])
-
+    ax8.plot(repdensdata[i][0:-1,0],repmsqddata[i][0:-1,5]+1)
+ax8.set_yscale('log')
 mp.show()
