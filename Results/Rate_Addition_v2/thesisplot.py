@@ -126,6 +126,3 @@ mp.savefig('rate_comparison'+`i`+'.pdf',
             bbox_inches='tight', 
             pad_inches=0.02
             )
-
-mp.show()
-    

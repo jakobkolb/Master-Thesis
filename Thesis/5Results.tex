@@ -578,26 +578,46 @@ As was shown in section \ref{Numeric_Study} the description of the rate by Debye
 \end{equation}
 this will lead to artificial results. To picture this, one uses two different methods to calculate an effective diffusivity profile. First one uses the Method of Lines as outlined in section \ref{method_of_lines} to derive density profiles for different decay lengths for a smooth potential as given by equation \eqref{generalized_gaussian} and calculates the associated effective diffusivity profile through numeric inversion of equation \eqref{Deff} and second, one sets up Brownian Dynamics simulations as described in section \ref{BDsim}for the same parameters and explicitly tracks the mean square displacement of particles to access the actual diffusivity profile of the system via
 \begin{equation}
-    \left<\Delta \vec{x}(r)^{2}\right> = 6 D(r) \Delta t
+    \left<\Delta \vec{x}(r)^{2}\right> = 6 D_{eff}(r) \Delta t
     \label{msqd}
 \end{equation}
 where $\Delta \vec{x}$ is the actual particle displacement and $r$ is its radial position in space.
+The results from the first method are given in figure [REF], the results from the second method are given in figure [REF]
 
 \begin{minipage}[t]{.5 \textwidth}
     \begin{figure}[H]
- %       \includegraphics[width = 1 \textwidth]{plots/rb_cs.pdf}
+        \includegraphics[width = 1 \textwidth]{plots/repulsive_mapping_d.pdf}
     \end{figure}
 \end{minipage}\begin{minipage}[t]{.5 \textwidth}
     \begin{figure}[H]
- %       \includegraphics[width = 1 \textwidth]{plots/ab_cs.pdf}
+        \includegraphics[width = 1 \textwidth]{plots/attractive_mapping_d.pdf}
     \end{figure}
 \end{minipage}
 
 \begin{minipage}[t]{1 \textwidth}
     \begin{figure}[H]
-        \caption{Comparison of effective diffusivity profiles $D_{eff}(r)$ for attractive (blue) and repulsive (red) fluctuating barrier for different decay lengths $r_d$ resulting from different numeric approaches. A) gives results for density profiles calculated by numerical inversion of equation \eqref{Deff}. Necessary density profiles were obtained by the numerical Method of Lines for a smooth potential as given in \eqref{generalized_gaussian} with $U_2$, $a$, and $b$ as given in \eqref{Parameters}. B) gives results obtained from Brownian Dynamics simulations. Spatially resolved mean square displacement was calculated by radial binning of particles positions $\vec{x}$ for each time step, then integrating over $\Delta t$ and separately averaging over the particle square displacement $\Delta \vec{x}^{2}$ for each bin. The effective diffusivity was then calculated by \label{Deff_numeric}}
+        \caption{Effective diffusivity profiles $D_{eff}(r)$ for repulsive (A) and attractive (B) fluctuating barrier for different decay lengths $r_d$ according to Debye rate theory \ref{The_Debye_Reaction_Rate} over a potential of mean force. Results for density profiles calculated by numerical inversion of equation \eqref{Deff}. Necessary density profiles were obtained by the numerical Method of Lines for a smooth potential as given in \eqref{generalized_gaussian} with $U_2$, $a$, and $b$ as given in \eqref{Parameters}.}
     \end{figure}
 \end{minipage} \vspace{0.5 cm} \\
+
+
+\begin{minipage}[t]{.5 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/repulsive_mapping_d.pdf}
+    \end{figure}
+\end{minipage}\begin{minipage}[t]{.5 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/attractive_mapping_d.pdf}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}[t]{1 \textwidth}
+    \begin{figure}[H]
+        \caption{Effective diffusivity profiles $D_{eff}(r)$ for repulsive (A) and attractive (B) fluctuating barrier for different decay lengths $r_d$ obtained from Brownian Dynamics simulations with a smooth potential as given in \eqref{generalized_gaussian} with $U_2$, $a$, and $b$ as given in \eqref{Parameters}. Spatially resolved mean square displacement was calculated by radial binning of particles positions $\vec{x}$ for each time step, then integrating over $\Delta t$ and separately averaging over the particle square displacement $\Delta \vec{x}^{2}$ for each bin. The effective diffusivity was then calculated by \label{Deff_numeric}}   
+    \end{figure}
+\end{minipage}
+
+
 
 \subsection{Second Assumption}
 %This section should bridge the gap from theory to experiments where measurements usually do not give any information of the detailed kinetics of the system but only show fluctuations as a potential of mean force and a spatially depending diffusivity profile.

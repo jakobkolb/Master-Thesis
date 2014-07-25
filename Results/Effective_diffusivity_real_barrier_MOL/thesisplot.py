@@ -35,10 +35,10 @@ if True:
 
     ax1 = fig1.add_subplot(111)
     ax1b = ax1.twinx()
-    l1 = ax1.plot(rep_data[0][1:-1,0], rep_data[0][1:-1,3], zorder = 4, color = reds[1], label = r'$r_d = 10^{-3}$')
-    l2 = ax1.plot(rep_data[1][1:-1,0], rep_data[1][1:-1,3], zorder = 3, color = reds[2], label = r'$r_d = 10^{-1}$')
-    l3 = ax1.plot(rep_data[2][1:-1,0], rep_data[2][1:-1,3], zorder = 2, color = reds[3], label = r'$r_d = 2.5$')
-    l4 = ax1.plot(rep_data[2][1:-1,0], rep_data[3][1:-1,3], zorder = 1, color = reds[4], label = r'$r_d = 10^{2}$')
+    l1 = ax1.plot(rep_data[0][1:-1,0], rep_data[0][1:-1,3], zorder = 4, color = blues[1], label = r'$r_d = 10^{-3}$')
+    l2 = ax1.plot(rep_data[1][1:-1,0], rep_data[1][1:-1,3], zorder = 3, color = blues[2], label = r'$r_d = 10^{-1}$')
+    l3 = ax1.plot(rep_data[2][1:-1,0], rep_data[2][1:-1,3], zorder = 2, color = blues[3], label = r'$r_d = 2.5$')
+    l4 = ax1.plot(rep_data[2][1:-1,0], rep_data[3][1:-1,3], zorder = 1, color = blues[4], label = r'$r_d = 10^{2}$')
 
     ax1.text(0.02, 0.95, 'A)', zorder = 5, transform=ax1.transAxes, fontsize=12, va='top')
     l5 = ax1b.plot(rep_data[0][:,0], rep_data[0][:,4], '--', zorder = 6, color = '#A0A0A0', label = r'$U_m(r)$')
@@ -86,7 +86,7 @@ if True:
     l3 = ax2.plot(rep_data[2][1:-1,0], rep_data[2][1:-1,1], zorder = 4, color = blues[3], label = r'$r_d = 2.5$')
     l4 = ax2.plot(rep_data[2][1:-1,0], rep_data[3][1:-1,1], zorder = 5, color = blues[4], label = r'$r_d = 10^{2}$')
 
-    ax2.text(0.02, 0.95, 'B)', zorder = 6, transform=ax2.transAxes, fontsize=12, va='top')
+    ax2.text(0.02, 0.95, 'A)', zorder = 6, transform=ax2.transAxes, fontsize=12, va='top')
     l5 = ax2b.plot(rep_data[0][:,0], rep_data[0][:,4], '--', zorder = 7, color = '#A0A0A0', label = r'$U_m(r)$')
 
     ax2.set_zorder(ax2b.get_zorder()+1)
@@ -137,11 +137,11 @@ if True:
     l3 = ax3.plot(att_data[2][1:-1,0], att_data[2][1:-1,3], zorder = 2, color = reds[3], label = r'$r_d = 2.5$')
     l4 = ax3.plot(att_data[2][1:-1,0], att_data[3][1:-1,3], zorder = 1, color = reds[4], label = r'$r_d = 10^{2}$')
 
-    ax3.text(0.02, 0.95, 'A)', zorder = 5, transform=ax3.transAxes, fontsize=12, va='top')
+    ax3.text(0.02, 0.95, 'B)', zorder = 5, transform=ax3.transAxes, fontsize=12, va='top')
     l5 = ax3b.plot(att_data[0][:,0], att_data[0][:,4], '--', zorder = 6, color = '#A0A0A0', label = r'$U_m(r)$')
 
-    ax3.set_ylim([0,2])
-    ax3.set_yticks([0,1,2])
+    ax3.set_ylim([0,1.8])
+    ax3.set_yticks([0,0.8,1.6])
     ax3.set_xlim([0,20])
     ax3.set_ylabel(r'$D_{eff}$')
 

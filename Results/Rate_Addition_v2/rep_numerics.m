@@ -71,6 +71,29 @@ For[j = 1, j <= 3, j++,
   Densities[[3, i + 1, j ]] = \[Rho]tot[r];
   ReactionRate[[1, i + 1, j ]] = rd;
   ReactionRate[[2, i + 1, j ]] = D[\[Rho]tot[r], r] /. r -> Rsink;
+
+rhovals = 
+ Partition[
+  Flatten[Table[N[{r, \[Rho]tot[r], (u1[r]+u2[r])/2}], {r, Rsink, 
+     Rmax, (Rmax - Rsink)/resolution}]], 3]
+
+Export["rhovals_Ks_"<>ToString[Ks]<>"_rd_"<>ToString[rd]".tsv", N[rhovals], "TSV"]
+
+rhooff = 
+ Partition[
+  Flatten[Table[{r, \[Rho]2eq[r]}, {r, Rsink, 
+     Rmax, (Rmax - Rsink)/resolution}]], 3]
+
+
+Export["offrhovals_Ks_"<>ToString[Ks]<>"_rd_"<>ToString[rd]".tsv", N[rhovals], "TSV"]
+
+rhoon = 
+ Partition[
+  Flatten[Table[{r, \[Rho]1eq[r]}, {r, Rsink, 
+     Rmax, (Rmax - Rsink)/resolution}]], 3]
+
+Export["onrhovals_Ks_"<>ToString[Ks]<>"_rd_"<>ToString[rd]".tsv", N[rhovals], "TSV"]
+
   ]]
 
 b = Table[0, {i, 1, npoints + 1}];

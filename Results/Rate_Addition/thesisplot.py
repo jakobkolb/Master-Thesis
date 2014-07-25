@@ -71,10 +71,14 @@ fig1.set_size_inches(3.54,height*3.54)
 
 i = 0
 
+ax1.text(0.02, 0.95, '$K_s = $'+Ksvals[i], transform=ax1.transAxes, fontsize=12, va='top')
 ax1.plot(Keff_rep[i][:,0],Keff_rep[i][:,1], '-',color = reds[i], label = r'$K_{eff}$')
 ax1.plot(Kbc_rep[i][:,0],Kbc_rep[i][:,1], '-.', color = reds[i], label = r'$K_{bc}$')    
 ax1.plot(Knum_rep[i][:,0],Knum_rep[i][:,1], 'o',color = blues[i], label = r'$K_N$')
 ax1.set_xscale('log')
+ax1.set_xlabel('$r_d$')
+ax1.set_ylabel('$K/K_D$')
+
 mp.legend()
 
 mp.savefig('rate_comparison'+`i`+'.pdf', 
@@ -92,11 +96,14 @@ fig2.set_size_inches(3.54,height*3.54)
 
 i = 1
 
+ax2.text(0.02, 0.95, '$K_s = $'+Ksvals[i], transform=ax2.transAxes, fontsize=12, va='top')
 ax2.plot(Keff_rep[i][:,0],Keff_rep[i][:,1], '-',color = reds[i], label = r'$K_{eff}$')
 ax2.plot(Kbc_rep[i][:,0],Kbc_rep[i][:,1], '-.', color = reds[i], label = r'$K_{bc}$')   
 ax2.plot(Knum_rep[i][:,0],Knum_rep[i][:,1], 'o',color = blues[i],  label = r'$K_N$')
 ax2.set_xscale('log')
 mp.legend()
+ax2.set_xlabel('$r_d$')
+ax2.set_ylabel('$K/K_D$')
 
 mp.savefig('rate_comparison'+`i`+'.pdf', 
             #This is simple recomendation for publication plots
@@ -113,11 +120,14 @@ fig3.set_size_inches(3.54,height*3.54)
 
 i = 2
 
+ax3.text(0.02, 0.95, '$K_s = $'+Ksvals[i], transform=ax3.transAxes, fontsize=12, va='top')
 ax3.plot(Keff_rep[i][:,0],Keff_rep[i][:,1], '-',color = reds[i], label = r'$K_{eff}$')
 ax3.plot(Kbc_rep[i][:,0],Kbc_rep[i][:,1], '-.', color = reds[i], label = r'$K_{bc}$')   
 ax3.plot(Knum_rep[i][:,0],Knum_rep[i][:,1], 'o',color = blues[i], label = r'$K_N$')
 ax3.set_xscale('log')
 mp.legend()
+ax3.set_xlabel('$r_d$')
+ax3.set_ylabel('$K/K_D$')
 
 mp.savefig('rate_comparison'+`i`+'.pdf', 
             #This is simple recomendation for publication plots
@@ -126,6 +136,4 @@ mp.savefig('rate_comparison'+`i`+'.pdf',
             bbox_inches='tight', 
             pad_inches=0.02
             )
-
-mp.show()
     
