@@ -31,8 +31,8 @@ pde = {D[\[Rho]1[r, t], t] ==
      w21 \[Rho]2[r, t] + w12 \[Rho]1[r, t]
    };
 bc = {
-   \[Rho]1[Rsink, t]*Ks == D[\[Rho]1[r,t],r]/.r->Rsink,
-   \[Rho]2[Rsink, t]*Ks == D[\[Rho]2[r,t],r]/.r->Rsink,
+   \[Rho]1[Rsink, t]*Ks == Derivative[1,0][\[Rho]1][Rsink,t],
+   \[Rho]2[Rsink, t]*Ks == Derivative[1,0][\[Rho]2][Rsink,t],
    \[Rho]1[Rmax, t] == w21/(w12 + w21),
    \[Rho]2[Rmax, t] == w12/(w12 + w21)
    };
