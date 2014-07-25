@@ -3,7 +3,7 @@
 Clear["Global`*"]
 
 d = 1;
-U01 = -3;
+U01 = 3;
 U02 = 0;
 a = 8.5;
 b = 2.5;
@@ -44,9 +44,9 @@ ic = {
    };
 
 Densities = 
-  Table[0, {k, 1, 3}, {i, 1, datapoints + 1}, {j, 1, 3 + 1}];
+  Table[0, {k, 1, 3}, {i, 1, datapoints + 1}, {j, 1, kpoints + 1}];
 ReactionRate = 
-  Table[0, {k, 1, 2}, {i, 1, datapoints + 1}, {j, 1, 3 + 1}];
+  Table[0, {k, 1, 2}, {i, 1, datapoints + 1}, {j, 1, kpoints + 1}];
 
 For[j = 1, j <= kpoints, j++,
  Ks = Ksvalues[[j]];
@@ -71,6 +71,29 @@ For[j = 1, j <= kpoints, j++,
   Densities[[3, i + 1, j ]] = \[Rho]tot[r];
   ReactionRate[[1, i + 1, j ]] = rd;
   ReactionRate[[2, i + 1, j ]] = D[\[Rho]tot[r], r] /. r -> Rsink;
+
+rhovals = 
+ Partition[
+  Flatten[Table[N[{r, \[Rho]tot[r], (u1[r]+u2[r])/2}], {r, Rsink, 
+     Rmax, (Rmax - Rsink)/resolution}]], 3]
+
+Export["rhovals_Ks_"<>ToString[Ks]<>"_rd_"<>ToString[rd]".tsv", N[rhovals], "TSV"]
+
+rhooff = 
+ Partition[
+  Flatten[Table[{r, \[Rho]2eq[r]}, {r, Rsink, 
+     Rmax, (Rmax - Rsink)/resolution}]], 3]
+
+
+Export["offrhovals_Ks_"<>ToString[Ks]<>"_rd_"<>ToString[rd]".tsv", N[rhooff], "TSV"]
+
+rhoon = 
+ Partition[
+  Flatten[Table[{r, \[Rho]1eq[r]}, {r, Rsink, 
+     Rmax, (Rmax - Rsink)/resolution}]], 3]
+
+Export["onrhovals_Ks_"<>ToString[Ks]<>"_rd_"<>ToString[rd]".tsv", N[rhoon], "TSV"]
+
   ]]
 
 b = Table[0, {i, 1, kpoints + 1}];
@@ -80,7 +103,7 @@ For[j = 1, j <= kpoints, j++,
  b[[j + 1]] = N[Flatten[ReactionRate[[2, All, j]]]];
  Print[b[[j+1]]]
  ]
-Export["att_numeric_rates.csv", Transpose[b]];
+Export["rep_numeric_rates.csv", Transpose[b]];
 
 
 

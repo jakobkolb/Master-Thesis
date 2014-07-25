@@ -1,0 +1,157 @@
+Information about the job:
+Job Id: 70127.irz14
+    Job_Name = Ks_scan_a_v2
+    Job_Owner = jkolb@pool12.physik.hu-berlin.de
+    job_state = R
+    queue = defq
+    server = irz14.physik.hu-berlin.de
+    Checkpoint = u
+    ctime = Fri Jul 25 21:01:48 2014
+    Error_Path = pool12.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen/
+	MA/Results/Rate_Addition_v2/ab/Ks_scan_a_v2.e70127
+    exec_host = pool28/3+pool28/2+pool28/1+pool28/0
+    Hold_Types = n
+    Join_Path = n
+    Keep_Files = n
+    Mail_Points = ae
+    mtime = Fri Jul 25 21:01:49 2014
+    Output_Path = pool12.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen
+	/MA/Results/Rate_Addition_v2/ab/Ks_scan_a_v2.o70127
+    Priority = 0
+    qtime = Fri Jul 25 21:01:48 2014
+    Rerunable = True
+    Resource_List.nice = 15
+    Resource_List.nodect = 1
+    Resource_List.nodes = 1:ppn=4
+    Resource_List.walltime = 720:00:00
+    session_id = 21247
+    Variable_List = PBS_O_QUEUE=defq,PBS_O_HOST=pool12.physik.hu-berlin.de,
+	PBS_O_HOME=/users/stud/jkolb,PBS_O_LANG=en_US.UTF-8,
+	PBS_O_LOGNAME=jkolb,
+	PBS_O_PATH=/usr/global/root/bin:/usr/local/cuda/bin:/usr/global/mpi/b
+	in:/usr/global/open64/bin:/usr/global/pgi/bin:/usr/global/intel/bin:/u
+	sr/global/maple/bin:/usr/global/math/bin:/usr/global/matlab/bin:/usr/g
+	lobal/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:.,
+	PBS_O_MAIL=/var/mail/jkolb,PBS_O_SHELL=/bin/bash,PBS_SERVER=irz14,
+	PBS_O_WORKDIR=/users/stud/jkolb/Veranstaltungen/MA/Results/Rate_Addit
+	ion_v2/ab
+    etime = Fri Jul 25 21:01:48 2014
+    submit_args = att_job.sh
+    start_time = Fri Jul 25 21:01:49 2014
+    Walltime.Remaining = 2592000
+    start_count = 1
+    fault_tolerant = False
+    submit_host = pool12.physik.hu-berlin.de
+    init_work_dir = /users/stud/jkolb/Veranstaltungen/MA/Results/Rate_Addition
+	_v2/ab
+
+
+
+
+Started batch processing at Fri Jul 25 21:01:49 CEST 2014.
+
+NDSolve::stpmin: The starting number of points determined by StartingStepSize -> 0.001 and StartingPoints -> Automatic is 1000, which is less than the minimum number of 24000 grid points. 24000 will be used instead.
+
+NDSolve::ibcinc: Warning: boundary and initial conditions are inconsistent.
+"Done""n="32"i="0"w12="500000.
+
+                                     1
+Table::iterb: Iterator {r, 1, 2, ----------} does not have appropriate bounds.
+                                 resolution
+
+                                     1
+Table::iterb: Iterator {r, 1, 2, ----------} does not have appropriate bounds.
+                                 resolution
+
+Table::argm: Table called with 0 arguments; 1 or more arguments are expected.
+
+Export::chtype: First argument onrhovals_Ks_0.1_rd_ 1 .tsv is not a valid file specification.
+                               ----
+                               1000
+
+                                     1
+Table::iterb: Iterator {r, 1, 2, ----------} does not have appropriate bounds.
+                                 resolution
+
+General::stop: Further output of Table::iterb will be suppressed during this calculation.
+
+Table::argm: Table called with 0 arguments; 1 or more arguments are expected.
+
+Export::chtype: First argument offrhovals_Ks_0.1_rd_ 1 .tsv is not a valid file specification.
+                               ----
+                               1000
+
+Set::write: Tag Times in rhoon $Failed Table[] is Protected.
+
+Table::argm: Table called with 0 arguments; 1 or more arguments are expected.
+
+General::stop: Further output of Table::argm will be suppressed during this calculation.
+
+Export::chtype: First argument rhovals_Ks_0.1_rd_ 1 .tsv is not a valid file specification.
+                               ----
+                               1000
+
+General::stop: Further output of Export::chtype will be suppressed during this calculation.
+
+Set::write: Tag Times in rhooff $Failed Table[] is Protected.
+
+NDSolve::stpmin: The starting number of points determined by StartingStepSize -> 0.001 and StartingPoints -> Automatic is 1000, which is less than the minimum number of 24000 grid points. 24000 will be used instead.
+
+NDSolve::ibcinc: Warning: boundary and initial conditions are inconsistent.
+"Done""n="32"i="1"w12="50000.
+
+Set::write: Tag Times in rhoon $Failed Table[] is Protected.
+
+General::stop: Further output of Set::write will be suppressed during this calculation.
+
+NDSolve::stpmin: The starting number of points determined by StartingStepSize -> 0.001 and StartingPoints -> Automatic is 1000, which is less than the minimum number of 24000 grid points. 24000 will be used instead.
+
+General::stop: Further output of NDSolve::stpmin will be suppressed during this calculation.
+
+NDSolve::ibcinc: Warning: boundary and initial conditions are inconsistent.
+
+General::stop: Further output of NDSolve::ibcinc will be suppressed during this calculation.
+"Done""n="32"i="2"w12="5000.
+"Done""n="32"i="3"w12="500.
+"Done""n="32"i="4"w12="50.
+"Done""n="32"i="5"w12="5.
+"Done""n="32"i="6"w12="0.5
+"Done""n="32"i="7"w12="0.05
+"Done""n="32"i="8"w12="0.005
+"Done""n="32"i="9"w12="0.0005
+"Done""n="32"i="10"w12="0.00005
+"Done""n="32"i="11"w12="5.*^-6
+"Done""n="32"i="12"w12="5.*^-7
+"Done""n="32"i="0"w12="500000.
+"Done""n="32"i="1"w12="50000.
+"Done""n="32"i="2"w12="5000.
+"Done""n="32"i="3"w12="500.
+"Done""n="32"i="4"w12="50.
+"Done""n="32"i="5"w12="5.
+"Done""n="32"i="6"w12="0.5
+"Done""n="32"i="7"w12="0.05
+"Done""n="32"i="8"w12="0.005
+"Done""n="32"i="9"w12="0.0005
+"Done""n="32"i="10"w12="0.00005
+"Done""n="32"i="11"w12="5.*^-6
+"Done""n="32"i="12"w12="5.*^-7
+"Done""n="32"i="0"w12="500000.
+"Done""n="32"i="1"w12="50000.
+"Done""n="32"i="2"w12="5000.
+"Done""n="32"i="3"w12="500.
+"Done""n="32"i="4"w12="50.
+"Done""n="32"i="5"w12="5.
+"Done""n="32"i="6"w12="0.5
+"Done""n="32"i="7"w12="0.05
+"Done""n="32"i="8"w12="0.005
+"Done""n="32"i="9"w12="0.0005
+"Done""n="32"i="10"w12="0.00005
+"Done""n="32"i="11"w12="5.*^-6
+"Done""n="32"i="12"w12="5.*^-7
+{0.001, 0.0031622776601683794, 0.01, 0.0316227766016838, 0.1, 0.31622776601683794, 1., 3.1622776601683795, 10., 31.622776601683796, 100., 316.22776601683796, 1000.}
+{1.0476278673772481, 1.047620929153234, 1.0476224223847352, 1.0476246609463962, 1.0476477348845563, 1.0476392016104095, 1.0476312939260772, 1.0476170157554567, 1.0476403736474127, 1.0476091190717445, 1.047610671636087, 1.047631149289995, 1.0476030965924437}
+{1.3333469876344715, 1.333337141505714, 1.3333382565218619, 1.3333394080743604, 1.3333259590095923, 1.333337802464162, 1.3333193481906052, 1.3333257478019598, 1.3333367877208115, 1.3333324417777728, 1.3333419705700489, 1.3333231900484357, 1.3333487361772312}
+{1.8333329745196427, 1.8333334132744143, 1.8333329453694902, 1.8333333342143554, 1.8333334980843836, 1.8333328457818796, 1.8333331094451202, 1.8333327045661987, 1.8333327300369013, 1.833333333717163, 1.8333330805190924, 1.8333338313343481, 1.8333329990341025}
+Ended batch processing at Fri Jul 25 21:16:01 CEST 2014.
+logout
+logout
