@@ -76,10 +76,15 @@ SUBROUTINE move_particles
         DO i = 1,npar
             IF(par(4,i)==1)THEN
                 force(:,i) = -par(:,i)/r1(i)*(EXP(-((-a+r1(i))/b)**Un)*Un*((-a+r1(i))/b)**Un*U1)/(a-r1(i)) 
+                !IF(DOT_PRODUCT(force(:,i),force(:,i)) .GE. 1) THEN
+                !    WRITE(*,*) SQRT(DOT_PRODUCT(par(:,i),par(:,i))), SQRT(DOT_PRODUCT(force(:,i),force(:,i)))*dt
+                !ENDIF
             ENDIF
         ENDDO
         !$OMP END PARALLEL DO
     ENDIF
+
+    force = force*dt
 
     !Apply random force to Particles (do step)
 
@@ -189,6 +194,7 @@ SUBROUTINE maintain_boundary_conditions(counter)
             dr(2) = SIN(phi)*SIN(theta)
             dr(3) = COS(theta) 
             par(1:3,i) = (Rd -(Rs - Rr))*dr
+print *, '############################', (Rd - (Rs - Rr))
         ELSEIF( Rr > Rd )THEN
 
         !Reset particles to some random place at the boundary if they exceed the

@@ -91,6 +91,9 @@ SUBROUTINE init_particles
         par(2,i) = 0
         par(3,i) = Rd
     ENDDO
+
+    parold = par
+
 !Initialize particle state according to detailled equilibrium
 
     IF(fmode == 0) THEN
@@ -123,7 +126,7 @@ SUBROUTINE init_statistics(bins)
 
     INTEGER, INTENT(in) :: bins
 
-    CALL clear5(4*bins+1,500)
+    CALL clear5(6*bins+1,500)
 
 END SUBROUTINE init_statistics
 

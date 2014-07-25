@@ -7,7 +7,8 @@ import os
 N = 5
 nbins = 1000
 pi = 3.14159265359
-frames  = 5
+frames  = 8
+f0 = 2
 
 densdata = {}
 ratedata = {}
@@ -15,14 +16,9 @@ ratedata = {}
 #____________________________________#
 #Import measured rate data from file #
 
-print 'read data from files '
-
-
-#____________________________________#
-#Import measured rate data from file #
-
 print 'read rate data from files '
 for i in range(frames):
+    print i
     mrate = np.loadtxt(('rate_data%02d' %(i+1)), skiprows=2)
     ratedata[i] = mrate
 
@@ -57,8 +53,26 @@ for j in range(frames):
 fig = mp.figure()
 ax = fig.add_subplot(111)
 
-ax.plot(densdata[:,0],densdata[:,1])
-ax.plot(densdata[:,0],densdata[:,3])
-ax.plot(densdata[10:-1,0],rhoinf/2.0/(1.-1./mrate[3])*(1-0.95/densdata[10:-1,0]))
+for i in range(frames):
+    ax.plot(densdata[i][:,0],(densdata[i][:,1]+densdata[i][:,3])/2.)
+
+
+densdata[frames+1] = densdata[0]
+for i in range(1+f0,frames):
+    densdata[frames+1] = densdata[frames+1] + densdata[i]
+densdata[frames+1] = densdata[frames+1]/float(frames-f0)
+
+fig2 = mp.figure()
+ax2 = fig2.add_subplot(111)
+
+ax2.plot(densdata[frames+1][:,0], (densdata[frames+1][:,1]+densdata[frames+1][:,3])/2.)
+
+fig3 = mp.figure()
+ax3 = fig3.add_subplot(111)
+
+ax3.plot(densdata[frames+1][:,0], densdata[frames+1][:,1])
+ax3.plot(densdata[frames+1][:,0], densdata[frames+1][:,3])
+
+
 
 mp.show()

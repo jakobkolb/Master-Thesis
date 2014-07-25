@@ -1,0 +1,236 @@
+Information about the job:
+Job Id: 69957.irz14
+    Job_Name = att25
+    Job_Owner = jkolb@pool24.physik.hu-berlin.de
+    job_state = R
+    queue = defq
+    server = irz14.physik.hu-berlin.de
+    Checkpoint = u
+    ctime = Wed Jul 23 09:46:47 2014
+    Error_Path = pool24.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen/
+	MA/Results/BDSim_mean_square_displacement/att_rd_025/att25.e69957
+    exec_host = pool26/3+pool26/2+pool26/1+pool26/0
+    Hold_Types = n
+    Join_Path = n
+    Keep_Files = n
+    Mail_Points = ae
+    mtime = Wed Jul 23 09:46:49 2014
+    Output_Path = pool24.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen
+	/MA/Results/BDSim_mean_square_displacement/att_rd_025/att25.o69957
+    Priority = 0
+    qtime = Wed Jul 23 09:46:48 2014
+    Rerunable = True
+    Resource_List.nice = 15
+    Resource_List.nodect = 1
+    Resource_List.nodes = 1:ppn=4
+    Resource_List.walltime = 720:00:00
+    session_id = 12043
+    Variable_List = PBS_O_QUEUE=defq,PBS_O_HOST=pool24.physik.hu-berlin.de,
+	PBS_O_HOME=/users/stud/jkolb,PBS_O_LANG=C,PBS_O_LOGNAME=jkolb,
+	PBS_O_PATH=/usr/global/root/bin:/usr/local/cuda/bin:/usr/global/mpi/b
+	in:/usr/global/open64/bin:/usr/global/pgi/bin:/usr/global/intel/bin:/u
+	sr/global/maple/bin:/usr/global/math/bin:/usr/global/matlab/bin:/usr/g
+	lobal/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:.,
+	PBS_O_SHELL=/bin/bash,PBS_SERVER=irz14,
+	PBS_O_WORKDIR=/users/stud/jkolb/Veranstaltungen/MA/Results/BDSim_mean
+	_square_displacement/att_rd_025
+    etime = Wed Jul 23 09:46:48 2014
+    submit_args = jobscript.sh
+    start_time = Wed Jul 23 09:46:49 2014
+    Walltime.Remaining = 2592000
+    start_count = 1
+    fault_tolerant = False
+    submit_host = pool24.physik.hu-berlin.de
+    init_work_dir = /users/stud/jkolb/Veranstaltungen/MA/Results/BDSim_mean_sq
+	uare_displacement/att_rd_025
+
+
+
+
+Started batch processing at Wed Jul 23 09:46:49 CEST 2014.
+ npar =       150000
+ D  =   2.500000000000000E-002
+ KT =    1.00000000000000     
+ dt =   3.000000000000000E-002
+ t0 =   0.000000000000000E+000
+ t1 =    50000.0000000000     
+ Rd =    20.0000000000000     
+ Rs =    1.00000000000000     
+ U0 =   0.000000000000000E+000
+ U1 =    3.00000000000000     
+ l =    5.00000000000000     
+ g =    1.00000000000000     
+ Un =    16.0000000000000     
+ K01=   0.200000000000000     
+ K10=   0.200000000000000     
+ it =      1666666
+          91
+       33333   999.989999999332        1.99997999999866                1
+ dens_data01
+ rate_data01
+ msqd_data01
+ relative error in rate is    62.9769085619683      %
+         861
+       66666   1999.97999999842        3.99995999999685                3
+ dens_data02
+ rate_data02
+ msqd_data02
+ relative error in rate is    13.9771831833422      %
+        1265
+       99999   2999.97000000473        5.99994000000946                5
+ dens_data03
+ rate_data03
+ msqd_data03
+ relative error in rate is    2.88571653548954      %
+        1421
+      133332   3999.96000001140        7.99992000002280                7
+ dens_data04
+ rate_data04
+ msqd_data04
+ relative error in rate is    2.61674377656845      %
+        1505
+      166665   4999.95000000437        9.99990000000873                9
+ dens_data05
+ rate_data05
+ msqd_data05
+ relative error in rate is    2.78221429109535      %
+        1443
+      199998   5999.93999999588        11.9998799999918               11
+ dens_data06
+ rate_data06
+ msqd_data06
+ relative error in rate is    2.82117680806283      %
+        1409
+      233331   6999.92999998739        13.9998599999748               13
+ dens_data07
+ rate_data07
+ msqd_data07
+ relative error in rate is    2.66631455646214      %
+        1479
+      266664   7999.91999997890        15.9998399999578               15
+ dens_data08
+ rate_data08
+ msqd_data08
+ relative error in rate is    2.56969067257026      %
+        1458
+      299997   8999.90999999490        17.9998199999898               17
+ dens_data09
+ rate_data09
+ msqd_data09
+ relative error in rate is    2.65431672481027      %
+        1396
+      333330   9999.90000001673        19.9998000000335               19
+ dens_data10
+ rate_data10
+ msqd_data10
+ relative error in rate is    2.80495499686244      %
+        1405
+      366663   10999.8900000386        21.9997800000771               21
+ dens_data11
+ rate_data11
+ msqd_data11
+ relative error in rate is    2.73122110201920      %
+        1458
+      399996   11999.8800000604        23.9997600001208               23
+ dens_data12
+ rate_data12
+ msqd_data12
+ relative error in rate is    2.57949999008199      %
+        1469
+      433329   12999.8700000822        25.9997400001644               25
+ dens_data13
+ rate_data13
+ msqd_data13
+ relative error in rate is    2.55506485262951      %
+        1489
+      466662   13999.8600001040        27.9997200002081               27
+ dens_data14
+ rate_data14
+ msqd_data14
+ relative error in rate is    2.48317530394440      %
+        1531
+      499995   14999.8500001259        29.9997000002517               29
+ dens_data15
+ rate_data15
+ msqd_data15
+ relative error in rate is    2.61908126990318      %
+        1504
+      533328   15999.8400001477        31.9996800002954               31
+ dens_data16
+ rate_data16
+ msqd_data16
+ relative error in rate is    2.56900090117745      %
+        1408
+      566661   16999.8300001322        33.9996600002644               33
+ dens_data17
+ rate_data17
+ msqd_data17
+ relative error in rate is    2.71311063898091      %
+        1484
+      599994   17999.8200000934        35.9996400001868               35
+ dens_data18
+ rate_data18
+ msqd_data18
+ relative error in rate is    2.50433930004108      %
+        1498
+      633327   18999.8100000546        37.9996200001092               37
+ dens_data19
+ rate_data19
+ msqd_data19
+ relative error in rate is    2.45265193641192      %
+        1439
+      666660   19999.8000000158        39.9996000000315               39
+ dens_data20
+ rate_data20
+ msqd_data20
+ relative error in rate is    2.73705822459084      %
+        1469
+      699993   20999.7899999770        41.9995799999539               41
+ dens_data21
+ rate_data21
+ msqd_data21
+ relative error in rate is    2.55093936790866      %
+        1423
+      733326   21999.7799999382        43.9995599998763               43
+ dens_data22
+ rate_data22
+ msqd_data22
+ relative error in rate is    2.70445017233436      %
+        1517
+      766659   22999.7699998994        45.9995399997987               45
+ dens_data23
+ rate_data23
+ msqd_data23
+ relative error in rate is    2.96430073038233      %
+        1519
+      799992   23999.7599998606        47.9995199997211               47
+ dens_data24
+ rate_data24
+ msqd_data24
+ relative error in rate is    2.49426685958493      %
+        1447
+      833325   24999.7499998217        49.9994999996435               49
+ dens_data25
+ rate_data25
+ msqd_data25
+ relative error in rate is    2.65928965463290      %
+        1466
+      866658   25999.7399997829        51.9994799995659               51
+ dens_data26
+ rate_data26
+ msqd_data26
+ relative error in rate is    2.74690253445610      %
+        1500
+      899991   26999.7299997441        53.9994599994883               53
+ dens_data27
+ rate_data27
+ msqd_data27
+ relative error in rate is    2.63286521154047      %
+        1458
+      933324   27999.7199997053        55.9994399994107               55
+ dens_data28
+ rate_data28
+ msqd_data28
+ relative error in rate is    3.22587176684697      %
+logout
+logout

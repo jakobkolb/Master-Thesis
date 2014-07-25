@@ -1,0 +1,135 @@
+Information about the job:
+Job Id: 69947.irz14
+    Job_Name = att25
+    Job_Owner = jkolb@pool12.physik.hu-berlin.de
+    job_state = R
+    queue = defq
+    server = irz14.physik.hu-berlin.de
+    Checkpoint = u
+    ctime = Tue Jul 22 23:33:36 2014
+    Error_Path = pool12.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen/
+	MA/Results/BDSim_mean_square_displacement/att_rd_250/att25.e69947
+    exec_host = pool28/3+pool28/2+pool28/1+pool28/0
+    Hold_Types = n
+    Join_Path = n
+    Keep_Files = n
+    Mail_Points = ae
+    mtime = Tue Jul 22 23:33:37 2014
+    Output_Path = pool12.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen
+	/MA/Results/BDSim_mean_square_displacement/att_rd_250/att25.o69947
+    Priority = 0
+    qtime = Tue Jul 22 23:33:36 2014
+    Rerunable = True
+    Resource_List.nice = 15
+    Resource_List.nodect = 1
+    Resource_List.nodes = 1:ppn=4
+    Resource_List.walltime = 720:00:00
+    session_id = 21231
+    Variable_List = PBS_O_QUEUE=defq,PBS_O_HOST=pool12.physik.hu-berlin.de,
+	PBS_O_HOME=/users/stud/jkolb,PBS_O_LANG=en_US.UTF-8,
+	PBS_O_LOGNAME=jkolb,
+	PBS_O_PATH=/usr/global/root/bin:/usr/local/cuda/bin:/usr/global/mpi/b
+	in:/usr/global/open64/bin:/usr/global/pgi/bin:/usr/global/intel/bin:/u
+	sr/global/maple/bin:/usr/global/math/bin:/usr/global/matlab/bin:/usr/g
+	lobal/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:.,
+	PBS_O_MAIL=/var/mail/jkolb,PBS_O_SHELL=/bin/bash,PBS_SERVER=irz14,
+	PBS_O_WORKDIR=/users/stud/jkolb/Veranstaltungen/MA/Results/BDSim_mean
+	_square_displacement/att_rd_250
+    etime = Tue Jul 22 23:33:36 2014
+    submit_args = jobscript.sh
+    start_time = Tue Jul 22 23:33:37 2014
+    Walltime.Remaining = 2592000
+    start_count = 1
+    fault_tolerant = False
+    submit_host = pool12.physik.hu-berlin.de
+    init_work_dir = /users/stud/jkolb/Veranstaltungen/MA/Results/BDSim_mean_sq
+	uare_displacement/att_rd_250
+
+
+
+
+Started batch processing at Tue Jul 22 23:33:37 CEST 2014.
+ npar =       150000
+ D  =   2.500000000000000E-002
+ KT =    1.00000000000000     
+ dt =   3.000000000000000E-002
+ t0 =   0.000000000000000E+000
+ t1 =    200000.000000000     
+ Rd =    20.0000000000000     
+ Rs =    1.00000000000000     
+ U0 =   0.000000000000000E+000
+ U1 =   -3.00000000000000     
+ l =    5.00000000000000     
+ g =    1.00000000000000     
+ Un =    16.0000000000000     
+ K01=   2.000000000000000E-007
+ K10=   2.000000000000000E-007
+ it =      6666666
+        1911
+      133333   3999.99000001140        1.99999500000570                1
+ dens_data01
+ rate_data01
+ msqd_data01
+ relative error in rate is    31.3696384330957      %
+        2921
+      266666   7999.97999997890        3.99998999998945                3
+ dens_data02
+ rate_data02
+ msqd_data02
+ relative error in rate is    1.81055825954622      %
+        2988
+      399999   11999.9700000604        5.99998500003020                5
+ dens_data03
+ rate_data03
+ msqd_data03
+ relative error in rate is    1.70223963062991      %
+        2956
+      533332   15999.9600001477        7.99998000007385                7
+ dens_data04
+ rate_data04
+ msqd_data04
+ relative error in rate is    2.04637030096841      %
+        2930
+      666665   19999.9500000158        9.99997500000788                9
+ dens_data05
+ rate_data05
+ msqd_data05
+ relative error in rate is    1.81184531491878      %
+        3048
+      799998   23999.9399998605        11.9999699999303               11
+ dens_data06
+ rate_data06
+ msqd_data06
+ relative error in rate is    1.81697399506322      %
+        3091
+      933331   27999.9299997053        13.9999649998527               13
+ dens_data07
+ rate_data07
+ msqd_data07
+ relative error in rate is    1.74984642147552      %
+        2965
+     1066664   31999.9199995501        15.9999599997751               15
+ dens_data08
+ rate_data08
+ msqd_data08
+ relative error in rate is    1.84292619866164      %
+        2917
+     1199997   35999.9099993949        17.9999549996974               17
+ dens_data09
+ rate_data09
+ msqd_data09
+ relative error in rate is    1.96067947954198      %
+        2966
+     1333330   39999.8999992397        19.9999499996198               19
+ dens_data10
+ rate_data10
+ msqd_data10
+ relative error in rate is    1.73873395972009      %
+        3003
+     1466663   43999.8899990845        21.9999449995422               21
+ dens_data11
+ rate_data11
+ msqd_data11
+ relative error in rate is    1.62883667145213      %
+logout
+logout

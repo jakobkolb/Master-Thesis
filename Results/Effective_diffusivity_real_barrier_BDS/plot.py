@@ -8,7 +8,7 @@ N = 5
 nbins = 1000
 pi = 3.14159265359
 frames  = 4
-last_frame = 2
+last_frame = 5
 fstep = 1
 
 attdensdata = {}
@@ -89,7 +89,7 @@ for j in range(frames):
     eKrep = repratedata[j][13]/(4.*np.pi*Drep*reprhoinf)
 
 #    print 'err K = ', eK 
-    #ax1.errorbar(rdatt[j],Katt,yerr = eKatt,fmt='bo')
+    ax1.errorbar(rdatt[j],Katt,yerr = eKatt,fmt='bo')
     ax1.errorbar(rdrep[j],Krep,yerr = eKrep,fmt='ro')
 ax1.set_xscale('log')
 r1 = 18
@@ -101,8 +101,9 @@ drs = 0
 fig1 = mp.figure()
 ax1 = fig1.add_subplot(111)
 for i in range(frames):
-    ax1.plot(attdensdata[i][:,0],attdensdata[i][:,1])
-    ax1.plot(attdensdata[i][:,0],attdensdata[i][:,3])
+#    ax1.plot(attdensdata[i][:,0],attdensdata[i][:,1])
+#    ax1.plot(attdensdata[i][:,0],attdensdata[i][:,3])
+    ax1.plot(attdensdata[i][:,0],(attdensdata[i][:,1]+attdensdata[i][:,3])/2.)
 
 fig3 = mp.figure()
 ax3 = fig3.add_subplot(111)
@@ -115,8 +116,9 @@ ax3.set_yscale('log')
 fig5 = mp.figure()
 ax5 = fig5.add_subplot(111)
 for i in range(frames):
-    ax5.plot(repdensdata[i][:,0],repdensdata[i][:,1])
-    ax5.plot(repdensdata[i][:,0],repdensdata[i][:,3])
+#    ax5.plot(repdensdata[i][:,0],repdensdata[i][:,1])
+#    ax5.plot(repdensdata[i][:,0],repdensdata[i][:,3])
+    ax5.plot(repdensdata[i][:,0],(repdensdata[i][:,1]+repdensdata[i][:,3])/2.)
 
 fig7 = mp.figure()
 ax7 = fig7.add_subplot(111)
@@ -124,5 +126,10 @@ for i in range(frames):
     ax7.plot(repdensdata[i][0:-1,0],repmsqddata[i][0:-1,1])
     ax7.plot(repdensdata[i][0:-1,0],repmsqddata[i][0:-1,3])
 ax7.set_yscale('log')
+
+fig8 = mp.figure()
+ax8 = fig8.add_subplot(111)
+for i in range(frames):
+    ax8.plot(repdensdata[i][0:-1,0],repmsqddata[i][0:-1,5])
 
 mp.show()

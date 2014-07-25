@@ -1,0 +1,80 @@
+Information about the job:
+Job Id: 69960.irz14
+    Job_Name = att25
+    Job_Owner = jkolb@pool24.physik.hu-berlin.de
+    job_state = R
+    queue = defq
+    server = irz14.physik.hu-berlin.de
+    Checkpoint = u
+    ctime = Wed Jul 23 09:47:30 2014
+    Error_Path = pool24.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen/
+	MA/Results/BDSim_mean_square_displacement/rep_rd_025/att25.e69960
+    exec_host = pool29/3+pool29/2+pool29/1+pool29/0
+    Hold_Types = n
+    Join_Path = n
+    Keep_Files = n
+    Mail_Points = ae
+    mtime = Wed Jul 23 09:47:32 2014
+    Output_Path = pool24.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen
+	/MA/Results/BDSim_mean_square_displacement/rep_rd_025/att25.o69960
+    Priority = 0
+    qtime = Wed Jul 23 09:47:30 2014
+    Rerunable = True
+    Resource_List.nice = 15
+    Resource_List.nodect = 1
+    Resource_List.nodes = 1:ppn=4
+    Resource_List.walltime = 720:00:00
+    session_id = 26492
+    Variable_List = PBS_O_QUEUE=defq,PBS_O_HOST=pool24.physik.hu-berlin.de,
+	PBS_O_HOME=/users/stud/jkolb,PBS_O_LANG=C,PBS_O_LOGNAME=jkolb,
+	PBS_O_PATH=/usr/global/root/bin:/usr/local/cuda/bin:/usr/global/mpi/b
+	in:/usr/global/open64/bin:/usr/global/pgi/bin:/usr/global/intel/bin:/u
+	sr/global/maple/bin:/usr/global/math/bin:/usr/global/matlab/bin:/usr/g
+	lobal/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:.,
+	PBS_O_SHELL=/bin/bash,PBS_SERVER=irz14,
+	PBS_O_WORKDIR=/users/stud/jkolb/Veranstaltungen/MA/Results/BDSim_mean
+	_square_displacement/rep_rd_025
+    etime = Wed Jul 23 09:47:30 2014
+    submit_args = jobscript.sh
+    start_time = Wed Jul 23 09:47:32 2014
+    Walltime.Remaining = 2592000
+    start_count = 1
+    fault_tolerant = False
+    submit_host = pool24.physik.hu-berlin.de
+    init_work_dir = /users/stud/jkolb/Veranstaltungen/MA/Results/BDSim_mean_sq
+	uare_displacement/rep_rd_025
+
+
+
+
+Started batch processing at Wed Jul 23 09:47:32 CEST 2014.
+ npar =       150000
+ D  =   2.500000000000000E-002
+ KT =    1.00000000000000     
+ dt =   3.000000000000000E-002
+ t0 =   0.000000000000000E+000
+ t1 =    200000.000000000     
+ Rd =    20.0000000000000     
+ Rs =    1.00000000000000     
+ U0 =   0.000000000000000E+000
+ U1 =    3.00000000000000     
+ l =    5.00000000000000     
+ g =    1.00000000000000     
+ Un =    16.0000000000000     
+ K01=   0.200000000000000     
+ K10=   0.200000000000000     
+ it =      6666666
+        3675
+      133333   3999.99000001140        1.99999500000570                1
+ dens_data01
+ rate_data01
+ msqd_data01
+ relative error in rate is    30.9100812338219      %
+        5811
+      266666   7999.97999997890        3.99998999998945                3
+ dens_data02
+ rate_data02
+ msqd_data02
+ relative error in rate is    1.35349766832341      %
+logout
+logout
