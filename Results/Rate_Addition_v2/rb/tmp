@@ -3,7 +3,7 @@
 Clear["Global`*"]
 
 d = 1;
-U01 = -3;
+U01 = 3;
 U02 = 0;
 a = 8.5;
 b = 2.5;
@@ -13,12 +13,12 @@ n = 32;
 Ksvalues={0.1,1,10}
 kpoints=3;
 Rsink = 1;
-Rmax = 20;
+Rmax = 2;
 t0 = 0;
 t1 = 1000;
 rdmin = -3;
 rdmax = 3;
-datapoints = 12;
+datapoints = 3;
 u1[r_] := U01 Exp[-((r - a)/b)^n];
 u2[r_] := U02 Exp[-((r - a)/b)^n];
 pde = {D[\[Rho]1[r, t], t] == 
@@ -72,6 +72,8 @@ ClarAll[Ks];
   Densities[[3, i + 1, j ]] = \[Rho]tot[r];
   ReactionRate[[1, i + 1, j ]] = rd;
   ReactionRate[[2, i + 1, j ]] = D[\[Rho]tot[r], r] /. r -> Rsink;
+
+  PutAppend["Done", "rd=", rd, "Ks=", Ks, "K=", N[ReactionRate[[2,i+1,j]]],"rep_output.tmp"];
   ]]
 
 b = Table[0, {i, 1, kpoints + 1}];
@@ -81,7 +83,7 @@ For[j = 1, j <= kpoints, j++,
  b[[j + 1]] = N[Flatten[ReactionRate[[2, All, j]]]];
  Print[b[[j+1]]]
  ]
-Export["att_numeric_rates.csv", Transpose[b]];
+Export["rep_numeric_rates.csv", Transpose[b]];
 
 
 

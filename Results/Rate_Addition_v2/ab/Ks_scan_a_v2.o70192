@@ -1,0 +1,113 @@
+Information about the job:
+Job Id: 70192.irz14
+    Job_Name = Ks_scan_a_v2
+    Job_Owner = jkolb@pool12.physik.hu-berlin.de
+    job_state = R
+    queue = defq
+    server = irz14.physik.hu-berlin.de
+    Checkpoint = u
+    ctime = Sat Jul 26 23:33:43 2014
+    Error_Path = pool12.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen/
+	MA/Results/Rate_Addition_v2/ab/Ks_scan_a_v2.e70192
+    exec_host = pool27/3+pool27/2+pool27/1+pool27/0
+    Hold_Types = n
+    Join_Path = n
+    Keep_Files = n
+    Mail_Points = ae
+    mtime = Sat Jul 26 23:33:44 2014
+    Output_Path = pool12.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen
+	/MA/Results/Rate_Addition_v2/ab/Ks_scan_a_v2.o70192
+    Priority = 0
+    qtime = Sat Jul 26 23:33:43 2014
+    Rerunable = True
+    Resource_List.nice = 15
+    Resource_List.nodect = 1
+    Resource_List.nodes = 1:ppn=4
+    Resource_List.walltime = 720:00:00
+    session_id = 26897
+    Variable_List = PBS_O_QUEUE=defq,PBS_O_HOST=pool12.physik.hu-berlin.de,
+	PBS_O_HOME=/users/stud/jkolb,PBS_O_LANG=en_US.UTF-8,
+	PBS_O_LOGNAME=jkolb,
+	PBS_O_PATH=/usr/global/root/bin:/usr/local/cuda/bin:/usr/global/mpi/b
+	in:/usr/global/open64/bin:/usr/global/pgi/bin:/usr/global/intel/bin:/u
+	sr/global/maple/bin:/usr/global/math/bin:/usr/global/matlab/bin:/usr/g
+	lobal/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:.,
+	PBS_O_MAIL=/var/mail/jkolb,PBS_O_SHELL=/bin/bash,PBS_SERVER=irz14,
+	PBS_O_WORKDIR=/users/stud/jkolb/Veranstaltungen/MA/Results/Rate_Addit
+	ion_v2/ab
+    etime = Sat Jul 26 23:33:43 2014
+    submit_args = att_job.sh
+    start_time = Sat Jul 26 23:33:44 2014
+    Walltime.Remaining = 2592000
+    start_count = 1
+    fault_tolerant = False
+    submit_host = pool12.physik.hu-berlin.de
+    init_work_dir = /users/stud/jkolb/Veranstaltungen/MA/Results/Rate_Addition
+	_v2/ab
+
+
+
+
+Started batch processing at Sat Jul 26 23:33:44 CEST 2014.
+
+NDSolve::stpmin: The starting number of points determined by StartingStepSize -> 0.001 and StartingPoints -> Automatic is 19000, which is less than the minimum number of 24000 grid points. 24000 will be used instead.
+
+General::unfl: Underflow occurred in computation.
+
+General::unfl: Underflow occurred in computation.
+
+General::unfl: Underflow occurred in computation.
+
+General::stop: Further output of General::unfl will be suppressed during this calculation.
+"Done""n="32"i="0"w12="500000.
+
+NDSolve::stpmin: The starting number of points determined by StartingStepSize -> 0.001 and StartingPoints -> Automatic is 19000, which is less than the minimum number of 24000 grid points. 24000 will be used instead.
+"Done""n="32"i="1"w12="50000.
+
+NDSolve::stpmin: The starting number of points determined by StartingStepSize -> 0.001 and StartingPoints -> Automatic is 19000, which is less than the minimum number of 24000 grid points. 24000 will be used instead.
+
+General::stop: Further output of NDSolve::stpmin will be suppressed during this calculation.
+"Done""n="32"i="2"w12="5000.
+"Done""n="32"i="3"w12="500.
+"Done""n="32"i="4"w12="50.
+"Done""n="32"i="5"w12="5.
+"Done""n="32"i="6"w12="0.5
+"Done""n="32"i="7"w12="0.05
+"Done""n="32"i="8"w12="0.005
+"Done""n="32"i="9"w12="0.0005
+"Done""n="32"i="10"w12="0.00005
+"Done""n="32"i="11"w12="5.*^-6
+"Done""n="32"i="12"w12="5.*^-7
+"Done""n="32"i="0"w12="500000.
+"Done""n="32"i="1"w12="50000.
+"Done""n="32"i="2"w12="5000.
+"Done""n="32"i="3"w12="500.
+"Done""n="32"i="4"w12="50.
+"Done""n="32"i="5"w12="5.
+"Done""n="32"i="6"w12="0.5
+"Done""n="32"i="7"w12="0.05
+"Done""n="32"i="8"w12="0.005
+"Done""n="32"i="9"w12="0.0005
+"Done""n="32"i="10"w12="0.00005
+"Done""n="32"i="11"w12="5.*^-6
+"Done""n="32"i="12"w12="5.*^-7
+"Done""n="32"i="0"w12="500000.
+"Done""n="32"i="1"w12="50000.
+"Done""n="32"i="2"w12="5000.
+"Done""n="32"i="3"w12="500.
+"Done""n="32"i="4"w12="50.
+"Done""n="32"i="5"w12="5.
+"Done""n="32"i="6"w12="0.5
+"Done""n="32"i="7"w12="0.05
+"Done""n="32"i="8"w12="0.005
+"Done""n="32"i="9"w12="0.0005
+"Done""n="32"i="10"w12="0.00005
+"Done""n="32"i="11"w12="5.*^-6
+"Done""n="32"i="12"w12="5.*^-7
+{0.001, 0.0031622776601683794, 0.01, 0.0316227766016838, 0.1, 0.31622776601683794, 1., 3.1622776601683795, 10., 31.622776601683796, 100., 316.22776601683796, 1000.}
+{0.0918154711861417, 0.09181837345582436, 0.09184802154245802, 0.09210306245174565, 0.0933993200947541, 0.09686246040676254, 0.10540158055490605, 0.11269604474909699, 0.10460502096188407, 0.0932406767424721, 0.09011160474848776, 0.08974591983002103, 0.08970877576613545}
+{0.5287349942309302, 0.528750596359473, 0.5289038408821017, 0.5302244422379139, 0.536978708639605, 0.555446804219923, 0.6022620603720786, 0.6396497606784545, 0.5917042563241386, 0.5309382087559941, 0.5144461245150909, 0.5125217664336854, 0.5123261679663563}
+{1.0087806471948975, 1.008806677612597, 1.009062419738281, 1.0112719636826173, 1.022675702889059, 1.0548566759936489, 1.1393435554947358, 1.2010964337026806, 1.1076065449017212, 1.001285985885813, 0.9728869137314449, 0.9695771267157401, 0.969242544873487}
+Ended batch processing at Sat Jul 26 23:50:24 CEST 2014.
+logout
+logout

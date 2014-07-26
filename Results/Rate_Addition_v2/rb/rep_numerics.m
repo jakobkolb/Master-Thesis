@@ -13,7 +13,7 @@ n = 32;
 Ksvalues={0.1,1,10}
 kpoints=3;
 Rsink = 1;
-Rmax = 2;
+Rmax = 20;
 t0 = 0;
 t1 = 1000;
 rdmin = -3;
@@ -39,8 +39,8 @@ bc = {
    \[Rho]2[Rmax, t] == w12/(w12 + w21)
    };
 ic = {
-   \[Rho]1[r, t0] == w21/(w12 + w21)*(1 - 1/r),
-   \[Rho]2[r, t0] == w12/(w12 + w21)*(1 - 1/r)
+   \[Rho]1[r, t0] == w21/(w12 + w21)*Exp[-((r - Rmax)/(Rmax/4))^n],
+   \[Rho]2[r, t0] == w12/(w12 + w21)*Exp[-((r - Rmax)/(Rmax/4))^n]
    };
 
 Densities = 
@@ -49,6 +49,7 @@ ReactionRate =
   Table[0, {k, 1, 2}, {i, 1, datapoints + 1}, {j, 1, kpoints + 1}];
 
 For[j = 1, j <= kpoints, j++,
+ClarAll[Ks];
  Ks = Ksvalues[[j]];
  For[i = 0, i <= datapoints, i++,
   rd = 10^(rdmin + i*(rdmax - rdmin)/datapoints);
@@ -71,29 +72,6 @@ For[j = 1, j <= kpoints, j++,
   Densities[[3, i + 1, j ]] = \[Rho]tot[r];
   ReactionRate[[1, i + 1, j ]] = rd;
   ReactionRate[[2, i + 1, j ]] = D[\[Rho]tot[r], r] /. r -> Rsink;
-
-rhovals = 
- Partition[
-  Flatten[Table[N[{r, \[Rho]tot[r], (u1[r]+u2[r])/2}], {r, Rsink, 
-     Rmax, (Rmax - Rsink)/resolution}]], 3]
-
-Export["rhovals_Ks_"<>ToString[Ks]<>"_rd_"<>ToString[rd]".tsv", N[rhovals], "TSV"]
-
-rhooff = 
- Partition[
-  Flatten[Table[{r, \[Rho]2eq[r]}, {r, Rsink, 
-     Rmax, (Rmax - Rsink)/resolution}]], 3]
-
-
-Export["offrhovals_Ks_"<>ToString[Ks]<>"_rd_"<>ToString[rd]".tsv", N[rhooff], "TSV"]
-
-rhoon = 
- Partition[
-  Flatten[Table[{r, \[Rho]1eq[r]}, {r, Rsink, 
-     Rmax, (Rmax - Rsink)/resolution}]], 3]
-
-Export["onrhovals_Ks_"<>ToString[Ks]<>"_rd_"<>ToString[rd]".tsv", N[rhoon], "TSV"]
-
   ]]
 
 b = Table[0, {i, 1, kpoints + 1}];

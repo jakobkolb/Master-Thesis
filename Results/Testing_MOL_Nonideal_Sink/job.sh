@@ -9,11 +9,18 @@ cd $PBS_O_WORKDIR
 echo "Information about the job:"
 qstat -f $PBS_JOBID
 echo -e "\n\n"
+
+rm att_rd_05.*
+rm *.tsv
+rm *.out
+rm *.pdf
+rm done.txt
  
 echo "Started batch processing at `date`."
 math -script numeric_integration.m
 echo "mathematica finished at `date`."
-python 2_Eff.py
-echo "Ended batch processing at `date`."
- 
+python plot0.py
+
+echo 'done'>done.txt
+
 exit 0

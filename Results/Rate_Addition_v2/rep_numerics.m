@@ -18,7 +18,8 @@ t0 = 0;
 t1 = 1000;
 rdmin = -3;
 rdmax = 3;
-datapoints = 12;
+datapoints = 3;
+resolution = 100;
 u1[r_] := U01 Exp[-((r - a)/b)^n];
 u2[r_] := U02 Exp[-((r - a)/b)^n];
 pde = {D[\[Rho]1[r, t], t] == 
@@ -32,15 +33,17 @@ pde = {D[\[Rho]1[r, t], t] ==
      d 2/r D[\[Rho]2[r, t], r] + d D[\[Rho]2[r, t], r, r] - 
      w21 \[Rho]2[r, t] + w12 \[Rho]1[r, t]
    };
+
 bc = {
    \[Rho]1[Rsink, t]*Ks == Derivative[1,0][\[Rho]1][Rsink,t],
    \[Rho]2[Rsink, t]*Ks == Derivative[1,0][\[Rho]2][Rsink,t],
    \[Rho]1[Rmax, t] == w21/(w12 + w21),
    \[Rho]2[Rmax, t] == w12/(w12 + w21)
    };
+
 ic = {
-   \[Rho]1[r, t0] == w21/(w12 + w21)*(1 - 1/r),
-   \[Rho]2[r, t0] == w12/(w12 + w21)*(1 - 1/r)
+   \[Rho]1[r, t0] == w21/(w12 + w21)*Exp[-((r - Rmax)/(Rmax/4))^n],
+   \[Rho]2[r, t0] == w12/(w12 + w21)*Exp[-((r - Rmax)/(Rmax/4))^n]
    };
 
 Densities = 
@@ -61,7 +64,6 @@ For[j = 1, j <= kpoints, j++,
     Method -> {"MethodOfLines", 
       "SpatialDiscretization" -> {"TensorProductGrid", 
         "MinPoints" -> 24000}}];
-  Print["Done", "n=", n, "i=", i, "w12=", N[w12]];
   \[Rho]1eq[r_] = \[Rho]1[r, t1] /. sol;
   \[Rho]2eq[r_] = \[Rho]2[r, t1] /. sol;
   \[Rho]tot[r_] = (\[Rho]1[r, t1] + \[Rho]2[r, t1]) /. sol;
@@ -72,33 +74,14 @@ For[j = 1, j <= kpoints, j++,
   ReactionRate[[1, i + 1, j ]] = rd;
   ReactionRate[[2, i + 1, j ]] = D[\[Rho]tot[r], r] /. r -> Rsink;
 
-rhovals = 
- Partition[
-  Flatten[Table[N[{r, \[Rho]tot[r], (u1[r]+u2[r])/2}], {r, Rsink, 
-     Rmax, (Rmax - Rsink)/resolution}]], 3]
-
-Export["rhovals_Ks_"<>ToString[Ks]<>"_rd_"<>ToString[rd]".tsv", N[rhovals], "TSV"]
-
-rhooff = 
- Partition[
-  Flatten[Table[{r, \[Rho]2eq[r]}, {r, Rsink, 
-     Rmax, (Rmax - Rsink)/resolution}]], 3]
-
-
-Export["offrhovals_Ks_"<>ToString[Ks]<>"_rd_"<>ToString[rd]".tsv", N[rhooff], "TSV"]
-
-rhoon = 
- Partition[
-  Flatten[Table[{r, \[Rho]1eq[r]}, {r, Rsink, 
-     Rmax, (Rmax - Rsink)/resolution}]], 3]
-
-Export["onrhovals_Ks_"<>ToString[Ks]<>"_rd_"<>ToString[rd]".tsv", N[rhoon], "TSV"]
+  PutAppend["Done", "rd=", rd, "Ks=", Ks, "K=", N[ReactionRate[[2,i+1,j]]],"rep_output.tmp"];
+  PutAppend[D[\[Rho]tot[r], r] /. r -> Rsink, "rate.out"];
 
   ]]
 
 b = Table[0, {i, 1, kpoints + 1}];
 b[[1]] = N[ReactionRate[[1, All, 1]]];
-Print[b[[1]]]
+Print[b[[1]]];
 For[j = 1, j <= kpoints, j++,
  b[[j + 1]] = N[Flatten[ReactionRate[[2, All, j]]]];
  Print[b[[j+1]]]
