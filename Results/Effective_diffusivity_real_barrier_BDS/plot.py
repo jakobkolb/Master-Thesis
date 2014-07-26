@@ -8,7 +8,7 @@ N = 5
 nbins = 1000
 pi = 3.14159265359
 frames  = 4
-last_frame = 1
+last_frame = 3
 fstep = 0
 
 attdensdata = {}
@@ -60,13 +60,16 @@ for i in range(frames):
 for j in range(frames):
     for i in range(np.shape(attdensdata[j])[0]):
         attmsqddata[j][i,1] = attmsqddata[j][i,1]/attdensdata[j][i,1]
+        attmsqddata[j][i,2] = np.sqrt((1/attdensdata[j][i,1]*attmsqddata[j][i,2])**2 + (attmsqddata[j][i,1]/attdensdata[j][i,1]**2*attdensdata[j][i,2])**2)
         attmsqddata[j][i,3] = attmsqddata[j][i,3]/attdensdata[j][i,3]
+        attmsqddata[j][i,4] = np.sqrt((1/attdensdata[j][i,3]*attmsqddata[j][i,4])**2 + (attmsqddata[j][i,3]/attdensdata[j][i,3]**2*attdensdata[j][i,4])**2)
 
 for j in range(frames):
     for i in range(np.shape(repdensdata[j])[0]):
         repmsqddata[j][i,1] = repmsqddata[j][i,1]/repdensdata[j][i,1]
+        repmsqddata[j][i,2] = np.sqrt((1/repdensdata[j][i,1]*repmsqddata[j][i,2])**2 + (repmsqddata[j][i,1]/repdensdata[j][i,1]**2*repdensdata[j][i,2])**2)
         repmsqddata[j][i,3] = repmsqddata[j][i,3]/repdensdata[j][i,3]
-
+        repmsqddata[j][i,4] = np.sqrt((1/repdensdata[j][i,3]*repmsqddata[j][i,4])**2 + (repmsqddata[j][i,3]/repdensdata[j][i,3]**2*repdensdata[j][i,4])**2)
 
 print 'normalize density data'
 fig1 = mp.figure()
@@ -114,19 +117,21 @@ ax1 = fig1.add_subplot(111)
 for i in range(frames):
     ax1.plot(attdensdata[i][:,0],(attdensdata[i][:,1]+attdensdata[i][:,3])/2.)
 
-#mean square displacement
+#densities
 fig3 = mp.figure()
 ax3 = fig3.add_subplot(111)
 for i in range(frames):
-    ax3.plot(attdensdata[i][0:-1,0],attmsqddata[i][0:-1,1])
-    ax3.plot(attdensdata[i][0:-1,0],attmsqddata[i][0:-1,3])
+    ax3.plot(attdensdata[i][0:-1,0],attdensdata[i][0:-1,1])
+    ax3.plot(attdensdata[i][0:-1,0],attdensdata[i][0:-1,3])
 
-#force
+#msqd
 fig31 = mp.figure()
 ax31 = fig31.add_subplot(111)
 for i in range(frames):
-    ax31.plot(attdensdata[i][0:-1,0],(attmsqddata[i][0:-1,1]+attmsqddata[i][0:-1,3])/2.)
-
+    vals = (attmsqddata[i][0:-1,1]+attmsqddata[i][0:-1,3])/2.
+    errors = (attmsqddata[i][0:-1,2]+attmsqddata[i][0:-1,4])/2.
+    ax31.plot(attdensdata[i][0:-1,0],vals)
+    ax31.fill_between(attdensdata[i][:-1,0],vals-errors, vals+errors,color='grey', alpha=0.3)
 #PLOT DATA FOR REPULSIVE BARRIER
 
 #density profiles
@@ -135,18 +140,21 @@ ax5 = fig5.add_subplot(111)
 for i in range(frames):
     ax5.plot(repdensdata[i][:,0],(repdensdata[i][:,1]+repdensdata[i][:,3])/2.)
 
+
+#densities
+fig4 = mp.figure()
+ax4 = fig4.add_subplot(111)
+for i in range(frames):
+    ax4.plot(repdensdata[i][0:-1,0],repdensdata[i][0:-1,1])
+    ax4.plot(repdensdata[i][0:-1,0],repdensdata[i][0:-1,3])
+
 #mean square displacement
 fig71 = mp.figure()
 ax71 = fig71.add_subplot(111)
 for i in range(frames):
-    ax71.plot(repdensdata[i][0:-1,0],(repmsqddata[i][0:-1,1]+repmsqddata[i][0:-1,3])/2.)
-
-#force
-fig8 = mp.figure()
-ax8 = fig8.add_subplot(111)
-for i in range(frames):
-    ax8.plot(repdensdata[i][0:-1,0],repmsqddata[i][0:-1,5]+1)
-ax8.set_yscale('log')
+    vals = (repmsqddata[i][0:-1,1]+repmsqddata[i][0:-1,3])/2.
+    errors = (repmsqddata[i][0:-1,2]+repmsqddata[i][0:-1,4])/2.
+    ax71.plot(repdensdata[i][0:-1,0],vals)
+    ax71.fill_between(repdensdata[i][:-1,0],vals-errors, vals+errors,color='grey', alpha=0.3)
 mp.show()
-#   mp.fill_between(densdata[:,0,i]/mrate[i,2],densdata[:,1,i]-densdata[:,2,i],densdata[:,1,i]+densdata[:,2,i],color='grey', alpha=0.3)
 
