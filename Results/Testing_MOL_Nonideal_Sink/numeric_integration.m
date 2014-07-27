@@ -45,10 +45,10 @@ ic = {
    \[Rho]2[r, t0] == w12/(w12 + w21)*Exp[-((r - Rmax)/(Rmax/4))^n]
    };
 
-Kvalues = Table[0,{i,1,4},{i,1,7}]
+Kvalues = Table[0,{i,1,5},{i,1,4}]
 
 For[i=1,i<=3,i++,
-For[j=1,j<=3,j++,
+For[j=1,j<=5,j++,
 ClearAll[rhoon, rhoof,rhovals, w21, w12, sol, Ks, rd, \[Rho]1eq, \[Rho]2eq, \[Rho]tot];
 Ks = Ksvalues[[i]];
 rd = rdvalues[[j]];
@@ -88,8 +88,11 @@ Export["onrhovals"<>ToString[i]<>".tsv", N[rhoon], "TSV"];
 
 PutAppend[{D[\[Rho]1eq[r], r] /. r -> Rsink,\[Rho]1eq[r]*Ks /. r -> Rsink, Ks, Ksvalues[[i]]}, "rate.out"];
 PutAppend[{D[\[Rho]2eq[r], r] /. r -> Rsink,\[Rho]2eq[r]*Ks /. r -> Rsink, Ks, Ksvalues[[i]]}, "rate.out"];
-Kvalues[[1,j]] = N[rd]
-Kvalues[[1+i,j]] = Flatten[N[\[Rho]tot[Rsink]*Ks]]
+Kvalues[[j,1]] = N[rd];
+Kvalues[[j,1+i]] = Flatten[N[\[Rho]tot[Rsink]*Ks]];
 ]]
 Export["rateoutput.tsv",Kvalues,"TSV"]
+For[i=1,i<=5,i++,
+PutAppend[Flatten[Kvalues[[i,All]]],"test.out"]
+]
 
