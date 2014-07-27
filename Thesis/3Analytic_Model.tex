@@ -74,7 +74,7 @@ Substituting these coefficients back into equation \eqref{KME2} results in the d
 
 So far nothing has been assumed, other than the Markov property and the existence of the Taylor series. However in many application the examination of the jump moments reveals that it is a suitable approximation to truncate the expansion for $n>2$. In this case, one obtains the following form, known as the \textit{Fokker Planck equation}:
 \begin{equation}
-    \frac{\partial P(x,t)}{\partial t} = - \frac{\partial}{\partial x} \left[K^{(1)}(x,t)P(x,t) \right] + \frac{1}{2}\frac{\partial^2}{\partial x^2}\left[ K^{(2)}(x,t)P(x,t) \right] 
+    \boxed{    \frac{\partial P(x,t)}{\partial t} = - \frac{\partial}{\partial x} \left[K^{(1)}(x,t)P(x,t) \right] + \frac{1}{2}\frac{\partial^2}{\partial x^2}\left[ K^{(2)}(x,t)P(x,t) \right] }
     \label{FPE}
 \end{equation}
 where $K^{(1)}$ and $K^{(2)}$ are independent of $t$ if the process is stationary. \\
@@ -161,7 +161,7 @@ Now it is straight forward to calculate the jump moments from this transition pr
 \end{equation}
 such that the kinetic coefficients \eqref{kinetic_coefficients} are equal to
 \begin{equation}
-    K^{(1)}(x,t) = \frac{f(x)}{\gamma}, \qquad K^{(2)}(x,t) = 2 D.
+    \boxed{K^{(1)}(x,t) = \frac{f(x)}{\gamma}, \qquad K^{(2)}(x,t) = 2 D.}
     \label{BD_kinetic_coefficients}
 \end{equation}
 It can be shown that all higher jump moments are of order $\mathcal{O}(\Delta t ^{2})$ such that it is indeed valid to truncate the Kramers Moyal expansion after the second term. Therefore the time evolution of the probability distribution of a Brownian particle is fully described by the following expression:
@@ -222,7 +222,7 @@ This equation describes the time development of the transition probabilities giv
 In this form the meaning becomes particularly clear. The master equation is a \textit{gain loss equaition} for the probabilities of each state $x$. The first term on the right hand side describes the gain of probability of state $x$ due to transitions from other states $x'$, whereas the second term on the right hand side describes the loss of probability of state $x$ due to transitions to other states.\\
 For a discrete state space the integral on the right hand side is replaced by the sum over all possible states and the master equation has the form of a system of coupled ordinary differential equations:
 \begin{equation}
-    \frac{{\rm d} P_n(t)}{{\rm d} t} = \sum_{n'} W_{n n'}P_{n'}(t) - W_{n'n}P_{n}(t).
+    \boxed{\frac{{\rm d} P_n(t)}{{\rm d} t} = \sum_{n'} W_{n n'}P_{n'}(t) - W_{n'n}P_{n}(t).}
     \label{discrete_space_master_equation}
 \end{equation}
 Or in a more compact form with the following \emph{transition rate matrix} $\mathbb{W}$:
@@ -251,7 +251,7 @@ From equation \eqref{discrete_space_master_equation} one immediately sees that f
 For stationary time reversible Markov processes this criterion can even be tightened to a property called \textit{detailed equilibrium}.
 This property requires, that the total exchange of probability between two states to each other must be equal, i.e.
 \begin{equation}
-     W_{n n'}p_{n'} = W_{n'n}p_{n}.
+   \boxed{ W_{n n'}p_{n'} = W_{n'n}p_{n}.}
     \label{detailed_balance}
 \end{equation}
 It can be proven to be true for a wide range of physical and chemical processes \cite{Boltzmann1872,Einstein1917,Wegscheider1911} and is also closely related to the Onsager reciprocal relations \cite{Onsager1931,Wigner1954}.
@@ -284,7 +284,7 @@ Also the diagonal Fokker-Planck operator for the drift and diffusion terms is in
 \end{equation}
 and the transition rates are again written in terms of $\mathbb{W}$ as introduced in equation \eqref{transition_rate_matrix} such that equation \eqref{fpmeq1} has the following more compact form
 \begin{equation}
-    \frac{\partial}{\partial t} \vect{p}(\vec{x},t) = \left\{ \mathbb{F} + \mathbb{W} \right\} \vect{p}(\vec{x},t).
+    \boxed{\frac{\partial}{\partial t} \vect{p}(\vec{x},t) = \left\{ \mathbb{F} + \mathbb{W} \right\} \vect{p}(\vec{x},t).}
     \label{fpmeq2}
 \end{equation}
 This kind of description has been used to explain various transport properties for instance on polymer chains or on reactive surfaces \cite{Friedman1968,Caceres1990}.
@@ -400,7 +400,7 @@ and the spherical symmetry of the solution one can derive the time dependent rea
 \end{align}
 Again in the limit of $t \rightarrow \infty$ this results in the steady state absorption rate:
 \begin{equation}
-    K = 4 \pi D R_s \rho_o.
+    \boxed{K = 4 \pi D R_s \rho_o.}
     \label{steady state ideal rate}
 \end{equation}
 Intuitively, one might have expected that the rate would scale with the surface of the sink. However, it goes only linearly with its radius.
@@ -461,7 +461,7 @@ The rate $K$ can then be calculated using the boundary condition $r \rightarrow 
 \end{equation}
 which is equivalent to 
 \begin{equation}
-    K = 4 \pi D \rho_o \left\{\int_{R_s}^{\infty} \frac{\exp \left[ \frac{U(r')}{K_B T}\right]}{r'^2} \rm d r' \right\}^{-1}.
+    \boxed{K = 4 \pi D \rho_o \left\{\int_{R_s}^{\infty} \frac{\exp \left[ \frac{U(r')}{K_B T}\right]}{r'^2} \rm d r' \right\}^{-1}.}
     \label{K_Debye}
 \end{equation}
 In the case of $U(r) \equiv 0$ this simplifies to the result obtained by Smoluchowski (compare equation \eqref{steady state ideal rate}. \par
@@ -480,11 +480,17 @@ This chapter focusses on the analytical treatment of the reaction rate of Browni
 \end{itemize}
 \section{Model Description}
 \label{Model_Description}
-The system under consideration consists of a spherical sink of radius $R_s$ that is surrounded by a potential barrier. The barrier is assumed to be of boxcar shape with limiting radius $a,b>R_s$ as illustrated in figure \ref{skizze}. It fluctuates between $M$ states with different hight $U_m \in [U_0, \cdots U_M]$. The transition rates between potential states are given by a transition rate matrix $\mathbb{W}$ which is assumed to satisfy the detailed balance property \eqref{detailed_balance}. This system is embedded in a reservoir of Brownian particles.
-\begin{figure}[H]\floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,top},capbesidewidth=0.45 \textwidth}}]{figure}[\FBwidth]
-    {\caption{Illustrative sketch of the system. The spherical sink of radius $R_s$ is surrounded by a step potential with boundaries at $r=a$ and $r=b$. The potential fluctuates between different heights subject to a transition rate matrix with entries $\mathbb{W}_{mm'}$ (to keep things clear only two states are depicted here). This setup is embedded in a bath of Brownian particles with fixed density at $r \rightarrow \infty$. The particles move under the influence of the potential in its current state. The reaction rate $K$ is given by the number of particles per unit time that cross the barrier and hit the sink.}\label{skizze}}
-    {\input{plots/abSkizze.pdf_tex}}
-\end{figure}
+The system under consideration consists of a spherical sink of radius $R_s$ that is surrounded by a potential barrier. The barrier is assumed to be of boxcar shape with limiting radius $a,b>R_s$ as illustrated in figure \ref{skizze}. It fluctuates between $M$ states with different hight $U_m \in [U_0, \cdots U_M]$. The transition rates between potential states are given by a transition rate matrix $\mathbb{W}$ which is assumed to satisfy the detailed balance property \eqref{detailed_balance}. This system is embedded in a reservoir of Brownian particles. \\
+\hspace{-2 cm}\begin{minipage}[t]{.5 \textwidth}
+    \begin{figure}[H]
+ \hspace{-1.8 cm}       \input{plots/abSkizze.pdf_tex}
+    \end{figure}
+\end{minipage}\hspace{0.05 \textwidth}\begin{minipage}[t]{.45\textwidth}
+    \begin{figure}[H]
+        \caption{Illustrative sketch of the system. The spherical sink of radius $R_s$ is surrounded by a step potential with boundaries at $r=a$ and $r=b$. The potential fluctuates between different heights subject to a transition rate matrix with entries $\mathbb{W}_{mm'}$ (to keep things clear only two states are depicted here). This setup is embedded in a bath of Brownian particles with fixed density at $r \rightarrow \infty$. The particles move under the influence of the potential in its current state. The reaction rate $K$ is given by the number of particles per unit time that cross the barrier and hit the sink.\label{skizze}}
+    \end{figure}
+\end{minipage}
+
 It is desired to find the steady state rate $K$ at which the particles cross the barrier and hit the sink.\\
 Therefore the state of the system is described as a composite Markov process as outlined in section \ref{Multivariate_Markov_Processes} in one spacial variable $\vec{r}$ and one discrete variable $m$ for the state of the barrier.
 The appropriate boundary conditions in this case are for the probability density function (PDF) of the Brownian particles to vanishes at the sink boundary and to take a constant finite value for $|\vec{r}| \rightarrow \infty$. \\
@@ -725,7 +731,7 @@ where it is important do distinguish between the case of $i=1$ where $\lambda_i 
 Note that the solution corresponding to the first eigenvalue $\lambda_1 = 0$ equals the one derived in \eqref{steady_state_density} for the ungated problem. Together with the fitting conditions obtained in \eqref{dens_fit} this would result in the steady state solution for a constant boxcar shaped potential barrier that could also be computed from \eqref{rho_debye}. So far the calculations are consistent with preexisting results. \\
 The other solutions that correspond to the nonzero eigenvalues of the transition rate matrix $\lambda_i>0$ describe deviations from this solution due to the metastability of the potential barrier. Note that they exponentially decay in space with a \textit{decay length}
 \begin{equation}
-    r_d^{(i)} = \sqrt{\frac{D}{\lambda_i}}
+    \boxed{r_d^{(i)} = \sqrt{\frac{D}{\lambda_i}}}
     \label{decay_length}
 \end{equation}
 that is unique for each state of the potential. \\

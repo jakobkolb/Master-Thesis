@@ -383,6 +383,7 @@ If the change of the potential is assumed to take place at a radius $r_0$ the ac
 \end{align}
 Which is the equivalence of the flux and the traveling resp. reaction time argument that was to be shown.
 Both arguments give an estimation to when one or the other description is a valid approximation to calculate the reaction rate:
+\comment{On intermediate summaries: is it better to have one at the end of each section, at the end of a couple of sections that belong together somehow, or only one extensive summary at the very end?}
 \begin{equation}
     \frac{\Delta U}{K_B T} \ll[\gg] \frac{r_F}{2 r_d}
     \label{val_estimate}
@@ -557,6 +558,7 @@ Consequently the findings of Szabo et al. translate to:
 
 \newpage
 \section{Mapping on a Non-Markovian Description}
+\comment{Please give some comments on this section since I am not sure, whether it hits the point of what is meant when speaking about ``mapping on a Non-Markovian Description''. I figured, it would be clear from the discussion in Section \ref{Numeric_Study} that the approach of ``rates over a potential of mean force'' is bound to fail when timescale separation between barrier fluctuations and diffusion relaxation breaks down. Does this point need to be stressed in an extra section? The ``addition of rates thing is interesting though, don't you think?}
 \subsection{Common Assumptions}
 When an experimentalist would investigate on a realization of the system under study in this thesis he would probably proceed as Shuan Wu et al. \cite{Wu2012a} and do the following: \\ 
 He would \emph{first} assume a potential of mean force $U_m(r)$ for the barrier and then calculate the reaction rate using Debye rate theory with a spatially depending diffusivity profile $D(r)$:
@@ -564,26 +566,22 @@ He would \emph{first} assume a potential of mean force $U_m(r)$ for the barrier 
     K_D^{-1} = \int_{R_s}^{\infty}\frac{\exp[U_m(r)/K_B T]}{4 \pi r^{2} D(r)} {\rm d} r.
     \label{YSDebye}
 \end{equation}
-and \emph{second}, if the adsorption to the sink in the system would not be ideal but subject to some surface reaction rate $K_S$ he would assume the diffusion controlled and the surface reaction part to independent and calculate the effective reaction rate as:
+This assumes in fact a time scale separation between the fluctuations of the potential and the diffusion relaxation of the Brownian particles.
+\emph{Second}, if the adsorption to the sink in the system would not be ideal but subject to some surface reaction rate $K_S$ he would assume the diffusion controlled and the surface reaction part to independent and calculate the effective reaction rate as:
 \begin{equation}
     K_{eff}^{-1} = K_D^{-1} + K_S^{-1}.
     \label{Keff}
 \end{equation}
 There is a list of problems with these two assumptions that will be outlined in the following discussion. \\
 \subsection{First Assumption}
-As was shown in section \ref{Numeric_Study} the description of the rate by Debye theory is only valid for smooth potentials and for these only if the switching of the potential is much faster that the diffusion of the Brownian particles. Otherwise both processes couple and the assumption is violated. Moreover, if one sticks to Debye theory and uses the particle density which might be measured and the potential of mean force to calculate an effective spatial diffusivity profile $D_{eff}(r)$ from: 
+In section \ref{Numeric_Study} was shown that the description of the reaction rate by Debye theory is only valid for smooth potentials and only if the switching of the potential is much faster that the diffusion relaxation of the Brownian particles. Otherwise both processes couple and the assumption is violated. Moreover, if one sticks to Debye theory and uses the particle density which might be measured and the potential of mean force to calculate an effective spatial diffusivity profile $D_{eff}(r)$ from: 
 \begin{equation}
     \rho_D = C \exp\left[\frac{-U_m(r)}{K_B T}\right] \int_{R_s}^{r} \frac{\exp\left[\frac{U_m(r')}{K_B T}\right]}{4 \pi r'^{2} D_{eff}(r)}{\rm d} r'
     \label{Deff}
 \end{equation}
-this will lead to artificial results. To picture this, one uses two different methods to calculate an effective diffusivity profile. First one uses the Method of Lines as outlined in section \ref{method_of_lines} to derive density profiles for different decay lengths for a smooth potential as given by equation \eqref{generalized_gaussian} and calculates the associated effective diffusivity profile through numeric inversion of equation \eqref{Deff} and second, one sets up Brownian Dynamics simulations as described in section \ref{BDsim}for the same parameters and explicitly tracks the mean square displacement of particles to access the actual diffusivity profile of the system via
-\begin{equation}
-    \left<\Delta \vec{x}(r)^{2}\right> = 6 D_{eff}(r) \Delta t
-    \label{msqd}
-\end{equation}
-where $\Delta \vec{x}$ is the actual particle displacement and $r$ is its radial position in space.
-The results from the first method are given in figure [REF], the results from the second method are given in figure [REF]
-
+this will lead to arguably artificial results. To picture this, one uses the Method of Lines as outlined in section \ref{method_of_lines} to derive density profiles for different decay lengths for a smooth potential as given by equation \eqref{generalized_gaussian} and calculates the associated effective diffusivity profile through numeric inversion of equation \eqref{Deff}. \\
+The results of this procedure are given in figure \ref{DeffMOL}. Obviously the obtained effective diffusivity profile is equal to the bulk diffusivity for very small $r_d$ and deviates significantly as $r_d$ gets larger. This does not fit the microscopic picture where the particles are freely diffusing with a prescribed diffusion constant $D$ except at the very localized boundaries of the potential barrier. \\
+If one would use marker particles and track the mean square displacement of the particles explicitly one would therefore quickly uncover the inconsistency of the description of the problem by Debye rate theory.\\
 \begin{minipage}[t]{.5 \textwidth}
     \begin{figure}[H]
         \includegraphics[width = 1 \textwidth]{plots/repulsive_mapping_d.pdf}
@@ -596,11 +594,18 @@ The results from the first method are given in figure [REF], the results from th
 
 \begin{minipage}[t]{1 \textwidth}
     \begin{figure}[H]
-        \caption{Effective diffusivity profiles $D_{eff}(r)$ for repulsive (A) and attractive (B) fluctuating barrier for different decay lengths $r_d$ according to Debye rate theory \ref{The_Debye_Reaction_Rate} over a potential of mean force. Results for density profiles calculated by numerical inversion of equation \eqref{Deff}. Necessary density profiles were obtained by the numerical Method of Lines for a smooth potential as given in \eqref{generalized_gaussian} with $U_2$, $a$, and $b$ as given in \eqref{Parameters}.}
+        \caption{Effective diffusivity profiles $D_{eff}(r)$ for repulsive (A) and attractive (B) fluctuating barrier for different decay lengths $r_d$ according to Debye rate theory \ref{The_Debye_Reaction_Rate} over a potential of mean force. Results for density profiles calculated by numerical inversion of equation \eqref{Deff}. Necessary density profiles were obtained by the numerical Method of Lines for a smooth potential as given in \eqref{generalized_gaussian} with $U_2$, $a$, and $b$ as given in \eqref{Parameters}. \label{DeffMOL}}
     \end{figure}
 \end{minipage} \vspace{0.5 cm} \\
-
-
+To ilustrate this, figure \ref{DeffBD} gives results from Brownian dynamics simulations that are used to explicitly track the mean square displacement of particles and evaluate the effective diffusivity profile by means of
+\comment{Does this make sense? I thought so..} 
+\begin{equation}
+    \left<\Delta \vec{x}(r)^{2}\right> = 6 D_{eff}(r) \Delta t.
+    \label{msqd}
+\end{equation}
+where $\Delta \vec{x}$ is the actual particle displacement and $r$ is its radial position in space. \\
+This shows that, as expected, the mean square displacement and therefore the effective diffusivity profile are governed by the prescribed bulk diffusion constant $D$.\\
+Therefore, as an experimentalist, what one should deduce from the fact, that the measurements of the potential of mean force, particle density and particle mean square displacement do not fit together in therms of Debye rate theory is not to doubt ones measurement, but fit the data to a model as outlined here. Given that the different energy levels of the barrier are know, this can be used to access i.e. the rate of the barrier switching.
 \begin{minipage}[t]{.5 \textwidth}
     \begin{figure}[H]
         \includegraphics[width = 1 \textwidth]{plots/repulsive_mapping_d.pdf}
@@ -613,13 +618,23 @@ The results from the first method are given in figure [REF], the results from th
 
 \begin{minipage}[t]{1 \textwidth}
     \begin{figure}[H]
-        \caption{Effective diffusivity profiles $D_{eff}(r)$ for repulsive (A) and attractive (B) fluctuating barrier for different decay lengths $r_d$ obtained from Brownian Dynamics simulations with a smooth potential as given in \eqref{generalized_gaussian} with $U_2$, $a$, and $b$ as given in \eqref{Parameters}. Spatially resolved mean square displacement was calculated by radial binning of particles positions $\vec{x}$ for each time step, then integrating over $\Delta t$ and separately averaging over the particle square displacement $\Delta \vec{x}^{2}$ for each bin. The effective diffusivity was then calculated by \label{Deff_numeric}}   
+        \caption{Effective diffusivity profiles $D_{eff}(r)$ for repulsive (A) and attractive (B) fluctuating barrier for different decay lengths $r_d$ obtained from Brownian Dynamics simulations with a smooth potential as given in \eqref{generalized_gaussian} with $U_2$, $a$, and $b$ as given in \eqref{Parameters}. Spatially resolved mean square displacement was calculated by radial binning of particles positions $\vec{x}$ for each time step, then integrating over $\Delta t$ and separately averaging over the particle square displacement $\Delta \vec{x}^{2}$ for each bin. The effective diffusivity was then calculated by \label{Deff_numeric} \label{DeffBD}}
+    \end{figure}
+\end{minipage}
+\subsection{Second Assumption}
+\begin{minipage}[t]{.63 \textwidth}
+    \begin{figure}[H]
+        \includegraphics[width = 1 \textwidth]{plots/repulsive_mapping_d.pdf}
+        \includegraphics[width = 1 \textwidth]{plots/repulsive_mapping_d.pdf}
+        \includegraphics[width = 1 \textwidth]{plots/attractive_mapping_d.pdf}
+    \end{figure}
+\end{minipage}
+\begin{minipage}[t]{.37 \textwidth}
+    \begin{figure}[H]
+        \caption{caption for these figures}
     \end{figure}
 \end{minipage}
 
-
-
-\subsection{Second Assumption}
 %This section should bridge the gap from theory to experiments where measurements usually do not give any information of the detailed kinetics of the system but only show fluctuations as a potential of mean force and a spatially depending diffusivity profile.
 
 \section{Summary}
