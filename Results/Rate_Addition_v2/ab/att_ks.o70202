@@ -1,0 +1,67 @@
+Information about the job:
+Job Id: 70202.irz14
+    Job_Name = att_ks
+    Job_Owner = jkolb@pool12.physik.hu-berlin.de
+    job_state = R
+    queue = defq
+    server = irz14.physik.hu-berlin.de
+    Checkpoint = u
+    ctime = Sun Jul 27 09:25:41 2014
+    Error_Path = pool12.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen/
+	MA/Results/Rate_Addition_v2/ab/att_ks.e70202
+    exec_host = pool28/3+pool28/2+pool28/1+pool28/0
+    Hold_Types = n
+    Join_Path = n
+    Keep_Files = n
+    Mail_Points = ae
+    mtime = Sun Jul 27 09:25:42 2014
+    Output_Path = pool12.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen
+	/MA/Results/Rate_Addition_v2/ab/att_ks.o70202
+    Priority = 0
+    qtime = Sun Jul 27 09:25:41 2014
+    Rerunable = True
+    Resource_List.nice = 15
+    Resource_List.nodect = 1
+    Resource_List.nodes = 1:ppn=4
+    Resource_List.walltime = 720:00:00
+    session_id = 6193
+    Variable_List = PBS_O_QUEUE=defq,PBS_O_HOST=pool12.physik.hu-berlin.de,
+	PBS_O_HOME=/users/stud/jkolb,PBS_O_LANG=en_US.UTF-8,
+	PBS_O_LOGNAME=jkolb,
+	PBS_O_PATH=/usr/global/root/bin:/usr/local/cuda/bin:/usr/global/mpi/b
+	in:/usr/global/open64/bin:/usr/global/pgi/bin:/usr/global/intel/bin:/u
+	sr/global/maple/bin:/usr/global/math/bin:/usr/global/matlab/bin:/usr/g
+	lobal/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:.,
+	PBS_O_MAIL=/var/mail/jkolb,PBS_O_SHELL=/bin/bash,PBS_SERVER=irz14,
+	PBS_O_WORKDIR=/users/stud/jkolb/Veranstaltungen/MA/Results/Rate_Addit
+	ion_v2/ab
+    etime = Sun Jul 27 09:25:41 2014
+    submit_args = job.sh
+    start_time = Sun Jul 27 09:25:42 2014
+    Walltime.Remaining = 2592000
+    start_count = 1
+    fault_tolerant = False
+    submit_host = pool12.physik.hu-berlin.de
+    init_work_dir = /users/stud/jkolb/Veranstaltungen/MA/Results/Rate_Addition
+	_v2/ab
+
+
+
+
+Started batch processing at Sun Jul 27 09:25:42 CEST 2014.
+-30ab32120rd
+6
+11
+17/2
+5/2
+
+NDSolve::stpmin: The starting number of points determined by StartingStepSize -> 0.001 and StartingPoints -> Automatic is 19000, which is less than the minimum number of 24000 grid points. 24000 will be used instead.
+
+NDSolve::stpmin: The starting number of points determined by StartingStepSize -> 0.001 and StartingPoints -> Automatic is 19000, which is less than the minimum number of 24000 grid points. 24000 will be used instead.
+
+NDSolve::stpmin: The starting number of points determined by StartingStepSize -> 0.001 and StartingPoints -> Automatic is 19000, which is less than the minimum number of 24000 grid points. 24000 will be used instead.
+
+General::stop: Further output of NDSolve::stpmin will be suppressed during this calculation.
+mathematica finished at Sun Jul 27 09:35:25 CEST 2014.
+logout
+logout
