@@ -27,7 +27,7 @@ for i, k in enumerate(Ksvals):
     Kbc_att[i] = Kbc_tmp_att
     Kbc_rep[i] = Kbc_tmp_rep
 
-N = np.shape(Keff_tmp_att)[0]/3
+N = 2*np.shape(Keff_tmp_att)[0]/5
 
 Knum_att = np.loadtxt('att_numeric_rates.csv', delimiter=',')
 Knum_rep = np.loadtxt('rep_numeric_rates.csv', delimiter=',')
