@@ -1,0 +1,61 @@
+Information about the job:
+Job Id: 70232.irz14
+    Job_Name = att_rd_05
+    Job_Owner = jkolb@pool24.physik.hu-berlin.de
+    job_state = R
+    queue = defq
+    server = irz14.physik.hu-berlin.de
+    Checkpoint = u
+    ctime = Mon Jul 28 14:03:29 2014
+    Error_Path = pool24.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen/
+	MA/Results/Testing_BDS/rep25/att_rd_05.e70232
+    exec_host = pool28/3+pool28/2+pool28/1+pool28/0
+    Hold_Types = n
+    Join_Path = n
+    Keep_Files = n
+    Mail_Points = ae
+    mtime = Mon Jul 28 14:03:31 2014
+    Output_Path = pool24.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen
+	/MA/Results/Testing_BDS/rep25/att_rd_05.o70232
+    Priority = 0
+    qtime = Mon Jul 28 14:03:30 2014
+    Rerunable = True
+    Resource_List.nice = 15
+    Resource_List.nodect = 1
+    Resource_List.nodes = 1:ppn=4
+    Resource_List.walltime = 720:00:00
+    session_id = 13133
+    Variable_List = PBS_O_QUEUE=defq,PBS_O_HOST=pool24.physik.hu-berlin.de,
+	PBS_O_HOME=/users/stud/jkolb,PBS_O_LANG=C,PBS_O_LOGNAME=jkolb,
+	PBS_O_PATH=/usr/global/root/bin:/usr/local/cuda/bin:/usr/global/mpi/b
+	in:/usr/global/open64/bin:/usr/global/pgi/bin:/usr/global/intel/bin:/u
+	sr/global/maple/bin:/usr/global/math/bin:/usr/global/matlab/bin:/usr/g
+	lobal/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:.,
+	PBS_O_SHELL=/bin/bash,PBS_SERVER=irz14,
+	PBS_O_WORKDIR=/users/stud/jkolb/Veranstaltungen/MA/Results/Testing_BD
+	S/rep25
+    etime = Mon Jul 28 14:03:30 2014
+    submit_args = job.sh
+    start_time = Mon Jul 28 14:03:31 2014
+    Walltime.Remaining = 2592000
+    start_count = 1
+    fault_tolerant = False
+    submit_host = pool24.physik.hu-berlin.de
+    init_work_dir = /users/stud/jkolb/Veranstaltungen/MA/Results/Testing_BDS/r
+	ep25
+
+
+
+
+Started batch processing at Mon Jul 28 14:03:31 CEST 2014.
+30ab321202.5
+6
+11
+17/2
+5/2
+
+NDSolve::stpmin: The starting number of points determined by StartingStepSize -> 0.001 and StartingPoints -> Automatic is 19000, which is less than the minimum number of 24000 grid points. 24000 will be used instead.
+mathematica finished at Mon Jul 28 14:04:06 CEST 2014.
+Ended batch processing at Mon Jul 28 14:04:06 CEST 2014.
+logout
+logout
