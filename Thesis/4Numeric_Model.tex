@@ -1,6 +1,23 @@
 \chapter{Numeric Model}
 \label{numeric_model}
-The analytic methods that were derived so far only hold for step shaped potentials. Since step potentials are only an approximation to what typically appears in nature it is necessary do be able to deal with more realistic smooth potentials. This can be done conveniently using numeric simulations. Therefore this section will introduce two possible approaches to the composite Markov process of Brownian particles in the vicinity of a fluctuating external potential.
+This section will introduce two numeric approaches to the problem of reaction rates over fluctuating boundaries as outlined in the introduction \ref{mini_model}. The first method builds on the integration of the stochastic differential equation for a composite Markov process, the second method uses the macroscopic description of the same process in terms of in terms of partial differential equations \eqref{fpmeq1}. Both methods aim to approach the following model.\\
+
+\begin{minipage}[t]{.5 \textwidth}
+    \begin{figure}[H]
+ \hspace{-1.8 cm}       \input{plots/abSkizze.pdf_tex}
+    \end{figure}
+\end{minipage}\hspace{0.05 \textwidth}\begin{minipage}[t]{.45\textwidth}
+    \begin{figure}[H]
+        \caption{Illustrative sketch of the system. The spherical sink of radius $R_s$ is surrounded by a step potential with boundaries at $r=a$ and $r=b$. The potential fluctuates between different heights subject to a transition rate matrix with entries $\mathbb{W}_{mm'}$ (to keep things clear only two states are depicted here). This setup is embedded in a bath of Brownian particles with fixed density at $r \rightarrow \infty$. The particles move under the influence of the potential in its current state. The reaction rate $K$ is given by the number of particles per unit time that cross the barrier and hit the sink.\label{skizze}}
+    \end{figure}
+\end{minipage}
+
+\section{Model Description}
+\label{Model_Description}
+The system under consideration consists of a spherical sink of radius $R_s$ that is surrounded by a potential barrier. The barrier is assumed to be of boxcar shape with limiting radius $a,b>R_s$ as illustrated in figure \ref{skizze}. It fluctuates between $M$ states with different hight $U_m \in [U_0, \cdots U_M]$. The transition rates between potential states are given by a transition rate matrix $\mathbb{W}$ which is assumed to satisfy the detailed balance property \eqref{detailed_balance}. This system is embedded in a reservoir of Brownian particles. \\
+It is desired to find the steady state rate $K$ at which the particles cross the barrier and hit the sink.\\
+Therefore the state of the system is described as a composite Markov process as outlined in section \ref{Multivariate_Markov_Processes} in one spacial variable $\vec{r}$ and one discrete variable $m$ for the state of the barrier.
+The appropriate boundary conditions in this case are for the probability density function (PDF) of the Brownian particles to vanishes at the sink boundary and to take a constant finite value for $|\vec{r}| \rightarrow \infty$. \\
 \section{Brownian Dynamics}
 \label{BDsim}
 The term \textit{Brownian Dynamics Simulation} refers to the integration of the overdamped Langewin equation \eqref{BD1} i.e. the motion of particles with respect to a Gaussian random force. Therefore the equation for the diffusive coordinate $r_n$ of the Brownian particles is discretized in time, such that the actual discrete equation of Motion has the Form
@@ -8,7 +25,7 @@ The term \textit{Brownian Dynamics Simulation} refers to the integration of the 
     \vec r_m(t + \Delta t) = \vec r_m(t) - \frac{\vec \nabla U_m(\vec r)}{\gamma}\Delta t + \sqrt{2 D \Delta t} R(t)
     \label{discrete_eqm}
 \end{equation}
-where $R(t)$ is a Gaussian random process with zero average and $\sigma = 1$. $n$ denotes the reactive coordinate of the Brownian particle. This coordinate is updated in each time step with respect to the appropriate Master equation. This is done via a probabilistic scheme. For each time step we draw a random number from an uniform distribution on the interval $[0,1]$ and if the particle is in state $j$ we check which of the bis on the bins on 
+where $R(t)$ is a Gaussian random process with zero average and $\sigma = 1$. $n$ denotes the reactive coordinate of the Brownian particle. This coordinate is updated in each time step with respect to the appropriate Master equation. This is done via a probabilistic scheme. For each time step one draws a random number from an uniform distribution on the interval $[0,1]$ and if the particle is in state $j$ one checks which of the bis on the bins on 
 \begin{equation}
     [W_{1,j}, \cdots , W_{j-1,j},1 - \sum_{i \ne j} W_{i,j}, W_{j+1,j}, \cdots , W_{M,j}]
     \label{num_meq}
@@ -49,26 +66,29 @@ Keeping these necessities in mind the boundary conditions at the sink surface an
         \end{lstlisting}
         This fragment of code calculates the closest point px to the sink center on the line containing A and B. Then it checks, if this point px is between A and B. Based on this, it updates the radial position of the particle to set it to the boundary of the simulation domain, if it crossed the boundary of the sink.
 \end{itemize}
-\subsection{Fit Conditions}
+\subsection{Potential Barrier}
 The potential $U_m(r)$ is set to be a modified Gaussian:
 \begin{align}
-    U_m(r) &= U_m \cdot \exp \left[-\left( \frac{r-\alpha}{\beta} \right)^{2n}\right] \nonumber \\
-    \alpha &= a + \frac{b-a}{2} \nonumber \\
-    \beta  &= \frac{b-a}{2}
+    U_m(r) &= U_m \cdot \exp \left[-\left( \frac{r-\alpha}{\beta} \right)^{2n}\right], \nonumber \\
+    \alpha &= a + \frac{b-a}{2}, \nonumber \\
+    \beta  &= \frac{b-a}{2}.
     \label{mod_gauss}
 \end{align}
 This is a regular Gaussian bell for $n=1$ and converges to a step potential for $n\rightarrow \infty$. \\
-Since for large $n$ the shape of the potential can not be resolved by the trajectories of the Brownian particles (unless the time step is set very small) it is necessary to return to the fit conditions for a step potential as derived earlier.
-The fit conditions at the jump discontinuities of the potential barrier as given in \eqref{dens_fit} are implemented as follows. If a particle in state $m$ crosses the boundary of the potential barrier from a lower to a higher level, it has a probability $P_r = P_{\Delta U_m}$ to be reflected and a probability $P_p = 1 - P_{\Delta U_m}$ to pass where $P_{\Delta U_m}$ is given by an Arrhenius factor
+Since for large $n$ the shape of the potential can not be resolved by the trajectories of the Brownian particles (unless the time step is set very small which is computationally inefficient) it is useful to implement the potential barrier via transition probabilities for the diffusing particles across the barrier boundaries. The reasoning that is commonly employed in this situation is that of local equilibrium \cite{glansdorf1971} that allows to implement the transition of particles over the jump discontinuities of the potential as follows: \\
+If a particle in state $m$ crosses the boundary of the potential barrier from a lower to a higher level, it has a probability $P_r = P_{\Delta U_m}$ to be reflected and a probability $P_p = 1 - P_{\Delta U_m}$ to pass where $P_{\Delta U_m}$ is given by an Arrhenius factor
 \begin{equation}
     P_{ \Delta U_m} = \exp \left[\frac{\Delta U_m}{K_B T}  \right].
     \label{arrhenius_factor}
 \end{equation}
 If a particle crosses the boundary of the potential barrier from a higher to a lower level it does so with probability $P_p = 1$.
+Why this form of the boundary conditions holds in this particular case will be discussed in more detail in section \ref{Fit_Conditions}.
 \subsection{Density Profile}
-To calculate the radial density profile of the substrate particles we bin their radii at each time step and normalize the resulting histogram to its volume per bin. This is averaged over each time step after a certain equilibration time of the simulation.
-\subsection{Absorption Rate}
-To calculate the absorption rate, we simply count the number of particles that crosses the sink surface and is set to the simulation boundary. This number is then normalized to the time per time step and averaged over each time step after a certain equilibration time of the simulation.
+To calculate the radial density profile of the substrate particles one bins their radii at each time step and normalize the resulting histogram to its volume per bin. This is averaged over each time step after a certain equilibration time of the simulation.
+\subsection{Adsorption Rate}
+To calculate the adsorption rate, we simply count the number of particles that crosses the sink surface and is set to the simulation boundary. This number is then normalized to the time per time step and averaged over each time step after a certain equilibration time of the simulation.
+\subsection{Error estimation}
+To calculate errors correctly for these obviously correlated time series of measurements of the particle density profiles and adsorption rates Jackknife binning, block averages and correction for autocorrelation from the statistics package provided by Burkhard Bunk are used \cite{bunk2006}.
 \section{Method of Lines}
 \label{method_of_lines}
 The method of lines \cite{pregla1989, saucez2001} is a technique for solving partial differential equations that are well posed as an initial value problem in at least one dimension. It uses spatial discretization of the derivatives in all but other dimensions and then treats the resulting semi discrete problem as a system of coupled ordinary differential equations. This has the advantage, that it is possible to use highly optimized methods that have been developed for numeric integration of ordinary differential equations for the treatment of partial differential equations.\\
@@ -97,4 +117,19 @@ For technical details of the implementation of the method please refer to the do
 \section{Comparison of Models}
 The two computational models described in this chapter both target the same problem but with a fundamentally different approach. Brownian Dynamics simulations integrate the underlying stochastic differential equations whereas the Method of Lines solves the equivalent partial differential equations. Therefore the Brownian Dynamics approach allows for the calculation of microscopic quantities such as locally resolved mean square displacement of particles whilst the Method of Lines approach only gives access to macroscopic quantities such as fluxes and density profiles. The advantage of the Method of Lines lies in its efficiency. With Brownian dynamics Simulations the errors in all calculated quantities scale with $N^{-1/2}$ with $N$ being the number of simulated particles. If the particles do not interact, the time $T$ for the simulation scales linear with $N$ and therefore the precision of the results will also go with $T^{-1/2}$. Although the documentation of Mathematica does not tell much about the actual routines in use for the implementation of the Method of lines they are obviously a lot more efficient that this when it comes to derive solutions up to a required precision of accuracy. \\
 For this reason the method of lines will be used to calculate numeric results for macroscopic quantities and Brownian Dynamic simulations will only be used if it is necessary to explicitly calculate microscopic quantities.
+
+\section{First Results}
+The advantage of a numeric approach is that it offers a first impression of the behavior and the features of a given system without any further analytic work involved. Therefore a minimal setup consisting of a repulsive barrier that switched between two states $U_0 = 0$ and $U_1 = 3 K_B T$ with boundaries at $a = 6 R_s$ and $b = 11 R_s$ was treated by both the Brownian dynamics (BD) and the Method of lines (MOL) procedure for symmetric switching rates $W_{01} = W_{10}$. \\
+\begin{minipage}[t]{.63 \textwidth}
+     \begin{figure}[H]
+        \hspace{-1cm } \includegraphics[width = 1 \textwidth]{plots/rep_rate_comparison0.pdf} \\
+        \hspace{-1cm } \includegraphics[width = 1 \textwidth]{plots/rep_rate_comparison1.pdf} \\
+        \hspace{-1cm } \includegraphics[width = 1 \textwidth]{plots/rep_rate_comparison2.pdf}
+    \end{figure}
+\end{minipage}
+\begin{minipage}[t]{.37 \textwidth}
+    \begin{figure}[H]
+        \caption{Reaction rates for a nonideal sink with surface reaction rate $K_A$. Comparison of different analytic aproaches to numeric results obtained by the Method of lines \ref{method_of_lines}. The exact procedures are described in section \ref{Assumption2}. The potential is of the form given by equation \eqref{generalized_gaussian} with $n = 32$. Other parameters are given in table \ref{Parameters} and the surface reaction rate of the sink as defined by equation \eqref{Nonideal_sink_BC} is stated for each plot explicitly.\label{Rho_numeric}} 
+    \end{figure}
+    In this case also the assumption of independence of the diffusion controlled rate over the fluctuating barrier and the surface reaction rate breaks down as can be seen from the mismatch of $K_{eff}$ and $K_{bc}$. What is curious is that for decreasing surface reaction rate $K_A$ the solution for the ideal step shaped barrier does produce very good results in terms of reaction rates even in the fast switching limit to the effect that they are in god agreement with the numeric result for smooth barriers. Bearing in mind the discussion about the fast switching limit in section \ref{Numeric_Study} it is not clear whether this is only a coincidence or not. To make this clear it would be necessary to examine the \end{minipage}
 

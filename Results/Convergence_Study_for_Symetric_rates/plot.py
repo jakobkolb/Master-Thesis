@@ -26,6 +26,8 @@ kd = -a*b/((b-a)*(1-np.exp(u/2))-a*b)
 kd_array=np.zeros((np.shape(analytic_rates)[0],1))
 kd_array[:,0]=kd
 
+print kd
+
 print kd_array[1,0]
 
 mp.plot(analytic_rates[:,0], analytic_rates[:,1],label='analytic rate',color = '0.55')

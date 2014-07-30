@@ -5,7 +5,7 @@
 	twoside,		%zweiseitig
 %	liststoto
 %	bibtotocnumbered
-				]{report}%Artikel
+				]{book}%Artikel
 \usepackage[ansinew]{inputenc}	%Zeichenkodierung
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}			%deutsche Silbentrennung
@@ -14,13 +14,15 @@
 \usepackage{
     textcomp,
     floatrow,
+    color,
+    cite,
 	amsmath,
 	amssymb,
         titleps,
 %    libertine,
 	amsfonts,		%Mathepakete
     graphicx,		%Bilder einbinden
-	a4wide,			%volle Seitenbreite
+	%a4wide,			%volle Seitenbreite
 	multirow,		%Zellen verbinden in Tabellen
 	booktabs,		%schöne Tabellen
 	array,			%Arrays halt
@@ -65,13 +67,27 @@
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} 	% zentriert
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}} 	% linksbündig
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} 	% rechtsbündig
+\newcommand\alignedbox[2][red]{
+    % #1 = before alignment
+    % #2 = after alignment
+    &
+    \begingroup
+    \settowidth\dlf{$\displaystyle #1$}
+    \addtolength\dlf{\fboxsep+\fboxrule}
+    \hspace{-\dlf}
+    \boxed{#1 #2}
+    \endgroup
+              }
+%set fontsize for figure captions
 
-%andere Bezeichnung für Abbildungen und Tabellen
-\addto\captionsngerman{%
-%  \renewcommand{\figurename}{Abb.}
-%  \renewcommand{\tablename}{Tab.}
-}
+\usepackage[font=small,labelfont=bf]{caption}
 
+%define command for comments on the side
+
+\newcommand{\comment}[1]%
+%{
+{\normalmarginpar % rechts
+    \marginpar{\emph{\color{red}#1}}} 
 
 %Def vom Absatz
 \newcommand{\absatz}{\hfill \medskip \newline}
@@ -128,6 +144,7 @@
 %\input{0Cover}
 \input{1Preface}
 \input{2Motivation}
+<<<<<<< HEAD
 \input{4Numeric_Model}
 \input{3Analytic_Model}
 
@@ -135,4 +152,13 @@
 \input{6Conclusion}
 \input{7Appendix}
 \input{8Bib}
+=======
+\input{3Methods}
+\input{4Numeric_Model}
+\input{5Analytic_Model}
+\input{6Results}
+\input{7Conclusion}
+\input{8Appendix}
+\input{9Bib}
+>>>>>>> d744d26c1add1e3eaf34c9219b97d4aab67037ff
 \end{document}
