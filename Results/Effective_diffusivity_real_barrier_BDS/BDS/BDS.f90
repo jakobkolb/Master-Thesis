@@ -51,6 +51,10 @@ i = 0
         CALL maintain_boundary_conditions(counter)
         acc_count = acc_count + counter
 
+        IF(t >= t0) THEN
+            CALL write_trajectory
+        ENDIF
+
         !call statistics routine for absorption rate
 
         IF(t >= t0) THEN 
@@ -58,7 +62,7 @@ i = 0
         ENDIF
 
         t = t + dt
-        IF(MOD(i,INT((t1/dt)/4)) == 0) THEN
+        IF(MOD(i,INT((t1/dt)/4)) == 0 .AND. t >= t0) THEN
 print *, acc_count
             acc_count = 0
 print*, i, t, t/t1*100, INT(t/t1*100)

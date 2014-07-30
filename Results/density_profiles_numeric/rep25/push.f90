@@ -117,28 +117,23 @@ SUBROUTINE move_particles
     CALL RANDOM_NUMBER(brand)
     !$OMP PARALLEL DO
     DO i = 1,npar
-    print brand(i), pexit, penter
         !Did it cross the OUTER border from INSIDE, did it see the barrier?
         IF(r1(i)>Ub .AND. r2(i)<Ub .AND. par(4,i)==1 .AND. brand(i)<pexit) THEN
-            print brand(i), pexit, penter
             !Then throw it out again!
             par(1:3,i) =  par(1:3,i)/SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))&
                         *(2*Ub-r2(i))
         !Did it cross the OUTER border from OUTSIDE, did it see the barrier
         ELSEIF(r1(i)<Ub .AND. r2(i)>Ub .AND. par(4,i)==1 .AND. brand(i)<penter) THEN
-            print brand(i), pexit, penter
             !Then throw it out again!
             par(1:3,i) =  par(1:3,i)/SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))&
                         *(2*Ub-r2(i))
         !Did it cross the INNER border from INSIDE, did it see the barrier?
         ELSEIF(r1(i)<Ua .AND. r2(i)>Ua .AND. par(4,i)==1 .AND. brand(i)<pexit) THEN
-            print brand(i), pexit, penter
             !Then keep it in!
             par(1:3,i) =  par(1:3,i)/SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))&
                         *(2*Ua-r2(i))
         !Did it cross the INNER border from OUTSIDE, did it see the barrier?
         ELSEIF(r1(i)>Ua .AND. r2(i)<Ua .AND. par(4,i)==1 .AND. brand(i)<penter) THEN
-            print brand(i), pexit, penter
             !Then keep it in!
             par(1:3,i) =  par(1:3,i)/SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))&
                         *(2*Ua-r2(i))

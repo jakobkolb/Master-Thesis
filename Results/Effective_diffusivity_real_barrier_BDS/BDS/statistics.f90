@@ -243,7 +243,9 @@ CONTAINS
 
     WRITE(rate_final, *) "this file contains simulation parameters and measured absorption rate"
     WRITE(rate_final, *)
-    WRITE(rate_final, "(E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5)")&
+    WRITE(rate_final, "(E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x,&
+        E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5,&
+        1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5)")&
     REAL(npar), D, Rd, dt, t0, t1, t, U0, U1, l, g, decay_length, aver5(6*bins+1), sigma5(6*bins+1)
     
     !Close files for output
@@ -258,5 +260,29 @@ CONTAINS
 
     END SUBROUTINE statistics_output
 
+    SUBROUTINE write_trajectory
+        IMPLICIT NONE
+
+        LOGICAL :: exist
+        INTEGER :: i
+        REAL(8), DIMENSION(npar) :: radii
+
+        INQUIRE(file="trajectories.txt", exist=exist)
+        IF (exist) THEN
+            OPEN(12, file="trajectories.txt", status="old", position="append", action="write")
+        ELSE
+            OPEN(12, file="trajectories.txt", status="new", action="write")
+        ENDIF
+        DO i = 1,npar
+            radii(i) = SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))
+        ENDDO
+       
+        WRITE(12,'(E12.5, 1x)', advance="no") t
+        DO i = 1,npar
+            WRITE(12, '(E12.5, 1x)', advance="no") radii(i)
+        ENDDO
+        WRITE(12,*) ''
+        CLOSE(12)
+    END SUBROUTINE
 END MODULE statistics
 

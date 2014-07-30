@@ -12,7 +12,7 @@ SUBROUTINE init_parameters
     USE global
 
     INTEGER :: in=10, tmp
-    REAL(8) :: nparin, ntin, C, decay_length
+    REAL(8) :: nparin, ntin, C
     CHARACTER(4)    :: trig, arg
 
     NAMELIST /PARAMETER/    nparin, D, KT, dt, t0, t1, Rd, U0,&

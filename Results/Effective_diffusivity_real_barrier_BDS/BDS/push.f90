@@ -15,7 +15,6 @@ SUBROUTINE move_particles
     REAL(8)                     :: Ua, Ub, a, b, penter, pexit
 
     force = 0
-    parold = par
 
     !Calculate parameters for ideal barrier
 
@@ -117,28 +116,23 @@ SUBROUTINE move_particles
     CALL RANDOM_NUMBER(brand)
     !$OMP PARALLEL DO
     DO i = 1,npar
-    print brand(i), pexit, penter
         !Did it cross the OUTER border from INSIDE, did it see the barrier?
         IF(r1(i)>Ub .AND. r2(i)<Ub .AND. par(4,i)==1 .AND. brand(i)<pexit) THEN
-            print brand(i), pexit, penter
             !Then throw it out again!
             par(1:3,i) =  par(1:3,i)/SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))&
                         *(2*Ub-r2(i))
         !Did it cross the OUTER border from OUTSIDE, did it see the barrier
         ELSEIF(r1(i)<Ub .AND. r2(i)>Ub .AND. par(4,i)==1 .AND. brand(i)<penter) THEN
-            print brand(i), pexit, penter
             !Then throw it out again!
             par(1:3,i) =  par(1:3,i)/SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))&
                         *(2*Ub-r2(i))
         !Did it cross the INNER border from INSIDE, did it see the barrier?
         ELSEIF(r1(i)<Ua .AND. r2(i)>Ua .AND. par(4,i)==1 .AND. brand(i)<pexit) THEN
-            print brand(i), pexit, penter
             !Then keep it in!
             par(1:3,i) =  par(1:3,i)/SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))&
                         *(2*Ua-r2(i))
         !Did it cross the INNER border from OUTSIDE, did it see the barrier?
         ELSEIF(r1(i)>Ua .AND. r2(i)<Ua .AND. par(4,i)==1 .AND. brand(i)<penter) THEN
-            print brand(i), pexit, penter
             !Then keep it in!
             par(1:3,i) =  par(1:3,i)/SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))&
                         *(2*Ua-r2(i))
@@ -184,6 +178,8 @@ SUBROUTINE maintain_boundary_conditions(counter)
     REAL(8), DIMENSION(npar):: dmr
     counter = 0
 
+
+
     !$OMP DO REDUCTION(+:counter) PRIVATE(Rr, rand, dr, A, B, AB, px, theta, phi)
     DO i = 1,npar
 
@@ -200,7 +196,6 @@ SUBROUTINE maintain_boundary_conditions(counter)
         ELSEIF( DOT_PRODUCT((px-A),(px-B)) >= 0 )THEN
             Rr = SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))
         ENDIF
-
         !Set particles to domain boundary (ensure steady state solution
         !when they hit the Sink and count them for rate statistics
 
@@ -219,7 +214,8 @@ SUBROUTINE maintain_boundary_conditions(counter)
             dr(2) = SIN(phi)*SIN(theta)
             dr(3) = COS(theta) 
             par(1:3,i) = (Rd -(Rs - Rr))*dr
-print *, '#############', t, '###############', Rr, (Rd - (Rs - Rr))
+            par(4,i) = ANINT(rand(4))
+print *, '#############', t, '###############', i, Rr, SQRT(DOT_PRODUCT(par(1:3,i),par(1:3,i)))
         ELSEIF( Rr > Rd )THEN
 
         !Reset particles to some random place at the boundary if they exceed the

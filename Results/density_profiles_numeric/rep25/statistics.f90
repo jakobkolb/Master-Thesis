@@ -243,7 +243,9 @@ CONTAINS
 
     WRITE(rate_final, *) "this file contains simulation parameters and measured absorption rate"
     WRITE(rate_final, *)
-    WRITE(rate_final, "(E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5)")&
+    WRITE(rate_final, "(E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5,&
+        1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, 1x, E12.5, &
+        1x, E12.5, 1x, E12.5, 1x, E12.5)")&
     REAL(npar), D, Rd, dt, t0, t1, t, U0, U1, l, g, decay_length, aver5(6*bins+1), sigma5(6*bins+1)
     
     !Close files for output
