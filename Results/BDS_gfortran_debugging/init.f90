@@ -89,7 +89,7 @@ SUBROUTINE init_particles
     DO i = 1,npar
         par(1,i) = 0
         par(2,i) = 0
-        par(3,i) = Rd
+        par(3,i) = Rs + REAL(i)/REAL(npar)*(Rd-Rs)
     ENDDO
 
     parold = par
