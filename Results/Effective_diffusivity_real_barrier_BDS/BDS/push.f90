@@ -49,7 +49,7 @@ SUBROUTINE move_particles
 
     !Calculate effective displacement due to thermal noise
 
-    erand = SQRT(2*D*dt)*erand
+    erand = SQRT(2.0*D*dt)*erand
 
     !Calculate force on particles in case of linear potential
 

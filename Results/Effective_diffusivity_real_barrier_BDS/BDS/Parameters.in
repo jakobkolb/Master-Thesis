@@ -1,10 +1,10 @@
 &parameter
-    nparin  = 5D0
+    nparin  = 5D2
     D       = 0.025
     KT      = 1.
-    dt      = 3.0D-2!time step
-    t0      = 0D4   !beginning of sampling (assumed relaxation time to steady state)
-    t1      = 5D4   !end of sampling
+    dt      = 3.0D-2  !time step
+    t0      = 4.99D3   !beginning of sampling (assumed relaxation time to steady state)
+    t1      = 5D3   !end of sampling
     Rd      = 20.   !simulation domain
     U0      = 0.
     U1      = 3.

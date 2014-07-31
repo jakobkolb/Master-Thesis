@@ -1,8 +1,8 @@
-FC = ifort
+FC = gfortran
 
 CC = gcc
 
-OPT = -openmp -O3
+OPT = -fopenmp -O3
 PROF =# -g -pg
 
 PROGRAMS = BDS
