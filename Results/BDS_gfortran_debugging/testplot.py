@@ -10,7 +10,7 @@ blues = ['#004C99', '#1299F8', '#66B2FF', '#CCE5FF']
 N = 5
 nbins = 1000
 pi = 3.14159265359
-frames  = 1
+frames  = 4
 feq = 0
 
 densdata = {}
@@ -120,7 +120,7 @@ l5 = ax2b.plot(plt[:,0],plt[:,5], '--', color='grey', zorder = 0, label = '$U_1(
 ax2.set_ylabel(r'$\rho_n(r)$')
 ax2b.set_ylabel(r'$U_2(r)$')
 
-ax2.set_ylim([0,0.18])
+#ax2.set_ylim([0,0.18])
 
 lns = l1+l2+l5
 labs = [l.get_label() for l in lns]
