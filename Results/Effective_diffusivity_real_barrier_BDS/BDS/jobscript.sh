@@ -15,13 +15,19 @@ cd $PBS_O_WORKDIR
 
 rm *data*
 rm attrung_test.*
+rm trajectories.*
  
 echo "Information about the job:"
 qstat -f $PBS_JOBID
 echo -e "\n\n"
- 
-echo "Started batch processing at `date`."
+
+cp Parameters.equil Parameters.in
+echo "Started equilibration at `date`."
 ./BDS
+cp Parameters.equil Parameters.in
+echo "Started relaxation at `date`."
+./BDS
+echo "Started msq analysis `date`."
+python msq_analysis.py
 echo "Ended batch processing at `date`."
- 
 exit 0

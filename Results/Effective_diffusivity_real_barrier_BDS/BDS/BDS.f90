@@ -29,6 +29,7 @@ IMPLICIT NONE
 
     !start iteration for particles
 i = 0
+j = 0
     DO WHILE(t<=t1)
         i = i+1
 
@@ -46,14 +47,16 @@ i = 0
             CALL dens_statistics_accum(nbins)
         ENDIF
         
+        IF(measure == "relax" .AND. MOD(i,100)==0) THEN
+            j = j + 1
+print *, j
+            CALL write_trajectory
+        ENDIF
+
         !call boundary condition routine and cound absorbed particles
 
         CALL maintain_boundary_conditions(counter)
         acc_count = acc_count + counter
-
-        IF(t >= t0) THEN
-            CALL write_trajectory
-        ENDIF
 
         !call statistics routine for absorption rate
 
@@ -62,7 +65,7 @@ i = 0
         ENDIF
 
         t = t + dt
-        IF(MOD(i,INT((/dt)/4)) == 0 .AND. t >= t0) THEN
+        IF(MOD(i,INT((t1/dt)/4)) == 0 .AND. t >= t0 .AND. measure == "equil") THEN
 print *, acc_count
             acc_count = 0
 print*, i, t, t/t1*100, INT(t/t1*100)
@@ -70,5 +73,10 @@ print*, i, t, t/t1*100, INT(t/t1*100)
             CALL statistics_output(nbins, n, t)
         ENDIF 
     ENDDO
+
+    IF(measure == "equil") THEN
+        OPEN(UNIT=13, FILE="particle_dump.dat", ACTION="write", STATUS="replace", FORM="unformatted")
+        WRITE(13) par(:,:)
+    ENDIF
 
 END PROGRAM BDS

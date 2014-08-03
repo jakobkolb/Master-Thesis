@@ -17,7 +17,7 @@ SUBROUTINE init_parameters
 
     NAMELIST /PARAMETER/    nparin, D, KT, dt, t0, t1, Rd, U0,&
                             U1, l, g, Un, decay_length, fmode, nbins,&
-                            potential_shape
+                            potential_shape, measure, nmult
 
     !Read simulation parameters from file
 
@@ -25,7 +25,11 @@ SUBROUTINE init_parameters
     READ(in,PARAMETER)
     CLOSE(in)
 
-    npar = INT(nparin)
+    IF(measure == "equil")THEN
+        npar = INT(nparin)
+    ELSEIF(measure == "relax")THEN
+        npar = INT(nparin*10**nmult)
+    ENDIF
 
     !readin of terminal arguments and change simulation parameters
 
@@ -78,19 +82,35 @@ SUBROUTINE init_particles
     REAL(8), DIMENSION(nbins)   :: Cumm, r
 
     !Allocate particle array
-
-    ALLOCATE(par(1:4,1:npar))
-    ALLOCATE(parold(1:4,1:npar))
-    ALLOCATE(force(1:3,1:npar))
+    IF(measure == "equil")THEN
+        ALLOCATE(par(1:4,1:npar))
+        ALLOCATE(parold(1:4,1:npar))
+        ALLOCATE(force(1:3,1:npar))
+    ELSEIF(measure == "relax")THEN
+        ALLOCATE(par(1:4,1:npar))
+        ALLOCATE(parold(1:4,1:npar))
+        ALLOCATE(force(1:3,1:npar))
+    ENDIF
 
     !use uniform distribution for initial condition. This way transsients can be
     !more ore less quantified.
   
-    DO i = 1,npar
-        par(1,i) = 0
-        par(2,i) = 0
-        par(3,i) = Rd
-    ENDDO
+    IF(measure == "equil") THEN
+        DO i = 1,npar
+            par(1,i) = 0
+            par(2,i) = 0
+            par(3,i) = Rd
+        ENDDO
+    ELSEIF(measure == "relax")THEN
+
+        n = npar/(10**nmult)
+
+        DO i = 1,10**nmult
+            OPEN(UNIT=13, FILE="particle_dump.dat", ACTION="read", FORM="unformatted")
+            READ(13) par(1:4,1+(i-1)*n:i*n)
+            CLOSE(13)
+        ENDDO
+    ENDIF
 
     parold = par
 
