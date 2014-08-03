@@ -14,7 +14,7 @@
     decay_length = 2.5
     fmode   = 1     !mode for potential switching ( 0:all particles or 1:individual particle)
     nbins   = 500
-    potential_shape = 'box' ! one of gau:gaussian lin:linear box:stepshaped
+    potential_shape = 'gau' ! one of gau:gaussian lin:linear box:stepshaped
     measure         = 'equil'   !'equil' for equilibarion and particle dump, 'relax' for dump load and trajectory output
     nmult   = 2     !factor for relaxing particles
 /
