@@ -126,7 +126,7 @@ l1 = ax2.plot(Rvals, DeffShort[0] ,zorder = 4, color = reds[0], label = r'$r_d =
 l2 = ax2.plot(Rvals, DeffShort[1] ,zorder = 4, color = reds[1], label = r'$r_d = 2.5$')
 l3 = ax2.plot(Rvals, DeffShort[2] ,zorder = 4, color = reds[2], label = r'$r_d = 250$')
 
-ax2.set_ylabel(r'$\D/D_0$')
+ax2.set_ylabel(r'$D_{eff}/D_0$')
 
 #ax2.set_ylim([0,0.18])
 
