@@ -14,7 +14,7 @@ data = {}
 parameters = {}
 DeffShort = {}
 DeffLong = {}
-folders = ['ra025','ra25','ra250']
+folders = ['rd025','rd25','rd250']
 
 reds =  ['#660000', '#CC0000', '#FF3333', '#FF9999']
 
@@ -88,9 +88,9 @@ print np.shape(DeffLong[1])
 print np.shape(DeffLong[2])
 
 ax2.text(0.05, 0.95, 'B)', transform=ax2.transAxes, fontsize=12, va='top')
-l1 = ax2.plot(Rvals, DeffLong[0], 'o', zorder = 4, color = reds[0], label = r'$r_d = 0.25$')
-l2 = ax2.plot(Rvals, DeffLong[1], 'o', zorder = 4, color = reds[1], label = r'$r_d = 2.5$')
-l3 = ax2.plot(Rvals, DeffLong[2], 'o', zorder = 4, color = reds[2], label = r'$r_d = 250$')
+l1 = ax2.plot(Rvals, DeffLong[0], zorder = 4, color = reds[0], label = r'$r_d = 0.25$')
+l2 = ax2.plot(Rvals, DeffLong[1], zorder = 4, color = reds[1], label = r'$r_d = 2.5$')
+l3 = ax2.plot(Rvals, DeffLong[2], zorder = 4, color = reds[2], label = r'$r_d = 250$')
 
 ax2.set_ylabel(r'$D_{eff}/D_0$')
 
@@ -122,9 +122,9 @@ j=1
 ax2 = fig2.add_subplot(111)
 
 ax2.text(0.05, 0.95, 'A)', transform=ax2.transAxes, fontsize=12, va='top')
-l1 = ax2.plot(Rvals, DeffShort[0], 'o' ,zorder = 4, color = reds[0], label = r'$r_d = 0.25$')
-l2 = ax2.plot(Rvals, DeffShort[1], 'o' ,zorder = 4, color = reds[1], label = r'$r_d = 2.5$')
-l3 = ax2.plot(Rvals, DeffShort[2], 'o' ,zorder = 4, color = reds[2], label = r'$r_d = 250$')
+l1 = ax2.plot(Rvals, DeffShort[0],zorder = 4, color = reds[0], label = r'$r_d = 0.25$')
+l2 = ax2.plot(Rvals, DeffShort[1],zorder = 4, color = reds[1], label = r'$r_d = 2.5$')
+l3 = ax2.plot(Rvals, DeffShort[2],zorder = 4, color = reds[2], label = r'$r_d = 250$')
 
 ax2.set_ylabel(r'$D_{eff}/D_0$')
 
