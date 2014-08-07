@@ -1,0 +1,4 @@
+/var/spool/pbs/mom_priv/jobs/70376.irz14.SC: line 12: export: `=': not a valid identifier
+/var/spool/pbs/mom_priv/jobs/70376.irz14.SC: line 12: export: `8': not a valid identifier
+rm: cannot remove `attrung_test.*': No such file or directory
+rm: cannot remove `trajectories.*': No such file or directory

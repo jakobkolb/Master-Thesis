@@ -14,7 +14,7 @@ data = {}
 parameters = {}
 DeffShort = {}
 DeffLong = {}
-folders = ['rd025','rd25','rd250']
+folders = ['ra025','ra25','ra250']
 
 reds =  ['#660000', '#CC0000', '#FF3333', '#FF9999']
 
