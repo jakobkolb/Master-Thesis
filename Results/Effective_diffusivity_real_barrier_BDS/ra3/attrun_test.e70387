@@ -1,0 +1,34 @@
+/var/spool/pbs/mom_priv/jobs/70387.irz14.SC: line 12: export: `=': not a valid identifier
+/var/spool/pbs/mom_priv/jobs/70387.irz14.SC: line 12: export: `8': not a valid identifier
+rm: cannot remove `*data*': No such file or directory
+rm: cannot remove `attrung_test.*': No such file or directory
+rm: cannot remove `trajectories.*': No such file or directory
+forrtl: Disk quota exceeded
+forrtl: severe (38): error during write, unit 12, file /users/stud/jkolb/Veranstaltungen/MA/Results/Effective_diffusivity_real_barrier_BDS/ra25/trajectories.txt
+Image              PC                Routine            Line        Source             
+BDS                00000000004CD7EE  Unknown               Unknown  Unknown
+BDS                00000000004CC286  Unknown               Unknown  Unknown
+BDS                000000000047FD92  Unknown               Unknown  Unknown
+BDS                000000000041B37C  Unknown               Unknown  Unknown
+BDS                000000000041A89C  Unknown               Unknown  Unknown
+BDS                0000000000463FF1  Unknown               Unknown  Unknown
+BDS                000000000045F6BF  Unknown               Unknown  Unknown
+BDS                000000000040D82D  Unknown               Unknown  Unknown
+BDS                0000000000403B52  Unknown               Unknown  Unknown
+BDS                00000000004038BC  Unknown               Unknown  Unknown
+libc.so.6          00002AC2564AEEED  Unknown               Unknown  Unknown
+BDS                0000000000403799  Unknown               Unknown  Unknown
+Traceback (most recent call last):
+  File "msq_analysis.py", line 2, in <module>
+    import matplotlib.pyplot as mp
+  File "/usr/lib/pymodules/python2.7/matplotlib/__init__.py", line 774, in <module>
+    rcParams = rc_params()
+  File "/usr/lib/pymodules/python2.7/matplotlib/__init__.py", line 692, in rc_params
+    fname = matplotlib_fname()
+  File "/usr/lib/pymodules/python2.7/matplotlib/__init__.py", line 604, in matplotlib_fname
+    fname = os.path.join(get_configdir(), 'matplotlibrc')
+  File "/usr/lib/pymodules/python2.7/matplotlib/__init__.py", line 253, in wrapper
+    ret = func(*args, **kwargs)
+  File "/usr/lib/pymodules/python2.7/matplotlib/__init__.py", line 475, in _get_configdir
+    raise RuntimeError("'%s' is not a writable dir; you must set %s/.matplotlib to be a writable dir.  You can also set environment variable MPLCONFIGDIR to any writable directory where you want matplotlib data stored "% (h, h))
+RuntimeError: '/users/stud/jkolb' is not a writable dir; you must set /users/stud/jkolb/.matplotlib to be a writable dir.  You can also set environment variable MPLCONFIGDIR to any writable directory where you want matplotlib data stored 
