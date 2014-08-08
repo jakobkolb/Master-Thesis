@@ -1,0 +1,25 @@
+/var/spool/pbs/mom_priv/jobs/70383.irz14.SC: line 12: export: `=': not a valid identifier
+/var/spool/pbs/mom_priv/jobs/70383.irz14.SC: line 12: export: `8': not a valid identifier
+rm: cannot remove `attrung_test.*': No such file or directory
+rm: cannot remove `trajectories.*': No such file or directory
+forrtl: Disk quota exceeded
+forrtl: severe (38): error during write, unit 12, file /users/stud/jkolb/Veranstaltungen/MA/Results/Effective_diffusivity_real_barrier_BDS/rd025/trajectories.txt
+Image              PC                Routine            Line        Source             
+BDS                00000000004CD7EE  Unknown               Unknown  Unknown
+BDS                00000000004CC286  Unknown               Unknown  Unknown
+BDS                000000000047FD92  Unknown               Unknown  Unknown
+BDS                000000000041B37C  Unknown               Unknown  Unknown
+BDS                000000000041A89C  Unknown               Unknown  Unknown
+BDS                0000000000463FF1  Unknown               Unknown  Unknown
+BDS                000000000045F6BF  Unknown               Unknown  Unknown
+BDS                000000000040D82D  Unknown               Unknown  Unknown
+BDS                0000000000403B52  Unknown               Unknown  Unknown
+BDS                00000000004038BC  Unknown               Unknown  Unknown
+libc.so.6          00002ADC143B5EED  Unknown               Unknown  Unknown
+BDS                0000000000403799  Unknown               Unknown  Unknown
+Traceback (most recent call last):
+  File "msq_analysis.py", line 6, in <module>
+    data = np.loadtxt('trajectories.txt')
+  File "/usr/lib/pymodules/python2.7/numpy/lib/npyio.py", line 805, in loadtxt
+    items = [conv(val) for (conv, val) in zip(converters, vals)]
+MemoryError
