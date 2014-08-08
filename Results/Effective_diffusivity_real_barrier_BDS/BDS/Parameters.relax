@@ -1,8 +1,8 @@
 &parameter
-    nparin  = 1D4
+    nparin  = 1D3
     D       = 0.025
     KT      = 1.
-    dt      = 3.0D-3  !time step
+    dt      = 3.0D-2  !time step
     t0      = 0D3   !beginning of sampling (assumed relaxation time to steady state)
     t1      = 1D2   !end of sampling
     Rd      = 100.   !simulation domain
@@ -16,5 +16,5 @@
     nbins   = 500
     potential_shape = 'box' ! one of gau:gaussian lin:linear box:stepshaped
     measure         = 'relax'   !'equil' for equilibarion and particle dump, 'relax' for dump load and trajectory output
-    nmult   = 2     !factor for relaxing particles
+    nmult   = 3     !factor for relaxing particles
 /

@@ -1,5 +1,5 @@
 &parameter
-    nparin  = 1D4
+    nparin  = 1D3
     D       = 0.025
     KT      = 1.
     dt      = 3.0D-2  !time step
