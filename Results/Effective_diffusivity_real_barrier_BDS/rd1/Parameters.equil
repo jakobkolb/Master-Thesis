@@ -2,9 +2,9 @@
     nparin  = 1D4
     D       = 0.025
     KT      = 1.
-    dt      = 3.0D-3  !time step
+    dt      = 3.0D-2  !time step
     t0      = 0D3   !beginning of sampling (assumed relaxation time to steady state)
-    t1      = 5D4   !end of sampling
+    t1      = 1D4   !end of sampling
     Rd      = 20.   !simulation domain
     U0      = 0.
     U1      = 3.

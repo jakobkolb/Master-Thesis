@@ -20,10 +20,10 @@ print np.shape(msqd)
 mp.figure()
 n = 0
 for i in range(npar):
-    if data[0,i]>0.99*Rd:
+    if data[0,i]<1.2*Rs:
         n += 1
-        print i, data[0,i]
         msqd[:,0] += (data[:,i]-data[0,i])**2
+print data[:,0]
 
 msqd[:,0] = msqd[:,0]/n
 mp.plot(data[:,0], msqd[:,0])
