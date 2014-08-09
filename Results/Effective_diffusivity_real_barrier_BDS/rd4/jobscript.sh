@@ -5,7 +5,11 @@
 # 2010/11/16 - Eric McDonald
 # * Create.
  
+<<<<<<< HEAD
 #PBS -N rd4
+=======
+#PBS -N attrun_test
+>>>>>>> 9cdd54589e7c3ef1f5632549fa4c04677abcdfb6
 #PBS -l nodes=1:ppn=4,walltime=720:00:00
 #PBS -m ae
 
