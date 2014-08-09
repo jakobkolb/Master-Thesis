@@ -15,6 +15,11 @@
     fmode   = 1     !mode for potential switching ( 0:all particles or 1:individual particle)
     nbins   = 500
     potential_shape = 'box' ! one of gau:gaussian lin:linear box:stepshaped
+<<<<<<< HEAD
+    measure         = 'relax'   !'equil' for equilibarion and particle dump, 'relax' for dump load and trajectory output
+    nmult   = 3     !factor for relaxing particles
+=======
     measure         = 'equil'   !'equil' for equilibarion and particle dump, 'relax' for dump load and trajectory output
     nmult   = 2     !factor for relaxing particles
+>>>>>>> 9cdd54589e7c3ef1f5632549fa4c04677abcdfb6
 /
