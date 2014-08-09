@@ -14,7 +14,7 @@ Rd = float(20)
 ntimes = int(np.shape(data)[0])
 it0max = ntimes/4
 sqd = np.zeros((ntimes,nbins,2))
-msqd = np.zeros((ntimes,nbins))
+msqd = np.zeros((ntimes,nbins+1))
 print np.shape(msqd)
 
 code = \
@@ -55,6 +55,6 @@ for ibin in range(nbins):
             msqd[it,ibin] = sqd[it,ibin,0]/sqd[it,ibin,1]
         elif sqd[it,ibin,1] == 0:
             msqd[it,ibin] = float('NaN')
-
+msqd[:,-1] = data[:,0]
 np.savetxt('mean_square_radius.tsv', msqd)
 
