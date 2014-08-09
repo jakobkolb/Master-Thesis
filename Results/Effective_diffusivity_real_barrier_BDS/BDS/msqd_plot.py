@@ -5,8 +5,6 @@ import math
 
 data = np.loadtxt('mean_square_radius.tsv')
 edata = np.loadtxt('Emean_square_radius.tsv')
-parameters = np.loadtxt('rate_data01', skiprows=2)
-
 
 def powerlaw(t,D):
     return 2.0*D*t

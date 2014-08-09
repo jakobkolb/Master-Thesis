@@ -5,7 +5,7 @@
 # 2010/11/16 - Eric McDonald
 # * Create.
  
-#PBS -N attrun_test
+#PBS -N ra2
 #PBS -l nodes=1:ppn=4,walltime=720:00:00
 #PBS -m ae
 
