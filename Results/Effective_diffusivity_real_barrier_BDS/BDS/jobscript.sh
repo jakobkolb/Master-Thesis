@@ -5,7 +5,7 @@
 # 2010/11/16 - Eric McDonald
 # * Create.
  
-#PBS -N attrun_test
+#PBS -N rd3BDS
 #PBS -l nodes=1:ppn=4,walltime=720:00:00
 #PBS -m ae
 
@@ -24,10 +24,11 @@ echo -e "\n\n"
 cp Parameters.equil Parameters.in
 echo "Started equilibration at `date`."
 ./BDS
-cp Parameters.equil Parameters.in
+cp Parameters.relax Parameters.in
 echo "Started relaxation at `date`."
 ./BDS
 echo "Started msq analysis `date`."
 python msq_analysis.py
 echo "Ended batch processing at `date`."
+rm trajectories.txt
 exit 0

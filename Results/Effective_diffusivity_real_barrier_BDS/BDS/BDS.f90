@@ -47,7 +47,7 @@ j = 0
             CALL dens_statistics_accum(nbins)
         ENDIF
         
-        IF(measure == "relax" .AND. MOD(i,100)==0) THEN
+        IF(measure == "relax" .AND. MOD(i,1000)==0) THEN
             j = j + 1
 print *, j
             CALL write_trajectory
