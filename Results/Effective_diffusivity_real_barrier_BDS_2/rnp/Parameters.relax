@@ -1,0 +1,20 @@
+&parameter
+    nparin  = 1D4
+    D       = 0.025
+    KT      = 1.
+    dt      = 3.0D-2  !time step
+    t0      = 0D3   !beginning of sampling (assumed relaxation time to steady state)
+    t1      = 1D2   !end of sampling
+    Rd      = 100.   !simulation domain
+    U0      = 0.
+    U1      = 3.
+    l      = 5      !distance from sink to potential
+    g      = 1      !width of potential
+    Un      = 32    !steepness of potential
+    decay_length = 10D2
+    fmode   = 1     !mode for potential switching ( 0:all particles or 1:individual particle)
+    nbins   = 500
+    potential_shape = '' ! one of gau:gaussian lin:linear box:stepshaped
+    measure         = 'relax'   !'equil' for equilibarion and particle dump, 'relax' for dump load and trajectory output
+    nmult   = 3     !factor for relaxing particles
+/
