@@ -3,6 +3,9 @@
 import numpy as np
 import matplotlib.pyplot as mp
 
+reds =  ['#660000', '#CC0000', '#FF3333', '#FF9999', '#FF9999']
+blues = ['#004C99', '#0080FF', '#66B2FF', '#CCE5FF', '#CCE5FF']
+
 save = 1
 
 g_values = [1,4,16]
@@ -61,18 +64,18 @@ params = {'text.usetex' : True,
           'text.latex.unicode': True,
           }
 mp.rcParams.update(params)
-
+height = 0.9
 fig1 = mp.figure()
 
 #You must select the correct size of the plot in advance
 #fig.set_size_inches(3.54,2.*3.84)
-fig1.set_size_inches(3.54,2.64)
+fig1.set_size_inches(3.54,height*3.54)
 
 #ax1 = fig.add_subplot(211)
 ax1 = fig1.add_subplot(111)
-ln1a = mp.plot(arate[`g_values[0]`][:,0],   arate[`g_values[0]`][:,1], color = '0.55', label = 'analytic solution')
-ln1b = mp.plot(arate[`g_values[1]`][:,0],   arate[`g_values[1]`][:,1], color = '0.55')
-ln1c = mp.plot(arate[`g_values[2]`][:,0],   arate[`g_values[2]`][:,1], color = '0.55')
+ln1a = mp.plot(arate[`g_values[0]`][:,0],   arate[`g_values[0]`][:,1], color = reds[3], label = 'analytic solution')
+ln1b = mp.plot(arate[`g_values[1]`][:,0],   arate[`g_values[1]`][:,1], color = reds[2])
+ln1c = mp.plot(arate[`g_values[2]`][:,0],   arate[`g_values[2]`][:,1], color = reds[1])
 #ln2a = mp.plot(asrate[`g_values[0]`][:,0],  asrate[`g_values[0]`][:,1], 'r--')
 #ln2b = mp.plot(asrate[`g_values[1]`][:,0],  asrate[`g_values[1]`][:,1], 'r--')
 #ln2c = mp.plot(asrate[`g_values[2]`][:,0],  asrate[`g_values[2]`][:,1], 'r--')
@@ -97,13 +100,13 @@ if save == 1:
             )
 
 fig2 = mp.figure()
-fig2.set_size_inches(3.54,2.64)
+fig2.set_size_inches(3.54,height*3.54)
 
 #ax2 = fig.add_subplot(212)
 ax2 = fig2.add_subplot(111)
-ln1a = mp.plot(rrate[`g_values[0]`][:,0],   rrate[`g_values[0]`][:,1], color = '0.55', label = 'analytic solution')
-ln1b = mp.plot(rrate[`g_values[1]`][:,0],   rrate[`g_values[1]`][:,1], color = '0.55')
-ln1c = mp.plot(rrate[`g_values[2]`][:,0],   rrate[`g_values[2]`][:,1], color = '0.55')
+ln1a = mp.plot(rrate[`g_values[0]`][:,0],   rrate[`g_values[0]`][:,1], color = blues[3], label = 'analytic solution')
+ln1b = mp.plot(rrate[`g_values[1]`][:,0],   rrate[`g_values[1]`][:,1], color = blues[2])
+ln1c = mp.plot(rrate[`g_values[2]`][:,0],   rrate[`g_values[2]`][:,1], color = blues[1])
 #ln2a = mp.plot(rsrate[`g_values[0]`][:,0],  rsrate[`g_values[0]`][:,1], 'r--')
 #ln2b = mp.plot(rsrate[`g_values[1]`][:,0],  rsrate[`g_values[1]`][:,1], 'r--')
 #ln2c = mp.plot(rsrate[`g_values[2]`][:,0],  rsrate[`g_values[2]`][:,1], 'r--')

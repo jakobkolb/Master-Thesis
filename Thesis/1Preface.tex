@@ -1,16 +1,54 @@
+\thispagestyle{empty}
+%\vspace*{2cm}
+\begin{center}
+%
+%
+  {\large
+  \centerline{\includegraphics[width=.4 \textwidth]{plots/husiegel_sw_op.eps}}%\caption*{}
+\vspace*{0.5cm}
+Faculty of Mathematics and Natural Sciences\\
+Humbold Universit\"{a}t zu Berlin\\%[2cm]
+\vspace*{2cm}
+{\Large Master Thesis}\\[0.5cm]
+\textsc{\Huge{Diffusion Controlled Reactions over \\[.4 cm] Fluctuating Barriers}}\\[2cm]
+%\begin{flushleft}
+    Jakob J. Kolb\\
+%\end{flushleft}
+Berlin, \today\\
+ }
+%\end{otherlanguage*}
+%
+%
+%
+\vfill	
+%
+%\begin{otherlanguage*}{german}
+%
+\rule{0mm}{1mm}\\   % avoid spaces before D7
+
+\textit{First Referee}\\ Prof. Dr. Joachim Dzubiella \\
+\textit{Second Referee}\\ Prof. Dr. Igor Sokolov
+\end{center}
 \pagenumbering{Roman}
-%\section*{Abstract}
-%\addcontentsline{toc}{section}{\numberline{}Abstract}
-%Recent studies on tunable nano-reactors with a thermosensitive polymer shell have shown curious effects in reaction rates
-%right at the polymer critical solution temperature.
-%The shell is presumably stochastically fluctuating between states with different permeability for the substrate.
-%To investigate this effect a simplified system of diffusing particles in the vicinity of a spherical sink shielded by a metastable potential barrier is investigated. We derive an implicit solution for the resulting Fokker-Planck equation to obtain the diffusion-controlled reaction rate and verify these results with Brownian dynamics computer simulations. The system shows resonant activation as previously seen with thermally activated escape over fluctuating barriers.
+\newpage 
+\thispagestyle{empty}
+\mbox{}
+\newpage
+\section*{Abstract}
+\addcontentsline{toc}{section}{\numberline{}Abstract}
+A wealth of solvent reactions in chemistry and biology are diffusion-controlled, i.e., determined by the rate of diffusional encounter of the molecular reactants. However, in modern complex systems and functional materials kinetic barriers can be present which have their own degrees of freedom, adding new time scales and dynamic couplings to the stochastic problem. The consequences of those ``fluctuating barriers'' to diffusion-controlled reaction rates have not been explored yet. \\
+This thesis reveals several stunning effects that can arise in diffusion controlled reaction rates over fluctuating barriers. It therefore uses analytical and numerical methods to investigates a minimal model. This model consists of a spherical sink that is shielded by a step shaped potential barrier that fluctuates between different states of height. Using this model it is shown that resonant activation as previously described in escape problems over fluctuating barriers is also observable in the framework of diffusion controlled reactions. It is further revealed that several procedures that are commonly used to describe fluctuating forces in the context of diffusion controlled reactions are not valid. This includes A) the description of the problem by Debye theory and a potential of mean force and B) the calculation of effective reaction rates from the inverse of a surface and a kinetic rate in case that the sink is not ideally absorbing. \\
+This thesis provides an alternative analytic method to describe the problem for a step shaped fluctuating barrier and gives an estimate for the validity of this solution as an approximation for similar smoothly shaped barriers.
+\newpage
 
-%\section*{Zusammenfassung}
-%\addcontentsline{toc}{section}{\numberline{}Zusammenfassung}
-%\newpage
-
+\section*{Zusammenfassung}
+\addcontentsline{toc}{section}{\numberline{}Zusammenfassung}
+Eine Vielzahl von reaktionen in L\"{o}sung in Chemie und Biologie sind Diffusionskontrolliert, d.h. durch das diffusive Aufeinandertreffen der molekularen Reaktanten bestimmt. In modernen komplexen Systemen und funktionalen Materialien k\"{o}nnen allerdings kinetische Barrieren pr\"{a}sent sein, die ihre eigenen Freiheitsgrade besitzen und dadurch neue Zeitskalen und Interaktionen zum urspr\"{u}nglichen Problem beitragen. Die Konsequenzen dieser ``fluktuierenden Barrieren'' blieben bis jetzt unerforscht.
+Diese Arbeit zeigt einige \"{u}berraschende Effekte auf, die im Zusammenhang mit diffusionskontrollierten Reaktionen \"{u}ber fluktuierende Barrieren auftreten k\"{o}nnen. Dazu dazu werden  analytische und numerische Methoden verwended um ein Minimalmodel des Problems zu beschreiben. Dieses besteht aus einer absorbierenden Senke, die von einem stufenf\"{o}rmigen Potential ummantelt ist. Mit diesem Model wird gezeigt, dass resonante aktivierung, ein Effekt, der bisher aus escape Problemen \"{u}ber fluktuierende Barrieren bekannt war. Ausserdem wird gezeigt, dass einige Heransgehensweisen, die bisher genutzt wurden um fluktuierende Kr\"{a}fte im kontext diffusionskontrollierter Reaktionen zu beschreiben, nicht allgemein g\"{u}ltig sind. Dazu geh\"{o}rt zum einen die Beschreibung des Problems mittels eines mittleren Potentials und klassischer Debye Theorie sowie die Berechung effektiver Reaktionsraten als die Summe des Inversen der Kinetischen- und der Oberfl\"{a}chenrate im Falle, dass die Senke nicht perfekt absorbierend ist.
+Diese Arbeit beinhaltet eine alternative analytische Methode zur beschreibung des Problems sowie eine Absch\"{a}tzung dazu in welchem Rahmen diese als eine N\"{a}herung f\"{u}r Potentiale von anderer Form g\"{u}ltig ist.
+\newpage 
 \tableofcontents
+
 \newpage
 
 \pagenumbering{arabic}
