@@ -8,4 +8,7 @@
 *converted-to.pdf
 *.nav
 *.snm
-
+*.tsv
+*.data
+*.dat
+*.txt
