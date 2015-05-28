@@ -9,6 +9,10 @@ import sympy
 kt = 1.
 d = 1.
 u = -3.
+g=1
+
+rdvalues = 10**np.arange(-6,5,0.005)
+tvalues = 10**np.arange(-4,4.05,0.05)
 
 def calc_rate(u,rd,g,t,kt,d):
 
@@ -39,44 +43,47 @@ def calc_rate(u,rd,g,t,kt,d):
     out = tmp.evalf()
     return out
 
-rdvalues = 10**np.arange(-4,5,0.05)
-tvalues = 10**np.arange(-3,4,0.5)
+
+#tvalues = 10**np.arange(-2,2,1.)
 print tvalues
 #gvalues = [0.1,1,10]
-gvalues = [1]
 arates = np.zeros((np.shape(rdvalues)[0],2))
-kmax = np.zeros((np.shape(tvalues)[0],np.shape(gvalues)[0],4))
-fit_parameters = np.zeros((np.shape(gvalues)[0],3))
+kmax = np.zeros((np.shape(tvalues)[0],5))
 
 g_index = -1
-istop = 10
+istop = 100
 istart = 0
 
-for g in gvalues:
-    g_index = g_index + 1
-    t_index = -1
-    for t in tvalues:
-        t_index = t_index + 1
-        arates[:,:] = 0.
-        for i in range(istart,istop,1):
-            rate = calc_rate(u,rdvalues[i],g,t,kt,d)
-            if math.isnan(rate):
-                break
-            arates[i,1] = rate
-            arates[i,0] = rdvalues[i]
-        #fig = mp.figure()
-        #axn = fig.add_subplot(111)
-        #axn.plot(arates[:,0], arates[:,1])
-        #axn.set_xscale('log')
-        #mp.show()
-        indices = np.argmax(arates[:,1])
-        kmax[t_index,g_index,:] = [t, g, arates[indices,0], arates[indices,1]]
-        istop = min(indices + 30,np.shape(rdvalues)[0])
-        istart = max(0,indices-10)
-        print t, istart, istop, np.shape(rdvalues)[0]
+t_index = -1
+for t in tvalues:
+    t_index = t_index + 1
+    arates[:,:] = 0.
+    for i in range(istart,istop,1):
+        rate = calc_rate(u,rdvalues[i],g,t,kt,d)
+        if math.isnan(rate):
+            break
+        arates[i,1] = rate
+        arates[i,0] = rdvalues[i]
+    #fig = mp.figure()
+    #axn = fig.add_subplot(111)
+    #axn.plot(arates[:,0], arates[:,1])
+    #axn.set_xscale('log')
+    #mp.show()
+    indices = np.argmax(arates[:,1])
+    kmax[t_index,:-1] = [t, g, arates[indices,0], arates[indices,1]]
+    istop = min(indices + 100,np.shape(rdvalues)[0])
+    istart = max(0,indices-10)
+    print t, istart, istop, np.shape(rdvalues)[0], t/kmax[t_index,2]
 #    popt, cov = curve_fit(powerlaw, kmax[:,g_index,2], kmax[:,g_index,0])
 #    print cov, popt, g, t
 #    fit_parameters[g_index,:] = g, popt[0], popt[1]
+
+
+print kmax
+np.savetxt('l_att_power.data', kmax, delimiter = '\t')
+for i,  t in enumerate(tvalues):
+    kmax[i,4] = kmax[i,0]/kmax[i,2]
+np.savetxt('l_att_power_resized.data', kmax, delimiter = '\t')
 
 #Direct input
 mp.rcParams['text.latex.preamble']=[r"\usepackage{lmodern}"]
@@ -91,16 +98,15 @@ mp.rcParams.update(params)
 
 fig2 = mp.figure()
 ax2 = fig2.add_subplot(111)
-for i in range(np.shape(gvalues)[0]):
-    mp.plot(kmax[:,i,0], kmax[:,i,3], color = '#666666')
+mp.plot(kmax[:,0], kmax[:,3], color = '#666666')
 
 ax2.set_xscale('log')
 ax2.set_xlabel('$l$')
-ax2.set_ylabel('$K^{(res)}/K_S$')
+ax2.set_ylabel('$k^{(res)}/k_S$')
+ax2.text(0.05, 0.95, 'B)', transform=ax2.transAxes, fontsize=12, va='top')
 
 ax1 = mp.axes([0.5,0.22,.37,.3])
-for i in range(np.shape(gvalues)[0]):
-    mp.plot(kmax[:,i,0], kmax[:,i,2], label=('g = %1.1f' %kmax[1,i,1]), color = '#aa0000')
+mp.plot(kmax[:,0], kmax[:,2], label=('g = %1.1f' %kmax[1,1]), color = '#aa0000')
 
 ax1.set_xlabel(r'$l$')
 ax1.set_ylabel(r'$r_d^{(res)}$')

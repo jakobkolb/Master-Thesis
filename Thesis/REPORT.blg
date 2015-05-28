@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: REPORT.aux
+The style file: ieeetr.bst
+Database file #1: Library.bib.bib
+Warning--can't use both author and editor fields in Reimann1997
+You've used 73 entries,
+            1876 wiz_defined-function locations,
+            974 strings with 15021 characters,
+and the built_in function-call counts, 21244 in all, are:
+= -- 2310
+> -- 621
+< -- 0
++ -- 240
+- -- 167
+* -- 1470
+:= -- 2859
+add.period$ -- 82
+call.type$ -- 73
+change.case$ -- 66
+chr.to.int$ -- 0
+cite$ -- 74
+duplicate$ -- 1106
+empty$ -- 1952
+format.name$ -- 167
+if$ -- 5257
+int.to.chr$ -- 0
+int.to.str$ -- 73
+missing$ -- 81
+newline$ -- 231
+num.names$ -- 73
+pop$ -- 143
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 871
+stack$ -- 0
+substring$ -- 1727
+swap$ -- 543
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 227
+width$ -- 75
+write$ -- 754
+(There was 1 warning)

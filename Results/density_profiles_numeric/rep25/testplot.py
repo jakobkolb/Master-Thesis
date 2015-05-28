@@ -92,6 +92,8 @@ fig1.set_size_inches(3.54,height*3.54)
 ax1 = fig1.add_subplot(111)
 ax1.errorbar(Rates[:,0],Rates[:,1],yerr = Rates[:,2])
 
+print Rates
+
 
 mp.savefig("density_test.pdf", 
             #This is simple recomendation for publication plots

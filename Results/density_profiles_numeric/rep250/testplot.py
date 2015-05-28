@@ -92,6 +92,8 @@ fig1.set_size_inches(3.54,height*3.54)
 ax1 = fig1.add_subplot(111)
 ax1.errorbar(Rates[:,0],Rates[:,1],yerr = Rates[:,2])
 
+print Rates
+
 
 mp.savefig("density_test.pdf", 
             #This is simple recomendation for publication plots
@@ -115,7 +117,7 @@ plt = densdata[frames+1]
 ax2 = fig2.add_subplot(111)
 mp.yticks([0,0.04,0.08,0.12,0.16])
 ax2b = ax2.twinx()
-ax2.text(0.05, 0.95, 'C)', transform=ax2.transAxes, fontsize=12, va='top')
+ax2.text(0.05, 0.95, 'A)', transform=ax2.transAxes, fontsize=12, va='top')
 l1 = ax2.plot(densdata[frames+1][:,0],densdata[frames+1][:,1]     ,zorder = 4, color = reds[j], label = r'$\rho^{BD}_1(r)$')
 ax2.fill_between(plt[:,0],plt[:,1]+2*plt[:,2],plt[:,1]-2*plt[:,2],zorder = 2, color='grey', alpha = 0.4)
 l2 = ax2.plot(densdata[frames+1][:,0],densdata[frames+1][:,3]     ,zorder = 3, color = blues[j], label = r'$\rho^{BD}_2(r)$')

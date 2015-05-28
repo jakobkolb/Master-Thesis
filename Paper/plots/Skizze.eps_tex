@@ -1,4 +1,4 @@
-%% Creator: Inkscape inkscape 0.48.3.1, www.inkscape.org
+%% Creator: Inkscape inkscape 0.48.4, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'Skizze.eps' (pdf, eps, ps)
 %%
@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{192.96350083bp}%
+    \setlength{\unitlength}{239.79618137bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,16 +48,18 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,1.06018429)%
+  \begin{picture}(1,0.85956777)%
     \put(0,0){\includegraphics[width=\unitlength]{plots/Skizze.eps}}%
-    \put(0.22049447,0.92991838){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$U(r)$}}}%
-    \put(0.27392247,0.84857912){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$U_1$}}}%
-    \put(0.27392247,0.67828476){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$U_0$}}}%
-    \put(0.37769136,0.57226594){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$R_s$}}}%
-    \put(0.55063432,0.57359138){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$a$}}}%
-    \put(0.59412419,0.47148766){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$b$}}}%
-    \put(0.96940811,0.48666699){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$r$}}}%
-    \put(0.68098762,0.76773785){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$W{10}$}}}%
-    \put(0.78520067,0.76773785){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$W{01}$}}}%
+    \put(0.21700571,0.77514456){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$U(r)$}}}%
+    \put(0.23429316,0.6854649){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$U_1$}}}%
+    \put(0.24205727,0.52086573){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$U_0$}}}%
+    \put(0.37273577,0.30605002){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$R_s$}}}%
+    \put(0.96273565,0.31922242){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$r$}}}%
+    \put(0.66709416,0.60157364){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$W_{10}$}}}%
+    \put(0.78590386,0.6028247){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$W_{01}$}}}%
+    \put(0.54590395,0.29940416){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$l$}}}%
+    \put(0.74035457,0.30188195){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$gl$}}}%
+    \put(0.6297207,0.40051238){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$a$}}}%
+    \put(0.87106357,0.40116398){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$b$}}}%
   \end{picture}%
 \endgroup%

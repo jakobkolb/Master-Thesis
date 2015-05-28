@@ -30,7 +30,7 @@ for i in range(2,np.shape(numeric_rates)[1]):
     mp.plot(numeric_rates[:,0], numeric_rates[:,i], 'ro', markersize=4, label='n='+`np.power(2,i)`, alpha = i/7.)
 ax1.set_ylim([0.7,1.15])
 #ax1.legend(loc='upper left')
-ax1.set_ylabel(r'$K/K_{S}$')
+ax1.set_ylabel(r'$k/k_{S}$')
 ax1.set_xlabel(r'$r_{d}$')
 
 ax1.set_xscale('log')

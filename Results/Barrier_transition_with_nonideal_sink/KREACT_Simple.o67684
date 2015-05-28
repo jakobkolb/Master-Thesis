@@ -1,0 +1,62 @@
+Information about the job:
+Job Id: 67684.irz14
+    Job_Name = KREACT_Simple
+    Job_Owner = jkolb@pool12.physik.hu-berlin.de
+    job_state = R
+    queue = defq
+    server = irz14.physik.hu-berlin.de
+    Checkpoint = u
+    ctime = Tue Apr 22 22:14:41 2014
+    Error_Path = pool12.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen/
+	MA/analytics/mathematica/KREACT_Simple.e67684
+    exec_host = pool26/3+pool26/2+pool26/1+pool26/0
+    Hold_Types = n
+    Join_Path = n
+    Keep_Files = n
+    Mail_Points = ae
+    mtime = Tue Apr 22 22:14:42 2014
+    Output_Path = pool12.physik.hu-berlin.de:/users/stud/jkolb/Veranstaltungen
+	/MA/analytics/mathematica/KREACT_Simple.o67684
+    Priority = 0
+    qtime = Tue Apr 22 22:14:41 2014
+    Rerunable = True
+    Resource_List.nice = 15
+    Resource_List.nodect = 1
+    Resource_List.nodes = 1:ppn=4
+    Resource_List.walltime = 720:00:00
+    session_id = 8008
+    Variable_List = PBS_O_QUEUE=defq,PBS_O_HOST=pool12.physik.hu-berlin.de,
+	PBS_O_HOME=/users/stud/jkolb,PBS_O_LANG=en_US.UTF-8,
+	PBS_O_LOGNAME=jkolb,
+	PBS_O_PATH=/usr/global/root/bin:/usr/local/cuda/bin:/usr/global/mpi/b
+	in:/usr/global/open64/bin:/usr/global/pgi/bin:/usr/global/intel/bin:/u
+	sr/global/maple/bin:/usr/global/math/bin:/usr/global/matlab/bin:/usr/g
+	lobal/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:.,
+	PBS_O_MAIL=/var/mail/jkolb,PBS_O_SHELL=/bin/bash,PBS_SERVER=irz14,
+	PBS_O_WORKDIR=/users/stud/jkolb/Veranstaltungen/MA/analytics/mathemat
+	ica
+    etime = Tue Apr 22 22:14:41 2014
+    submit_args = v4.sh
+    start_time = Tue Apr 22 22:14:42 2014
+    Walltime.Remaining = 2592000
+    start_count = 1
+    fault_tolerant = False
+    submit_host = pool12.physik.hu-berlin.de
+    init_work_dir = /users/stud/jkolb/Veranstaltungen/MA/analytics/mathematica
+	
+
+
+
+
+Started batch processing at Tue Apr 22 22:16:40 CEST 2014.
+
+Simplify::time: Time spent on a transformation exceeded 300. seconds, and the transformation was aborted. Increasing the value of TimeConstraint option may improve the result of simplification.
+
+Simplify::time: Time spent on a transformation exceeded 300. seconds, and the transformation was aborted. Increasing the value of TimeConstraint option may improve the result of simplification.
+
+Simplify::time: Time spent on a transformation exceeded 300. seconds, and the transformation was aborted. Increasing the value of TimeConstraint option may improve the result of simplification.
+
+General::stop: Further output of Simplify::time will be suppressed during this calculation.
+Ended batch processing at Fri Apr 25 02:06:09 CEST 2014.
+logout
+logout

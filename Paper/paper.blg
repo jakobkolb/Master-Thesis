@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2012/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: paper.aux
 The style file: apsrev4-1.bst
@@ -9,7 +9,8 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-Database file #1: PRL.bib.bib
+Database file #1: paperNotes.bib
+Database file #2: Library.bib.bib
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 merlin.mbs apsrev4-1.bst 2010-07-25 4.21a (PWD, AO, DPC) hacked
 Control: key (0) 
@@ -19,44 +20,44 @@ Control: production of article title (-1) disabled
 Control: page (0) single
 Control: year (1) truncated
 Control: production of eprint (0) enabled
-You've used 4 entries,
+You've used 48 entries,
             5847 wiz_defined-function locations,
-            1629 strings with 15178 characters,
-and the built_in function-call counts, 3948 in all, are:
-= -- 281
-> -- 63
-< -- 28
-+ -- 22
-- -- 12
-* -- 538
-:= -- 422
-add.period$ -- 4
-call.type$ -- 4
-change.case$ -- 20
-chr.to.int$ -- 16
-cite$ -- 4
-duplicate$ -- 368
-empty$ -- 297
-format.name$ -- 30
-if$ -- 766
-int.to.chr$ -- 1
-int.to.str$ -- 12
-missing$ -- 40
-newline$ -- 64
-num.names$ -- 12
-pop$ -- 154
+            1953 strings with 23427 characters,
+and the built_in function-call counts, 43552 in all, are:
+= -- 3044
+> -- 959
+< -- 284
++ -- 312
+- -- 212
+* -- 6351
+:= -- 4464
+add.period$ -- 48
+call.type$ -- 48
+change.case$ -- 196
+chr.to.int$ -- 58
+cite$ -- 48
+duplicate$ -- 4113
+empty$ -- 3316
+format.name$ -- 588
+if$ -- 8684
+int.to.chr$ -- 3
+int.to.str$ -- 56
+missing$ -- 527
+newline$ -- 196
+num.names$ -- 144
+pop$ -- 1795
 preamble$ -- 1
-purify$ -- 20
+purify$ -- 240
 quote$ -- 0
-skip$ -- 151
+skip$ -- 1655
 stack$ -- 0
-substring$ -- 138
-swap$ -- 312
-text.length$ -- 8
+substring$ -- 1174
+swap$ -- 3709
+text.length$ -- 107
 text.prefix$ -- 0
 top$ -- 8
-type$ -- 48
+type$ -- 630
 warning$ -- 0
-while$ -- 18
+while$ -- 145
 width$ -- 0
-write$ -- 86
+write$ -- 437

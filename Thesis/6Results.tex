@@ -9,7 +9,7 @@ The simplest possible setup in the previously developed numeric and analytic fra
     W_{1 2}=W_{2 1}=W
     \label{symmetric_rates}
 \end{equation}
-such that the potential of mean force acting on the Brownian particles is independent of the switching rate.
+such that the force from the mean potential acting on the Brownian particles is independent of the switching rate.
 This allows for the detailed study of effects solely coming from the coupling of timescales between barrier fluctuations and diffusive transport without any other influence.
 \section{Particle Density}
 The first step for the investigation of the example is the calculation of the analytic solution for the density profiles of the Brownian particles. Therefore one first writes down the corresponding Fokker-Planck equation \eqref{fpmeq1} in terms of particle densities as outlined in section  \ref{Model_Description}. In this case it reads:
@@ -262,7 +262,7 @@ For fast fluctuations of the potential barrier, there is another way to deal wit
     2 \frac{\partial \rho(r,t)}{\partial t} = \vec \nabla \left[\rho(r,t) \vec \nabla \frac{U_2(r)}{\gamma} + 2 D \vec \nabla \rho(r,t) \right].
     \label{fast_limit_fpe}
 \end{equation} 
-In other words this means that the timescale of the switching of particles between different states is much smaller than the timescale of spatial movement of the particles. As a result all particles move subject to a constant potential of mean force that is calculated as the weighted average of the potential in its different states. \\
+In other words this means that the timescale of the switching of particles between different states is much smaller than the timescale of spatial movement of the particles. As a result all particles move subject to a constant mean potential that is calculated as the weighted average of the potential in its different states. \\
 Also, in the steady state case the time derivative of the density vanishes:
 \begin{equation}
     0 = \vec \nabla \left[\rho(r,t) \vec \nabla \frac{U_2(r)}{2\gamma} + D \vec \nabla \rho(r,t) \right]
@@ -296,9 +296,9 @@ One factors out $\exp[e_6]$ in the nominator and denominator of equation \eqref{
 \end{align*}
 If then only linear and quadratic terms in $\alpha$ are collected one receives an expression that turns out to be a reasonably good approximation of the fast switching behavior of the solution: 
 \begin{align}
-    \frac{K}{K_{S}} \approx &a \left(3 e^u+1\right) \left(e^u (b x+1)+3 b x-1\right)-b \left(2 e^u+e^{2 u}-3\right) / \nonumber \\
-                          &\left\{a \left(e^{2 u} (3 (b-2) x+1)+2 e^u ((5 b+2) x+1)+3 b x+2 x-3\right) \right.  \nonumber \\
-                          & \left. +\left(e^u-1\right) \left(b \left(3 e^u+1\right) (2 x-1)+4 \left(e^u-1\right)\right) \right\}
+    \frac{K}{K_{S}} \approx &\left\{a \left(3 e^u+1\right) \left(e^u (b \alpha+1)+3 b \alpha-1\right)-b \left(2 e^u+e^{2 u}-3\right)\right\} / \nonumber \\
+                          &\left\{a \left(e^{2 u} (3 (b-2) \alpha+1)+2 e^u ((5 b+2) \alpha+1)+3 b \alpha+2 \alpha-3\right) \right.  \nonumber \\
+                          & \left. +\left(e^u-1\right) \left(b \left(3 e^u+1\right) (2 \alpha-1)+4 \left(e^u-1\right)\right) \right\}
     \label{kla}
 \end{align}
 and in the actual limit of $\alpha \rightarrow \infty$ one obtains: 
@@ -340,13 +340,13 @@ To compare the analytic results with numeric simulations they have to be derived
 \end{equation}
 where $R_m$ is the radius of the simulation domain. The numeric results for the reaction rate were derived by integrating the equations for the composite Markov process \eqref{two_state_fpe} using the method of lines described in section \ref{method_of_lines}. The results of this procedure are presented in the figure \ref{numeric}: \vspace{-0.5 cm}\\
 
-Two things can be observed by comparing the numerical results analytic solution for the fluctuating step potential (FSP) from equation \eqref{two_state_rate} and the rate over the static potential of mean force (PMF) from equation \eqref{K_fast_limit_1}: 
+Two things can be observed by comparing the numerical results analytic solution for the fluctuating step potential (FSP) from equation \eqref{two_state_rate} and the rate over the static mean potential (SMP) from equation \eqref{K_fast_limit_1}: 
 \begin{itemize}
     \item[1)]The resonant activation phenomenon that is observed for step potentials does also emerge for smooth potentials and is not an artefact or a mathematic curiosity. In fact the effect does get even stronger if the change of the potential happens on a finite length scale.
-    \item[2)] For $r_d \gg r_F$ the numeric results are well represented by the solution derived in \ref{Reaction_Rates_over_Fluctuating_Barriers} whereas for $r_d \ll r_F$ they show good agreement with the rate over a PMF. It is especially interesting, to have a closer look at the transition from the first to the latter case.
+    \item[2)] For $r_d \gg r_F$ the numeric results are well represented by the solution derived in \ref{Reaction_Rates_over_Fluctuating_Barriers} whereas for $r_d \ll r_F$ they show good agreement with the rate over a SMP. It is especially interesting, to have a closer look at the transition from the first to the latter case.
 \end{itemize}
 
-  As it can be seen especially for the case of the repulsive barrier, the transition of numeric results from the description by a FSP to a PMF takes place at a different decay length for different spatial extend of the changes of the potential barrier.  The smaller the spatial extent of the changes $r_F$ i.e. the larger the exponent $n$ in the potential in equation \eqref{generalized_gaussian}, the smaller the decay length $r_d$ at which the transition takes place. \\
+  As it can be seen especially for the case of the repulsive barrier, the transition of numeric results from the description by a FSP to a SMP takes place at a different decay length for different spatial extend of the changes of the potential barrier.  The smaller the spatial extent of the changes $r_F$ i.e. the larger the exponent $n$ in the potential in equation \eqref{generalized_gaussian}, the smaller the decay length $r_d$ at which the transition takes place. \\
 
 
 \begin{minipage}[t]{.63 \textwidth}
@@ -357,14 +357,14 @@ Two things can be observed by comparing the numerical results analytic solution 
 \end{minipage}
 \begin{minipage}[t]{.37 \textwidth}
     \begin{figure}[H]
-        \caption{Comparison of numeric and analytic results for repulsive (\emph{top}) and attractive (\emph{bottom}) fluctuating barrier. The numeric results are obtained via the method of lines \ref{method_of_lines}. The reaction rate over the potential of mean force \eqref{K_fast_limit_1} is indicated by the dashed blue line. The analytic solution over the fluctuating step shaped barrier in equation \eqref{two_state_rate} is indicated by a solid grey line. The radius of the simulation domain is $R_m=30 R_s$. The other parameters are the same as in the previous examples and given in \ref{Parameters}. The analytic solution represents the numeric results very well for large $r_d$ and small $r_F$. The numeric results converge away from the analytic solution for the step shaped fluctuating barrier and towards the rate over the potential of mean force for small $r_d$. Note that the smaller $r_F$ (large $n$) of the potential, the smaller the $r_d$ at which the transition takes place.\label{numeric}}
+        \caption{Comparison of numeric and analytic results for repulsive (\emph{top}) and attractive (\emph{bottom}) fluctuating barrier. The numeric results are obtained via the method of lines \ref{method_of_lines}. The reaction rate over the mean potential \eqref{K_fast_limit_1} is indicated by the dashed blue line. The analytic solution over the fluctuating step shaped barrier in equation \eqref{two_state_rate} is indicated by a solid grey line. The radius of the simulation domain is $R_m=30 R_s$. The other parameters are the same as in the previous examples and given in \ref{Parameters}. The analytic solution represents the numeric results very well for large $r_d$ and small $r_F$. The numeric results converge away from the analytic solution for the step shaped fluctuating barrier and towards the rate over the mean potential for small $r_d$. Note that the smaller $r_F$ (large $n$) of the potential, the smaller the $r_d$ at which the transition takes place.\label{numeric}}
     \end{figure}
   \end{minipage}
 
-One possible explanation for this can be given in terms of particle fluxes: In the case of the FSP one has $r_F=0$ and therefore the total reactive flux in the region of potential change vanishes. In the case of the PMF it is assumed that the reactive fluxes are strong enough to make both particle species have the same spatial distribution. In other words: in the case of a FSP the area of potential change is dominated by spatial fluxes whereas in the case of a PMF it is dominated by reactive fluxes.\\
-Another possible explanation can be given in terms of times: In the case of the FSP the decay time $\tau_R = W/2$ of the state of a particle is much larger than the time $\tau_S$ that it takes for a particle to cross the area of potential change (since the area is actually of zero spatial extent). In the case of the PMF it is the other way around (since the inverse of the switching rate goes to zero). For a derivation of the decay time $\tau$ please refer to Appendix A.\\
-The neat thing about these two ways of explaining the situation is that they are essentially the same and that they both give  an estimate for the parameter range in which either the FSP or the PMF description is valid, and consequently where the transition from one to the other takes place.
-For the PMF [FSP] the reactive flux and the spatial flux driven by the potential $J^{(R)}$ and $J^{(F)}$ in the region of potential change fulfill the following relation:
+One possible explanation for this can be given in terms of particle fluxes: In the case of the FSP one has $r_F=0$ and therefore the total reactive flux in the region of potential change vanishes. In the case of the SMP it is assumed that the reactive fluxes are strong enough to make both particle species have the same spatial distribution. In other words: in the case of a FSP the area of potential change is dominated by spatial fluxes whereas in the case of a SMP it is dominated by reactive fluxes.\\
+Another possible explanation can be given in terms of times: In the case of the FSP the decay time $\tau_R = W/2$ of the state of a particle is much larger than the time $\tau_S$ that it takes for a particle to cross the area of potential change (since the area is actually of zero spatial extent). In the case of the SMP it is the other way around (since the inverse of the switching rate goes to zero). A comprehensive derivation of the decay time $\tau$ is given by Klafter and Sokolov in their recent textbook on random walks \cite{klafter2011first}.\\
+The neat thing about these two ways of explaining the situation is that they are essentially the same and that they both give  an estimate for the parameter range in which either the FSP or the SMP description is valid, and consequently where the transition from one to the other takes place.
+For the SMP [FSP] the reactive flux and the spatial flux driven by the potential $J^{(R)}$ and $J^{(F)}$ in the region of potential change fulfill the following relation:
 \begin{equation}
     J^{(F)} \ll[\gg] J^{(R)}.
 \end{equation}
@@ -383,7 +383,7 @@ Both arguments give an estimation to when one or the other description is a vali
     \frac{\Delta U}{K_B T} \ll[\gg] \frac{r_F}{2 r_d}
     \label{val_estimate}
 \end{equation}
-This last result gives the parameter ranges in which the FSP [PMF] description is valid and shows that the decay length at which the transition between both descriptions takes place is defined by the height of the potential barrier $(\Delta U)$ and the width of the area of its boundary $(r_F)$.
+This last result gives the parameter ranges in which the FSP [SMP] description is valid and shows that the decay length at which the transition between both descriptions takes place is defined by the height of the potential barrier $(\Delta U)$ and the width of the area of its boundary $(r_F)$.
 
 \section{Influence of Barrier Spacing}
 \label{barrier_spacing}
@@ -449,7 +449,7 @@ So for a repulsive barrier and for large $l$ there are two unexpected effects:
     \item{2)} \emph{The reaction rates can even exceed those over an equally high attractive barrier.}
 \end{itemize}
 These effects are in sharp contrast to what would be expected from classical Debye theory where a repulsive barrier always reduces and an attractive barrier always increases the reaction rate. \\
-So if these effects were found in experiments, where one usually only observes time averaged parameters such as the potential of mean force, this result must look confusing. 
+So if these effects were found in experiments, where one usually only observes time averaged parameters such as the mean potential, this result must look confusing. 
 
 \section{Influence of the Barrier Height}
 This section investigates the influence of the barrier height on the reaction rate. It gives the limiting behavior of the system for an infinitely attractive and an infinitely repulsive barrier and outlines the behavior for intermediate barrier heights.\\
@@ -540,7 +540,7 @@ Consequently the findings of Szabo et al. translate to:
 \label{mapping}
 \subsection{Common Assumptions}
 When an experimentalist would investigate on a realization of the system under study in this thesis he would probably proceed as Wu et al. \cite{Wu2012a} and do the following: \\ 
-He would \emph{first} assume a potential of mean force $U_m(r)$ for the barrier and then calculate the reaction rate using Debye rate theory with a spatially depending diffusivity profile $D(r)$:
+He would \emph{first} assume a mean potential $U_m(r)$ for the barrier and then calculate the reaction rate using Debye rate theory with a spatially depending diffusivity profile $D(r)$:
 \begin{equation}
     K_D^{-1} = \int_{R_s}^{\infty}\frac{\exp[U_m(r)/K_B T]}{4 \pi r^{2} D(r)} {\rm d} r.
     \label{YSDebye}
@@ -553,7 +553,7 @@ This assumes in fact a time scale separation between the fluctuations of the pot
 \end{equation}
 There is a list of problems with these two assumptions that will be outlined in the following discussion. \\
 \subsection{Test of Assumption one}
-In section \ref{Numeric_Study} it was shown that the description of the reaction rate by Debye theory is only valid for smooth potentials and only if the switching of the potential is much faster than the diffusion relaxation of the Brownian particles. Otherwise both processes couple and the assumption is violated. Nevertheless one can stick to Debye theory and use an effective spatial diffusivity profile $D_{eff}$ as a parameter to fit measured data for the particle density profile to the potential of mean force. 
+In section \ref{Numeric_Study} it was shown that the description of the reaction rate by Debye theory is only valid for smooth potentials and only if the switching of the potential is much faster than the diffusion relaxation of the Brownian particles. Otherwise both processes couple and the assumption is violated. Nevertheless one can stick to Debye theory and use an effective spatial diffusivity profile $D_{eff}$ as a parameter to fit measured data for the particle density profile to the mean potential. 
 \begin{equation}
     \rho_D = C \exp\left[\frac{-U_m(r)}{K_B T}\right] \int_{R_s}^{r} \frac{\exp\left[\frac{U_m(r')}{K_B T}\right]}{4 \pi r'^{2} D_{eff}(r)}{\rm d} r'
     \label{Deff}
@@ -578,7 +578,7 @@ The results of the first procedure are given in figure \ref{DeffMOL}. The obtain
 \end{minipage}
 \begin{minipage}[t]{.37 \textwidth}
     \begin{figure}[H]
-        \caption{Results from mapping of fluctuation effects on an effective diffusivity profile $D_{eff}(r)$ according to Debye rate theory \ref{The_Debye_Reaction_Rate} under the assumption of a potential of mean force $U_m(r)$. Effective Diffusivity profiles are given for different decay lengths $r_d$ (Eq. \eqref{decay_length}) and for repulsive (A) and attractive (B) potential of mean force. Results were obtained as follows: First, numerical calculation of density profiles by the numerical method of lines \ref{method_of_lines} for a smooth fluctuating potential barrier as given by equation \eqref{generalized_gaussian} with $U_2$, $a$, and $b$ as given in \eqref{Parameters}. Second, numeric inversion of equation \eqref{Deff} through spatial discretization of the integral in terms of Riemann Summs.   \label{DeffMOL}}
+        \caption{Results from mapping of fluctuation effects on an effective diffusivity profile $D_{eff}(r)$ according to Debye rate theory \ref{The_Debye_Reaction_Rate} under the assumption of a mean potential $U_m(r)$. Effective Diffusivity profiles are given for different decay lengths $r_d$ (Eq. \eqref{decay_length}) and for repulsive (A) and attractive (B) mean potential. Results were obtained as follows: First, numerical calculation of density profiles by the numerical method of lines \ref{method_of_lines} for a smooth fluctuating potential barrier as given by equation \eqref{generalized_gaussian} with $U_2$, $a$, and $b$ as given in \eqref{Parameters}. Second, numeric inversion of equation \eqref{Deff} through spatial discretization of the integral in terms of Riemann Summs.   \label{DeffMOL}}
     \end{figure}
   \end{minipage}
 \vspace{0.3 cm}\\
@@ -601,7 +601,7 @@ Note that in both cases the effective diffusivity profiles obtained from BD simu
   \end{minipage}
 \vspace{0.3 cm}\\
 To conclude: although it is reasonable to assume that only the short time diffusive behavior of the Brownian particles is governed by the prescribed bulk diffusivity and that their long time diffusive behavior is altered by the flux patterns described in section \ref{flow_analysis}, it is bold to assume that this effective diffusivity is accessible by Debye rate theory.\\
-Therefore, as an experimentalist, what one should deduce from the fact that the measurements of the potential of mean force, particle density and particle mean square displacement do not fit together using Debye theory is not to doubt ones measurement, but to check thoroughly if the assumptions for its applicability in terms of time scale separation are met.
+Therefore, as an experimentalist, what one should deduce from the fact that the measurements of the mean potential, particle density and particle mean square displacement do not fit together using Debye theory is not to doubt ones measurement, but to check thoroughly if the assumptions for its applicability in terms of time scale separation are met.
 \subsection{Test of Assumption Two}
 \label{Assumption2}
 To check the implications of the second assumption, namely, that the diffusion controlled and the surface reaction rate are independent and that the effective reaction rate can be derived from equation \eqref{Keff} one cross checks this method with analytic and numeric results for a non ideal sink derived by the methods discussed in chapter \ref{Reaction_Rates_over_Fluctuating_Barriers} and section \ref{method_of_lines} respectively. The non ideal surface reaction of the sink is resulting in a modified boundary condition at the sink surface as outlined in equation \eqref{nbcrsall}. This is simplified to
@@ -613,7 +613,7 @@ where $K_A$ is the effective surface reaction rate of the sink.\\
 For $K_A = 0$ the sink does not react with incoming particles whereas for $K_A \rightarrow \infty$ the sink is ideal, i.e. perfectly absorbing.
 With this given, there are now four different ways to calculate reaction rates. 
 \begin{itemize}
-    \item[$K_m$:] the naive one given by equations \eqref{YSDebye} and \eqref{Keff} calculating the diffusion controlled rate over a potential of mean force and then adding the inverse of the diffusion controlled rate and the surface reaction rate to obtain the effective reaction rate of the system.
+    \item[$K_m$:] the naive one given by equations \eqref{YSDebye} and \eqref{Keff} calculating the diffusion controlled rate over a mean potential and then adding the inverse of the diffusion controlled rate and the surface reaction rate to obtain the effective reaction rate of the system.
     \item[$K_{eff}$:] an intermediate solution calculating the diffusion controlled rate over a fluctuating barrier for an ideal sink and then calculating the effective rate from equation \eqref{Keff} by adding the inverse of the diffusion controlled and the surface reaction rate.
     \item[$K_{bc}$:] the full analytic solution for a non ideal sink and a two state step shaped fluctuating barrier as described in chapter \ref{Reaction_Rates_over_Fluctuating_Barriers} employing the boundary condition from equation \ref{Nonideal_sink_BC}
     \item[$K_N$:] Integrating the equations for the time development of the particle densities \eqref{two_state_fpe} for a smooth but step like potential barrier \eqref{generalized_gaussian} employing the boundary condition for the non ideal sink \eqref{Nonideal_sink_BC} and then calculating the effective reaction rate from equation \eqref{Rate}.
@@ -642,7 +642,7 @@ To sum up: to obtain correct results in the fast fluctuation limit for smooth po
 
 \section{Summary}
 In the previous section a simple example of reaction rates over a fluctuating barrier revealed some interesting effects. In section \ref{reaction_rate_examples} it turned out that resonant activation as previously seen with escape problems does also appear in reaction rates over fluctuating barriers. The effect was explained by an analysis of spatial and reactive particle fluxes in section \ref{flow_analysis} that revealed circular flux patterns of particles preferably crossing a barrier boundary in one direction in one state, then change state and recross the barrier in the other direction. These patterns were shown to be of different spatial extension depending on the previously defined decay length \eqref{decay_length}.  \\
-In section \ref{lim_short_rd} the analysis of the fast switching limit revealed that the solution for the ideally step shaped fluctuating potential does inherently not reproduce the result of an effective potential of mean force. As a result of the analysis of this ambiguity between the potential of mean force limit and the fluctuating step barrier solution in section \ref{Numeric_Study} an estimate for the validity of both descriptions \eqref{val_estimate} was derived.\\
+In section \ref{lim_short_rd} the analysis of the fast switching limit revealed that the solution for the ideally step shaped fluctuating potential does inherently not reproduce the result of an effective mean potential. As a result of the analysis of this ambiguity between the mean potential limit and the fluctuating step barrier solution in section \ref{Numeric_Study} an estimate for the validity of both descriptions \eqref{val_estimate} was derived.\\
 In section \ref{barrier_spacing} the analysis of the dependence of the reaction rate on the spacing and width of the potential barrier revealed that there is a power law dependence between the barrier spacing and the decay length maximizing the reaction rate and that the maximum reaction rate saturates at a finite value in the limit of very large barrier spacing. The analysis of the dependency of the reaction rate on the height of the barrier in section \ref{u1_dependence} showed that timescale separation in the slow fluctuation limit breaks down for an increasingly attractive barrier. \\
 The evaluation of the small $l$ limit in section \ref{1dLimit} that effectively fits the far field solution in spherical coordinates to a locally one dimensional problem of a fluctuating barrier in front of an absorbing wall at the sink surface reveals that the curvature of the system is essential for the resonant activation effect.\\
 The last section of this chapter analyzed the effects that emerge from averaging over the reaction coordinate of the system and thus mapping the previous Markovian dynamics on a lower dimensional non Markovian description. It became evident that some common assumptions i.e. description of the system in the framework of Debye rate theory under the assumption of a potential of means force and the trivial calculation of effective reaction rates as the inverse sum of kinetic and surface reaction rate in case of an imperfect sink strongly depend on the validity of the time scale separation between barrier fluctuations and diffusive relaxation.  
